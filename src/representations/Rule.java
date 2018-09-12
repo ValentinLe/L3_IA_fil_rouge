@@ -13,4 +13,23 @@ public class Rule {
         this.conclusion = conclusion;
     }
     
+    public boolean isSatisfiedBy(Map<Variable,String> contraintes) {
+        
+        boolean p = true;
+        for(Variable var : contraintes.keySet()) {
+            if(contraintes.get(var) != this.premisse.get(var)){
+                p = false;
+            }
+        }
+        
+        boolean c = true;
+        for(Variable var : contraintes.keySet()) {
+            if(contraintes.get(var) != this.conclusion.get(var)){
+                c = false;
+            }
+        }
+        
+        return !p || c;
+    }
+    
 }

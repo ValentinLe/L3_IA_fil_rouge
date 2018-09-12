@@ -15,6 +15,6 @@ public class Variable {
     
     @Override
     public String toString(){
-        return this.name+" || Domaine : "+this.domaine;
+        return this.name + " ";
     }
 }
