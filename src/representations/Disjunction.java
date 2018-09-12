@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ia.ad.representations;
+package representations;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,12 +13,14 @@ import java.util.Set;
  *
  * @author quentindeme
  */
-public class Disjunction extends Rule implements Constraint{
-    
+public class Disjunction /*extends Rule*/ implements Constraint {
+    /*
     private Rule expression;
     private HashMap<Integer,Set<String>> combinaisons;
+    */
     
-    public Disjunction(){
+   
+    public Disjunction(Map<Variable, String> premisse, Map<Variable,String> conclusion){
         
     }
 

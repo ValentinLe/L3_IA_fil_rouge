@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ia.ad;
+package representations;
 
-import ia.ad.representations.Variable;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
