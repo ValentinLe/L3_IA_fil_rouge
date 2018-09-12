@@ -11,7 +11,7 @@ public class Disjunction extends Rule {
     private HashMap<Integer,Set<String>> combinaisons;
     */
    
-    public Disjunction(Map<Variable, String> premisse, Map<Variable,String> conclusion){
-        super(premisse,conclusion);
+    public Disjunction(Map<Variable,String> conclusion){
+        super(null,conclusion);
     }
 }

@@ -5,6 +5,7 @@
  */
 package representations;
 
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -25,8 +26,30 @@ public class AllEqualConstraint implements Constraint{
     }
 
     @Override
-    public boolean isSatisfiedBy(Map<Variable, String> solution) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean isSatisfiedBy(Map<Variable, String> voiture) {
+        String pastValue;
+        String value;
+        
+        Iterator iter = voiture.keySet().iterator();
+        
+        pastValue = (String)voiture.get(iter.next());
+        do{
+            value = (String)voiture.get(iter.next());
+            System.out.println(pastValue+" "+value);
+            if(pastValue != value){
+                return false;
+            }
+            pastValue = value;
+        }while(iter.hasNext());        
+        return true;
     }
     
+    @Override
+    public String toString(){
+        StringBuilder res = new StringBuilder();
+        res.append("Les variables suivantes doivent être égales:\n");
+        res.append(this.variables);
+        
+        return res.toString();
+    }
 }
