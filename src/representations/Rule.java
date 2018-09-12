@@ -1,19 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package representations;
 
 import java.util.Map;
-import java.util.Set;
 
-/**
- *
- * @author quentindeme
- */
-public class Rule{
-    //Map variable - String
+public class Rule {
     
     private Map<Variable,String > premisse;
     private Map<Variable, String> conclusion;

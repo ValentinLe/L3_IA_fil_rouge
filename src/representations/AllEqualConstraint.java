@@ -8,10 +8,6 @@ package representations;
 import java.util.Map;
 import java.util.Set;
 
-/**
- *
- * @author quentindeme
- */
 public class AllEqualConstraint implements Constraint{
     
     private Set<Variable> variables;
