@@ -2,5 +2,5 @@
 
 cd src/
 javac */*.java
-java representation/Main
+java representations/Main
 rm -f */*.class
