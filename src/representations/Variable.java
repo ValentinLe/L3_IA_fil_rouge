@@ -13,8 +13,16 @@ public class Variable {
         this.domaine = domaine;
     }
     
+    public String getName() {
+        return this.name;
+    }
+    
+    public boolean equals(Variable var) {
+        return this.name == var.getName();
+    }
+    
     @Override
-    public String toString(){
+    public String toString() {
         return this.name + " ";
     }
 }

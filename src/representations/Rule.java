@@ -16,20 +16,31 @@ public class Rule {
     public boolean isSatisfiedBy(Map<Variable,String> contraintes) {
         
         boolean p = true;
+        boolean c = true;
+        
         for(Variable var : contraintes.keySet()) {
             if(contraintes.get(var) != this.premisse.get(var)){
                 p = false;
             }
-        }
-        
-        boolean c = true;
-        for(Variable var : contraintes.keySet()) {
             if(contraintes.get(var) != this.conclusion.get(var)){
                 c = false;
             }
         }
         
         return !p || c;
+    }
+    
+    @Override
+    public String toString() {
+        String ch = "";
+        for(Variable var : this.premisse.keySet()) {
+            ch += var.getName() + " = " + this.premisse.get(var) + " && ";
+        }
+        ch += " -> ";
+        for(Variable var : this.conclusion.keySet()) {
+            ch += var.getName() + " = " + this.conclusion.get(var) + " || ";
+        }
+        return ch;
     }
     
 }
