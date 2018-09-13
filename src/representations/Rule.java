@@ -1,6 +1,7 @@
 
 package representations;
 
+import java.util.Iterator;
 import java.util.Map;
 
 public class Rule {
@@ -33,12 +34,28 @@ public class Rule {
     @Override
     public String toString() {
         String ch = "";
-        for(Variable var : this.premisse.keySet()) {
-            ch += var.getName() + " = " + this.premisse.get(var) + " && ";
+        Iterator iter = this.premisse.keySet().iterator();
+        int i = 0;
+        while(iter.hasNext()){
+            Variable var = (Variable) iter.next();
+            ch += var.getName()+ " = " + this.premisse.get(var);
+            i++;
+            if (iter.hasNext()) {
+                ch += " && ";
+            }
         }
+        
         ch += " -> ";
-        for(Variable var : this.conclusion.keySet()) {
-            ch += var.getName() + " = " + this.conclusion.get(var) + " || ";
+        
+        Iterator iter2 = this.conclusion.keySet().iterator();
+        int j = 0;
+        while(iter2.hasNext()){
+            Variable var = (Variable) iter2.next();
+            ch += var.getName()+ " = " + this.premisse.get(var);
+            i++;
+            if (iter2.hasNext()) {
+                ch += " || ";
+            }
         }
         return ch;
     }
