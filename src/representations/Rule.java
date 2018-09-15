@@ -17,14 +17,15 @@ public class Rule {
     public boolean isSatisfiedBy(Map<Variable,String> contraintes) {
 
         boolean p = true;
-        boolean c = true;
+        boolean c = false;
 
         for(Variable var : contraintes.keySet()) {
-            if(this.premisse != null && !contraintes.get(var).equals(this.premisse.get(var))){
+            if(this.premisse != null && contraintes.get(var).equals(this.premisse.get(var))){
+                System.out.println("iiiiiiiiiiiiiiiiii");
                 p = false;
             }
-            if(this.conclusion != null && !contraintes.get(var).equals(this.conclusion.get(var))){
-                c = false;
+            if(this.conclusion != null && contraintes.get(var).equals(this.conclusion.get(var))){
+                c = true;
             }
         }
 
