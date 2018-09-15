@@ -18,7 +18,7 @@ public class Variable {
     }
 
     public boolean equals(Variable var) {
-        return this.name == var.getName();
+        return this.name.equals(var.getName());
     }
 
     @Override

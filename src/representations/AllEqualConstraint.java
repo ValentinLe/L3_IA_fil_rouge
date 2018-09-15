@@ -32,7 +32,7 @@ public class AllEqualConstraint implements Constraint {
         do{
             value = (String)voiture.get(iter.next());
             System.out.println(pastValue+" "+value);
-            if(pastValue != value){
+            if(!pastValue.equals(value)){
                 return false;
             }
             pastValue = value;
