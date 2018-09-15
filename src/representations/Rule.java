@@ -21,7 +21,6 @@ public class Rule {
 
         for(Variable var : contraintes.keySet()) {
             if(this.premisse != null && contraintes.get(var).equals(this.premisse.get(var))){
-                System.out.println("iiiiiiiiiiiiiiiiii");
                 p = false;
             }
             if(this.conclusion != null && contraintes.get(var).equals(this.conclusion.get(var))){
