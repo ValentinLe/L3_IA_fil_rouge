@@ -42,6 +42,19 @@ public class Main {
         System.out.println("\nCette seconde voiture devrait satisfaire la contrainte:");
         System.out.print(equalConstraint.isSatisfiedBy(voiture3test)+"\n");
         
+        // Test de Disjonction
+        
+        Disjunction dis = ex.getDisjunction1();
+        System.out.println(dis);
+        
+        System.out.println("dis : " + dis.isSatisfiedBy(voiture));
+        
+        // Test de IncompatibilityConstraint
+        
+        IncompatibilityConstraint incompa = ex.getIncompatibility1();
+        System.out.println(incompa);
+        
+        System.out.println("incompa : " + incompa.isSatisfiedBy(voiture));
     }
     
 }

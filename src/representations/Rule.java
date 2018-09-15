@@ -20,10 +20,10 @@ public class Rule {
         boolean c = true;
         
         for(Variable var : contraintes.keySet()) {
-            if(contraintes.get(var) != this.premisse.get(var)){
+            if(this.premisse != null && contraintes.get(var) != this.premisse.get(var)){
                 p = false;
             }
-            if(contraintes.get(var) != this.conclusion.get(var)){
+            if(this.conclusion != null && contraintes.get(var) != this.conclusion.get(var)){
                 c = false;
             }
         }
@@ -34,29 +34,32 @@ public class Rule {
     @Override
     public String toString() {
         String ch = "";
-        Iterator iter = this.premisse.keySet().iterator();
-        int i = 0;
-        while(iter.hasNext()){
-            Variable var = (Variable) iter.next();
-            ch += var.getName()+ " = " + this.premisse.get(var);
-            i++;
-            if (iter.hasNext()) {
-                ch += " && ";
+        if (this.premisse != null) {
+           Iterator iter = this.premisse.keySet().iterator();
+           while(iter.hasNext()){
+               Variable var = (Variable) iter.next();
+               ch += var.getName()+ " = " + this.premisse.get(var);
+               if (iter.hasNext()) {
+                   ch += " && ";
+               }
+           }   
+        }
+        
+        if (this.premisse != null && this.conclusion != null) {
+            ch += " -> ";
+        }
+        
+        if (this.conclusion != null) {
+           Iterator iter2 = this.conclusion.keySet().iterator();
+            while(iter2.hasNext()){
+                Variable var = (Variable) iter2.next();
+                ch += var.getName()+ " = " + this.conclusion.get(var);
+                if (iter2.hasNext()) {
+                    ch += " || ";
+                }
             }
         }
         
-        ch += " -> ";
-        
-        Iterator iter2 = this.conclusion.keySet().iterator();
-        int j = 0;
-        while(iter2.hasNext()){
-            Variable var = (Variable) iter2.next();
-            ch += var.getName()+ " = " + this.premisse.get(var);
-            i++;
-            if (iter2.hasNext()) {
-                ch += " || ";
-            }
-        }
         return ch;
     }
     

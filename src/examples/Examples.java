@@ -169,4 +169,36 @@ public class Examples {
         }
         return new Rule(premisse, conclusion);
     }
+    
+    // Disjonctions
+    
+    public Disjunction getDisjunction1() {
+        Map<Variable,String> conclusion = new HashMap<>();
+        
+        ArrayList<String> valeurs2 = new ArrayList<>(Arrays.asList("blanc", "noir","rouge"));
+
+        Iterator iter3 = couleur.iterator();
+        int k = 0;
+        while(iter3.hasNext()){
+            conclusion.put((Variable) iter3.next(), valeurs2.get(k));
+            k++;
+        }
+        return new Disjunction(conclusion);
+    }
+    
+    // IncopabilityConstrain
+    
+    public IncompatibilityConstraint getIncompatibility1() {
+        Map<Variable,String> premisse = new HashMap<>();
+        
+        ArrayList<String> valeurs2 = new ArrayList<>(Arrays.asList("blanc", "noir","rouge"));
+
+        Iterator iter3 = couleur.iterator();
+        int k = 0;
+        while(iter3.hasNext()){
+            premisse.put((Variable) iter3.next(), valeurs2.get(k));
+            k++;
+        }
+        return new IncompatibilityConstraint(premisse);
+    }
 }
