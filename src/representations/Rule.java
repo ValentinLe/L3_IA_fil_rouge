@@ -20,7 +20,7 @@ public class Rule {
         boolean c = false;
 
         for(Variable var : contraintes.keySet()) {
-            if(this.premisse != null && contraintes.get(var).equals(this.premisse.get(var))){
+            if(this.premisse != null && !contraintes.get(var).equals(this.premisse.get(var))){
                 p = false;
             }
             if(this.conclusion != null && contraintes.get(var).equals(this.conclusion.get(var))){
