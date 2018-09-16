@@ -11,16 +11,16 @@ import java.util.Set;
 import representations.*;
 
 public class Examples {
-    
+
     private Set<String> domaineCouleur;
     private Set<String> domaineComposants;
     private Set<Variable> couleur;
-    
+
     public Examples() {
         this.domaineCouleur = new HashSet<>(Arrays.asList("rouge", "noir", "blanc"));
         this.domaineComposants = new HashSet<>(Arrays.asList("toit", "capot", "hayon"));
         this.couleur = new HashSet<>(Arrays.asList(
-                new Variable("toit",domaineCouleur), 
+                new Variable("toit",domaineCouleur),
                 new Variable("capot",domaineCouleur),
                 new Variable("hayon",domaineCouleur)));
     }
@@ -36,12 +36,12 @@ public class Examples {
     public Set<Variable> getCouleur() {
         return couleur;
     }
-    
+
     // Voitures
-    
+
     public Map<Variable, String> getVoiture1() {
         Map<Variable,String> voiture = new HashMap<>();
-        
+
         ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("blanc", "noir", "rouge"));
 
         Iterator iter = this.couleur.iterator();
@@ -52,10 +52,10 @@ public class Examples {
         }
         return voiture;
     }
-    
+
     public Map<Variable, String> getVoiture2() {
         Map<Variable,String> voiture = new HashMap<>();
-        
+
         ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("blanc", "blanc", "rouge"));
 
         Iterator iter = this.couleur.iterator();
@@ -66,10 +66,10 @@ public class Examples {
         }
         return voiture;
     }
-    
+
     public Map<Variable, String> getVoiture3() {
         Map<Variable,String> voiture = new HashMap<>();
-        
+
         ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("blanc", "blanc", "blanc"));
 
         Iterator iter = this.couleur.iterator();
@@ -80,14 +80,14 @@ public class Examples {
         }
         return voiture;
     }
-    
+
     // Rules
-    
+
     public Rule getRule1() {
         // premisse
-        
+
         Map<Variable,String> premisse = new HashMap<>();
-        
+
         ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("blanc", "noir","rouge"));
 
         Iterator iter2 = couleur.iterator();
@@ -96,11 +96,11 @@ public class Examples {
             premisse.put((Variable) iter2.next(), valeurs.get(j));
             j++;
         }
-        
+
         // Conclusion
-        
+
         Map<Variable,String> conclusion = new HashMap<>();
-        
+
         ArrayList<String> valeurs2 = new ArrayList<>(Arrays.asList("blanc", "rouge","rouge"));
 
         Iterator iter3 = couleur.iterator();
@@ -111,12 +111,12 @@ public class Examples {
         }
         return new Rule(premisse, conclusion);
     }
-    
+
     public Rule getRule2() {
         // premisse
-        
+
         Map<Variable,String> premisse = new HashMap<>();
-        
+
         ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("blanc", "noir","rouge"));
 
         Iterator iter2 = couleur.iterator();
@@ -125,11 +125,11 @@ public class Examples {
             premisse.put((Variable) iter2.next(), valeurs.get(j));
             j++;
         }
-        
+
         // Conclusion
-        
+
         Map<Variable,String> conclusion = new HashMap<>();
-        
+
         ArrayList<String> valeurs2 = new ArrayList<>(Arrays.asList("blanc", "noir","rouge"));
 
         Iterator iter3 = couleur.iterator();
@@ -140,12 +140,12 @@ public class Examples {
         }
         return new Rule(premisse, conclusion);
     }
-    
+
     public Rule getRule3() {
         // premisse
-        
+
         Map<Variable,String> premisse = new HashMap<>();
-        
+
         ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("blanc", "noir","rouge"));
 
         Iterator iter2 = couleur.iterator();
@@ -154,11 +154,11 @@ public class Examples {
             premisse.put((Variable) iter2.next(), valeurs.get(j));
             j++;
         }
-        
+
         // Conclusion
-        
+
         Map<Variable,String> conclusion = new HashMap<>();
-        
+
         ArrayList<String> valeurs2 = new ArrayList<>(Arrays.asList("blanc", "noir","rouge"));
 
         Iterator iter3 = couleur.iterator();
@@ -169,34 +169,62 @@ public class Examples {
         }
         return new Rule(premisse, conclusion);
     }
-    
+
     // Disjonctions
-    
+
     public Disjunction getDisjunction1() {
         Map<Variable,String> conclusion = new HashMap<>();
-        
-        ArrayList<String> valeurs2 = new ArrayList<>(Arrays.asList("blanc", "noir","rouge"));
 
-        Iterator iter3 = couleur.iterator();
+        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("blanc", "rouge","blanc"));
+
+        Iterator iter = couleur.iterator();
         int k = 0;
-        while(iter3.hasNext()){
-            conclusion.put((Variable) iter3.next(), valeurs2.get(k));
+        while(iter.hasNext()){
+            conclusion.put((Variable) iter.next(), valeurs.get(k));
             k++;
         }
         return new Disjunction(conclusion);
     }
-    
+
     // IncopabilityConstrain
-    
+
     public IncompatibilityConstraint getIncompatibility1() {
         Map<Variable,String> premisse = new HashMap<>();
-        
-        ArrayList<String> valeurs2 = new ArrayList<>(Arrays.asList("blanc", "noir","rouge"));
 
-        Iterator iter3 = couleur.iterator();
+        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("blanc", "noir","rouge"));
+
+        Iterator iter = couleur.iterator();
         int k = 0;
-        while(iter3.hasNext()){
-            premisse.put((Variable) iter3.next(), valeurs2.get(k));
+        while(iter.hasNext()){
+            premisse.put((Variable) iter.next(), valeurs.get(k));
+            k++;
+        }
+        return new IncompatibilityConstraint(premisse);
+    }
+
+    public IncompatibilityConstraint getIncompatibility2() {
+        Map<Variable,String> premisse = new HashMap<>();
+
+        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("blanc", "rouge","noir"));
+
+        Iterator iter = couleur.iterator();
+        int k = 0;
+        while(iter.hasNext()){
+            premisse.put((Variable) iter.next(), valeurs.get(k));
+            k++;
+        }
+        return new IncompatibilityConstraint(premisse);
+    }
+
+    public IncompatibilityConstraint getIncompatibility3() {
+        Map<Variable,String> premisse = new HashMap<>();
+
+        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("noir", "blanc","noir"));
+
+        Iterator iter = couleur.iterator();
+        int k = 0;
+        while(iter.hasNext()){
+            premisse.put((Variable) iter.next(), valeurs.get(k));
             k++;
         }
         return new IncompatibilityConstraint(premisse);
