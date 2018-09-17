@@ -229,4 +229,10 @@ public class Examples {
         }
         return new IncompatibilityConstraint(premisse);
     }
+
+    // exemple ecmapus
+
+    public AllEqualConstraint getExemple1() {
+      return new AllEqualConstraint(this.couleur);
+    }
 }
