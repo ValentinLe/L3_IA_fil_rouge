@@ -17,8 +17,25 @@ public class Variable {
         return this.name;
     }
 
-    public boolean equals(Variable var) {
-        return this.name.equals(var.getName());
+     
+    public boolean equals(Object o) {
+        if(this==o) {
+          return true;
+        } else {
+            if(o instanceof Variable) {
+                return this.name == ((Variable) o).getName();
+            } else {
+                return false;
+            }
+        }
+    }
+    
+    @Override
+    public int hashCode(){
+      int result = 17;
+      result = 31 * this.name.hashCode();
+      
+      return result;
     }
 
     @Override

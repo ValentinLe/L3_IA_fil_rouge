@@ -14,15 +14,26 @@ public class Examples {
 
     private Set<String> domaineCouleur;
     private Set<String> domaineComposants;
+    private Set<String> domaineComposants2;
     private Set<Variable> couleur;
+    private Set<String> domaineBool;
+    private Set<Variable> boolVariable;
 
     public Examples() {
         this.domaineCouleur = new HashSet<>(Arrays.asList("rouge", "noir", "blanc"));
+        this.domaineBool = new HashSet<>(Arrays.asList("true","false"));
         this.domaineComposants = new HashSet<>(Arrays.asList("toit", "capot", "hayon"));
-        this.couleur = new HashSet<>(Arrays.asList(
-                new Variable("toit",domaineCouleur),
-                new Variable("capot",domaineCouleur),
-                new Variable("hayon",domaineCouleur)));
+        this.domaineComposants2 = new HashSet<>(Arrays.asList("toit ouvrant", "sono"));
+        this.couleur = new HashSet<>();
+        this.boolVariable = new HashSet<>();
+        for(String str : domaineComposants) {
+          this.couleur.add(new Variable(str,domaineComposants));
+        }
+        
+        for(String str : domaineComposants2) {
+          this.boolVariable.add(new Variable(str,domaineComposants2));
+        }
+        
     }
 
     public Set<String> getDomaineCouleur() {
@@ -80,6 +91,20 @@ public class Examples {
         }
         return voiture;
     }
+    
+    public Map<Variable, String> getVoiture4() {
+        Map<Variable,String> voiture = new HashMap<>();
+
+        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("true", "false"));
+
+        Iterator iter = this.boolVariable.iterator();
+        int i = 0;
+        while(iter.hasNext()){
+            voiture.put((Variable) iter.next(), valeurs.get(i));
+            i++;
+        }
+        return voiture;
+    }
 
     // Rules
 
@@ -109,7 +134,7 @@ public class Examples {
             conclusion.put((Variable) iter3.next(), valeurs2.get(k));
             k++;
         }
-        return new Rule(premisse, conclusion);
+        return new Rule(this.couleur,premisse, conclusion);
     }
 
     public Rule getRule2() {
@@ -138,7 +163,7 @@ public class Examples {
             conclusion.put((Variable) iter3.next(), valeurs2.get(k));
             k++;
         }
-        return new Rule(premisse, conclusion);
+        return new Rule(this.couleur,premisse, conclusion);
     }
 
     public Rule getRule3() {
@@ -167,7 +192,7 @@ public class Examples {
             conclusion.put((Variable) iter3.next(), valeurs2.get(k));
             k++;
         }
-        return new Rule(premisse, conclusion);
+        return new Rule(this.couleur,premisse, conclusion);
     }
 
     // Disjonctions
@@ -183,7 +208,7 @@ public class Examples {
             conclusion.put((Variable) iter.next(), valeurs.get(k));
             k++;
         }
-        return new Disjunction(conclusion);
+        return new Disjunction(this.couleur,conclusion);
     }
 
     // IncopabilityConstrain
@@ -199,7 +224,7 @@ public class Examples {
             premisse.put((Variable) iter.next(), valeurs.get(k));
             k++;
         }
-        return new IncompatibilityConstraint(premisse);
+        return new IncompatibilityConstraint(this.couleur,premisse);
     }
 
     public IncompatibilityConstraint getIncompatibility2() {
@@ -213,7 +238,7 @@ public class Examples {
             premisse.put((Variable) iter.next(), valeurs.get(k));
             k++;
         }
-        return new IncompatibilityConstraint(premisse);
+        return new IncompatibilityConstraint(this.couleur, premisse);
     }
 
     public IncompatibilityConstraint getIncompatibility3() {
@@ -227,7 +252,7 @@ public class Examples {
             premisse.put((Variable) iter.next(), valeurs.get(k));
             k++;
         }
-        return new IncompatibilityConstraint(premisse);
+        return new IncompatibilityConstraint(this.couleur, premisse);
     }
 
     // exemple ecmapus
@@ -238,5 +263,35 @@ public class Examples {
                 new Variable("capot",domaineCouleur),
                 new Variable("hayon",domaineCouleur)));
       return new AllEqualConstraint(allEqual);
+    }
+      
+    // 
+    public Disjunction getExemple2() {
+      Set<Variable> allEqual = new HashSet<>(Arrays.asList(
+                new Variable("gauche",domaineCouleur),
+                new Variable("toit",domaineCouleur)));
+      Set<Variable> allEqual2 = new HashSet<>(Arrays.asList(
+                new Variable("droit",domaineCouleur),
+                new Variable("toit",domaineCouleur)));
+      AllEqualConstraint all1 = new AllEqualConstraint(allEqual);
+      AllEqualConstraint all2 = new AllEqualConstraint(allEqual2);
+      Set<Variable> scope = all1.getScope();
+      scope.containsAll(all2.getScope());
+      return new Disjunction(this.couleur,null);
+    }
+    
+    public Disjunction getExemple4(){
+      Set<Variable> nEqual = new HashSet<>(Arrays.asList(
+              new Variable("sono", this.domaineBool),
+              new Variable("toit ouvrant", this.domaineBool)
+      ));
+      
+      Map<Variable,String> conclusion = new HashMap<>();
+      Iterator iter = nEqual.iterator();
+      
+      while(iter.hasNext()){
+        conclusion.put((Variable) iter.next(), "true");
+      }
+      return new Disjunction(nEqual,conclusion);
     }
 }

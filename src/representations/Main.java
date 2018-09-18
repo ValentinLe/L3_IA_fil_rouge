@@ -65,6 +65,16 @@ public class Main {
         System.out.println(incompa3);
 
         System.out.println("incompa : " + incompa3.isSatisfiedBy(voiture));
+        
+        AllEqualConstraint allE1 = ex.getExemple1();
+        
+        System.out.println("allE : " + allE1.isSatisfiedBy(voiture));
+        
+        
+        Map<Variable,String> voiture4 = ex.getVoiture4();
+        
+        Disjunction nEqu = ex.getExemple4();
+        System.out.println("nEqu : " + nEqu.isSatisfiedBy(voiture4));
     }
 
 }

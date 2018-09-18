@@ -2,10 +2,11 @@
 package representations;
 
 import java.util.Map;
+import java.util.Set;
 
 public class IncompatibilityConstraint extends Rule {
     
-    public IncompatibilityConstraint(Map<Variable, String> premisse) {
-        super(premisse, null);
+    public IncompatibilityConstraint(Set<Variable> scope, Map<Variable, String> premisse) {
+        super(scope, premisse, null);
     }   
 }
