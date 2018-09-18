@@ -233,6 +233,10 @@ public class Examples {
     // exemple ecmapus
 
     public AllEqualConstraint getExemple1() {
-      return new AllEqualConstraint(this.couleur);
+      Set<Variable> allEqual = new HashSet<>(Arrays.asList(
+                new Variable("toit",domaineCouleur),
+                new Variable("capot",domaineCouleur),
+                new Variable("hayon",domaineCouleur)));
+      return new AllEqualConstraint(allEqual);
     }
 }
