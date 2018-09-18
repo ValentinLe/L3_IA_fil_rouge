@@ -17,7 +17,10 @@ public class Variable {
         return this.name;
     }
 
-     
+    public Set<String> getScope(){
+        return this.domaine;
+    }
+    
     public boolean equals(Object o) {
         if(this==o) {
           return true;

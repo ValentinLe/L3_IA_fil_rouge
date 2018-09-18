@@ -3,6 +3,7 @@ package representations;
 
 import java.util.Map;
 import examples.Examples;
+import ppc.Backtracking;
 
 
 public class Main {
@@ -71,12 +72,12 @@ public class Main {
         System.out.println("allE : " + allE1.isSatisfiedBy(voiture));*/
         
         //--------------------------------------------------------------//
-        
+        /*
         Map<Variable,String> voiture2 = ex.getVoiture2();
         
         RuleOr dgT = ex.getExemple2();
         System.out.println("DGT : " + dgT.isSatisfiedBy(voiture2));
-        
+        */
         //--------------------------------------------------------------//
         
         /*Map<Variable,String> voiture3 = ex.getVoiture3();
@@ -90,6 +91,9 @@ public class Main {
         
         Disjunction nEqu = ex.getExemple4();
         System.out.println("nEqu : " + nEqu.isSatisfiedBy(voiture4));*/
+        
+        Backtracking test = new Backtracking();
+        System.out.println("Voiture crée : "+test.generateCar());
     }
 
 }
