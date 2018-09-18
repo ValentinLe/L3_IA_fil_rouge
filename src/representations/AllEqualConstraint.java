@@ -8,10 +8,18 @@ import java.util.Set;
 public class AllEqualConstraint implements Constraint {
 
     private Set<Variable> variables;
-
-    public AllEqualConstraint(Set<Variable> variables){
+    private boolean isNot;
+    
+    public AllEqualConstraint(Set<Variable> variables, boolean isNot){
         this.variables = variables;
+        this.isNot = isNot;
     }
+    
+    public AllEqualConstraint(Set<Variable> variables){
+        this(variables,false);
+    }
+    
+    
 
     @Override
     /*
@@ -26,18 +34,21 @@ public class AllEqualConstraint implements Constraint {
         String pastValue;
         String value;
 
-        Iterator iter = voiture.keySet().iterator();
-
-        pastValue = (String)voiture.get(iter.next());
+        Iterator iter = variables.iterator();
+        
+        Variable var = (Variable) iter.next();
+        pastValue = (String)voiture.get(var);
+        System.out.println("var : " + var.getName() + " val : " );
         do{
-            value = (String)voiture.get(iter.next());
-            System.out.println(pastValue+" "+value);
+            var = (Variable) iter.next();
+            value = (String)voiture.get(var);
+            System.out.println("var : " + var.getName() + " val : " + value);
             if(!pastValue.equals(value)){
-                return false;
+                return this.isNot;
             }
             pastValue = value;
         }while(iter.hasNext());
-        return true;
+        return !this.isNot;
     }
 
     @Override

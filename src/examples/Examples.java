@@ -22,7 +22,7 @@ public class Examples {
     public Examples() {
         this.domaineCouleur = new HashSet<>(Arrays.asList("rouge", "noir", "blanc"));
         this.domaineBool = new HashSet<>(Arrays.asList("true","false"));
-        this.domaineComposants = new HashSet<>(Arrays.asList("toit", "capot", "hayon"));
+        this.domaineComposants = new HashSet<>(Arrays.asList("toit", "capot", "hayon","droit","gauche"));
         this.domaineComposants2 = new HashSet<>(Arrays.asList("toit ouvrant", "sono"));
         this.couleur = new HashSet<>();
         this.boolVariable = new HashSet<>();
@@ -52,10 +52,15 @@ public class Examples {
 
     public Map<Variable, String> getVoiture1() {
         Map<Variable,String> voiture = new HashMap<>();
-
+        
+        Set<Variable> comp = new HashSet<>(Arrays.asList(
+                new Variable("toit",this.domaineCouleur),
+                new Variable("capot",this.domaineCouleur),
+                new Variable("hayon",this.domaineCouleur)
+        ));
         ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("blanc", "noir", "rouge"));
 
-        Iterator iter = this.couleur.iterator();
+        Iterator iter = comp.iterator();
         int i = 0;
         while(iter.hasNext()){
             voiture.put((Variable) iter.next(), valeurs.get(i));
@@ -66,24 +71,34 @@ public class Examples {
 
     public Map<Variable, String> getVoiture2() {
         Map<Variable,String> voiture = new HashMap<>();
+        
+        Set<Variable> comp = new HashSet<>(Arrays.asList(
+                new Variable("toit",this.domaineCouleur),
+                new Variable("gauche",this.domaineCouleur),
+                new Variable("hayon",this.domaineCouleur)
+        ));
+        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("blanc", "rouge", "noir"));
 
-        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("blanc", "blanc", "rouge"));
-
-        Iterator iter = this.couleur.iterator();
+        Iterator iter = comp.iterator();
         int i = 0;
         while(iter.hasNext()){
             voiture.put((Variable) iter.next(), valeurs.get(i));
             i++;
         }
+        System.out.println(voiture);
         return voiture;
     }
 
     public Map<Variable, String> getVoiture3() {
         Map<Variable,String> voiture = new HashMap<>();
+        
+        Set<Variable> comp = new HashSet<>(Arrays.asList(
+                new Variable("droit",this.domaineCouleur),
+                new Variable("gauche",this.domaineCouleur)
+        ));
+        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("noir", "blanc"));
 
-        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("blanc", "blanc", "blanc"));
-
-        Iterator iter = this.couleur.iterator();
+        Iterator iter = comp.iterator();
         int i = 0;
         while(iter.hasNext()){
             voiture.put((Variable) iter.next(), valeurs.get(i));
@@ -94,10 +109,14 @@ public class Examples {
     
     public Map<Variable, String> getVoiture4() {
         Map<Variable,String> voiture = new HashMap<>();
-
+        
+        Set<Variable> comp = new HashSet<>(Arrays.asList(
+                new Variable("toit ouvrant",this.domaineBool),
+                new Variable("sono",this.domaineBool)
+        ));
         ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("true", "false"));
 
-        Iterator iter = this.boolVariable.iterator();
+        Iterator iter = comp.iterator();
         int i = 0;
         while(iter.hasNext()){
             voiture.put((Variable) iter.next(), valeurs.get(i));
@@ -113,9 +132,14 @@ public class Examples {
 
         Map<Variable,String> premisse = new HashMap<>();
 
-        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("blanc", "noir","rouge"));
+         Set<Variable> comp = new HashSet<>(Arrays.asList(
+                new Variable("toit",this.domaineCouleur),
+                new Variable("hayon",this.domaineCouleur)
+        ));
+        
+        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("blanc", "noir"));
 
-        Iterator iter2 = couleur.iterator();
+        Iterator iter2 = comp.iterator();
         int j = 0;
         while(iter2.hasNext()){
             premisse.put((Variable) iter2.next(), valeurs.get(j));
@@ -125,26 +149,34 @@ public class Examples {
         // Conclusion
 
         Map<Variable,String> conclusion = new HashMap<>();
+        
+        Set<Variable> comp2 = new HashSet<>(Arrays.asList(
+                new Variable("capot",this.domaineCouleur)
+        ));
+        ArrayList<String> valeurs2 = new ArrayList<>(Arrays.asList("blanc"));
 
-        ArrayList<String> valeurs2 = new ArrayList<>(Arrays.asList("blanc", "rouge","rouge"));
-
-        Iterator iter3 = couleur.iterator();
+        Iterator iter3 = comp2.iterator();
         int k = 0;
         while(iter3.hasNext()){
             conclusion.put((Variable) iter3.next(), valeurs2.get(k));
             k++;
         }
-        return new Rule(this.couleur,premisse, conclusion);
+        comp.addAll(comp2);
+        return new Rule(comp,premisse, conclusion);
     }
 
     public Rule getRule2() {
         // premisse
 
         Map<Variable,String> premisse = new HashMap<>();
+        
+        Set<Variable> comp = new HashSet<>(Arrays.asList(
+                new Variable("capot",this.domaineCouleur)
+        ));
 
-        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("blanc", "noir","rouge"));
+        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("blanc"));
 
-        Iterator iter2 = couleur.iterator();
+        Iterator iter2 = comp.iterator();
         int j = 0;
         while(iter2.hasNext()){
             premisse.put((Variable) iter2.next(), valeurs.get(j));
@@ -154,26 +186,35 @@ public class Examples {
         // Conclusion
 
         Map<Variable,String> conclusion = new HashMap<>();
+        
+        Set<Variable> comp2 = new HashSet<>(Arrays.asList(
+                new Variable("capot",this.domaineCouleur)
+        ));
 
-        ArrayList<String> valeurs2 = new ArrayList<>(Arrays.asList("blanc", "noir","rouge"));
+        ArrayList<String> valeurs2 = new ArrayList<>(Arrays.asList("blanc"));
 
-        Iterator iter3 = couleur.iterator();
+        Iterator iter3 = comp2.iterator();
         int k = 0;
         while(iter3.hasNext()){
             conclusion.put((Variable) iter3.next(), valeurs2.get(k));
             k++;
         }
-        return new Rule(this.couleur,premisse, conclusion);
+        comp.addAll(comp2);
+        return new Rule(comp,premisse, conclusion);
     }
 
     public Rule getRule3() {
         // premisse
 
         Map<Variable,String> premisse = new HashMap<>();
+        
+        Set<Variable> comp = new HashSet<>(Arrays.asList(
+                new Variable("capot",this.domaineCouleur)
+        ));
 
-        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("blanc", "noir","rouge"));
+        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("blanc"));
 
-        Iterator iter2 = couleur.iterator();
+        Iterator iter2 = comp.iterator();
         int j = 0;
         while(iter2.hasNext()){
             premisse.put((Variable) iter2.next(), valeurs.get(j));
@@ -183,16 +224,21 @@ public class Examples {
         // Conclusion
 
         Map<Variable,String> conclusion = new HashMap<>();
+        
+        Set<Variable> comp2 = new HashSet<>(Arrays.asList(
+                new Variable("capot",this.domaineCouleur)
+        ));
 
-        ArrayList<String> valeurs2 = new ArrayList<>(Arrays.asList("blanc", "noir","rouge"));
+        ArrayList<String> valeurs2 = new ArrayList<>(Arrays.asList("blanc"));
 
-        Iterator iter3 = couleur.iterator();
+        Iterator iter3 = comp2.iterator();
         int k = 0;
         while(iter3.hasNext()){
             conclusion.put((Variable) iter3.next(), valeurs2.get(k));
             k++;
         }
-        return new Rule(this.couleur,premisse, conclusion);
+        comp.addAll(comp2);
+        return new Rule(comp,premisse, conclusion);
     }
 
     // Disjonctions
@@ -200,15 +246,22 @@ public class Examples {
     public Disjunction getDisjunction1() {
         Map<Variable,String> conclusion = new HashMap<>();
 
-        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("blanc", "rouge","blanc"));
+         Set<Variable> comp = new HashSet<>(Arrays.asList(
+                new Variable("toit",this.domaineCouleur),
+                new Variable("hayon",this.domaineCouleur)
+        ));
+        
+        
 
-        Iterator iter = couleur.iterator();
+        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("blanc", "rouge"));
+
+        Iterator iter = comp.iterator();
         int k = 0;
         while(iter.hasNext()){
             conclusion.put((Variable) iter.next(), valeurs.get(k));
             k++;
         }
-        return new Disjunction(this.couleur,conclusion);
+        return new Disjunction(comp,conclusion);
     }
 
     // IncopabilityConstrain
@@ -216,43 +269,58 @@ public class Examples {
     public IncompatibilityConstraint getIncompatibility1() {
         Map<Variable,String> premisse = new HashMap<>();
 
+         Set<Variable> comp = new HashSet<>(Arrays.asList(
+                new Variable("toit",this.domaineCouleur),
+                new Variable("hayon",this.domaineCouleur)
+        ));
+
         ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("blanc", "noir","rouge"));
 
-        Iterator iter = couleur.iterator();
+        Iterator iter = comp.iterator();
         int k = 0;
         while(iter.hasNext()){
             premisse.put((Variable) iter.next(), valeurs.get(k));
             k++;
         }
-        return new IncompatibilityConstraint(this.couleur,premisse);
+        return new IncompatibilityConstraint(comp,premisse);
     }
 
     public IncompatibilityConstraint getIncompatibility2() {
         Map<Variable,String> premisse = new HashMap<>();
 
+         Set<Variable> comp = new HashSet<>(Arrays.asList(
+                new Variable("toit",this.domaineCouleur),
+                new Variable("hayon",this.domaineCouleur)
+        ));
+
         ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("blanc", "rouge","noir"));
 
-        Iterator iter = couleur.iterator();
+        Iterator iter = comp.iterator();
         int k = 0;
         while(iter.hasNext()){
             premisse.put((Variable) iter.next(), valeurs.get(k));
             k++;
         }
-        return new IncompatibilityConstraint(this.couleur, premisse);
+        return new IncompatibilityConstraint(comp, premisse);
     }
 
     public IncompatibilityConstraint getIncompatibility3() {
         Map<Variable,String> premisse = new HashMap<>();
 
+         Set<Variable> comp = new HashSet<>(Arrays.asList(
+                new Variable("toit",this.domaineCouleur),
+                new Variable("hayon",this.domaineCouleur)
+        ));
+
         ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("noir", "blanc","noir"));
 
-        Iterator iter = couleur.iterator();
+        Iterator iter = comp.iterator();
         int k = 0;
         while(iter.hasNext()){
             premisse.put((Variable) iter.next(), valeurs.get(k));
             k++;
         }
-        return new IncompatibilityConstraint(this.couleur, premisse);
+        return new IncompatibilityConstraint(comp, premisse);
     }
 
     // exemple ecmapus
@@ -265,8 +333,10 @@ public class Examples {
       return new AllEqualConstraint(allEqual);
     }
       
-    // 
-    public Disjunction getExemple2() {
+    //--------------------------------------------------------------//
+    
+    /*
+    public RuleOr getExemple2() {
       Set<Variable> allEqual = new HashSet<>(Arrays.asList(
                 new Variable("gauche",domaineCouleur),
                 new Variable("toit",domaineCouleur)));
@@ -276,9 +346,32 @@ public class Examples {
       AllEqualConstraint all1 = new AllEqualConstraint(allEqual);
       AllEqualConstraint all2 = new AllEqualConstraint(allEqual2);
       Set<Variable> scope = all1.getScope();
-      scope.containsAll(all2.getScope());
-      return new Disjunction(this.couleur,null);
+      scope.containsAll(all2.getScope()); 
+      return new RuleOr(scope,all1,all2);
+    }*/
+    public AllEqualConstraint getExemple2() {
+      Set<Variable> allEqual = new HashSet<>(Arrays.asList(
+                new Variable("gauche",domaineCouleur),
+                new Variable("toit",domaineCouleur)));
+
+      AllEqualConstraint all1 = new AllEqualConstraint(allEqual);
+      Set<Variable> scope = all1.getScope();
+      return new AllEqualConstraint(allEqual);
     }
+    
+    //--------------------------------------------------------------//
+    
+    public AllEqualConstraint getExemple3(){
+      Set<Variable> cNonEqual = new HashSet<>(Arrays.asList(
+              new Variable("droit", this.domaineCouleur),
+              new Variable("gauche", this.domaineCouleur)
+      ));
+      
+      return new AllEqualConstraint(cNonEqual,true);
+    }
+    
+    
+    //--------------------------------------------------------------//
     
     public Disjunction getExemple4(){
       Set<Variable> nEqual = new HashSet<>(Arrays.asList(

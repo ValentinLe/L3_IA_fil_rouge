@@ -13,7 +13,8 @@ public class Main {
     public static void main(String[] args) {
 
         Examples ex = new Examples();
-
+        
+        /*
         // voiture
         Map<Variable,String> voiture = ex.getVoiture1();
 
@@ -66,15 +67,29 @@ public class Main {
 
         System.out.println("incompa : " + incompa3.isSatisfiedBy(voiture));
         
-        AllEqualConstraint allE1 = ex.getExemple1();
+        AllEqualConstraint allE1 = ex.getExemple1();        
+        System.out.println("allE : " + allE1.isSatisfiedBy(voiture));*/
         
-        System.out.println("allE : " + allE1.isSatisfiedBy(voiture));
+        //--------------------------------------------------------------//
         
+        Map<Variable,String> voiture2 = ex.getVoiture2();
+        
+        AllEqualConstraint dgT = ex.getExemple2();
+        System.out.println("DGT : " + dgT.isSatisfiedBy(voiture2));
+        
+        //--------------------------------------------------------------//
+        
+        /*Map<Variable,String> voiture3 = ex.getVoiture3();
+        
+        AllEqualConstraint cNonEqu = ex.getExemple3();
+        System.out.println("cNonEqu : " + cNonEqu.isSatisfiedBy(voiture3));
+        
+        //--------------------------------------------------------------//
         
         Map<Variable,String> voiture4 = ex.getVoiture4();
         
         Disjunction nEqu = ex.getExemple4();
-        System.out.println("nEqu : " + nEqu.isSatisfiedBy(voiture4));
+        System.out.println("nEqu : " + nEqu.isSatisfiedBy(voiture4));*/
     }
 
 }
