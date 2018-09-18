@@ -74,7 +74,7 @@ public class Main {
         
         Map<Variable,String> voiture2 = ex.getVoiture2();
         
-        AllEqualConstraint dgT = ex.getExemple2();
+        RuleOr dgT = ex.getExemple2();
         System.out.println("DGT : " + dgT.isSatisfiedBy(voiture2));
         
         //--------------------------------------------------------------//

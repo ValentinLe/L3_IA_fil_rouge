@@ -31,23 +31,20 @@ public class AllEqualConstraint implements Constraint {
 
     @Override
     public boolean isSatisfiedBy(Map<Variable, String> voiture) {
-        String pastValue;
-        String value;
 
-        Iterator iter = variables.iterator();
+        Iterator iter = this.variables.iterator();
         
         Variable var = (Variable) iter.next();
-        pastValue = (String)voiture.get(var);
-        System.out.println("var : " + var.getName() + " val : " );
-        do{
+        String pastValue = (String)voiture.get(var);
+        System.out.println(voiture + "  " + var);
+        String value;
+        do {
             var = (Variable) iter.next();
             value = (String)voiture.get(var);
-            System.out.println("var : " + var.getName() + " val : " + value);
-            if(!pastValue.equals(value)){
+            if (!pastValue.equals(value)) {
                 return this.isNot;
             }
-            pastValue = value;
-        }while(iter.hasNext());
+        } while (iter.hasNext());
         return !this.isNot;
     }
 
