@@ -5,12 +5,12 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class RuleOr implements Constraint {
+public class ConstraintOr implements Constraint {
     
     private Constraint c1;
     private Constraint c2;
     
-    public RuleOr(Constraint c1, Constraint c2) {
+    public ConstraintOr(Constraint c1, Constraint c2) {
         this.c1 = c1;
         this.c2 = c2;
     }
@@ -31,5 +31,4 @@ public class RuleOr implements Constraint {
     public boolean isSatisfiedBy(Map<Variable, String> contraintes) {
         return (this.c1.isSatisfiedBy(contraintes) || this.c2.isSatisfiedBy(contraintes));
     }
-    
 }

@@ -101,7 +101,7 @@ public class Main {
         ));
         
         Backtracking test = new Backtracking(constraint, 100);
-        System.out.println("Voiture crée : "+test.generateCar());
+        System.out.println("Voiture crée : " + test.generateCar());
         
     }
 

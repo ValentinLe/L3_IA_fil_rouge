@@ -47,7 +47,7 @@ public class Backtracking {
         this.n = n;
         
         int i = 0;
-        boolean res = false;
+        boolean res = generate_and_test();
         
         while(i != n){
             res = generate_and_test();

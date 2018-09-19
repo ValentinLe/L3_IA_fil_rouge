@@ -55,7 +55,9 @@ public class Examples {
         }
         return voiture;
     }
-
+    
+    //--------------------------------------------------------------//
+    
     public Map<Variable, String> getVoiture1() {
         Map<Variable,String> voiture = initVoiture();
         
@@ -76,6 +78,8 @@ public class Examples {
         return voiture;
     }
 
+    //--------------------------------------------------------------//
+    
     public Map<Variable, String> getVoiture2() {
         Map<Variable,String> voiture = initVoiture();
         
@@ -96,6 +100,8 @@ public class Examples {
         return voiture;
     }
 
+    //--------------------------------------------------------------//
+    
     public Map<Variable, String> getVoiture3() {
         Map<Variable,String> voiture = new HashMap<>();
         
@@ -119,6 +125,8 @@ public class Examples {
         return voiture;
     }
     
+    //--------------------------------------------------------------//
+    
     public Map<Variable, String> getVoiture4() {
         Map<Variable,String> voiture = new HashMap<>();
         
@@ -139,7 +147,7 @@ public class Examples {
         return voiture;
     }
 
-    // exemple ecmapus
+    // exemples ecmapus
 
     public AllEqualConstraint getExemple1() {
       Set<Variable> allEqual = new HashSet<>(Arrays.asList(
@@ -152,7 +160,7 @@ public class Examples {
     //--------------------------------------------------------------//
     
     
-    public RuleOr getExemple2() {
+    public ConstraintOr getExemple2() {
       Set<Variable> allEqual = new HashSet<>(Arrays.asList(
                 new Variable("gauche",domaineCouleur),
                 new Variable("toit",domaineCouleur)));
@@ -161,7 +169,7 @@ public class Examples {
                 new Variable("toit",domaineCouleur)));
       AllEqualConstraint all1 = new AllEqualConstraint(allEqual);
       AllEqualConstraint all2 = new AllEqualConstraint(allEqual2);
-      return new RuleOr(all1,all2);
+      return new ConstraintOr(all1,all2);
     }
 
     //--------------------------------------------------------------//

@@ -20,11 +20,10 @@ public class AllEqualConstraint implements Constraint {
     }
     
     
-
-    @Override
     /*
     Return variables
     */
+    @Override
     public Set<Variable> getScope() {
         return this.variables;
     }
