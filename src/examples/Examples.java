@@ -41,6 +41,22 @@ public class Examples {
           this.boolVariable.add(new Variable(str,new HashSet(composants2)));
         }     
     }
+    
+    public Set<String> getComposants() {
+        return new HashSet<>(this.composants);
+    }
+    
+    public Set<String> getComposants2() {
+        return new HashSet<>(this.composants2);
+    }
+    
+    public Set<String> getDomaineCouleur() {
+        return this.domaineCouleur;
+    }
+    
+    public Set<String> getDomaineBool() {
+        return this.domaineBool;
+    }
 
     // Voitures
     
