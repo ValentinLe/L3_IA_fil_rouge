@@ -155,7 +155,7 @@ public class Examples {
                 new Variable("toit ouvrant",this.domaineBool),
                 new Variable("sono",this.domaineBool)
         ));
-        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("rouge", "blanc", "rouge","noir","noir","false","false"));
+        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("rouge", "blanc", "rouge","noir","noir","true","false"));
 
         for(int i = 0; i<comp.size(); i++) {
             voiture.put(comp.get(i), valeurs.get(i));
@@ -206,7 +206,6 @@ public class Examples {
         constraint.put(comp.get(1), val.get(1));
 
         IncompatibilityConstraint compNoir = new IncompatibilityConstraint(new HashSet<>(comp), constraint);
-        System.out.println(compNoir);
 
         return compNoir;
     }
@@ -214,7 +213,7 @@ public class Examples {
 
     //--------------------------------------------------------------//
 
-    public Disjunction getExemple4(){
+    public IncompatibilityConstraint getExemple4(){
       Set<Variable> nEqual = new HashSet<>(Arrays.asList(
               new Variable("sono", this.domaineBool),
               new Variable("toit ouvrant", this.domaineBool)
@@ -226,6 +225,7 @@ public class Examples {
       while(iter.hasNext()){
         conclusion.put(iter.next(), "true");
       }
-      return new Disjunction(nEqual,conclusion);
+     
+      return new IncompatibilityConstraint(nEqual,conclusion, true);
     }
 }

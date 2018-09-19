@@ -29,7 +29,6 @@ public class Rule implements Constraint {
 
     @Override
     public boolean isSatisfiedBy(Map<Variable,String> contraintes) {
-        System.out.println(contraintes);
         boolean p = true;
         boolean c = false;
 
@@ -39,11 +38,15 @@ public class Rule implements Constraint {
                 p = false;
             }
             if(this.conclusion != null && this.conclusion.get(var)!= null && contraintes.get(var).equals(this.conclusion.get(var))){
-
+                
                 c = true;
             }
         }
-        return !p || c;
+        if (this.not) {
+            return !(!p || c);
+        } else {
+            return !p || c;
+        }
     }
 
     public String getStringMap(Map<Variable, String> map, String separator) {
