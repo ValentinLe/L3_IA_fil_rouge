@@ -29,6 +29,6 @@ public class ConstraintAnd implements Constraint {
 
     @Override
     public boolean isSatisfiedBy(Map<Variable, String> contraintes) {
-        return (this.c1.isSatisfiedBy(contraintes) || this.c2.isSatisfiedBy(contraintes));
+        return (this.c1.isSatisfiedBy(contraintes) && this.c2.isSatisfiedBy(contraintes));
     }
 }

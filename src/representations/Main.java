@@ -84,24 +84,24 @@ public class Main {
         */
         //--------------------------------------------------------------//
         
-        /*Map<Variable,String> voiture3 = ex.getVoiture3();
+        Map<Variable,String> voiture3 = ex.getVoiture3();
         
-        AllEqualConstraint cNonEqu = ex.getExemple3();
+        IncompatibilityConstraint cNonEqu = ex.getExemple3();
         System.out.println("cNonEqu : " + cNonEqu.isSatisfiedBy(voiture3));
         
         //--------------------------------------------------------------//
-        /*
-        Map<Variable,String> voiture4 = ex.getVoiture4();
+        
+        /*Map<Variable,String> voiture4 = ex.getVoiture4();
         
         Disjunction nEqu = ex.getExemple4();
         System.out.println("nEqu : " + nEqu.isSatisfiedBy(voiture4));*/
         
-        Set<Constraint> constraint = new HashSet<>(Arrays.asList(
+        /*Set<Constraint> constraint = new HashSet<>(Arrays.asList(
             ex.getExemple1(), ex.getExemple2(),ex.getExemple3(), ex.getExemple4()
         ));
         
         Backtracking test = new Backtracking(constraint, 100);
-        System.out.println("Voiture crée : " + test.generateCar());
+        System.out.println("Voiture crée : " + test.generateCar());*/
         
     }
 

@@ -10,11 +10,16 @@ public class Rule implements Constraint {
     private Set<Variable> scope;
     private Map<Variable,String > premisse;
     private Map<Variable, String> conclusion;
+    private boolean not;
 
-    public Rule(Set<Variable> scope,Map<Variable, String> premisse, Map<Variable,String> conclusion) {
+    public Rule(Set<Variable> scope,Map<Variable, String> premisse, Map<Variable,String> conclusion, boolean not) {
         this.scope = scope;
         this.premisse = premisse;
         this.conclusion = conclusion;
+    }
+    
+    public Rule(Set<Variable> scope,Map<Variable, String> premisse, Map<Variable,String> conclusion) {
+        this(scope,premisse,conclusion,false);
     }
 
     @Override
@@ -24,15 +29,16 @@ public class Rule implements Constraint {
 
     @Override
     public boolean isSatisfiedBy(Map<Variable,String> contraintes) {
-
+        System.out.println(contraintes);
         boolean p = true;
         boolean c = false;
 
         for(Variable var : contraintes.keySet()) {
-            if(this.premisse != null && !contraintes.get(var).equals(this.premisse.get(var))){
+            if(this.premisse != null && this.premisse.get(var)!= null && !contraintes.get(var).equals(this.premisse.get(var))){
+                
                 p = false;
             }
-            if(this.conclusion != null && contraintes.get(var).equals(this.conclusion.get(var))){
+            if(this.conclusion != null && this.conclusion.get(var)!= null && contraintes.get(var).equals(this.conclusion.get(var))){
 
                 c = true;
             }

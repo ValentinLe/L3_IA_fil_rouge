@@ -28,9 +28,10 @@ public class AllEqualConstraint implements Constraint {
         return this.variables;
     }
 
+    
     @Override
     public boolean isSatisfiedBy(Map<Variable, String> voiture) {
-
+        /*
         //On veut chercher si les variables de la contraintes ont les mêmes
         //valeurs dans la voiture
         boolean firstLoop = true;
@@ -50,22 +51,21 @@ public class AllEqualConstraint implements Constraint {
             }
             pastValue = new String(value);
         }
-        return true;
-        /*
-        Iterator iter = this.variables.iterator();
+        return true;*/
+        
+        Iterator<Variable> iter = this.variables.iterator();
 
-        Variable var = (Variable) iter.next();
+        Variable var = iter.next();
         String pastValue = (String)voiture.get(var);
         String value;
         do {
-            var = (Variable) iter.next();
+            var = iter.next();
             value = (String)voiture.get(var);
             if (!pastValue.equals(value)) {
                 return this.isNot;
             }
         } while (iter.hasNext());
         return !this.isNot;
-        */
     }
 
     @Override

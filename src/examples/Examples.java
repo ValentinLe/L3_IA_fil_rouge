@@ -121,7 +121,7 @@ public class Examples {
     public Map<Variable, String> getVoiture3() {
         Map<Variable,String> voiture = new HashMap<>();
 
-        Set<Variable> comp = new HashSet<>(Arrays.asList(
+        ArrayList<Variable> comp = new ArrayList<>(Arrays.asList(
                 new Variable("toit",this.domaineCouleur),
                 new Variable("capot",this.domaineCouleur),
                 new Variable("hayon",this.domaineCouleur),
@@ -130,7 +130,7 @@ public class Examples {
                 new Variable("toit ouvrant",this.domaineBool),
                 new Variable("sono",this.domaineBool)
         ));
-        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("noir", "noir", "blanc","rouge","blanc","true","true"));
+        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("noir", "noir", "blanc","noir","rouge","true","true"));
 
         Iterator<Variable> iter = comp.iterator();
         int i = 0;
@@ -189,14 +189,26 @@ public class Examples {
     }
 
     //--------------------------------------------------------------//
+    
+    public IncompatibilityConstraint getExemple3(){
+        
+        Map<Variable,String> constraint = new HashMap<>();
 
-    public AllEqualConstraint getExemple3(){
-      Set<Variable> cNonEqual = new HashSet<>(Arrays.asList(
-              new Variable("droit", this.domaineCouleur),
-              new Variable("gauche", this.domaineCouleur)
-      ));
+        ArrayList<Variable> comp = new ArrayList<>();
+        comp.add(new Variable("droit",this.domaineCouleur));
+        comp.add(new Variable("gauche",this.domaineCouleur));
 
-      return new AllEqualConstraint(cNonEqual,true);
+        ArrayList<String> val = new ArrayList<>();
+        val.add("noir");
+        val.add("noir");
+        
+        constraint.put(comp.get(0), val.get(0));
+        constraint.put(comp.get(1), val.get(1));
+
+        IncompatibilityConstraint compNoir = new IncompatibilityConstraint(new HashSet<>(comp), constraint);
+        System.out.println(compNoir);
+
+        return compNoir;
     }
 
 
