@@ -62,9 +62,13 @@ public class Examples {
         ArrayList<Variable> comp = new ArrayList<>(Arrays.asList(
                 new Variable("toit",this.domaineCouleur),
                 new Variable("capot",this.domaineCouleur),
-                new Variable("hayon",this.domaineCouleur)
+                new Variable("hayon",this.domaineCouleur),
+                new Variable("droit",this.domaineCouleur),
+                new Variable("gauche",this.domaineCouleur),
+                new Variable("toit ouvrant",this.domaineBool),
+                new Variable("sono",this.domaineBool)
         ));
-        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("blanc", "noir", "rouge"));
+        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("blanc", "noir", "noir","rouge","blanc","true","true"));
 
         for(int i = 0; i<comp.size(); i++) {
             voiture.put(comp.get(i), valeurs.get(i));
@@ -78,14 +82,17 @@ public class Examples {
         ArrayList<Variable> comp = new ArrayList<>(Arrays.asList(
                 new Variable("toit",this.domaineCouleur),
                 new Variable("capot",this.domaineCouleur),
-                new Variable("hayon",this.domaineCouleur)
+                new Variable("hayon",this.domaineCouleur),
+                new Variable("droit",this.domaineCouleur),
+                new Variable("gauche",this.domaineCouleur),
+                new Variable("toit ouvrant",this.domaineBool),
+                new Variable("sono",this.domaineBool)
         ));
-        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("blanc", "noir", "rouge"));
+        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("noir", "blanc", "rouge","noir","blanc","true","true"));
 
         for(int i = 0; i<comp.size(); i++) {
             voiture.put(comp.get(i), valeurs.get(i));
         }
-        System.out.println(voiture);
         return voiture;
     }
 
@@ -93,10 +100,15 @@ public class Examples {
         Map<Variable,String> voiture = new HashMap<>();
         
         Set<Variable> comp = new HashSet<>(Arrays.asList(
+                new Variable("toit",this.domaineCouleur),
+                new Variable("capot",this.domaineCouleur),
+                new Variable("hayon",this.domaineCouleur),
                 new Variable("droit",this.domaineCouleur),
-                new Variable("gauche",this.domaineCouleur)
+                new Variable("gauche",this.domaineCouleur),
+                new Variable("toit ouvrant",this.domaineBool),
+                new Variable("sono",this.domaineBool)
         ));
-        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("noir", "blanc"));
+        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("noir", "noir", "blanc","rouge","blanc","true","true"));
 
         Iterator iter = comp.iterator();
         int i = 0;
@@ -111,10 +123,15 @@ public class Examples {
         Map<Variable,String> voiture = new HashMap<>();
         
         ArrayList<Variable> comp = new ArrayList<>(Arrays.asList(
+                new Variable("toit",this.domaineCouleur),
+                new Variable("capot",this.domaineCouleur),
+                new Variable("hayon",this.domaineCouleur),
+                new Variable("droit",this.domaineCouleur),
+                new Variable("gauche",this.domaineCouleur),
                 new Variable("toit ouvrant",this.domaineBool),
                 new Variable("sono",this.domaineBool)
         ));
-        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("true", "false"));
+        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("rouge", "blanc", "rouge","noir","noir","false","false"));
 
         for(int i = 0; i<comp.size(); i++) {
             voiture.put(comp.get(i), valeurs.get(i));
@@ -144,21 +161,9 @@ public class Examples {
                 new Variable("toit",domaineCouleur)));
       AllEqualConstraint all1 = new AllEqualConstraint(allEqual);
       AllEqualConstraint all2 = new AllEqualConstraint(allEqual2);
-      Set<Variable> scope = all1.getScope();
-      scope.containsAll(all2.getScope()); 
-      return new RuleOr(scope,all1,all2);
+      return new RuleOr(all1,all2);
     }
-    /*
-    public AllEqualConstraint getExemple2() {
-      Set<Variable> allEqual = new HashSet<>(Arrays.asList(
-                new Variable("gauche",domaineCouleur),
-                new Variable("toit",domaineCouleur)));
 
-      AllEqualConstraint all1 = new AllEqualConstraint(allEqual);
-      Set<Variable> scope = all1.getScope();
-      return new AllEqualConstraint(allEqual);
-    }*/
-    
     //--------------------------------------------------------------//
     
     public AllEqualConstraint getExemple3(){

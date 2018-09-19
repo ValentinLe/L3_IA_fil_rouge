@@ -22,7 +22,7 @@ public class Backtracking {
     
     public Backtracking(Set<Constraint> constraints, int n){
         this.variablesColor = new HashSet<String>(Arrays.asList(
-            "toit","capot","hayon","droite","gauche"
+            "toit","capot","hayon","droit","gauche"
         ));
         
         this.variablesBool = new HashSet<String>(Arrays.asList(

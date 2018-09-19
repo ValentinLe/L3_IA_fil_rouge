@@ -75,6 +75,7 @@ public class Main {
         System.out.println("allE : " + allE1.isSatisfiedBy(voiture));*/
         
         //--------------------------------------------------------------//
+        
         /*
         Map<Variable,String> voiture2 = ex.getVoiture2();
         
@@ -89,20 +90,19 @@ public class Main {
         System.out.println("cNonEqu : " + cNonEqu.isSatisfiedBy(voiture3));
         
         //--------------------------------------------------------------//
-        
+        /*
         Map<Variable,String> voiture4 = ex.getVoiture4();
         
         Disjunction nEqu = ex.getExemple4();
         System.out.println("nEqu : " + nEqu.isSatisfiedBy(voiture4));*/
         
-        Examples example = new Examples();
-        
-        Set<Constraint> constraint = new HashSet<Constraint>(Arrays.asList(
-            example.getExemple1(), example.getExemple2(),example.getExemple3(), example.getExemple4()
+        Set<Constraint> constraint = new HashSet<>(Arrays.asList(
+            ex.getExemple1(), ex.getExemple2(),ex.getExemple3(), ex.getExemple4()
         ));
         
         Backtracking test = new Backtracking(constraint, 100);
         System.out.println("Voiture crée : "+test.generateCar());
+        
     }
 
 }

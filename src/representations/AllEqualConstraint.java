@@ -36,7 +36,6 @@ public class AllEqualConstraint implements Constraint {
         
         Variable var = (Variable) iter.next();
         String pastValue = (String)voiture.get(var);
-        System.out.println(voiture + "  " + var);
         String value;
         do {
             var = (Variable) iter.next();

@@ -37,7 +37,6 @@ public class Variable {
     public int hashCode(){
       int result = 17;
       result = 31 * this.name.hashCode();
-      
       return result;
     }
 

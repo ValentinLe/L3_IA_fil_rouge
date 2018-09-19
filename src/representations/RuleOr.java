@@ -1,23 +1,30 @@
 
 package representations;
 
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
 public class RuleOr implements Constraint {
     
-    private Set<Variable> scope;
     private Constraint c1;
     private Constraint c2;
     
-    public RuleOr(Set<Variable> scope, Constraint c1, Constraint c2) {
+    public RuleOr(Constraint c1, Constraint c2) {
         this.c1 = c1;
         this.c2 = c2;
     }
 
     @Override
     public Set<Variable> getScope() {
-        return this.scope;
+        Set<Variable> scopeFinal = new HashSet<>();
+        scopeFinal.addAll(this.c1.getScope());
+        for(Variable var : this.c2.getScope()) {
+            if (!scopeFinal.contains(var)) {
+             scopeFinal.add(var);
+            }
+        }
+        return scopeFinal;
     }
 
     @Override
