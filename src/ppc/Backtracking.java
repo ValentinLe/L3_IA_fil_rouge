@@ -1,4 +1,3 @@
-
 package ppc;
 
 import representations.Variable;
@@ -47,13 +46,14 @@ public class Backtracking {
         this.n = n;
         
         int i = 0;
-        boolean res = generate_and_test();
+        boolean res = false;
         
         while(i != n){
             res = generate_and_test();
             if(res){
                 break;
             }
+            i++;
         }
         
         System.out.println("Résultat des test: "+res);
@@ -61,6 +61,7 @@ public class Backtracking {
     
     public boolean generate_and_test(){
         Map<Variable,String> voiture = generateCar();
+        System.out.println("La voiture est: "+voiture);
         
         Iterator iter = this.constraints.iterator();
         
@@ -109,3 +110,4 @@ public class Backtracking {
         return null;
     }
 }
+
