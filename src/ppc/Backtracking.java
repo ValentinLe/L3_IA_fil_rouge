@@ -3,6 +3,8 @@ package ppc;
 
 import representations.Variable;
 import java.util.*;
+import representations.Constraint;
+import representations.Rule;
 
 public class Backtracking {
     
@@ -14,7 +16,11 @@ public class Backtracking {
     private Set<String> domaineCouleur;
     private Set<String> domaineBool;
     
-    public Backtracking(){
+    private Set<Constraint> constraints;
+    
+    private int n;
+    
+    public Backtracking(Set<Constraint> constraints, int n){
         this.variablesColor = new HashSet<String>(Arrays.asList(
             "toit","capot","hayon","droite","gauche"
         ));
@@ -36,7 +42,34 @@ public class Backtracking {
         computeVariables(variablesColor, domaineCouleur);
         computeVariables(variablesBool, domaineBool);
         System.out.println(variables);
+        this.constraints = constraints;
         
+        this.n = n;
+        
+        int i = 0;
+        boolean res = false;
+        
+        while(i != n){
+            res = generate_and_test();
+            if(res){
+                break;
+            }
+        }
+        
+        System.out.println("Résultat des test: "+res);
+    }
+    
+    public boolean generate_and_test(){
+        Map<Variable,String> voiture = generateCar();
+        
+        Iterator iter = this.constraints.iterator();
+        
+        while(iter.hasNext()){
+            if(!((Constraint)iter.next()).isSatisfiedBy(voiture)){
+                return false;
+            }
+        }
+        return true;
     }
     
     public Map<Variable,String> generateCar(){

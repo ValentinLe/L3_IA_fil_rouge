@@ -3,6 +3,9 @@ package representations;
 
 import java.util.Map;
 import examples.Examples;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import ppc.Backtracking;
 
 
@@ -92,7 +95,13 @@ public class Main {
         Disjunction nEqu = ex.getExemple4();
         System.out.println("nEqu : " + nEqu.isSatisfiedBy(voiture4));*/
         
-        Backtracking test = new Backtracking();
+        Examples example = new Examples();
+        
+        Set<Constraint> constraint = new HashSet<Constraint>(Arrays.asList(
+            example.getExemple1(), example.getExemple2(),example.getExemple3(), example.getExemple4()
+        ));
+        
+        Backtracking test = new Backtracking(constraint, 100);
         System.out.println("Voiture crée : "+test.generateCar());
     }
 
