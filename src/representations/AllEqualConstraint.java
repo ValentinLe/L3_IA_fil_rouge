@@ -9,17 +9,17 @@ public class AllEqualConstraint implements Constraint {
 
     private Set<Variable> variables;
     private boolean isNot;
-    
+
     public AllEqualConstraint(Set<Variable> variables, boolean isNot){
         this.variables = variables;
         this.isNot = isNot;
     }
-    
+
     public AllEqualConstraint(Set<Variable> variables){
         this(variables,false);
     }
-    
-    
+
+
     /*
     Return variables
     */
@@ -30,15 +30,15 @@ public class AllEqualConstraint implements Constraint {
 
     @Override
     public boolean isSatisfiedBy(Map<Variable, String> voiture) {
-        
-        //On veut chercher si les variables de la contraintes ont les mêmes 
+
+        //On veut chercher si les variables de la contraintes ont les mêmes
         //valeurs dans la voiture
         boolean firstLoop = true;
-        Iterator iter = this.variables.iterator();
+        Iterator<Variable> iter = this.variables.iterator();
         String pastValue = "";
-        
+
         while(iter.hasNext()){
-            Variable var = (Variable)iter.next();
+            Variable var = iter.next();
             String value = voiture.get(var);
             if(!firstLoop){
                 System.out.println(pastValue+" "+value);
@@ -53,7 +53,7 @@ public class AllEqualConstraint implements Constraint {
         return true;
         /*
         Iterator iter = this.variables.iterator();
-        
+
         Variable var = (Variable) iter.next();
         String pastValue = (String)voiture.get(var);
         String value;
