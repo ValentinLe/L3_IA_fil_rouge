@@ -18,7 +18,7 @@ public class Rule implements Constraint {
         this.conclusion = conclusion;
         this.not = not;
     }
-    
+
     public Rule(Set<Variable> scope, Map<Variable, String> premisse, Map<Variable,String> conclusion) {
         this(scope, premisse, conclusion, false);
     }
@@ -34,12 +34,11 @@ public class Rule implements Constraint {
         boolean c = false;
 
         for(Variable var : voiture.keySet()) {
-            if(this.premisse != null && this.premisse.get(var)!= null && !voiture.get(var).equals(this.premisse.get(var))){
-              
+            if(this.premisse != null && voiture.get(var) != null && this.premisse.get(var)!= null && !voiture.get(var).equals(this.premisse.get(var))){
                 p = false;
             }
-            if(this.conclusion != null && this.conclusion.get(var)!= null && voiture.get(var).equals(this.conclusion.get(var))){
-                
+            if(this.conclusion != null && voiture.get(var) != null && this.conclusion.get(var)!= null && voiture.get(var).equals(this.conclusion.get(var))){
+
                 c = true;
             }
         }
@@ -79,7 +78,7 @@ public class Rule implements Constraint {
         }
 
         ch += this.getStringMap(this.conclusion, "||");
-        
+
         if (this.conclusion == null && !this.not) {
             ch += ")";
         }

@@ -119,7 +119,7 @@ public class Examples {
     //--------------------------------------------------------------//
 
     public Map<Variable, String> getVoiture3() {
-        Map<Variable,String> voiture = new HashMap<>();
+        Map<Variable,String> voiture = initVoiture();
 
         ArrayList<Variable> comp = new ArrayList<>(Arrays.asList(
                 new Variable("toit",this.domaineCouleur),
@@ -130,7 +130,7 @@ public class Examples {
                 new Variable("toit ouvrant",this.domaineBool),
                 new Variable("sono",this.domaineBool)
         ));
-        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("noir", "noir", "blanc","noir","noir","true","true"));
+        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("noir", "noir", "blanc","balnc","blanc","true","true"));
 
         Iterator<Variable> iter = comp.iterator();
         int i = 0;
@@ -144,7 +144,7 @@ public class Examples {
     //--------------------------------------------------------------//
 
     public Map<Variable, String> getVoiture4() {
-        Map<Variable,String> voiture = new HashMap<>();
+        Map<Variable,String> voiture = initVoiture();
 
         ArrayList<Variable> comp = new ArrayList<>(Arrays.asList(
                 new Variable("toit",this.domaineCouleur),
@@ -189,9 +189,9 @@ public class Examples {
     }
 
     //--------------------------------------------------------------//
-    
+
     public IncompatibilityConstraint getExemple3(){
-        
+
         Map<Variable,String> constraint = new HashMap<>();
 
         ArrayList<Variable> comp = new ArrayList<>();
@@ -201,11 +201,11 @@ public class Examples {
         ArrayList<String> val = new ArrayList<>();
         val.add("noir");
         val.add("noir");
-        
+
         constraint.put(comp.get(0), val.get(0));
         constraint.put(comp.get(1), val.get(1));
 
-        IncompatibilityConstraint compNoir = new IncompatibilityConstraint(new HashSet<>(comp), constraint, true);
+        IncompatibilityConstraint compNoir = new IncompatibilityConstraint(new HashSet<>(comp), constraint);
 
         return compNoir;
     }
@@ -225,7 +225,7 @@ public class Examples {
       while(iter.hasNext()){
         conclusion.put(iter.next(), "true");
       }
-     
-      return new IncompatibilityConstraint(nEqual,conclusion, true);
+
+      return new IncompatibilityConstraint(nEqual,conclusion);
     }
 }
