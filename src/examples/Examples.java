@@ -101,14 +101,14 @@ public class Examples {
 
         ArrayList<Variable> comp = new ArrayList<>(Arrays.asList(
                 new Variable("toit",this.domaineCouleur),
-                new Variable("capot",this.domaineCouleur),
-                new Variable("hayon",this.domaineCouleur),
                 new Variable("droit",this.domaineCouleur),
                 new Variable("gauche",this.domaineCouleur),
+                new Variable("capot",this.domaineCouleur),
+                new Variable("hayon",this.domaineCouleur),
                 new Variable("toit ouvrant",this.domaineBool),
                 new Variable("sono",this.domaineBool)
         ));
-        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("noir", "blanc", "rouge","noir","blanc","true","true"));
+        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("noir", "blanc", "noir","noir","blanc","true","true"));
 
         for(int i = 0; i<comp.size(); i++) {
             voiture.put(comp.get(i), valeurs.get(i));
@@ -130,7 +130,7 @@ public class Examples {
                 new Variable("toit ouvrant",this.domaineBool),
                 new Variable("sono",this.domaineBool)
         ));
-        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("noir", "noir", "blanc","noir","rouge","true","true"));
+        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("noir", "noir", "blanc","noir","noir","true","true"));
 
         Iterator<Variable> iter = comp.iterator();
         int i = 0;
@@ -155,7 +155,7 @@ public class Examples {
                 new Variable("toit ouvrant",this.domaineBool),
                 new Variable("sono",this.domaineBool)
         ));
-        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("rouge", "blanc", "rouge","noir","noir","true","false"));
+        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("rouge", "blanc", "rouge","noir","noir","true","true"));
 
         for(int i = 0; i<comp.size(); i++) {
             voiture.put(comp.get(i), valeurs.get(i));
@@ -177,14 +177,14 @@ public class Examples {
 
 
     public ConstraintOr getExemple2() {
-      Set<Variable> allEqual = new HashSet<>(Arrays.asList(
+      Set<Variable> setEqual = new HashSet<>(Arrays.asList(
                 new Variable("gauche",domaineCouleur),
                 new Variable("toit",domaineCouleur)));
-      Set<Variable> allEqual2 = new HashSet<>(Arrays.asList(
+      Set<Variable> setEqual2 = new HashSet<>(Arrays.asList(
                 new Variable("droit",domaineCouleur),
                 new Variable("toit",domaineCouleur)));
-      AllEqualConstraint all1 = new AllEqualConstraint(allEqual);
-      AllEqualConstraint all2 = new AllEqualConstraint(allEqual2);
+      AllEqualConstraint all1 = new AllEqualConstraint(setEqual);
+      AllEqualConstraint all2 = new AllEqualConstraint(setEqual2);
       return new ConstraintOr(all1,all2);
     }
 
@@ -205,7 +205,7 @@ public class Examples {
         constraint.put(comp.get(0), val.get(0));
         constraint.put(comp.get(1), val.get(1));
 
-        IncompatibilityConstraint compNoir = new IncompatibilityConstraint(new HashSet<>(comp), constraint);
+        IncompatibilityConstraint compNoir = new IncompatibilityConstraint(new HashSet<>(comp), constraint, true);
 
         return compNoir;
     }

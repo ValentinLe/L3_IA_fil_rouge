@@ -10,6 +10,6 @@ public class IncompatibilityConstraint extends Rule {
         super(scope, premisse, null,not);
     }
     public IncompatibilityConstraint(Set<Variable> scope, Map<Variable, String> premisse) {
-        super(scope, premisse, null,false);
+        super(scope, premisse, null, false);
     }
 }

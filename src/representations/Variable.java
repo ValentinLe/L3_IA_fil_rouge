@@ -21,12 +21,13 @@ public class Variable {
         return this.domaine;
     }
     
+    @Override
     public boolean equals(Object o) {
         if(this==o) {
           return true;
         } else {
             if(o instanceof Variable) {
-                return this.name == ((Variable) o).getName();
+                return this.name.equals(((Variable) o).getName());
             } else {
                 return false;
             }

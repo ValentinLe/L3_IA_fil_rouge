@@ -8,11 +8,11 @@ import java.util.Set;
 public class AllEqualConstraint implements Constraint {
 
     private Set<Variable> variables;
-    private boolean isNot;
+    private boolean not;
 
-    public AllEqualConstraint(Set<Variable> variables, boolean isNot){
+    public AllEqualConstraint(Set<Variable> variables, boolean not){
         this.variables = variables;
-        this.isNot = isNot;
+        this.not = not;
     }
 
     public AllEqualConstraint(Set<Variable> variables){
@@ -28,52 +28,48 @@ public class AllEqualConstraint implements Constraint {
         return this.variables;
     }
 
-    
     @Override
     public boolean isSatisfiedBy(Map<Variable, String> voiture) {
-        /*
-        //On veut chercher si les variables de la contraintes ont les mêmes
-        //valeurs dans la voiture
-        boolean firstLoop = true;
-        Iterator<Variable> iter = this.variables.iterator();
-        String pastValue = "";
 
-        while(iter.hasNext()){
-            Variable var = iter.next();
-            String value = voiture.get(var);
-            if(!firstLoop){
-                System.out.println(pastValue+" "+value);
-                if(!value.equals(pastValue)){
-                    return false;
-                }
-            }else{
-                firstLoop = false;
-            }
-            pastValue = new String(value);
-        }
-        return true;*/
-        
         Iterator<Variable> iter = this.variables.iterator();
 
         Variable var = iter.next();
-        String pastValue = (String)voiture.get(var);
+        String pastValue = voiture.get(var);
+        if (pastValue==null) {
+                return this.not;
+        }
+
         String value;
         do {
             var = iter.next();
-            value = (String)voiture.get(var);
+            value = voiture.get(var);
+            if (value==null) {
+                return this.not;
+            }
             if (!pastValue.equals(value)) {
-                return this.isNot;
+                return this.not;
             }
         } while (iter.hasNext());
-        return !this.isNot;
+        return !this.not;
     }
 
     @Override
     public String toString(){
-        StringBuilder res = new StringBuilder();
-        res.append("Les variables suivantes doivent être égales:\n");
-        res.append(this.variables);
+        String ch = "";
+        if (this.not) {
+            ch += "!(";
+        }
+        Iterator<Variable> iter = this.variables.iterator();
 
-        return res.toString();
+        while(iter.hasNext()) {
+            ch += iter.next();
+            if (iter.hasNext()) {
+                ch += " = ";
+            }
+        }
+        if (this.not) {
+            ch += ")";
+        }
+        return ch;
     }
 }

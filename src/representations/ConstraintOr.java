@@ -31,4 +31,9 @@ public class ConstraintOr implements Constraint {
     public boolean isSatisfiedBy(Map<Variable, String> contraintes) {
         return (this.c1.isSatisfiedBy(contraintes) || this.c2.isSatisfiedBy(contraintes));
     }
+    
+    @Override
+    public String toString() {
+        return "(" + this.c1 + ") || (" + this.c2 + ")";
+    }
 }
