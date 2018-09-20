@@ -43,8 +43,10 @@ public class Rule implements Constraint {
             }
         }
         if (this.not) {
+            System.out.println("Résultat : "+(p && !c));
             return p && !c;
         } else {
+            System.out.println("Résultat : "+(!p || c));
             return !p || c;
         }
     }

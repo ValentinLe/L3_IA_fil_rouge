@@ -35,21 +35,28 @@ public class AllEqualConstraint implements Constraint {
 
         Variable var = iter.next();
         String pastValue = voiture.get(var);
-        if (pastValue==null) {
-                return this.not;
+        while (pastValue==null && iter.hasNext()) {
+          var = iter.next();
+          pastValue = voiture.get(var);
         }
 
         String value;
+        if (!iter.hasNext()) {
+            System.out.println("Résultat : "+!this.not);
+            return !this.not;
+        }
         do {
             var = iter.next();
             value = voiture.get(var);
             if (value==null) {
-                return this.not;
+                continue;
             }
             if (!pastValue.equals(value)) {
+                System.out.println("Résultat : "+this.not);
                 return this.not;
             }
         } while (iter.hasNext());
+        System.out.println("Résultat : "+!this.not);
         return !this.not;
     }
 
