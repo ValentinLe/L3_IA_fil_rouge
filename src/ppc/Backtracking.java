@@ -25,20 +25,44 @@ public class Backtracking {
         this.constraints = constraints;
     }
     
+    
     public Map<Variable,String> getSolution(){
         Map res = new HashMap<Variable, String>();
         
+        ArrayList<Constraint> constraintList = new ArrayList<Constraint>(this.constraints);
         Iterator iterConstraints = this.constraints.iterator();
         
-        while(iterConstraints.hasNext()){
+        for(Constraint constraint: constraintList){
             
-            ArrayList<Variable> tab = new ArrayList<Variable>(((Constraint)iterConstraints.next()).getScope());
+            ArrayList<Variable> variablesConcerned = new ArrayList<Variable>(constraint.getScope());
             
-            System.out.println(tab);
+            for(Variable variable : variablesConcerned){
+                
+                ArrayList<String>domaine = new ArrayList<String>(variable.getDomaine());
+                
+                res.put(variable, domaine.get(0));
+                
+                System.out.println("Résultat du test : "+verifyAllConstraint(res));
+            }
+            
             
         }
         
-        return res;
         
+        return res;
+    }
+    
+    public boolean verifyAllConstraint(Map<Variable, String> voiture){
+        
+        System.out.println("La voiture => "+voiture);
+        
+        Iterator iter = this.constraints.iterator();
+        
+        while(iter.hasNext()){
+            if(!((Constraint)iter.next()).isSatisfiedBy(voiture)){
+                return false;
+            }
+        }
+        return true;
     }
 }

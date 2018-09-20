@@ -55,7 +55,8 @@ public class Main {
             ex.getExemple1(), ex.getExemple2(),ex.getExemple3(), ex.getExemple4()
         ));
 
-        //Backtracking test = new Backtracking(constraint, 100);
+        Backtracking test = new Backtracking(constraint);
+        test.getSolution();
 
     }
 

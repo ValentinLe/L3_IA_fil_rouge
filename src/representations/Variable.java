@@ -21,6 +21,10 @@ public class Variable {
         return this.domaine;
     }
     
+    public Set<String> getDomaine(){
+        return this.domaine;
+    }
+    
     @Override
     public boolean equals(Object o) {
         if(this==o) {
