@@ -6,10 +6,10 @@ import java.util.Map;
 import java.util.Set;
 
 public class ConstraintOr implements Constraint {
-    
+
     private Constraint c1;
     private Constraint c2;
-    
+
     public ConstraintOr(Constraint c1, Constraint c2) {
         this.c1 = c1;
         this.c2 = c2;
@@ -29,9 +29,10 @@ public class ConstraintOr implements Constraint {
 
     @Override
     public boolean isSatisfiedBy(Map<Variable, String> contraintes) {
+        System.out.println("isSatisfiedBy de ConstraintOr");
         return (this.c1.isSatisfiedBy(contraintes) || this.c2.isSatisfiedBy(contraintes));
     }
-    
+
     @Override
     public String toString() {
         return "(" + this.c1 + ") || (" + this.c2 + ")";
