@@ -34,12 +34,19 @@ public class Examples {
         this.couleur = new ArrayList<>();
         this.boolVariable = new ArrayList<>();
         for(String str : composants) {
-          this.couleur.add(new Variable(str,new HashSet<>(composants)));
+          this.couleur.add(new Variable(str,new HashSet<>(domaineCouleur)));
         }
 
         for(String str : composants2) {
-          this.boolVariable.add(new Variable(str,new HashSet<>(composants2)));
+          this.boolVariable.add(new Variable(str,new HashSet<>(domaineBool)));
         }
+    }
+    
+    public Set<Variable> getVariables() {
+        Set<Variable> vars = new HashSet<>();
+        vars.addAll(this.couleur);
+        vars.addAll(this.boolVariable);
+        return vars;
     }
 
     public Set<String> getComposants() {
@@ -152,10 +159,9 @@ public class Examples {
                 new Variable("hayon",this.domaineCouleur),
                 new Variable("droit",this.domaineCouleur),
                 new Variable("gauche",this.domaineCouleur),
-                new Variable("toit ouvrant",this.domaineBool),
-                new Variable("sono",this.domaineBool)
+                new Variable("toit ouvrant",this.domaineBool)
         ));
-        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("rouge", "blanc", "rouge","noir","noir","true","true"));
+        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("rouge", "blanc", "rouge","noir","noir","false","true"));
 
         for(int i = 0; i<comp.size(); i++) {
             voiture.put(comp.get(i), valeurs.get(i));

@@ -1,68 +1,97 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package ppc;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
-import representations.Constraint;
-import representations.Variable;
+import representations.*;
 
-/**
- *
- * @author quentindeme
- */
 public class Backtracking {
     
+    private Set<Variable> variables;
     private Set<Constraint> constraints;
     
-    public Backtracking(Set<Constraint> constraints){
+    public Backtracking(Set<Variable> variables, Set<Constraint> constraints){
+        this.variables = variables;
         this.constraints = constraints;
     }
     
-    
-    public Map<Variable,String> getSolution(){
-        Map res = new HashMap<Variable, String>();
-        
-        ArrayList<Constraint> constraintList = new ArrayList<Constraint>(this.constraints);
-        Iterator iterConstraints = this.constraints.iterator();
-        
-        for(Constraint constraint: constraintList){
-            
-            ArrayList<Variable> variablesConcerned = new ArrayList<Variable>(constraint.getScope());
-            
-            for(Variable variable : variablesConcerned){
-                
-                ArrayList<String>domaine = new ArrayList<String>(variable.getDomaine());
-                
-                res.put(variable, domaine.get(0));
-                
-                System.out.println("Résultat du test : "+verifyAllConstraint(res));
-            }
-            
-            
-        }
-        
-        
-        return res;
-    }
-    
-    public boolean verifyAllConstraint(Map<Variable, String> voiture){
-        
-        System.out.println("La voiture => "+voiture);
-        
-        Iterator iter = this.constraints.iterator();
-        
-        while(iter.hasNext()){
-            if(!((Constraint)iter.next()).isSatisfiedBy(voiture)){
+    public boolean isComplete(Map<Variable, String> voiture) {
+        for(Variable var : this.variables) {
+            if (!voiture.containsKey(var)) {
                 return false;
             }
         }
         return true;
+    }
+    
+    public int heuristic(Variable var) {
+        int cpt = 0;
+        for(Constraint c : this.constraints) {
+            for(Variable v : c.getScope()) {
+                if (var.equals(v)) {
+                    cpt += 1;
+                }
+            }
+        }
+        return cpt;
+    }
+    
+    public ArrayList<Variable> getSortVariable() {
+        ArrayList<Variable> listVar = new ArrayList<>();
+        Iterator<Variable> iter = this.variables.iterator();
+        while(iter.hasNext()) {
+            Variable var = iter.next();
+            int valueVar = heuristic(var);
+            var.setValue(valueVar);
+            listVar.add(var);
+        }
+        Collections.sort(listVar);
+        Collections.reverse(listVar);
+        return listVar;
+    }
+    
+    public Variable choiceVar(ArrayList<Variable> sortVar) {
+        Variable var = sortVar.get(0);
+        sortVar.remove(0);
+        return var;
+    }
+    
+    public Map<Variable, String> solution() {
+        return backtracking(new HashMap<>(), getSortVariable());
+    }
+    
+    public boolean isCompatible(Variable var, String value, Map<Variable, String> voiture) {
+        voiture.put(var,value);
+        for(Constraint c : this.constraints) {
+            if (!c.isSatisfiedBy(voiture)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public Map<Variable, String> backtracking(Map<Variable, String> voiture, ArrayList<Variable> sortVar) {
+        if (this.isComplete(voiture)) {
+            return voiture;
+        }
+        Variable var = choiceVar(sortVar);
+        Set<String> csp;
+        Map<Variable, String> newVoiture;
+        for(String value : var.getDomaine()) {
+            if (this.isCompatible(var, value, voiture)) {
+                voiture.put(var, value);
+                newVoiture = backtracking(voiture, sortVar);
+                if (!this.isCompatible(var, value, newVoiture)) {
+                    voiture.remove(var);
+                } else {
+                    return voiture;
+                }
+            }
+        }
+        return new HashMap<>();
     }
 }

@@ -30,7 +30,6 @@ public class AllEqualConstraint implements Constraint {
 
     @Override
     public boolean isSatisfiedBy(Map<Variable, String> voiture) {
-        System.out.println("isSatisfiedBy de AllEqual");
         Iterator<Variable> iter = this.variables.iterator();
 
         Variable var = iter.next();
@@ -42,7 +41,6 @@ public class AllEqualConstraint implements Constraint {
 
         String value;
         if (!iter.hasNext()) {
-            System.out.println("Résultat : "+!this.not);
             return !this.not;
         }
         do {
@@ -52,11 +50,9 @@ public class AllEqualConstraint implements Constraint {
                 continue;
             }
             if (!pastValue.equals(value)) {
-                System.out.println("Résultat : "+this.not);
                 return this.not;
             }
         } while (iter.hasNext());
-        System.out.println("Résultat : "+!this.not);
         return !this.not;
     }
 

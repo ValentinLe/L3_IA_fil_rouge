@@ -32,21 +32,37 @@ public class Rule implements Constraint {
     public boolean isSatisfiedBy(Map<Variable,String> voiture) {
         boolean p = true;
         boolean c = false;
+        
+        if (voiture.isEmpty()) {
+            return !this.not;
+        }
+        
+        if (this.premisse != null) {
+            for (Variable var : this.premisse.keySet()) {
+                if (voiture.get(var)==null) {
+                     return !this.not;
+                 }
+                 if(!voiture.get(var).equals(this.premisse.get(var))) {
 
-        for(Variable var : voiture.keySet()) {
-            if(this.premisse != null && voiture.get(var) != null && this.premisse.get(var)!= null && !voiture.get(var).equals(this.premisse.get(var))){
-                p = false;
+                     p = false;
+                 } 
             }
-            if(this.conclusion != null && voiture.get(var) != null && this.conclusion.get(var)!= null && voiture.get(var).equals(this.conclusion.get(var))){
+        }
+        
+        if (this.conclusion != null) {
+            for (Variable var : this.conclusion.keySet()) {
+                if (voiture.get(var)==null) {
+                    return !this.not;
+                }
+                if(voiture.get(var).equals(this.conclusion.get(var))){
 
-                c = true;
+                    c = true;
+                }
             }
         }
         if (this.not) {
-            System.out.println("Résultat : "+(p && !c));
             return p && !c;
         } else {
-            System.out.println("Résultat : "+(!p || c));
             return !p || c;
         }
     }

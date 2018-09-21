@@ -3,6 +3,7 @@ package representations;
 
 import java.util.Map;
 import examples.Examples;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,7 +21,7 @@ public class Main {
 
 
         // voiture
-
+        /*
         Map<Variable,String> voiture = ex.getVoiture1();
 
         AllEqualConstraint allE1 = ex.getExemple1();
@@ -44,19 +45,31 @@ public class Main {
         System.out.println(cNonEqu + " --> " + cNonEqu.isSatisfiedBy(voiture3) + "\n");
         
         //--------------------------------------------------------------//
-
+        
         Map<Variable,String> voiture4 = ex.getVoiture4();
 
         IncompatibilityConstraint nEqu = ex.getExemple4();
         System.out.println("Voiture : " + voiture4);
         System.out.println(nEqu + " --> " + nEqu.isSatisfiedBy(voiture4) + "\n");
+        */
+        
+        Set<Variable> variables = ex.getVariables();
+        
+        AllEqualConstraint c1 = ex.getExemple1();
+        ConstraintOr c2 = ex.getExemple2();
+        IncompatibilityConstraint c3 = ex.getExemple3();
+        IncompatibilityConstraint c4 = ex.getExemple4();
 
-        Set<Constraint> constraint = new HashSet<>(Arrays.asList(
-            ex.getExemple1(), ex.getExemple2(),ex.getExemple3(), ex.getExemple4()
-        ));
-
-        Backtracking test = new Backtracking(constraint);
-        test.getSolution();
+        Set<Constraint> constraints = new HashSet<>();
+        constraints.add(c1);
+        constraints.add(c2);
+        constraints.add(c3);
+        constraints.add(c4);
+        
+        
+        Backtracking back = new Backtracking(variables, constraints);
+        Map<Variable, String> voiture = back.solution();
+        System.out.println("backtrack : " + voiture);
 
     }
 

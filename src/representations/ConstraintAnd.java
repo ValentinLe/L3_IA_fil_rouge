@@ -19,11 +19,7 @@ public class ConstraintAnd implements Constraint {
     public Set<Variable> getScope() {
         Set<Variable> scopeFinal = new HashSet<>();
         scopeFinal.addAll(this.c1.getScope());
-        for(Variable var : this.c2.getScope()) {
-            if (!scopeFinal.contains(var)) {
-             scopeFinal.add(var);
-            }
-        }
+        scopeFinal.addAll(this.c2.getScope());
         return scopeFinal;
     }
 

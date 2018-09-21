@@ -3,14 +3,16 @@ package representations;
 
 import java.util.Set;
 
-public class Variable {
+public class Variable implements Comparable<Variable> {
 
     private String name;
     private Set<String> domaine;
+    private Integer value;
 
     public Variable(String name, Set<String> domaine) {
         this.name = name;
         this.domaine = domaine;
+        this.value = 0;
     }
 
     public String getName() {
@@ -23,6 +25,14 @@ public class Variable {
     
     public Set<String> getDomaine(){
         return this.domaine;
+    }
+    
+    public Integer getValue() {
+        return this.value;
+    }
+    
+    public void setValue(Integer newValue) {
+        this.value = newValue;
     }
     
     @Override
@@ -48,5 +58,10 @@ public class Variable {
     @Override
     public String toString() {
         return this.name;
+    }
+
+    @Override
+    public int compareTo(Variable o) {
+        return this.value.compareTo(o.getValue());
     }
 }
