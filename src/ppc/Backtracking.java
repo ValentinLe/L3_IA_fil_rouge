@@ -13,10 +13,16 @@ public class Backtracking {
 
     private Set<Variable> variables;
     private Set<Constraint> constraints;
+    private int cpt = 0;
 
     public Backtracking(Set<Variable> variables, Set<Constraint> constraints){
         this.variables = variables;
         this.constraints = constraints;
+        ArrayList<Constraint> cons = new ArrayList<>(constraints);
+        for(int i = 1; i<(cons.size()+1); i++) {
+            System.out.println("c" + i + " : " + cons.get(i-1));
+        }
+        System.out.println("\n\n");
     }
 
     public boolean isComplete(Map<Variable, String> voiture) {
@@ -60,10 +66,18 @@ public class Backtracking {
         return var;
     }
 
-    public boolean isCompatible(Variable var, String value, Map<Variable, String> voiture) {
-        voiture.put(var,value);
+    public boolean isCompatible(Variable var, String value, Map<Variable, String> voiture,boolean test) {
+        Map<Variable, String> voitureTest = new HashMap(voiture);
+        voitureTest.put(var,value);
+        if (test) {
+            System.out.println("\n\n");
+            System.out.println("Voiture : " + voitureTest);
+        }
         for(Constraint c : this.constraints) {
-            if (!c.isSatisfiedBy(voiture)) {
+            if (test) {
+                System.out.println(c + " --> " + c.isSatisfiedBy(voitureTest));
+            }
+            if (!c.isSatisfiedBy(voitureTest)) {
                 return false;
             }
         }
@@ -71,24 +85,29 @@ public class Backtracking {
     }
 
     public Map<Variable, String> solution() {
-      return backtracking(new HashMap<>(), getSortVariable());
+        return backtracking(new HashMap<>(), getSortVariable());
     }
-
+    
+    // toit = "noir", hayon = "noir", capot = "noir", gauche = "noir", droit = "blanc", porte = "rouge"
     public Map<Variable, String> backtracking(Map<Variable, String> voiture, ArrayList<Variable> sortVar) {
+        this.cpt += 1;
         if (this.isComplete(voiture)) {
             return voiture;
         }
         Variable var = choiceVar(sortVar);
         Map<Variable, String> newVoiture;
         for(String value : var.getDomaine()) {
-            if (this.isCompatible(var, value, voiture)) {
+            System.out.println("vv : " + voiture);
+            System.out.println("\n " + "i = " + cpt + " Variable : " + var + " = " + value + "\n");
+            if (this.isCompatible(var, value, voiture,true)) {
                 voiture.put(var, value);
+                System.out.println("vv : " + voiture);
                 newVoiture = backtracking(voiture, sortVar);
-                if (!this.isCompatible(var, value, newVoiture)) {
-                    voiture.remove(var);
-                } else {
-                    return voiture;
+                if (this.isCompatible(var, value, newVoiture,true)) {
+                    System.out.println(newVoiture);
+                    return newVoiture;
                 }
+                voiture.remove(var);
             }
         }
         return new HashMap<>();

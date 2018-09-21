@@ -1,6 +1,7 @@
 
 package representations;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -30,30 +31,34 @@ public class AllEqualConstraint implements Constraint {
 
     @Override
     public boolean isSatisfiedBy(Map<Variable, String> voiture) {
-        Iterator<Variable> iter = this.variables.iterator();
-
-        Variable var = iter.next();
-        String pastValue = voiture.get(var);
-        while (pastValue==null && iter.hasNext()) {
-          var = iter.next();
-          pastValue = voiture.get(var);
-        }
-
-        String value;
-        if (!iter.hasNext()) {
-            return !this.not;
-        }
-        do {
-            var = iter.next();
-            value = voiture.get(var);
-            if (value==null) {
-                continue;
+        if (voiture.isEmpty() || voiture.size()==1) {
+            return true;
+        } else {
+            ArrayList<Variable> list = new ArrayList<>(this.variables);
+            String value = null;
+            String currentValue;
+            boolean testNull = !this.not;
+            int cpt = 0;
+            for (Variable var : list) {
+                currentValue = voiture.get(var);
+                if (currentValue != null) {
+                    cpt += 1;
+                    if (value==null) {
+                        value = currentValue;
+                    } else {
+                        if(!value.equals(currentValue)) {
+                            testNull = this.not;
+                        } else {
+                            return !this.not;
+                        }
+                    }
+                }
             }
-            if (!pastValue.equals(value)) {
-                return this.not;
+            if (cpt == 1) {
+                return true;
             }
-        } while (iter.hasNext());
-        return !this.not;
+            return testNull;
+        }
     }
 
     @Override

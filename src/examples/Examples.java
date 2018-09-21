@@ -23,7 +23,7 @@ public class Examples {
 
     public Examples() {
         // composants
-        this.composants = new ArrayList<>(Arrays.asList("toit", "capot", "hayon","droit","gauche"));
+        this.composants = new ArrayList<>(Arrays.asList("toit", "capot", "hayon","droit","gauche","porte"));
         this.composants2 = new ArrayList<>(Arrays.asList("toit ouvrant", "sono"));
 
         // domaines
@@ -86,14 +86,14 @@ public class Examples {
 
         ArrayList<Variable> comp = new ArrayList<>(Arrays.asList(
                 new Variable("toit",this.domaineCouleur),
-                new Variable("capot",this.domaineCouleur),
                 new Variable("hayon",this.domaineCouleur),
                 new Variable("droit",this.domaineCouleur),
+                new Variable("porte",this.domaineCouleur),
                 new Variable("gauche",this.domaineCouleur),
                 new Variable("toit ouvrant",this.domaineBool),
                 new Variable("sono",this.domaineBool)
         ));
-        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("blanc", "noir", "noir","rouge","blanc","true","true"));
+        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("noir", "blanc","blanc","noir","blanc","true","true"));
 
         for(int i = 0; i<comp.size(); i++) {
             voiture.put(comp.get(i), valeurs.get(i));
@@ -233,5 +233,26 @@ public class Examples {
       }
 
       return new IncompatibilityConstraint(nEqual,conclusion);
+    }
+    
+    public AllEqualConstraint getExemple5(){
+     
+      Set<Variable> allEqual = new HashSet<>(Arrays.asList(
+                new Variable("hayon",domaineCouleur),
+                new Variable("gauche",domaineCouleur)));
+      AllEqualConstraint all = new AllEqualConstraint(allEqual);
+      
+      return all;
+    }
+    
+    public AllEqualConstraint getExemple6(){
+     
+      Set<Variable> allEqual = new HashSet<>(Arrays.asList(
+                new Variable("hayon",domaineCouleur),
+                new Variable("droit",domaineCouleur),
+                new Variable("porte",domaineCouleur)));
+      AllEqualConstraint all = new AllEqualConstraint(allEqual, true);
+      
+      return all;
     }
 }
