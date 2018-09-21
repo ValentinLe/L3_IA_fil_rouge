@@ -93,7 +93,7 @@ public class Examples {
                 new Variable("toit ouvrant",this.domaineBool),
                 new Variable("sono",this.domaineBool)
         ));
-        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("noir", "blanc","blanc","noir","blanc","true","true"));
+        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("noir", "noir","noir","noir","blanc","true","true"));
 
         for(int i = 0; i<comp.size(); i++) {
             voiture.put(comp.get(i), valeurs.get(i));

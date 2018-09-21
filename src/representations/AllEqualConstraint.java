@@ -20,7 +20,6 @@ public class AllEqualConstraint implements Constraint {
         this(variables,false);
     }
 
-
     /*
     Return variables
     */
@@ -28,39 +27,35 @@ public class AllEqualConstraint implements Constraint {
     public Set<Variable> getScope() {
         return this.variables;
     }
-
+    
     @Override
     public boolean isSatisfiedBy(Map<Variable, String> voiture) {
         if (voiture.isEmpty() || voiture.size()==1) {
             return true;
         } else {
             ArrayList<Variable> list = new ArrayList<>(this.variables);
-            String value = null;
-            String currentValue;
-            boolean testNull = !this.not;
-            int cpt = 0;
-            for (Variable var : list) {
+            ArrayList<String> values = new ArrayList<>();
+            String currentValue = null;
+            for(Variable var : list) {
                 currentValue = voiture.get(var);
                 if (currentValue != null) {
-                    cpt += 1;
-                    if (value==null) {
-                        value = currentValue;
+                    if (values.isEmpty()) {
+                        values.add(currentValue);
                     } else {
-                        if(!value.equals(currentValue)) {
-                            testNull = this.not;
-                        } else {
+                        if (!values.contains(currentValue) && !this.not) {
+                            return this.not;
+                        }
+                        if (values.contains(currentValue) && this.not) {
                             return !this.not;
                         }
-                    }
+                        values.add(currentValue);
+                    } 
                 }
             }
-            if (cpt == 1) {
-                return true;
-            }
-            return testNull;
+            return true;
         }
     }
-
+    
     @Override
     public String toString(){
         String ch = "";
