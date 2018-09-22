@@ -27,7 +27,7 @@ public class Rule implements Constraint {
     public Set<Variable> getScope() {
       return this.scope;
     }
-    
+
     public Boolean getPartSatisfied(Map<Variable, String> voiture, Map<Variable, String> part, boolean testPart) {
         if (part != null) {
             for (Variable var : part.keySet()) {
@@ -37,7 +37,7 @@ public class Rule implements Constraint {
                 if (testPart) {
                     if(!voiture.get(var).equals(part.get(var))) {
                         testPart = false;
-                    } 
+                    }
                 } else {
                     if(voiture.get(var).equals(part.get(var))){
                         testPart = true;
@@ -47,24 +47,26 @@ public class Rule implements Constraint {
         }
         return testPart;
     }
-    
+
     @Override
     public boolean isSatisfiedBy(Map<Variable,String> voiture) {
         Boolean p = true;
         Boolean c = false;
-        
+
         if (voiture.isEmpty()) {
             return !this.not;
         }
-        
+
         p = getPartSatisfied(voiture, this.premisse, p);
-        
-        c = getPartSatisfied(voiture, this.conclusion, c);
-        
-        if (p == null || c == null) {
+        if (p == null) {
             return !this.not;
         }
-        
+
+        c = getPartSatisfied(voiture, this.conclusion, c);
+        if (c == null) {
+            return !this.not;
+        }
+
         if (this.not) {
             return p && !c;
         } else {
