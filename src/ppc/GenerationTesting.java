@@ -1,46 +1,19 @@
 package ppc;
 
-import representations.Variable;
 import java.util.*;
-import representations.Constraint;
-import representations.Rule;
+import representations.*;
+import examples.Examples;
 
 public class GenerationTesting {
-    
-    private Set<String> variablesColor;
-    private Set<String> variablesBool;
-    
+
     private Set<Variable> variables;
-    
-    private Set<String> domaineCouleur;
-    private Set<String> domaineBool;
-    
     private Set<Constraint> constraints;
-    
     private int n;
     
     public GenerationTesting(Set<Constraint> constraints, int n){
-        this.variablesColor = new HashSet<>(Arrays.asList(
-            "toit","capot","hayon","droit","gauche"
-        ));
-        
-        this.variablesBool = new HashSet<>(Arrays.asList(
-            "sono", "toit ouvrant"
-        ));
-        
-        this.domaineCouleur = new HashSet<>(Arrays.asList(
-            "rouge","blanc","noir"
-        ));
-        
-        this.domaineBool = new HashSet<>(Arrays.asList(
-            "true","false"   
-        ));
-        
-        this.variables = new HashSet<>();
-        
-        computeVariables(variablesColor, domaineCouleur);
-        computeVariables(variablesBool, domaineBool);
-        System.out.println(variables);
+        Examples ex = new Examples();
+
+        this.variables.addAll(ex.getVariables());
         this.constraints = constraints;
         
         this.n = n;
@@ -87,22 +60,11 @@ public class GenerationTesting {
         return voiture;
     }
     
-    public void computeVariables(Set<String> names, Set<String> domaine){
-        
-        Iterator<String> iter = names.iterator();
-        
-        while(iter.hasNext()){
-            
-            this.variables.add(new Variable(iter.next(), domaine));
-        }
-    }
-    
     public String getElement(Set<String> myHashSet){
         int size = myHashSet.size();
         int item = new Random().nextInt(size); // In real life, the Random object should be rather more shared than this
         int i = 0;
-        for(Object obj : myHashSet)
-        {
+        for(Object obj : myHashSet) {
             if (i == item)
                 return (String)obj;
             i++;
