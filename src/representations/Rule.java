@@ -27,39 +27,44 @@ public class Rule implements Constraint {
     public Set<Variable> getScope() {
       return this.scope;
     }
-
+    
+    public Boolean getPartSatisfied(Map<Variable, String> voiture, Map<Variable, String> part, boolean testPart) {
+        if (part != null) {
+            for (Variable var : part.keySet()) {
+                if (voiture.get(var) == null) {
+                    return null;
+                }
+                if (testPart) {
+                    if(!voiture.get(var).equals(part.get(var))) {
+                        testPart = false;
+                    } 
+                } else {
+                    if(voiture.get(var).equals(part.get(var))){
+                        testPart = true;
+                    }
+                }
+            }
+        }
+        return testPart;
+    }
+    
     @Override
     public boolean isSatisfiedBy(Map<Variable,String> voiture) {
-        boolean p = true;
-        boolean c = false;
+        Boolean p = true;
+        Boolean c = false;
         
         if (voiture.isEmpty()) {
             return !this.not;
         }
         
-        if (this.premisse != null) {
-            for (Variable var : this.premisse.keySet()) {
-                if (voiture.get(var)==null) {
-                     return !this.not;
-                 }
-                 if(!voiture.get(var).equals(this.premisse.get(var))) {
-
-                     p = false;
-                 } 
-            }
+        p = getPartSatisfied(voiture, this.premisse, p);
+        
+        c = getPartSatisfied(voiture, this.conclusion, c);
+        
+        if (p == null || c == null) {
+            return !this.not;
         }
         
-        if (this.conclusion != null) {
-            for (Variable var : this.conclusion.keySet()) {
-                if (voiture.get(var)==null) {
-                    return !this.not;
-                }
-                if(voiture.get(var).equals(this.conclusion.get(var))){
-
-                    c = true;
-                }
-            }
-        }
         if (this.not) {
             return p && !c;
         } else {

@@ -65,10 +65,10 @@ public class Main {
         Set<Constraint> constraints = new HashSet<>();
         constraints.add(c1);
         constraints.add(c2);
-        //constraints.add(c3);
-        //constraints.add(c4);
+        constraints.add(c3);
+        constraints.add(c4);
         //constraints.add(c5);
-        constraints.add(c6);
+        //constraints.add(c6);
         
         
         Backtracking back = new Backtracking(variables, constraints);
