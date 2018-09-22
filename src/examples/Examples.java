@@ -93,7 +93,7 @@ public class Examples {
                 new Variable("toit ouvrant",this.domaineBool),
                 new Variable("sono",this.domaineBool)
         ));
-        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("noir", "noir","noir","noir","blanc","true","true"));
+        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("noir", "noir","blanc","rouge","blanc","true","true"));
 
         for(int i = 0; i<comp.size(); i++) {
             voiture.put(comp.get(i), valeurs.get(i));
@@ -245,13 +245,13 @@ public class Examples {
       return all;
     }
     
-    public AllEqualConstraint getExemple6(){
+    public AllDifferentConstraint getExemple6(){
      
       Set<Variable> allEqual = new HashSet<>(Arrays.asList(
                 new Variable("hayon",domaineCouleur),
                 new Variable("droit",domaineCouleur),
                 new Variable("porte",domaineCouleur)));
-      AllEqualConstraint all = new AllEqualConstraint(allEqual, true);
+      AllDifferentConstraint all = new AllDifferentConstraint(allEqual);
       
       return all;
     }

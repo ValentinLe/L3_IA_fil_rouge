@@ -20,23 +20,23 @@ public class GenerationTesting {
     private int n;
     
     public GenerationTesting(Set<Constraint> constraints, int n){
-        this.variablesColor = new HashSet<String>(Arrays.asList(
+        this.variablesColor = new HashSet<>(Arrays.asList(
             "toit","capot","hayon","droit","gauche"
         ));
         
-        this.variablesBool = new HashSet<String>(Arrays.asList(
+        this.variablesBool = new HashSet<>(Arrays.asList(
             "sono", "toit ouvrant"
         ));
         
-        this.domaineCouleur = new HashSet<String>(Arrays.asList(
+        this.domaineCouleur = new HashSet<>(Arrays.asList(
             "rouge","blanc","noir"
         ));
         
-        this.domaineBool = new HashSet<String>(Arrays.asList(
+        this.domaineBool = new HashSet<>(Arrays.asList(
             "true","false"   
         ));
         
-        this.variables = new HashSet<Variable>();
+        this.variables = new HashSet<>();
         
         computeVariables(variablesColor, domaineCouleur);
         computeVariables(variablesBool, domaineBool);
@@ -64,10 +64,10 @@ public class GenerationTesting {
         Map<Variable,String> voiture = generateCar();
         System.out.println("La voiture est: "+voiture);
         
-        Iterator iter = this.constraints.iterator();
+        Iterator<Constraint> iter = this.constraints.iterator();
         
         while(iter.hasNext()){
-            if(!((Constraint)iter.next()).isSatisfiedBy(voiture)){
+            if(!iter.next().isSatisfiedBy(voiture)){
                 return false;
             }
         }
@@ -75,12 +75,12 @@ public class GenerationTesting {
     }
     
     public Map<Variable,String> generateCar(){
-        Map<Variable,String> voiture = new HashMap<Variable,String>();
+        Map<Variable,String> voiture = new HashMap<>();
         
-        Iterator iter = this.variables.iterator();
+        Iterator<Variable> iter = this.variables.iterator();
         
         while(iter.hasNext()){
-            Variable var = (Variable)iter.next();
+            Variable var = iter.next();
             voiture.put(var, getElement(var.getScope()));
         }
         
@@ -89,11 +89,11 @@ public class GenerationTesting {
     
     public void computeVariables(Set<String> names, Set<String> domaine){
         
-        Iterator iter = names.iterator();
+        Iterator<String> iter = names.iterator();
         
         while(iter.hasNext()){
             
-            this.variables.add(new Variable((String)iter.next(), domaine));
+            this.variables.add(new Variable(iter.next(), domaine));
         }
     }
     

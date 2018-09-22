@@ -1,26 +1,12 @@
 
 package representations;
 
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
-public class ConstraintAnd implements Constraint {
-    
-    private Constraint c1;
-    private Constraint c2;
+public class ConstraintAnd extends ConstraintBool implements Constraint {
     
     public ConstraintAnd(Constraint c1, Constraint c2) {
-        this.c1 = c1;
-        this.c2 = c2;
-    }
-
-    @Override
-    public Set<Variable> getScope() {
-        Set<Variable> scopeFinal = new HashSet<>();
-        scopeFinal.addAll(this.c1.getScope());
-        scopeFinal.addAll(this.c2.getScope());
-        return scopeFinal;
+        super(c1, c2);
     }
 
     @Override
@@ -29,7 +15,7 @@ public class ConstraintAnd implements Constraint {
     }
     
     @Override
-    public String toString() {
-        return "(" + this.c1 + ") && (" + this.c2 + ")";
+    public String getSeparator() {
+        return " && ";
     }
 }

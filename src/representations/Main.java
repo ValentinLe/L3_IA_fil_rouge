@@ -24,7 +24,7 @@ public class Main {
         
         Map<Variable,String> voiture = ex.getVoiture1();
 
-        AllEqualConstraint allE1 = ex.getExemple6();
+        AllDifferentConstraint allE1 = ex.getExemple6();
         System.out.println("Voiture : " + voiture);
         System.out.println(allE1 + " --> " + allE1.isSatisfiedBy(voiture) + "\n");
         
@@ -60,15 +60,15 @@ public class Main {
         IncompatibilityConstraint c3 = ex.getExemple3();
         IncompatibilityConstraint c4 = ex.getExemple4();
         AllEqualConstraint c5 = ex.getExemple5();
-        AllEqualConstraint c6 = ex.getExemple6();
+        AllDifferentConstraint c6 = ex.getExemple6();
 
         Set<Constraint> constraints = new HashSet<>();
         constraints.add(c1);
         constraints.add(c2);
-        constraints.add(c3);
-        constraints.add(c4);
-        constraints.add(c5);
-        //constraints.add(c6);
+        //constraints.add(c3);
+        //constraints.add(c4);
+        //constraints.add(c5);
+        constraints.add(c6);
         
         
         Backtracking back = new Backtracking(variables, constraints);
