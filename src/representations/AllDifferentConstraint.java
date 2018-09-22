@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-public class AllDifferentConstraint extends AllComparationConstraint implements Constraint {
+public class AllDifferentConstraint extends AllCompareConstraint implements Constraint {
 
     public AllDifferentConstraint(Set<Variable> variables, boolean not){
         super(variables, not);
@@ -15,7 +15,7 @@ public class AllDifferentConstraint extends AllComparationConstraint implements 
     public AllDifferentConstraint(Set<Variable> variables){
         super(variables,false);
     }
-    
+
     @Override
     public boolean isSatisfiedBy(Map<Variable, String> voiture) {
         if (voiture.isEmpty() || voiture.size()==1) {
@@ -35,16 +35,16 @@ public class AllDifferentConstraint extends AllComparationConstraint implements 
                             return this.not;
                         }
                         values.add(currentValue);
-                    } 
+                    }
                 }
             }
             return !this.not;
         }
     }
-    
+
     @Override
     public String getSeparator() {
         return " != ";
     }
-    
+
 }

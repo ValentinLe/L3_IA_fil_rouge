@@ -5,17 +5,17 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-public abstract class AllComparationConstraint implements Constraint {
-    
+public abstract class AllCompareConstraint implements Constraint {
+
     protected Set<Variable> variables;
     protected boolean not;
 
-    public AllComparationConstraint(Set<Variable> variables, boolean not){
+    public AllCompareConstraint(Set<Variable> variables, boolean not){
         this.variables = variables;
         this.not = not;
     }
 
-    public AllComparationConstraint(Set<Variable> variables){
+    public AllCompareConstraint(Set<Variable> variables){
         this(variables,false);
     }
 
@@ -26,9 +26,9 @@ public abstract class AllComparationConstraint implements Constraint {
 
     @Override
     public abstract boolean isSatisfiedBy(Map<Variable, String> contraintes);
-    
+
     public abstract String getSeparator();
-    
+
     @Override
     public String toString(){
         String ch = "";

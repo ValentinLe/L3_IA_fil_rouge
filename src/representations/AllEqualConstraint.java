@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-public class AllEqualConstraint extends AllComparationConstraint implements Constraint {
+public class AllEqualConstraint extends AllCompareConstraint implements Constraint {
 
     public AllEqualConstraint(Set<Variable> variables, boolean not){
         super(variables, not);
@@ -34,13 +34,13 @@ public class AllEqualConstraint extends AllComparationConstraint implements Cons
                             return this.not;
                         }
                         values = currentValue;
-                    } 
+                    }
                 }
             }
             return !this.not;
         }
     }
-    
+
     @Override
     public String getSeparator() {
         return " = ";
