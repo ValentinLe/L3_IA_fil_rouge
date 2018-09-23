@@ -10,17 +10,29 @@ import java.util.Map;
 import java.util.Set;
 import representations.*;
 
+/**
+ * This class is a build constraints and cars examples
+ * 
+ */
 public class Examples {
-
+    /** components of color domain */
     private ArrayList<String> composants;
+    /** component of boolean domain */
     private ArrayList<String> composants2;
 
+    /** variables of components with color domain */
     private ArrayList<Variable> couleur;
+    /** variables of components with boolean domain */
     private ArrayList<Variable> boolVariable;
 
+    /** domain of color */
     private Set<String> domaineCouleur;
+    /** domain of boolean */
     private Set<String> domaineBool;
 
+    /**
+     * Build all components on their values possible of a car
+     */
     public Examples() {
         // composants
         this.composants = new ArrayList<>(Arrays.asList("toit", "capot", "hayon","droit","gauche","porte"));
@@ -42,31 +54,55 @@ public class Examples {
         }
     }
     
+    /**
+     * Get all variables with color and boolean domain
+     * @return set of variables
+     */
     public Set<Variable> getVariables() {
         Set<Variable> vars = new HashSet<>();
         vars.addAll(this.couleur);
         vars.addAll(this.boolVariable);
         return vars;
     }
-
+    
+    /**
+     * Get components with color domain
+     * @return set of components
+     */
     public Set<String> getComposants() {
         return new HashSet<>(this.composants);
     }
 
+    /**
+     * Get components with boolean domain
+     * @return set of components
+     */
     public Set<String> getComposants2() {
         return new HashSet<>(this.composants2);
     }
 
+    /**
+     * Get domain of color
+     * @return the color dommain
+     */
     public Set<String> getDomaineCouleur() {
         return this.domaineCouleur;
     }
 
+    /**
+     * Get domain of boolean
+     * @return the boolean domain
+     */
     public Set<String> getDomaineBool() {
         return this.domaineBool;
     }
 
     // Voitures
 
+    /**
+     * Initialize all varaiables to null in a car
+     * @return example the car initialized
+     */
     public Map<Variable,String> initVoiture() {
         Map<Variable,String> voiture = new HashMap<>();
 
@@ -79,8 +115,10 @@ public class Examples {
         return voiture;
     }
 
-    //--------------------------------------------------------------//
-
+    /**
+     * Get Example of car
+     * @return example of car
+     */
     public Map<Variable, String> getVoiture1() {
         Map<Variable,String> voiture = initVoiture();
 
@@ -101,8 +139,10 @@ public class Examples {
         return voiture;
     }
 
-    //--------------------------------------------------------------//
-
+    /**
+     * Get Example of car
+     * @return example of car
+     */
     public Map<Variable, String> getVoiture2() {
         Map<Variable,String> voiture = initVoiture();
 
@@ -123,8 +163,10 @@ public class Examples {
         return voiture;
     }
 
-    //--------------------------------------------------------------//
-
+    /**
+     * Get Example of car
+     * @return example of car
+     */
     public Map<Variable, String> getVoiture3() {
         Map<Variable,String> voiture = initVoiture();
 
@@ -148,8 +190,10 @@ public class Examples {
         return voiture;
     }
 
-    //--------------------------------------------------------------//
-
+    /**
+     * Get Example of car
+     * @return example of car
+     */
     public Map<Variable, String> getVoiture4() {
         Map<Variable,String> voiture = initVoiture();
 
@@ -169,8 +213,12 @@ public class Examples {
         return voiture;
     }
 
-    // exemples ecmapus
-
+    // constraints
+    
+    /**
+     * Get Example of constraint : toit = hayon = capot
+     * @return example of constraint
+     */
     public AllEqualConstraint getExemple1() {
       Set<Variable> allEqual = new HashSet<>(Arrays.asList(
                 new Variable("toit",domaineCouleur),
@@ -179,9 +227,10 @@ public class Examples {
       return new AllEqualConstraint(allEqual);
     }
 
-    //--------------------------------------------------------------//
-
-
+    /**
+     * Get Example of constraint : (gauche = toit) || (droit = toit)
+     * @return example of constraint
+     */
     public ConstraintOr getExemple2() {
       Set<Variable> setEqual = new HashSet<>(Arrays.asList(
                 new Variable("gauche",domaineCouleur),
@@ -194,8 +243,10 @@ public class Examples {
       return new ConstraintOr(all1,all2);
     }
 
-    //--------------------------------------------------------------//
-
+    /**
+     * Get Example of constraint : !(droit="noir" && gauche="noir")
+     * @return example of constraint
+     */
     public IncompatibilityConstraint getExemple3(){
 
         Map<Variable,String> constraint = new HashMap<>();
@@ -216,9 +267,10 @@ public class Examples {
         return compNoir;
     }
 
-
-    //--------------------------------------------------------------//
-
+    /**
+     * Get Example of constraint : !(sono="true" && "toit ouvrant="true")
+     * @return example of constraint
+     */
     public IncompatibilityConstraint getExemple4(){
       Set<Variable> nEqual = new HashSet<>(Arrays.asList(
               new Variable("sono", this.domaineBool),
@@ -235,6 +287,10 @@ public class Examples {
       return new IncompatibilityConstraint(nEqual,conclusion);
     }
     
+    /**
+     * Get Example of constraint : hayon = gauche
+     * @return example of constraint
+     */
     public AllEqualConstraint getExemple5(){
      
       Set<Variable> allEqual = new HashSet<>(Arrays.asList(
@@ -245,6 +301,10 @@ public class Examples {
       return all;
     }
     
+    /**
+     * Get Example of constraint : hayon != droit != porte
+     * @return example of constraint
+     */
     public AllDifferentConstraint getExemple6(){
      
       Set<Variable> allEqual = new HashSet<>(Arrays.asList(

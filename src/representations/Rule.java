@@ -5,12 +5,25 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-public class Rule implements Constraint {
+/**
+ * A Rule is a constraint that represents a implication :  a -> b
+ * 
+ */
 
+public class Rule implements Constraint {
+    
     private Set<Variable> scope;
     private Map<Variable,String > premisse;
     private Map<Variable, String> conclusion;
     private boolean not;
+    
+    /**
+     * Build a instance of Rule
+     * @param scope All Variables involved in the Constraint
+     * @param premisse The premisse of the rule
+     * @param conclusion The conclusion of the rule
+     * @param not If you want not(rule)
+     */
 
     public Rule(Set<Variable> scope, Map<Variable, String> premisse, Map<Variable,String> conclusion, boolean not) {
         this.scope = scope;
@@ -18,17 +31,34 @@ public class Rule implements Constraint {
         this.conclusion = conclusion;
         this.not = not;
     }
-
+    
+    /**
+     * Build a instance of Rule
+     * @param scope All Variables involved in the Constraint
+     * @param premisse The premisse of the rule
+     * @param conclusion The conclusion of the rule
+     */
     public Rule(Set<Variable> scope, Map<Variable, String> premisse, Map<Variable,String> conclusion) {
         this(scope, premisse, conclusion, false);
     }
-
+    
+    /**
+     * Getter of the rule's scope
+     * @return the rule's scope
+     */
     @Override
     public Set<Variable> getScope() {
       return this.scope;
     }
-
-    public Boolean getPartSatisfied(Map<Variable, String> voiture, Map<Variable, String> part, boolean testPart) {
+    
+    /**
+     * Test if the part (premise or conclusion) is satisfied by a car
+     * @param voiture the car of the test
+     * @param part the part (premise or conclusion)
+     * @param testPart the boolean of the initialization of test
+     * @return the result of the test or null if one of the variable of the part are a null value
+     */
+    public Boolean isPartSatisfied(Map<Variable, String> voiture, Map<Variable, String> part, boolean testPart) {
         if (part != null) {
             for (Variable var : part.keySet()) {
                 if (voiture.get(var) == null) {
@@ -47,7 +77,12 @@ public class Rule implements Constraint {
         }
         return testPart;
     }
-
+    
+    /**
+     * Test if the rule is satisfied by a car
+     * @param voiture the car of the test
+     * @return the result of the test
+     */
     @Override
     public boolean isSatisfiedBy(Map<Variable,String> voiture) {
         Boolean p = true;
@@ -57,12 +92,12 @@ public class Rule implements Constraint {
             return !this.not;
         }
 
-        p = getPartSatisfied(voiture, this.premisse, p);
+        p = isPartSatisfied(voiture, this.premisse, p);
         if (p == null) {
             return !this.not;
         }
 
-        c = getPartSatisfied(voiture, this.conclusion, c);
+        c = isPartSatisfied(voiture, this.conclusion, c);
         if (c == null) {
             return !this.not;
         }
@@ -73,14 +108,20 @@ public class Rule implements Constraint {
             return !p || c;
         }
     }
-
-    public String getStringMap(Map<Variable, String> map, String separator) {
+    
+    /**
+     * Construct a string of a part of the rule with the variable their value 
+     * @param part the part of the rule 
+     * @param separator the separator between each variables
+     * @return the string result of the representation of the part
+     */
+    public String getStringMap(Map<Variable, String> part, String separator) {
         String ch = "";
-        if (map != null) {
-           Iterator<Variable> iter = map.keySet().iterator();
+        if (part != null) {
+           Iterator<Variable> iter = part.keySet().iterator();
            while(iter.hasNext()){
                Variable var = iter.next();
-               ch += var.getName()+ " = " + map.get(var);
+               ch += var.getName()+ " = " + part.get(var);
                if (iter.hasNext()) {
                    ch += " " + separator + " ";
                }
@@ -88,7 +129,11 @@ public class Rule implements Constraint {
         }
         return ch;
     }
-
+    
+    /**
+     * Construct a string representation of the rule
+     * @return the string representation
+     */
     @Override
     public String toString() {
         String ch = "";

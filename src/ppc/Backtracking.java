@@ -9,11 +9,20 @@ import java.util.Map;
 import java.util.Set;
 import representations.*;
 
+/**
+ * This classe is the backtracking search methode
+ * 
+ */
 public class Backtracking {
 
     private Set<Variable> variables;
     private Set<Constraint> constraints;
 
+    /**
+     * Build a instance of backtracking
+     * @param variables all variables possibles
+     * @param constraints constraints of the probleme
+     */
     public Backtracking(Set<Variable> variables, Set<Constraint> constraints){
         this.variables = variables;
         this.constraints = constraints;
@@ -24,6 +33,12 @@ public class Backtracking {
         System.out.println();
     }
 
+    /**
+     * Test if all variables is in a car
+     * @param voiture the car
+     * @param sortVar all variables
+     * @return the result of the test
+     */
     public boolean isComplete(Map<Variable, String> voiture, ArrayList<Variable> sortVar) {
         for(Variable var : sortVar) {
             if (!voiture.containsKey(var)) {
@@ -33,32 +48,45 @@ public class Backtracking {
         return true;
     }
 
+    /**
+     * Calculate the occurence in constraints of a variable
+     * @param var the variable
+     * @return the number of constraints contains
+     */
     public int heuristic(Variable var) {
         int cpt = 0;
         for(Constraint c : this.constraints) {
-            for(Variable v : c.getScope()) {
-                if (var.equals(v)) {
-                    cpt += 1;
-                }
+            if (c.getScope().contains(var)) {
+                cpt += 1;
             }
         }
         return cpt;
     }
-
+    
+    /**
+     * Sort a set of variable in decreasing order on their occurences
+     * @return the ordered list
+     */
     public ArrayList<Variable> getSortVariable() {
         ArrayList<Variable> listVar = new ArrayList<>();
         Iterator<Variable> iter = this.variables.iterator();
         while(iter.hasNext()) {
             Variable var = iter.next();
             int valueVar = heuristic(var);
-            var.setValue(valueVar);
+            var.setOccurences(valueVar);
             listVar.add(var);
         }
         Collections.sort(listVar);
         Collections.reverse(listVar);
         return listVar;
     }
-
+    
+    /**
+     * choice a var not in the car
+     * @param voiture the car
+     * @param sortVar the list of variable
+     * @return A variable not in the car
+     */
     public Variable choiceVar(Map<Variable, String> voiture, ArrayList<Variable> sortVar) {
         for (Variable var : sortVar) {
             if (!voiture.containsKey(var)) {
@@ -68,6 +96,11 @@ public class Backtracking {
         return null;
     }
 
+    /**
+     * Test if the car satisfies all constraints 
+     * @param voiture the car
+     * @return the result of the test
+     */
     public boolean isCompatible(Map<Variable, String> voiture) {
         for(Constraint c : this.constraints) {
             if (!c.isSatisfiedBy(voiture)) {
@@ -77,10 +110,20 @@ public class Backtracking {
         return true;
     }
 
+    /**
+     * Get a solution of car
+     * @return the solution or null if the solution doesn't exist
+     */
     public Map<Variable, String> solution() {
         return backtracking(new HashMap<>(), getSortVariable());
     }
     
+    /**
+     * The Backtracking Algorithm
+     * @param voiture the car
+     * @param sortVar list of variables
+     * @return the solution or null if the solution doesn't exist
+     */
     public Map<Variable, String> backtracking(Map<Variable, String> voiture, ArrayList<Variable> sortVar) {
         if (this.isComplete(voiture, sortVar)) {
             return voiture;
