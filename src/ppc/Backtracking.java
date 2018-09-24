@@ -11,7 +11,7 @@ import representations.*;
 
 /**
  * This classe is the backtracking search methode
- * 
+ *
  */
 public class Backtracking {
 
@@ -56,13 +56,15 @@ public class Backtracking {
     public int heuristic(Variable var) {
         int cpt = 0;
         for(Constraint c : this.constraints) {
-            if (c.getScope().contains(var)) {
-                cpt += 1;
+            for(Variable v : c.getScope()) {
+                if (var.equals(v)) {
+                    cpt += 1;
+                }
             }
         }
         return cpt;
     }
-    
+
     /**
      * Sort a set of variable in decreasing order on their occurences
      * @return the ordered list
@@ -80,7 +82,7 @@ public class Backtracking {
         Collections.reverse(listVar);
         return listVar;
     }
-    
+
     /**
      * choice a var not in the car
      * @param voiture the car
@@ -97,7 +99,7 @@ public class Backtracking {
     }
 
     /**
-     * Test if the car satisfies all constraints 
+     * Test if the car satisfies all constraints
      * @param voiture the car
      * @return the result of the test
      */
@@ -117,7 +119,7 @@ public class Backtracking {
     public Map<Variable, String> solution() {
         return backtracking(new HashMap<>(), getSortVariable());
     }
-    
+
     /**
      * The Backtracking Algorithm
      * @param voiture the car
