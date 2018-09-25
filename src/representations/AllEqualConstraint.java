@@ -10,7 +10,7 @@ import java.util.Set;
  * this constraint is about the variables' values that their are all equals
  * 
  */
-public class AllEqualConstraint extends AllCompareConstraint implements Constraint {
+public class AllEqualConstraint extends AllCompareConstraint {
 
     /**
      * Build a instance of AllEqualConstraint
@@ -71,6 +71,7 @@ public class AllEqualConstraint extends AllCompareConstraint implements Constrai
         return " = ";
     }
     
+    /*
     // domaines des variables pas encore affectées
     @Override
     public boolean filtrer(Map<Variable, String> voiture, Map<Variable, Set<String>> domaines) {
@@ -94,5 +95,29 @@ public class AllEqualConstraint extends AllCompareConstraint implements Constrai
         }
         
         return false;
+    }
+    */
+    
+    // domaines des variables pas encore affectées
+    @Override
+    public boolean filtrer(Map<Variable, String> voiture, Map<Variable, Set<String>> domaines) {
+        String value = null;
+        boolean isFilter = false;
+        for (Variable var : this.variables) {
+            if (voiture.get(var) != null) {
+                if (value == null) {
+                    value = voiture.get(var);
+                }
+                Set<String> domVar = new HashSet<>(var.getScope());
+                for (String valueDom : domVar) {
+                    if (domVar.contains(valueDom) && !valueDom.equals(value)) {
+                        domVar.remove(valueDom);
+                        isFilter = true;
+                    }
+                }
+                domaines.put(var,domVar);
+            }
+        }
+        return isFilter;
     }
 }

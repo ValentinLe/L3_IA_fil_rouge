@@ -73,7 +73,7 @@ public class Main {
         Backtracking back = new Backtracking(variables, constraints);
         Map<Variable, String> voiture1 = back.solution();
         System.out.println("backtrack : " + voiture1);
-
+        
     }
 
 }

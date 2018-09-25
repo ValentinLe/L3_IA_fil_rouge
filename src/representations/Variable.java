@@ -105,11 +105,11 @@ public class Variable implements Comparable<Variable> {
 
     /**
      * Compare two variable about their occurences
-     * @param o the other variable
+     * @param var the other variable
      * @return the result of the comparation of their occurences
      */
     @Override
-    public int compareTo(Variable o) {
-        return this.occurences.compareTo(o.getOccurences());
+    public int compareTo(Variable var) {
+        return this.occurences.compareTo(var.getOccurences());
     }
 }

@@ -26,9 +26,9 @@ public class Backtracking {
     public Backtracking(Set<Variable> variables, ArrayList<Constraint> constraints){
         this.variables = variables;
         this.constraints = constraints;
-        ArrayList<Constraint> cons = new ArrayList<>(constraints);
-        for(int i = 1; i<(cons.size()+1); i++) {
-            System.out.println("c" + i + " : " + cons.get(i-1));
+        
+        for(int i = 1; i<(constraints.size()+1); i++) {
+            System.out.println("c" + i + " : " + constraints.get(i-1));
         }
         System.out.println();
     }
@@ -113,11 +113,11 @@ public class Backtracking {
     }
     
     public Map<Variable, String> copyMap(Map<Variable, String> map) {
-        Map<Variable, String> copyMap = new HashMap<>();
-        for (Map.Entry<Variable, String> x : map.entrySet()) {
-            copyMap.put(x.getKey(), x.getValue());
-        }
-        return copyMap;
+        return new HashMap<>(map);
+    }
+    
+    public Map<Variable, Set<String>> copyMapDomain(Map<Variable, Set<String>> map) {
+        return new HashMap<>(map);
     }
 
     /**
@@ -152,4 +152,5 @@ public class Backtracking {
         }
         return null;
     }
+    
 }

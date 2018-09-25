@@ -2,6 +2,7 @@
 package representations;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -10,7 +11,7 @@ import java.util.Set;
  * this constraint is about the variables' values that their are all differents
  * 
  */
-public class AllDifferentConstraint extends AllCompareConstraint implements Constraint {
+public class AllDifferentConstraint extends AllCompareConstraint {
 
     /**
      * Build a instance of AllDifferentConstraint
@@ -69,8 +70,24 @@ public class AllDifferentConstraint extends AllCompareConstraint implements Cons
         return " != ";
     }
     
+    // domaines des variables pas encore affectées
     @Override
-    public boolean filtrer(Map<Variable, String> voiture, Map<Variable, Set<String>> dom) {
-        return false;
+    public boolean filtrer(Map<Variable, String> voiture, Map<Variable, Set<String>> domaines) {
+        ArrayList<String> values = new ArrayList<>();
+        boolean isFilter = false;
+        for (Variable var : this.variables) {
+            if (voiture.get(var) != null) {
+                Set<String> domVar = new HashSet<>(var.getScope());
+                for (String valueDom : domVar) {
+                    if (domVar.contains(valueDom) && values.contains(valueDom)) {
+                        domVar.remove(valueDom);
+                        isFilter = true;
+                    }
+                }
+                domaines.put(var,domVar);
+                values.add(voiture.get(var));
+            }
+        }
+        return isFilter;
     }
 }
