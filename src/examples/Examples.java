@@ -29,13 +29,15 @@ public class Examples {
     private Set<String> domaineCouleur;
     /** domain of boolean */
     private Set<String> domaineBool;
+    
+    private Map<String, Variable> variables;
 
     /**
      * Build all components on their values possible of a car
      */
     public Examples() {
         // composants
-        this.composants = new ArrayList<>(Arrays.asList("toit", "capot", "hayon","droit","gauche","porte"));
+        this.composants = new ArrayList<>(Arrays.asList("toit", "capot", "hayon","droit","gauche"));
         this.composants2 = new ArrayList<>(Arrays.asList("toit ouvrant", "sono"));
 
         // domaines
@@ -51,6 +53,15 @@ public class Examples {
 
         for(String str : composants2) {
           this.boolVariable.add(new Variable(str,new HashSet<>(domaineBool)));
+        }
+        
+        this.variables = new HashMap<>();
+        for (Variable var : this.couleur) {
+            this.variables.put(var.getName(), var);
+        }
+        
+        for(Variable var : this.boolVariable) {
+            this.variables.put(var.getName(), var);
         }
     }
     
@@ -121,20 +132,14 @@ public class Examples {
      */
     public Map<Variable, String> getVoiture1() {
         Map<Variable,String> voiture = initVoiture();
-
-        ArrayList<Variable> comp = new ArrayList<>(Arrays.asList(
-                new Variable("toit",this.domaineCouleur),
-                new Variable("hayon",this.domaineCouleur),
-                new Variable("droit",this.domaineCouleur),
-                new Variable("porte",this.domaineCouleur),
-                new Variable("gauche",this.domaineCouleur),
-                new Variable("toit ouvrant",this.domaineBool),
-                new Variable("sono",this.domaineBool)
+        
+        ArrayList<String> comp = new ArrayList<>(Arrays.asList(
+                "toit","hayon","droit","gauche","toit ouvrant","sono"
         ));
-        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("noir", "noir","blanc","rouge","blanc","true","true"));
+        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("noir", "noir","blanc","blanc","true","true"));
 
         for(int i = 0; i<comp.size(); i++) {
-            voiture.put(comp.get(i), valeurs.get(i));
+            voiture.put(this.variables.get(comp.get(i)), valeurs.get(i));
         }
         return voiture;
     }
@@ -146,19 +151,13 @@ public class Examples {
     public Map<Variable, String> getVoiture2() {
         Map<Variable,String> voiture = initVoiture();
 
-        ArrayList<Variable> comp = new ArrayList<>(Arrays.asList(
-                new Variable("toit",this.domaineCouleur),
-                new Variable("droit",this.domaineCouleur),
-                new Variable("gauche",this.domaineCouleur),
-                new Variable("capot",this.domaineCouleur),
-                new Variable("hayon",this.domaineCouleur),
-                new Variable("toit ouvrant",this.domaineBool),
-                new Variable("sono",this.domaineBool)
+        ArrayList<String> comp = new ArrayList<>(Arrays.asList(
+                "toit","hayon","droit","gauche","toit ouvrant","sono"
         ));
         ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("noir", "blanc", "noir","noir","blanc","true","true"));
 
         for(int i = 0; i<comp.size(); i++) {
-            voiture.put(comp.get(i), valeurs.get(i));
+            voiture.put(this.variables.get(comp.get(i)), valeurs.get(i));
         }
         return voiture;
     }
@@ -170,22 +169,13 @@ public class Examples {
     public Map<Variable, String> getVoiture3() {
         Map<Variable,String> voiture = initVoiture();
 
-        ArrayList<Variable> comp = new ArrayList<>(Arrays.asList(
-                new Variable("toit",this.domaineCouleur),
-                new Variable("capot",this.domaineCouleur),
-                new Variable("hayon",this.domaineCouleur),
-                new Variable("droit",this.domaineCouleur),
-                new Variable("gauche",this.domaineCouleur),
-                new Variable("toit ouvrant",this.domaineBool),
-                new Variable("sono",this.domaineBool)
+        ArrayList<String> comp = new ArrayList<>(Arrays.asList(
+                "toit","hayon","droit","gauche","toit ouvrant","sono"
         ));
         ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("noir", "noir", "blanc","balnc","blanc","true","true"));
 
-        Iterator<Variable> iter = comp.iterator();
-        int i = 0;
-        while(iter.hasNext()){
-            voiture.put(iter.next(), valeurs.get(i));
-            i++;
+        for(int i = 0; i<comp.size(); i++) {
+            voiture.put(this.variables.get(comp.get(i)), valeurs.get(i));
         }
         return voiture;
     }
@@ -197,18 +187,13 @@ public class Examples {
     public Map<Variable, String> getVoiture4() {
         Map<Variable,String> voiture = initVoiture();
 
-        ArrayList<Variable> comp = new ArrayList<>(Arrays.asList(
-                new Variable("toit",this.domaineCouleur),
-                new Variable("capot",this.domaineCouleur),
-                new Variable("hayon",this.domaineCouleur),
-                new Variable("droit",this.domaineCouleur),
-                new Variable("gauche",this.domaineCouleur),
-                new Variable("toit ouvrant",this.domaineBool)
+        ArrayList<String> comp = new ArrayList<>(Arrays.asList(
+                "toit","hayon","droit","gauche","toit ouvrant","sono"
         ));
         ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("rouge", "blanc", "rouge","noir","noir","false","true"));
 
         for(int i = 0; i<comp.size(); i++) {
-            voiture.put(comp.get(i), valeurs.get(i));
+            voiture.put(this.variables.get(comp.get(i)), valeurs.get(i));
         }
         return voiture;
     }
@@ -220,10 +205,15 @@ public class Examples {
      * @return example of constraint
      */
     public AllEqualConstraint getExemple1() {
-      Set<Variable> allEqual = new HashSet<>(Arrays.asList(
-                new Variable("toit",domaineCouleur),
-                new Variable("capot",domaineCouleur),
-                new Variable("hayon",domaineCouleur)));
+      Set<Variable> allEqual = new HashSet<>();
+      
+      ArrayList<String> comp = new ArrayList<>(Arrays.asList(
+                "toit", "capot", "hayon"
+        ));
+      
+      for(String str : comp) {
+          allEqual.add(this.variables.get(str));
+      }
       return new AllEqualConstraint(allEqual);
     }
 
@@ -232,12 +222,14 @@ public class Examples {
      * @return example of constraint
      */
     public ConstraintOr getExemple2() {
-      Set<Variable> setEqual = new HashSet<>(Arrays.asList(
-                new Variable("gauche",domaineCouleur),
-                new Variable("toit",domaineCouleur)));
-      Set<Variable> setEqual2 = new HashSet<>(Arrays.asList(
-                new Variable("droit",domaineCouleur),
-                new Variable("toit",domaineCouleur)));
+      Set<Variable> setEqual = new HashSet<>();
+      setEqual.add(this.variables.get("gauche"));
+      setEqual.add(this.variables.get("toit"));
+      
+      Set<Variable> setEqual2 = new HashSet<>();
+      setEqual2.add(this.variables.get("droit"));
+      setEqual2.add(this.variables.get("toit"));
+      
       AllEqualConstraint all1 = new AllEqualConstraint(setEqual);
       AllEqualConstraint all2 = new AllEqualConstraint(setEqual2);
       return new ConstraintOr(all1,all2);
@@ -252,8 +244,8 @@ public class Examples {
         Map<Variable,String> constraint = new HashMap<>();
 
         ArrayList<Variable> comp = new ArrayList<>();
-        comp.add(new Variable("droit",this.domaineCouleur));
-        comp.add(new Variable("gauche",this.domaineCouleur));
+        comp.add(this.variables.get("droit"));
+        comp.add(this.variables.get("gauche"));
 
         ArrayList<String> val = new ArrayList<>();
         val.add("noir");
@@ -272,10 +264,9 @@ public class Examples {
      * @return example of constraint
      */
     public IncompatibilityConstraint getExemple4(){
-      Set<Variable> nEqual = new HashSet<>(Arrays.asList(
-              new Variable("sono", this.domaineBool),
-              new Variable("toit ouvrant", this.domaineBool)
-      ));
+      Set<Variable> nEqual = new HashSet<>();
+      nEqual.add(this.variables.get("toit ouvrant"));
+      nEqual.add(this.variables.get("sono"));
 
       Map<Variable,String> conclusion = new HashMap<>();
       Iterator<Variable> iter = nEqual.iterator();
@@ -293,9 +284,9 @@ public class Examples {
      */
     public AllEqualConstraint getExemple5(){
      
-      Set<Variable> allEqual = new HashSet<>(Arrays.asList(
-                new Variable("hayon",domaineCouleur),
-                new Variable("gauche",domaineCouleur)));
+      Set<Variable> allEqual = new HashSet<>();
+      allEqual.add(this.variables.get("hayon"));
+      allEqual.add(this.variables.get("gauche"));
       AllEqualConstraint all = new AllEqualConstraint(allEqual);
       
       return all;
@@ -307,10 +298,9 @@ public class Examples {
      */
     public AllDifferentConstraint getExemple6(){
      
-      Set<Variable> allEqual = new HashSet<>(Arrays.asList(
-                new Variable("hayon",domaineCouleur),
-                new Variable("droit",domaineCouleur),
-                new Variable("porte",domaineCouleur)));
+      Set<Variable> allEqual = new HashSet<>();
+      allEqual.add(this.variables.get("hayon"));
+      allEqual.add(this.variables.get("droit"));
       AllDifferentConstraint all = new AllDifferentConstraint(allEqual);
       
       return all;

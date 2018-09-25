@@ -16,14 +16,14 @@ import representations.*;
 public class Backtracking {
 
     private Set<Variable> variables;
-    private Set<Constraint> constraints;
+    private ArrayList<Constraint> constraints;
 
     /**
      * Build a instance of backtracking
      * @param variables all variables possibles
      * @param constraints constraints of the probleme
      */
-    public Backtracking(Set<Variable> variables, Set<Constraint> constraints){
+    public Backtracking(Set<Variable> variables, ArrayList<Constraint> constraints){
         this.variables = variables;
         this.constraints = constraints;
         ArrayList<Constraint> cons = new ArrayList<>(constraints);
@@ -111,6 +111,14 @@ public class Backtracking {
         }
         return true;
     }
+    
+    public Map<Variable, String> copyMap(Map<Variable, String> map) {
+        Map<Variable, String> copyMap = new HashMap<>();
+        for (Map.Entry<Variable, String> x : map.entrySet()) {
+            copyMap.put(x.getKey(), x.getValue());
+        }
+        return copyMap;
+    }
 
     /**
      * Get a solution of car
@@ -139,9 +147,8 @@ public class Backtracking {
                 if (backVoiture != null) {
                     return backVoiture;
                 }
-            } else {
-                voiture.remove(var);
             }
+            voiture.remove(var);
         }
         return null;
     }

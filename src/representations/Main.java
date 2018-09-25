@@ -3,6 +3,7 @@ package representations;
 
 import java.util.Map;
 import examples.Examples;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import ppc.Backtracking;
@@ -21,8 +22,9 @@ public class Main {
         // voiture
         
         Map<Variable,String> voiture = ex.getVoiture1();
+        System.out.println(voiture);
 
-        AllDifferentConstraint allE1 = ex.getExemple6();
+        AllEqualConstraint allE1 = ex.getExemple1();
         System.out.println("Voiture : " + voiture);
         System.out.println(allE1 + " --> " + allE1.isSatisfiedBy(voiture) + "\n");
         
@@ -60,7 +62,7 @@ public class Main {
         AllEqualConstraint c5 = ex.getExemple5();
         AllDifferentConstraint c6 = ex.getExemple6();
 
-        Set<Constraint> constraints = new HashSet<>();
+        ArrayList<Constraint> constraints = new ArrayList<>();
         constraints.add(c1);
         constraints.add(c2);
         constraints.add(c3);

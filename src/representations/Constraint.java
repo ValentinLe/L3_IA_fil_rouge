@@ -22,4 +22,5 @@ public interface Constraint {
      * @return the result of the test
      */
     public boolean isSatisfiedBy(Map<Variable,String> voiture); 
+    
 }
