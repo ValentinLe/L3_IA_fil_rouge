@@ -2,6 +2,7 @@
 package representations;
 
 import java.util.Map;
+import java.util.Set;
 
 /**
  * this class it's a AND combination between two constraints
@@ -35,5 +36,10 @@ public class ConstraintAnd extends ConstraintBool implements Constraint {
     @Override
     public String getSeparator() {
         return " && ";
+    }
+    
+    @Override
+    public boolean filtrer(Map<Variable, String> voiture, Map<Variable, Set<String>> dom) {
+        return false;
     }
 }

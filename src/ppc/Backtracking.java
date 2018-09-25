@@ -143,7 +143,7 @@ public class Backtracking {
         for (String value : var.getDomaine()) {
             voiture.put(var, value);
             if (this.isCompatible(voiture)) {
-                backVoiture = backtracking(voiture, sortVar);
+                backVoiture = backtracking(copyMap(voiture), sortVar);
                 if (backVoiture != null) {
                     return backVoiture;
                 }

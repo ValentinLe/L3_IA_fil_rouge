@@ -155,4 +155,9 @@ public class Rule implements Constraint {
         return ch;
     }
 
+    @Override
+    public boolean filtrer(Map<Variable, String> voiture, Map<Variable, Set<String>> dom) {
+        return false;
+    }
+
 }

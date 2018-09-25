@@ -1,6 +1,7 @@
 
 package representations;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -53,6 +54,8 @@ public class AllEqualConstraint extends AllCompareConstraint implements Constrai
                         }
                         values = currentValue;
                     }
+                } else {
+                    return true;
                 }
             }
             return !this.not;
@@ -66,5 +69,30 @@ public class AllEqualConstraint extends AllCompareConstraint implements Constrai
     @Override
     public String getSeparator() {
         return " = ";
+    }
+    
+    // domaines des variables pas encore affectées
+    @Override
+    public boolean filtrer(Map<Variable, String> voiture, Map<Variable, Set<String>> domaines) {
+        
+        for (Variable var : this.variables) {
+            if (voiture.get(var) != null) {
+                for (Variable var2 : this.variables) {
+                    if (!var.equals(var2)) {
+                        Set<String> domVar2 = var2.getScope();
+                        Set<String> domVar3 = new HashSet<>();
+                        domVar3.addAll(domVar2);
+                        for (String str : domVar3) {
+                            if (domVar2.contains(str) && !str.equals(voiture.get(var))) {
+                                domVar2.remove(str);
+                            }
+                        }
+                        domaines.put(var2,domVar2);
+                    }
+                }
+            }
+        }
+        
+        return false;
     }
 }

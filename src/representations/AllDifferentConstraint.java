@@ -68,5 +68,9 @@ public class AllDifferentConstraint extends AllCompareConstraint implements Cons
     public String getSeparator() {
         return " != ";
     }
-
+    
+    @Override
+    public boolean filtrer(Map<Variable, String> voiture, Map<Variable, Set<String>> dom) {
+        return false;
+    }
 }

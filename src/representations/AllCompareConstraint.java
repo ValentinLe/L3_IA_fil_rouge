@@ -42,14 +42,6 @@ public abstract class AllCompareConstraint implements Constraint {
     }
 
     /**
-     * Test if the constraint is satisfied by a car
-     * @param voiture the car
-     * @return the result of the test
-     */
-    @Override
-    public abstract boolean isSatisfiedBy(Map<Variable, String> voiture);
-
-    /**
      * Getter of the string separator, "=" for equal, "!=" for different
      * @return the string separator
      */

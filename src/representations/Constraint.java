@@ -21,6 +21,8 @@ public interface Constraint {
      * @param voiture the car 
      * @return the result of the test
      */
-    public boolean isSatisfiedBy(Map<Variable,String> voiture); 
+    public boolean isSatisfiedBy(Map<Variable,String> voiture);
+    
+    public boolean filtrer(Map<Variable, String> voiture, Map<Variable, Set<String>> domaines);
     
 }
