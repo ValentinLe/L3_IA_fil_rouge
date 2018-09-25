@@ -228,7 +228,7 @@ public class Examples {
     }
 
     /**
-     * Get Example of constraint : (gauche = toit) || (droit = toit)
+     * Get Example of constraint : (gauche = toit) ou (droit = toit)
      * @return example of constraint
      */
     public ConstraintOr getExemple2() {
@@ -244,7 +244,7 @@ public class Examples {
     }
 
     /**
-     * Get Example of constraint : !(droit="noir" && gauche="noir")
+     * Get Example of constraint : !(droit="noir" & gauche="noir")
      * @return example of constraint
      */
     public IncompatibilityConstraint getExemple3(){
@@ -268,7 +268,7 @@ public class Examples {
     }
 
     /**
-     * Get Example of constraint : !(sono="true" && "toit ouvrant="true")
+     * Get Example of constraint : !(sono="true" & "toit ouvrant="true")
      * @return example of constraint
      */
     public IncompatibilityConstraint getExemple4(){

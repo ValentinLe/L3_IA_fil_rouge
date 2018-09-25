@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * The incompatibility is the rule : !(a=4 && b=5 && c=0 && ...)
+ * The incompatibility is the rule : !(a=4 & b=5 & c=0 & ...)
  * 
  */
 public class IncompatibilityConstraint extends Rule {

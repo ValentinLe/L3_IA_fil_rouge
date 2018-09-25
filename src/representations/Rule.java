@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * A Rule is a constraint that represents a implication :  a -> b
+ * A Rule is a constraint that represents a implication :  a implique b
  * 
  */
 
