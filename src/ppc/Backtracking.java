@@ -16,7 +16,7 @@ import representations.*;
  */
 public class Backtracking {
 
-    private Set<Variable> variables;
+    private ArrayList<Variable> variables;
     private ArrayList<Constraint> constraints;
 
     /**
@@ -25,8 +25,8 @@ public class Backtracking {
      * @param constraints constraints of the probleme
      */
     public Backtracking(Set<Variable> variables, ArrayList<Constraint> constraints){
-        this.variables = variables;
         this.constraints = constraints;
+        this.variables = this.getSortVariable(variables);
         
         for(int i = 1; i<(constraints.size()+1); i++) {
             System.out.println("c" + i + " : " + constraints.get(i-1));
@@ -66,11 +66,12 @@ public class Backtracking {
 
     /**
      * Sort a set of variable in decreasing order on their occurences
-     * @return the ordered list
+     * @param variablesNontriees the set of variable to sort
+     * @return a copy of the list ordered
      */
-    public ArrayList<Variable> getSortVariable() {
+    public ArrayList<Variable> getSortVariable(Set<Variable> variablesNontriees) {
         ArrayList<Variable> listVar = new ArrayList<>();
-        Iterator<Variable> iter = this.variables.iterator();
+        Iterator<Variable> iter = variablesNontriees.iterator();
         while(iter.hasNext()) {
             Variable var = iter.next();
             int valueVar = heuristic(var);
@@ -134,7 +135,7 @@ public class Backtracking {
      * @return the solution or null if the solution doesn't exist
      */
     public Map<Variable, String> solution() {
-        return backtracking(new HashMap<>(), getSortVariable());
+        return backtracking(new HashMap<>(), this.variables);
     }
 
     /**

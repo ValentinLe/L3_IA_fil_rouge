@@ -66,19 +66,23 @@ public class Main {
         constraints.add(c2);
         constraints.add(c3);
         constraints.add(c4);
-        //constraints.add(c5);
-        //constraints.add(c6);
+        constraints.add(c5);
+        constraints.add(c6);
         
         
         Backtracking back = new Backtracking(variables, constraints);
+        /*
         Map<Variable, String> voiture1 = back.solution();
         System.out.println("backtrack : " + voiture1);
+        */
+        
         
         Map<Variable, String> voiture = ex.getVoiture1();
         Map<Variable, Set<String>> map = back.getMapVariableNotAssigned(voiture);
         System.out.println(map);
-        System.out.println(c1.filtrer(voiture, map));
+        System.out.println(c6.filtrer(voiture, map));
         System.out.println(map);
+        
         
     }
 

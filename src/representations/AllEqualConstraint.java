@@ -71,57 +71,6 @@ public class AllEqualConstraint extends AllCompareConstraint {
         return " = ";
     }
     
-    /*
-    // domaines des variables pas encore affectées
-    @Override
-    public boolean filtrer(Map<Variable, String> voiture, Map<Variable, Set<String>> domaines) {
-        
-        for (Variable var : this.variables) {
-            if (voiture.get(var) != null) {
-                for (Variable var2 : this.variables) {
-                    if (!var.equals(var2)) {
-                        Set<String> domVar2 = var2.getDomaine();
-                        Set<String> domVar3 = new HashSet<>();
-                        domVar3.addAll(domVar2);
-                        for (String str : domVar3) {
-                            if (domVar2.contains(str) && !str.equals(voiture.get(var))) {
-                                domVar2.remove(str);
-                            }
-                        }
-                        domaines.put(var2,domVar2);
-                    }
-                }
-            }
-        }
-        
-        return false;
-    }
-    */
-    /*
-    // domaines des variables pas encore affectées
-    @Override
-    public boolean filtrer(Map<Variable, String> voiture, Map<Variable, Set<String>> domaines) {
-        String value = null;
-        boolean isFilter = false;
-        for (Variable var : this.variables) {
-            if (voiture.get(var) == null) {
-                System.out.println(var);
-                if (value == null) {
-                    value = voiture.get(var);
-                }
-                Set<String> domVar = new HashSet<>(var.getDomaine());
-                for (String valueDom : var.getDomaine()) {
-                    if (var.getDomaine().contains(valueDom) && !valueDom.equals(value)) {
-                        domVar.remove(valueDom);
-                        isFilter = true;
-                    }
-                }
-                domaines.put(var,domVar);
-            }
-        }
-        return isFilter;
-    }*/
-    
     @Override
     public boolean filtrer(Map<Variable, String> voiture, Map<Variable, Set<String>> domaines) {
         boolean isFilter = false;

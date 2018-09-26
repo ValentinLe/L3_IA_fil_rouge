@@ -136,7 +136,7 @@ public class Examples {
         ArrayList<String> comp = new ArrayList<>(Arrays.asList(
                 "toit","hayon","droit","gauche","toit ouvrant","sono"
         ));
-        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("noir", "noir","blanc","blanc","true","true"));
+        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("noir", "blanc","blanc","blanc","true","true"));
 
         for(int i = 0; i<comp.size(); i++) {
             voiture.put(this.variables.get(comp.get(i)), valeurs.get(i));
@@ -300,7 +300,8 @@ public class Examples {
      
       Set<Variable> allEqual = new HashSet<>();
       allEqual.add(this.variables.get("hayon"));
-      allEqual.add(this.variables.get("droit"));
+      allEqual.add(this.variables.get("toit"));
+      allEqual.add(this.variables.get("capot"));
       AllDifferentConstraint all = new AllDifferentConstraint(allEqual);
       
       return all;

@@ -73,19 +73,23 @@ public class AllDifferentConstraint extends AllCompareConstraint {
     // domaines des variables pas encore affectées
     @Override
     public boolean filtrer(Map<Variable, String> voiture, Map<Variable, Set<String>> domaines) {
-        ArrayList<String> values = new ArrayList<>();
+        Set<String> values = new HashSet<>();
         boolean isFilter = false;
         for (Variable var : this.variables) {
             if (voiture.get(var) != null) {
-                Set<String> domVar = new HashSet<>(var.getDomaine());
-                for (String valueDom : domVar) {
-                    if (domVar.contains(valueDom) && values.contains(valueDom)) {
-                        domVar.remove(valueDom);
-                        isFilter = true;
-                    }
-                }
-                domaines.put(var,domVar);
                 values.add(voiture.get(var));
+            }
+        }
+        for (Variable var : this.variables) {
+            Set<String> copyDom = new HashSet<>(var.getDomaine());
+            for (String str : var.getDomaine()) {
+                if (values.contains(str)) {
+                    copyDom.remove(str);
+                    isFilter = true;
+                }
+            }
+            if (domaines.containsKey(var)) {
+                domaines.put(var, copyDom);
             }
         }
         return isFilter;
