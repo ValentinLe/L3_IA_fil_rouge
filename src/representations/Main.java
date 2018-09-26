@@ -19,7 +19,7 @@ public class Main {
 
 
         // voiture
-        
+        /*
         Map<Variable,String> voiture = ex.getVoiture1();
         System.out.println(voiture);
 
@@ -28,7 +28,7 @@ public class Main {
         System.out.println(allE1 + " --> " + allE1.isSatisfiedBy(voiture) + "\n");
         
         //--------------------------------------------------------------//
-        /*
+        
         Map<Variable,String> voiture2 = ex.getVoiture2();
 
         ConstraintOr dgt = ex.getExemple2();
@@ -73,6 +73,12 @@ public class Main {
         Backtracking back = new Backtracking(variables, constraints);
         Map<Variable, String> voiture1 = back.solution();
         System.out.println("backtrack : " + voiture1);
+        
+        Map<Variable, String> voiture = ex.getVoiture1();
+        Map<Variable, Set<String>> map = back.getMapVariableNotAssigned(voiture);
+        System.out.println(map);
+        System.out.println(c1.filtrer(voiture, map));
+        System.out.println(map);
         
     }
 

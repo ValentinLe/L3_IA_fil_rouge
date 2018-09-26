@@ -80,7 +80,7 @@ public class AllEqualConstraint extends AllCompareConstraint {
             if (voiture.get(var) != null) {
                 for (Variable var2 : this.variables) {
                     if (!var.equals(var2)) {
-                        Set<String> domVar2 = var2.getScope();
+                        Set<String> domVar2 = var2.getDomaine();
                         Set<String> domVar3 = new HashSet<>();
                         domVar3.addAll(domVar2);
                         for (String str : domVar3) {
@@ -97,25 +97,50 @@ public class AllEqualConstraint extends AllCompareConstraint {
         return false;
     }
     */
-    
+    /*
     // domaines des variables pas encore affectées
     @Override
     public boolean filtrer(Map<Variable, String> voiture, Map<Variable, Set<String>> domaines) {
         String value = null;
         boolean isFilter = false;
         for (Variable var : this.variables) {
-            if (voiture.get(var) != null) {
+            if (voiture.get(var) == null) {
+                System.out.println(var);
                 if (value == null) {
                     value = voiture.get(var);
                 }
-                Set<String> domVar = new HashSet<>(var.getScope());
-                for (String valueDom : domVar) {
-                    if (domVar.contains(valueDom) && !valueDom.equals(value)) {
+                Set<String> domVar = new HashSet<>(var.getDomaine());
+                for (String valueDom : var.getDomaine()) {
+                    if (var.getDomaine().contains(valueDom) && !valueDom.equals(value)) {
                         domVar.remove(valueDom);
                         isFilter = true;
                     }
                 }
                 domaines.put(var,domVar);
+            }
+        }
+        return isFilter;
+    }*/
+    
+    @Override
+    public boolean filtrer(Map<Variable, String> voiture, Map<Variable, Set<String>> domaines) {
+        boolean isFilter = false;
+        String value = null;
+        for (Variable var : this.variables) {
+            if (value == null && voiture.get(var) != null) {
+                value = voiture.get(var);
+            }
+        }
+        for (Variable var : this.variables) {
+            Set<String> copyDom = new HashSet<>(var.getDomaine());
+            for (String str : var.getDomaine()) {
+                if (!str.equals(value)) {
+                    copyDom.remove(str);
+                    isFilter = true;
+                }
+            }
+            if (domaines.containsKey(var)) {
+                domaines.put(var, copyDom);
             }
         }
         return isFilter;

@@ -77,7 +77,7 @@ public class AllDifferentConstraint extends AllCompareConstraint {
         boolean isFilter = false;
         for (Variable var : this.variables) {
             if (voiture.get(var) != null) {
-                Set<String> domVar = new HashSet<>(var.getScope());
+                Set<String> domVar = new HashSet<>(var.getDomaine());
                 for (String valueDom : domVar) {
                     if (domVar.contains(valueDom) && values.contains(valueDom)) {
                         domVar.remove(valueDom);

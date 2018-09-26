@@ -60,7 +60,7 @@ public class GenerationTesting {
         
         while(iter.hasNext()){
             Variable var = iter.next();
-            voiture.put(var, getElement(var.getScope()));
+            voiture.put(var, getElement(var.getDomaine()));
         }
         
         return voiture;

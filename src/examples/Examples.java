@@ -131,7 +131,7 @@ public class Examples {
      * @return example of car
      */
     public Map<Variable, String> getVoiture1() {
-        Map<Variable,String> voiture = initVoiture();
+        Map<Variable,String> voiture = new HashMap<>();
         
         ArrayList<String> comp = new ArrayList<>(Arrays.asList(
                 "toit","hayon","droit","gauche","toit ouvrant","sono"
@@ -149,7 +149,7 @@ public class Examples {
      * @return example of car
      */
     public Map<Variable, String> getVoiture2() {
-        Map<Variable,String> voiture = initVoiture();
+        Map<Variable,String> voiture = new HashMap<>();
 
         ArrayList<String> comp = new ArrayList<>(Arrays.asList(
                 "toit","hayon","droit","gauche","toit ouvrant","sono"
@@ -167,7 +167,7 @@ public class Examples {
      * @return example of car
      */
     public Map<Variable, String> getVoiture3() {
-        Map<Variable,String> voiture = initVoiture();
+        Map<Variable,String> voiture = new HashMap<>();
 
         ArrayList<String> comp = new ArrayList<>(Arrays.asList(
                 "toit","hayon","droit","gauche","toit ouvrant","sono"
@@ -185,7 +185,7 @@ public class Examples {
      * @return example of car
      */
     public Map<Variable, String> getVoiture4() {
-        Map<Variable,String> voiture = initVoiture();
+        Map<Variable,String> voiture = new HashMap<>();
 
         ArrayList<String> comp = new ArrayList<>(Arrays.asList(
                 "toit","hayon","droit","gauche","toit ouvrant","sono"

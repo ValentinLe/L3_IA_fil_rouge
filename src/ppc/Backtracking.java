@@ -4,6 +4,7 @@ package ppc;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -56,10 +57,8 @@ public class Backtracking {
     public int heuristic(Variable var) {
         int cpt = 0;
         for(Constraint c : this.constraints) {
-            for(Variable v : c.getScope()) {
-                if (var.equals(v)) {
-                    cpt += 1;
-                }
+            if (c.getScope().contains(var)) {
+                cpt += 1;
             }
         }
         return cpt;
@@ -118,6 +117,16 @@ public class Backtracking {
     
     public Map<Variable, Set<String>> copyMapDomain(Map<Variable, Set<String>> map) {
         return new HashMap<>(map);
+    }
+    
+    public Map<Variable, Set<String>> getMapVariableNotAssigned(Map<Variable, String> voiture) {
+        Map<Variable, Set<String>> map = new HashMap<>();
+        for(Variable var : this.variables) {
+            if (!voiture.containsKey(var)) {
+                map.put(var, new HashSet<>(var.getDomaine()));
+            }
+        }
+        return map;
     }
 
     /**

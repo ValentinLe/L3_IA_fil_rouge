@@ -34,14 +34,6 @@ public class Variable implements Comparable<Variable> {
     }
     
     /**
-     * Getter of the variable's scope
-     * @return the variable's scope
-     */
-    public Set<String> getScope(){
-        return this.domaine;
-    }
-    
-    /**
      * Getter of the variable's domain
      * @return the variable's domain
      */
