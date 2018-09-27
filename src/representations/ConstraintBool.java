@@ -59,4 +59,6 @@ public abstract class ConstraintBool implements Constraint {
         return "(" + this.c1 + ")" + this.getSeparator() + "(" + this.c2 + ")";
     }
     
+    public abstract boolean filtrer(Map<Variable, String> voiture, Map<Variable, Set<String>> domaines);
+    
 }

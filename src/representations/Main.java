@@ -60,28 +60,32 @@ public class Main {
         IncompatibilityConstraint c4 = ex.getExemple4();
         AllEqualConstraint c5 = ex.getExemple5();
         AllDifferentConstraint c6 = ex.getExemple6();
+        Disjunction c7 = ex.getExemple7();
 
         ArrayList<Constraint> constraints = new ArrayList<>();
         constraints.add(c1);
         constraints.add(c2);
         constraints.add(c3);
         constraints.add(c4);
-        constraints.add(c5);
-        constraints.add(c6);
+        //constraints.add(c5);
+        //constraints.add(c6);
+        //constraints.add(c7);
         
         
         Backtracking back = new Backtracking(variables, constraints);
-        /*
+        
         Map<Variable, String> voiture1 = back.solution();
         System.out.println("backtrack : " + voiture1);
-        */
+        Set<Map<Variable, String>> sols = back.solutions();
+        System.out.println("Nombre de solutions : " + sols.size());
+        System.out.println(sols);
         
-        
+        /*
         Map<Variable, String> voiture = ex.getVoiture1();
         Map<Variable, Set<String>> map = back.getMapVariableNotAssigned(voiture);
         System.out.println(map);
-        System.out.println(c6.filtrer(voiture, map));
-        System.out.println(map);
+        System.out.println(c7.filtrer(voiture, map));
+        System.out.println(map);*/
         
         
     }

@@ -134,9 +134,9 @@ public class Examples {
         Map<Variable,String> voiture = new HashMap<>();
         
         ArrayList<String> comp = new ArrayList<>(Arrays.asList(
-                "toit","hayon","droit","gauche","toit ouvrant","sono"
+                "toit","hayon","droit","toit ouvrant","sono"
         ));
-        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("noir", "blanc","blanc","blanc","true","true"));
+        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("noir", "blanc","blanc","true","true"));
 
         for(int i = 0; i<comp.size(); i++) {
             voiture.put(this.variables.get(comp.get(i)), valeurs.get(i));
@@ -305,5 +305,24 @@ public class Examples {
       AllDifferentConstraint all = new AllDifferentConstraint(allEqual);
       
       return all;
+    }
+    
+    public Disjunction getExemple7() {
+        Map<Variable, String> constraint = new HashMap<>();
+
+        ArrayList<Variable> comp = new ArrayList<>();
+        comp.add(this.variables.get("droit"));
+        comp.add(this.variables.get("gauche"));
+
+        ArrayList<String> val = new ArrayList<>();
+        val.add("noir");
+        val.add("blanc");
+
+        constraint.put(comp.get(0), val.get(0));
+        constraint.put(comp.get(1), val.get(1));
+
+        Disjunction compNoir = new Disjunction(new HashSet<>(comp), constraint);
+
+        return compNoir;
     }
 }

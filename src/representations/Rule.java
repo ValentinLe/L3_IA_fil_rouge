@@ -1,6 +1,7 @@
 
 package representations;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -94,12 +95,12 @@ public class Rule implements Constraint {
 
         p = isPartSatisfied(voiture, this.premisse, p);
         if (p == null) {
-            return !this.not;
+            return true;
         }
 
         c = isPartSatisfied(voiture, this.conclusion, c);
         if (c == null) {
-            return !this.not;
+            return true;
         }
 
         if (this.not) {
@@ -154,9 +155,73 @@ public class Rule implements Constraint {
         }
         return ch;
     }
-
+    /*
     @Override
-    public boolean filtrer(Map<Variable, String> voiture, Map<Variable, Set<String>> dom) {
+    public boolean filtrer(Map<Variable, String> voiture, Map<Variable, Set<String>> domaines) {
+        boolean isFilter = false;
+        
+        if (this.premisse != null && this.isPartSatisfied(voiture, this.premisse, true)) {
+            Set<Variable> keyPremisse = this.premisse.keySet();
+            for (Variable var : keyPremisse) {
+                if (voiture.get(var) == null) {
+                    for (Variable varDom : domaines.keySet()) {
+                        if (keyPremisse.contains(varDom)) {
+                            Set<String> copyDom = new HashSet<>(varDom.getDomaine());
+                            for (String str : varDom.getDomaine()) {
+                                if (str.equals(this.premisse.get(var))) {
+                                    copyDom.remove(str);
+                                    isFilter = true;
+                                }
+                            }
+                            domaines.put(varDom, copyDom);
+                        }
+                    }
+                }
+            }
+        }
+        
+        if (this.conclusion != null && this.isPartSatisfied(voiture, this.conclusion, false)) {
+            
+        }
+        
+        return isFilter;
+    }*/
+    
+    public int countVariable(Map<Variable, Set<String>> domaines) {
+        int cpt = 0;
+        for (Variable var : this.conclusion.keySet()) {
+            if (domaines.containsKey(var)) {
+                cpt += 1;
+            }
+            if (cpt > 1) {
+                return cpt;
+            }
+        }
+        return cpt;
+    }
+    
+    @Override
+    public boolean filtrer(Map<Variable, String> voiture, Map<Variable, Set<String>> domaines) {
+        
+        if (this.premisse != null && this.isPartSatisfied(voiture, this.premisse, true)) {
+            if (this.conclusion != null) {
+                if (countVariable(domaines) == 1) {
+                    Variable varNotAssigned = null;
+                    for (Variable var : this.conclusion.keySet()) {
+                        if (voiture.get(var).equals(this.conclusion.get(var))){
+                            return false;
+                        }
+                        if (voiture.get(var) == null) {
+                            varNotAssigned = var;
+                        }
+                    }
+                    Set<String> domaineVarNotAssi = new HashSet<>();
+                    domaineVarNotAssi.add(this.conclusion.get(varNotAssigned));
+                    domaines.put(varNotAssigned, domaineVarNotAssi);
+                }
+            }
+        }
+        
         return false;
     }
 

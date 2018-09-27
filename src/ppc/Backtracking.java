@@ -137,6 +137,12 @@ public class Backtracking {
     public Map<Variable, String> solution() {
         return backtracking(new HashMap<>(), this.variables);
     }
+    
+    public Set<Map<Variable, String>> solutions() {
+        Set<Map<Variable, String>> solutions = new HashSet<>();
+        backtrackingSols(solutions, new HashMap<>(), this.variables);
+        return solutions;
+    }
 
     /**
      * The Backtracking Algorithm
@@ -153,7 +159,33 @@ public class Backtracking {
         for (String value : var.getDomaine()) {
             voiture.put(var, value);
             if (this.isCompatible(voiture)) {
-                backVoiture = backtracking(copyMap(voiture), sortVar);
+                backVoiture = backtracking(voiture, sortVar);
+                if (backVoiture != null) {
+                    return backVoiture;
+                }
+            }
+            voiture.remove(var);
+        }
+        return null;
+    }
+    
+    /**
+     * The Backtracking Algorithm
+     * @param voiture the car
+     * @param sortVar list of variables
+     * @return the solution or null if the solution doesn't exist
+     */
+    public Map<Variable, String> backtrackingSols(Set<Map<Variable, String>> solutions, Map<Variable, String> voiture, ArrayList<Variable> sortVar) {
+        if (this.isComplete(voiture, sortVar)) {
+            solutions.add(copyMap(voiture));
+            return null;
+        }
+        Variable var = choiceVar(voiture, sortVar);
+        Map<Variable, String> backVoiture;
+        for (String value : var.getDomaine()) {
+            voiture.put(var, value);
+            if (this.isCompatible(voiture)) {
+                backVoiture = backtrackingSols(solutions, copyMap(voiture), sortVar);
                 if (backVoiture != null) {
                     return backVoiture;
                 }
