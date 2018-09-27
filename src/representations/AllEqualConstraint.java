@@ -39,11 +39,9 @@ public class AllEqualConstraint extends AllCompareConstraint {
         if (voiture.isEmpty() || voiture.size()==1) {
             return true;
         } else {
-            Iterator<Variable> iter = this.variables.iterator();
             String values = null;
             String currentValue = null;
-            while(iter.hasNext()) {
-                Variable var = iter.next();
+            for (Variable var : this.variables) {
                 currentValue = voiture.get(var);
                 if (currentValue != null) {
                     if (values == null) {
