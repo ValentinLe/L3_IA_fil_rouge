@@ -60,23 +60,22 @@ public class Rule implements Constraint {
      * @return the result of the test or null if one of the variable of the part are a null value
      */
     public Boolean isPartSatisfied(Map<Variable, String> voiture, Map<Variable, String> part, boolean testPart) {
-        if (part != null) {
-            for (Variable var : part.keySet()) {
-                if (voiture.get(var) == null) {
-                    return null;
+        boolean res = testPart;
+        for (Variable var : part.keySet()) {
+            if (voiture.get(var) == null) {
+                return null;
+            }
+            if (testPart) {
+                if(!voiture.get(var).equals(part.get(var))) {
+                    res = false;
                 }
-                if (testPart) {
-                    if(!voiture.get(var).equals(part.get(var))) {
-                        testPart = false;
-                    }
-                } else {
-                    if(voiture.get(var).equals(part.get(var))){
-                        testPart = true;
-                    }
+            } else {
+                if(voiture.get(var).equals(part.get(var))){
+                    res = true;
                 }
             }
         }
-        return testPart;
+        return res;
     }
     
     /**
@@ -88,21 +87,24 @@ public class Rule implements Constraint {
     public boolean isSatisfiedBy(Map<Variable,String> voiture) {
         Boolean p = true;
         Boolean c = false;
-
         if (voiture.isEmpty()) {
             return !this.not;
         }
-
-        p = isPartSatisfied(voiture, this.premisse, p);
-        if (p == null) {
-            return true;
+        
+        if (this.premisse != null) {
+            p = isPartSatisfied(voiture, this.premisse, p);
+            if (p == null) {
+                return true;
+            }
         }
-
-        c = isPartSatisfied(voiture, this.conclusion, c);
-        if (c == null) {
-            return true;
+        
+        if (this.conclusion != null) {
+            c = isPartSatisfied(voiture, this.conclusion, c);
+            if (c == null) {
+                return true;
+            }
         }
-
+        
         if (this.not) {
             return p && !c;
         } else {

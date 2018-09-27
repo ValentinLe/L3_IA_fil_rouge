@@ -73,12 +73,17 @@ public class Main {
         
         
         Backtracking back = new Backtracking(variables, constraints);
-        
+        /*
         Map<Variable, String> voiture1 = back.solution();
         System.out.println("backtrack : " + voiture1);
+        */
+        
         Set<Map<Variable, String>> sols = back.solutions();
+        
         System.out.println("Nombre de solutions : " + sols.size());
-        System.out.println(sols);
+        for (Map<Variable, String> voiture : sols) {
+            System.out.println(voiture + "\n");
+        }
         
         /*
         Map<Variable, String> voiture = ex.getVoiture1();
