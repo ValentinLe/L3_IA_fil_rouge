@@ -204,27 +204,27 @@ public class Rule implements Constraint {
     
     @Override
     public boolean filtrer(Map<Variable, String> voiture, Map<Variable, Set<String>> domaines) {
-        
-        if (this.premisse != null && this.isPartSatisfied(voiture, this.premisse, true)) {
-            if (this.conclusion != null) {
-                if (countVariable(domaines) == 1) {
-                    Variable varNotAssigned = null;
-                    for (Variable var : this.conclusion.keySet()) {
-                        if (voiture.get(var).equals(this.conclusion.get(var))){
-                            return false;
-                        }
-                        if (voiture.get(var) == null) {
-                            varNotAssigned = var;
-                        }
+        boolean isFilter = false;
+        if (this.conclusion != null) {
+            System.out.println(countVariable(domaines));
+            if (countVariable(domaines) == 1) {
+                Variable varNotAssigned = null;
+                for (Variable var : this.conclusion.keySet()) {
+                    String valueVoiture = voiture.get(var);
+                    if (valueVoiture != null && voiture.get(var).equals(this.conclusion.get(var))){
+                        return false;
                     }
-                    Set<String> domaineVarNotAssi = new HashSet<>();
-                    domaineVarNotAssi.add(this.conclusion.get(varNotAssigned));
-                    domaines.put(varNotAssigned, domaineVarNotAssi);
+                    if (voiture.get(var) == null) {
+                        varNotAssigned = var;
+                    }
                 }
+                Set<String> domaineVarNotAssi = new HashSet<>();
+                domaineVarNotAssi.add(this.conclusion.get(varNotAssigned));
+                domaines.put(varNotAssigned, domaineVarNotAssi);
+                isFilter = true;
             }
         }
-        
-        return false;
+        return isFilter;
     }
 
 }

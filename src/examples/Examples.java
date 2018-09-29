@@ -41,7 +41,7 @@ public class Examples {
         this.composants2 = new ArrayList<>(Arrays.asList("toit ouvrant", "sono"));
 
         // domaines
-        this.domaineCouleur = new HashSet<>(Arrays.asList("noir","blanc"));
+        this.domaineCouleur = new HashSet<>(Arrays.asList("noir","blanc","rouge"));
         this.domaineBool = new HashSet<>(Arrays.asList("true","false"));
 
         // Set<Variable>
@@ -111,22 +111,6 @@ public class Examples {
     // Voitures
 
     /**
-     * Initialize all varaiables to null in a car
-     * @return example the car initialized
-     */
-    public Map<Variable,String> initVoiture() {
-        Map<Variable,String> voiture = new HashMap<>();
-
-        for(int i = 0; i<this.couleur.size(); i++) {
-            voiture.put(this.couleur.get(i), null);
-        }
-        for(int i = 0; i<this.boolVariable.size(); i++) {
-            voiture.put(this.boolVariable.get(i), null);
-        }
-        return voiture;
-    }
-
-    /**
      * Get Example of car
      * @return example of car
      */
@@ -134,9 +118,9 @@ public class Examples {
         Map<Variable,String> voiture = new HashMap<>();
         
         ArrayList<String> comp = new ArrayList<>(Arrays.asList(
-                "gauche","toit","droit"
+                "droit","toit"
         ));
-        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("noir", "noir","blanc"));
+        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("noir", "noir"));
 
         for(int i = 0; i<comp.size(); i++) {
             voiture.put(this.variables.get(comp.get(i)), valeurs.get(i));

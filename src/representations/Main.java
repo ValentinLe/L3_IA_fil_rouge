@@ -50,8 +50,8 @@ public class Main {
         IncompatibilityConstraint nEqu = ex.getExemple4();
         System.out.println("Voiture : " + voiture4);
         System.out.println(nEqu + " --> " + nEqu.isSatisfiedBy(voiture4) + "\n");
-        */
         
+        */
         Set<Variable> variables = ex.getVariables();
         
         AllEqualConstraint c1 = ex.getExemple1();
@@ -76,21 +76,21 @@ public class Main {
         /*
         Map<Variable, String> voiture1 = back.solution();
         System.out.println("backtrack : " + voiture1);
-        */
+        
         
         Set<Map<Variable, String>> sols = back.solutions();
         
         System.out.println("Nombre de solutions : " + sols.size());
         for (Map<Variable, String> voiture : sols) {
             System.out.println(voiture + "\n");
-        }
+        }*/
         
-        /*
+        
         Map<Variable, String> voiture = ex.getVoiture1();
         Map<Variable, Set<String>> map = back.getMapVariableNotAssigned(voiture);
         System.out.println(map);
         System.out.println(c7.filtrer(voiture, map));
-        System.out.println(map);*/
+        System.out.println(map);
         
         
     }
