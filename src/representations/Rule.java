@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * A Rule is a constraint that represents a implication :  a implique b
+ * A Rule is a constraint that represents a implication :  a implies b
  * 
  */
 
@@ -57,25 +57,29 @@ public class Rule implements Constraint {
      * @param voiture the car of the test
      * @param part the part (premise or conclusion)
      * @param testPart the boolean of the initialization of test
-     * @return the result of the test or null if one of the variable of the part are a null value
+     * @return the result of the test or null if at least one of variables of the part are a null value
      */
     public Boolean isPartSatisfied(Map<Variable, String> voiture, Map<Variable, String> part, boolean testPart) {
-        boolean res = testPart;
-        for (Variable var : part.keySet()) {
+        for (Variable var : part.keySet()) { // for all of variables in the part
             if (voiture.get(var) == null) {
+                // if the variable isn't defined in the car
                 return null;
             }
             if (testPart) {
+                // if the part is the premisse
                 if(!voiture.get(var).equals(part.get(var))) {
-                    res = false;
+                    // if one of the values of the variable doesn't match the constraint
+                    return false;
                 }
             } else {
+                // if the part is the conclusion
                 if(voiture.get(var).equals(part.get(var))){
-                    res = true;
+                    // if one of the values of the variable does match the constraint
+                    return true;
                 }
             }
         }
-        return res;
+        return testPart; // boolean of the part unchanged
     }
     
     /**
@@ -88,24 +92,30 @@ public class Rule implements Constraint {
         Boolean p = true;
         Boolean c = false;
         if (voiture.isEmpty()) {
-            return !this.not;
+            // if there are no variables in the car
+            return true;
         }
         
         if (this.premisse != null) {
+            // if there is a premisse
             p = isPartSatisfied(voiture, this.premisse, p);
             if (p == null) {
+                // if there is at least one variable of the premisse not defined in the car
                 return true;
             }
         }
         
         if (this.conclusion != null) {
+            // if there is a conclusion
             c = isPartSatisfied(voiture, this.conclusion, c);
             if (c == null) {
+                // if there is at least one variable of the conclusion not defined in the car
                 return true;
             }
         }
         
         if (this.not) {
+            // return !(!p || c) if the constraint is not(constraint)
             return p && !c;
         } else {
             return !p || c;
@@ -122,10 +132,13 @@ public class Rule implements Constraint {
         String ch = "";
         if (part != null) {
            Iterator<Variable> iter = part.keySet().iterator();
-           while(iter.hasNext()){
+           while (iter.hasNext()) {
+               // iteration on the variables of the part
                Variable var = iter.next();
+               // add string : variable = value
                ch += var.getName()+ " = " + part.get(var);
                if (iter.hasNext()) {
+                   // if there is a next variable in the part
                    ch += " " + separator + " ";
                }
            }
@@ -141,61 +154,38 @@ public class Rule implements Constraint {
     public String toString() {
         String ch = "";
         if (this.conclusion == null && !this.not) {
+            // if there is a conclusion and the constraint isn't not(constraint)
             ch += "!(";
         }
-
+        
+        // add the "toString" of the premisse with the separator
         ch += this.getStringMap(this.premisse, "&&");
 
         if (this.premisse != null && this.conclusion != null) {
+            // if there are a premisse and a conclusion
             ch += " -> ";
         }
-
+        
+        // add the "toString" of the conclusion with the separator
         ch += this.getStringMap(this.conclusion, "||");
 
         if (this.conclusion == null && !this.not) {
+            // if there is a conclusion and the constraint isn't not(constraint)
             ch += ")";
         }
         return ch;
     }
-    /*
-    @Override
-    public boolean filtrer(Map<Variable, String> voiture, Map<Variable, Set<String>> domaines) {
-        boolean isFilter = false;
-        
-        if (this.premisse != null && this.isPartSatisfied(voiture, this.premisse, true)) {
-            Set<Variable> keyPremisse = this.premisse.keySet();
-            for (Variable var : keyPremisse) {
-                if (voiture.get(var) == null) {
-                    for (Variable varDom : domaines.keySet()) {
-                        if (keyPremisse.contains(varDom)) {
-                            Set<String> copyDom = new HashSet<>(varDom.getDomaine());
-                            for (String str : varDom.getDomaine()) {
-                                if (str.equals(this.premisse.get(var))) {
-                                    copyDom.remove(str);
-                                    isFilter = true;
-                                }
-                            }
-                            domaines.put(varDom, copyDom);
-                        }
-                    }
-                }
-            }
-        }
-        
-        if (this.conclusion != null && this.isPartSatisfied(voiture, this.conclusion, false)) {
-            
-        }
-        
-        return isFilter;
-    }*/
     
-    public int countVariable(Map<Variable, Set<String>> domaines) {
+    private int countVariable(Map<Variable, Set<String>> domaines) {
+        // counter of variable in the domaines of varibale not defined, that there are in this constraint
         int cpt = 0;
-        for (Variable var : this.conclusion.keySet()) {
+        for (Variable var : this.conclusion.keySet()) { // for all variables in the conclusion 
             if (domaines.containsKey(var)) {
+                // if variable is not defined in the car
                 cpt += 1;
             }
             if (cpt > 1) {
+                // it's usefull tu continue when the value of the counter are more than one
                 return cpt;
             }
         }
@@ -206,18 +196,23 @@ public class Rule implements Constraint {
     public boolean filtrer(Map<Variable, String> voiture, Map<Variable, Set<String>> domaines) {
         boolean isFilter = false;
         if (this.conclusion != null) {
-            System.out.println(countVariable(domaines));
+            // if there is a conclusion
             if (countVariable(domaines) == 1) {
+                // if there is only one variable not difined in the conclusion
                 Variable varNotAssigned = null;
-                for (Variable var : this.conclusion.keySet()) {
+                for (Variable var : this.conclusion.keySet()) { // for all variables in the conclusion
+                    
                     String valueVoiture = voiture.get(var);
                     if (valueVoiture != null && voiture.get(var).equals(this.conclusion.get(var))){
+                        // if the car has the variable and the value corresponding to the constraint, no need to filter
                         return false;
                     }
                     if (voiture.get(var) == null) {
+                        // assignation of the variable that isn't defined in the car
                         varNotAssigned = var;
                     }
                 }
+                // reduction of the domain of the variable not difined to the value of this constraint
                 Set<String> domaineVarNotAssi = new HashSet<>();
                 domaineVarNotAssi.add(this.conclusion.get(varNotAssigned));
                 domaines.put(varNotAssigned, domaineVarNotAssi);
