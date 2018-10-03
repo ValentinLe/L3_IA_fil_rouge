@@ -52,6 +52,14 @@ public class Rule implements Constraint {
       return this.scope;
     }
     
+    public Map<Variable, String> getPremisse() {
+        return this.premisse;
+    }
+    
+    public Map<Variable, String> getConclusion() {
+        return this.conclusion;
+    }
+    
     /**
      * Test if the part (premise or conclusion) is satisfied by a car
      * @param voiture the car of the test
@@ -59,7 +67,7 @@ public class Rule implements Constraint {
      * @param testPart the boolean of the initialization of test
      * @return the result of the test or null if at least one of variables of the part are a null value
      */
-    public Boolean isPartSatisfied(Map<Variable, String> voiture, Map<Variable, String> part, boolean testPart) {
+    public static Boolean isPartSatisfied(Map<Variable, String> voiture, Map<Variable, String> part, boolean testPart) {
         for (Variable var : part.keySet()) { // for all of variables in the part
             if (voiture.get(var) == null) {
                 // if the variable isn't defined in the car
@@ -74,7 +82,7 @@ public class Rule implements Constraint {
             } else {
                 // if the part is the conclusion
                 if(voiture.get(var).equals(part.get(var))){
-                    // if one of the values of the variable does match the constraint
+                    // if one of the values of the variable matches the constraint
                     return true;
                 }
             }

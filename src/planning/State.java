@@ -1,20 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package planning;
 
+import java.util.HashMap;
 import java.util.Map;
-import representations.Variable;
+import representations.*;
 
-/**
- *
- * @author quentindeme
- */
+
 public class State {
     
-    public State(Map<Variable, String> variables){
-        
+    private Map<Variable, String> voiture;
+    
+    public State(Map<Variable, String> voiture) {
+        this.voiture = voiture;
+    }
+    
+    public Map<Variable, String> getVoiture() {
+        return this.voiture;
+    }
+    
+    public boolean satisfies(Map<Variable, String> partialState) {        
+        return Rule.isPartSatisfied(voiture, partialState, true);
+    }
+    
+    public State getCopy() {
+        return new State(new HashMap<>(this.voiture));
     }
 }
