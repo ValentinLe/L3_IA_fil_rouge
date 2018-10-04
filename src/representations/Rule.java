@@ -8,16 +8,16 @@ import java.util.Set;
 
 /**
  * A Rule is a constraint that represents a implication :  a implies b
- * 
+ *
  */
 
 public class Rule implements Constraint {
-    
+
     private Set<Variable> scope;
     private Map<Variable,String > premisse;
     private Map<Variable, String> conclusion;
     private boolean not;
-    
+
     /**
      * Build a instance of Rule
      * @param scope All Variables involved in the Constraint
@@ -32,7 +32,7 @@ public class Rule implements Constraint {
         this.conclusion = conclusion;
         this.not = not;
     }
-    
+
     /**
      * Build a instance of Rule
      * @param scope All Variables involved in the Constraint
@@ -42,7 +42,7 @@ public class Rule implements Constraint {
     public Rule(Set<Variable> scope, Map<Variable, String> premisse, Map<Variable,String> conclusion) {
         this(scope, premisse, conclusion, false);
     }
-    
+
     /**
      * Getter of the rule's scope
      * @return the rule's scope
@@ -51,15 +51,15 @@ public class Rule implements Constraint {
     public Set<Variable> getScope() {
       return this.scope;
     }
-    
+
     public Map<Variable, String> getPremisse() {
         return this.premisse;
     }
-    
+
     public Map<Variable, String> getConclusion() {
         return this.conclusion;
     }
-    
+
     /**
      * Test if the part (premise or conclusion) is satisfied by a car
      * @param voiture the car of the test
@@ -68,6 +68,7 @@ public class Rule implements Constraint {
      * @return the result of the test or null if at least one of variables of the part are a null value
      */
     public static Boolean isPartSatisfied(Map<Variable, String> voiture, Map<Variable, String> part, boolean testPart) {
+        boolean testRes = testPart;
         for (Variable var : part.keySet()) { // for all of variables in the part
             if (voiture.get(var) == null) {
                 // if the variable isn't defined in the car
@@ -77,19 +78,19 @@ public class Rule implements Constraint {
                 // if the part is the premisse
                 if(!voiture.get(var).equals(part.get(var))) {
                     // if one of the values of the variable doesn't match the constraint
-                    return false;
+                    testRes = false;
                 }
             } else {
                 // if the part is the conclusion
                 if(voiture.get(var).equals(part.get(var))){
                     // if one of the values of the variable matches the constraint
-                    return true;
+                    testRes = true;
                 }
             }
         }
-        return testPart; // boolean of the part unchanged
+        return testRes; // boolean of the part unchanged
     }
-    
+
     /**
      * Test if the rule is satisfied by a car
      * @param voiture the car of the test
@@ -103,7 +104,7 @@ public class Rule implements Constraint {
             // if there are no variables in the car
             return true;
         }
-        
+
         if (this.premisse != null) {
             // if there is a premisse
             p = isPartSatisfied(voiture, this.premisse, p);
@@ -112,7 +113,7 @@ public class Rule implements Constraint {
                 return true;
             }
         }
-        
+
         if (this.conclusion != null) {
             // if there is a conclusion
             c = isPartSatisfied(voiture, this.conclusion, c);
@@ -121,7 +122,7 @@ public class Rule implements Constraint {
                 return true;
             }
         }
-        
+
         if (this.not) {
             // return !(!p || c) if the constraint is not(constraint)
             return p && !c;
@@ -129,10 +130,10 @@ public class Rule implements Constraint {
             return !p || c;
         }
     }
-    
+
     /**
-     * Construct a string of a part of the rule with the variable their value 
-     * @param part the part of the rule 
+     * Construct a string of a part of the rule with the variable their value
+     * @param part the part of the rule
      * @param separator the separator between each variables
      * @return the string result of the representation of the part
      */
@@ -153,7 +154,7 @@ public class Rule implements Constraint {
         }
         return ch;
     }
-    
+
     /**
      * Construct a string representation of the rule
      * @return the string representation
@@ -165,7 +166,7 @@ public class Rule implements Constraint {
             // if there is a conclusion and the constraint isn't not(constraint)
             ch += "!(";
         }
-        
+
         // add the "toString" of the premisse with the separator
         ch += this.getStringMap(this.premisse, "&&");
 
@@ -173,7 +174,7 @@ public class Rule implements Constraint {
             // if there are a premisse and a conclusion
             ch += " -> ";
         }
-        
+
         // add the "toString" of the conclusion with the separator
         ch += this.getStringMap(this.conclusion, "||");
 
@@ -183,11 +184,11 @@ public class Rule implements Constraint {
         }
         return ch;
     }
-    
+
     private int countVariable(Map<Variable, Set<String>> domaines) {
         // counter of variable in the domaines of varibale not defined, that there are in this constraint
         int cpt = 0;
-        for (Variable var : this.conclusion.keySet()) { // for all variables in the conclusion 
+        for (Variable var : this.conclusion.keySet()) { // for all variables in the conclusion
             if (domaines.containsKey(var)) {
                 // if variable is not defined in the car
                 cpt += 1;
@@ -199,7 +200,7 @@ public class Rule implements Constraint {
         }
         return cpt;
     }
-    
+
     @Override
     public boolean filtrer(Map<Variable, String> voiture, Map<Variable, Set<String>> domaines) {
         boolean isFilter = false;
@@ -209,7 +210,7 @@ public class Rule implements Constraint {
                 // if there is only one variable not difined in the conclusion
                 Variable varNotAssigned = null;
                 for (Variable var : this.conclusion.keySet()) { // for all variables in the conclusion
-                    
+
                     String valueVoiture = voiture.get(var);
                     if (valueVoiture != null && voiture.get(var).equals(this.conclusion.get(var))){
                         // if the car has the variable and the value corresponding to the constraint, no need to filter

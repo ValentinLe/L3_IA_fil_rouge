@@ -27,7 +27,7 @@ public class Backtracking {
     public Backtracking(Set<Variable> variables, ArrayList<Constraint> constraints){
         this.constraints = constraints;
         this.variables = variables;
-        
+
         for(int i = 1; i<(constraints.size()+1); i++) {
             System.out.println("c" + i + " : " + constraints.get(i-1));
         }
@@ -48,7 +48,7 @@ public class Backtracking {
         }
         return true;
     }
-    
+
     public boolean isComplete(Map<Variable, String> voiture, Map<Variable, Set<String>> mapVar) {
         for(Variable var : mapVar.keySet()) {
             if (!voiture.containsKey(var)) {
@@ -106,7 +106,7 @@ public class Backtracking {
         }
         return null;
     }
-    
+
     public Variable choiceVar(Map<Variable, String> voiture, Map<Variable, Set<String>> mapDom) {
         Variable varMax = null;
         int valueOcc = 0;
@@ -140,15 +140,15 @@ public class Backtracking {
         }
         return true;
     }
-    
+
     public Map<Variable, String> copyMap(Map<Variable, String> map) {
         return new HashMap<>(map);
     }
-    
+
     public Map<Variable, Set<String>> copyMapDomain(Map<Variable, Set<String>> map) {
         return new HashMap<>(map);
     }
-    
+
     public Map<Variable, Set<String>> getMapVariableNotAssigned(Map<Variable, String> voiture) {
         Map<Variable, Set<String>> map = new HashMap<>();
         for(Variable var : this.variables) {
@@ -158,7 +158,7 @@ public class Backtracking {
         }
         return map;
     }
-    
+
     public Map<Variable, Set<String>> transformToMap(Set<Variable> setVars) {
         Map<Variable, Set<String>> mapRes = new HashMap<>();
         for (Variable var : setVars) {
@@ -166,7 +166,7 @@ public class Backtracking {
         }
         return mapRes;
     }
-    
+
     public boolean filtering(Map<Variable, String> voiture, Map<Variable, Set<String>> mapDom) {
         System.out.println(voiture + "\n" + mapDom);
         for (Constraint c : this.constraints) {
@@ -177,7 +177,7 @@ public class Backtracking {
         }
         return false;
     }
-    
+
     public boolean isBadFiltering(Map<Variable, Set<String>> mapDom) {
         for (Variable var : mapDom.keySet()) {
             if (mapDom.get(var).isEmpty()) {
@@ -194,7 +194,7 @@ public class Backtracking {
     public Map<Variable, String> solution() {
         return backtracking(new HashMap<>(), new ArrayList<>(this.variables));
     }
-    
+
     public Set<Map<Variable, String>> solutions() {
         Set<Map<Variable, String>> solutions = new HashSet<>();
         backtrackingSols(solutions, new HashMap<>(), transformToMap(this.variables));
@@ -255,5 +255,5 @@ public class Backtracking {
         }
         return null;
     }
-    
+
 }
