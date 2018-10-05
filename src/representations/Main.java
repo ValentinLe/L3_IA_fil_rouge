@@ -64,7 +64,7 @@ public class Main {
 
         ArrayList<Constraint> constraints = new ArrayList<>();
         constraints.add(c1);
-        constraints.add(c2);
+        //constraints.add(c2);
         constraints.add(c3);
         constraints.add(c4);
         //constraints.add(c5);
@@ -76,22 +76,26 @@ public class Main {
         /*
         Map<Variable, String> voiture1 = back.solution();
         System.out.println("backtrack : " + voiture1);
+        */
 
-
-        Set<Map<Variable, String>> sols = back.solutions();
-
+        Set<Map<Variable, String>> sols = back.solutionsFilter();
+        
+        
         System.out.println("Nombre de solutions : " + sols.size());
         for (Map<Variable, String> voiture : sols) {
             System.out.println(voiture + "\n");
-        }*/
+        }
 
-
+        /*
         Map<Variable, String> voiture = ex.getVoiture1();
         Map<Variable, Set<String>> map = back.getMapVariableNotAssigned(voiture);
+        System.out.println(voiture);
         System.out.println(map);
-        System.out.println(c7.filtrer(voiture, map));
+        System.out.println(c2.filtrer(voiture, map));
         System.out.println(map);
-
+        System.out.println(c2.filtrer(voiture, map));
+        System.out.println(map);
+        */
 
     }
 

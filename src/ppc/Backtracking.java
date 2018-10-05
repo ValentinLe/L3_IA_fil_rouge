@@ -168,10 +168,11 @@ public class Backtracking {
     }
 
     public boolean filtering(Map<Variable, String> voiture, Map<Variable, Set<String>> mapDom) {
-        System.out.println(voiture + "\n" + mapDom);
+        System.out.println("\nVOITURE : " + voiture + "\n" + mapDom);
         for (Constraint c : this.constraints) {
+            System.out.println(c);
             if (c.filtrer(voiture, mapDom)) {
-                System.out.println(" teddhujdhdh " + mapDom);
+                System.out.println("FILTRAGE : " + mapDom + "\n\n");
                 return filtering(voiture, mapDom) || true;
             }
         }
@@ -197,9 +198,16 @@ public class Backtracking {
 
     public Set<Map<Variable, String>> solutions() {
         Set<Map<Variable, String>> solutions = new HashSet<>();
-        backtrackingSols(solutions, new HashMap<>(), transformToMap(this.variables));
+        backtrackingSols(solutions, new HashMap<>(), new ArrayList<>(this.variables));
         return solutions;
     }
+    
+    public Set<Map<Variable, String>> solutionsFilter() {
+        Set<Map<Variable, String>> solutions = new HashSet<>();
+        backtrackingSolsFilter(solutions, new HashMap<>(), transformToMap(this.variables));
+        return solutions;
+    }
+    
 
 
     public Map<Variable, String> backtracking(Map<Variable, String> voiture, ArrayList<Variable> sortVar) {
@@ -220,7 +228,7 @@ public class Backtracking {
         }
         return null;
     }
-    /*
+    
     public Map<Variable, String> backtrackingSols(Set<Map<Variable, String>> solutions, Map<Variable, String> voiture, ArrayList<Variable> sortVar) {
         if (this.isComplete(voiture, sortVar)) {
             solutions.add(copyMap(voiture));
@@ -235,9 +243,9 @@ public class Backtracking {
             voiture.remove(var);
         }
         return null;
-    }*/
+    }
     
-    public Map<Variable, String> backtrackingSols(Set<Map<Variable, String>> solutions, Map<Variable, String> voiture, Map<Variable, Set<String>> mapDom) {
+    public Map<Variable, String> backtrackingSolsFilter(Set<Map<Variable, String>> solutions, Map<Variable, String> voiture, Map<Variable, Set<String>> mapDom) {
         if (this.isComplete(voiture, mapDom)) {
             solutions.add(copyMap(voiture));
             return null;
@@ -246,9 +254,12 @@ public class Backtracking {
         for (String value : mapDom.get(var)) {
             voiture.put(var, value);
             if (this.isCompatible(voiture)) {
+                Set<String> restrictedDom = new HashSet<>();
+                restrictedDom.add(value);
+                mapDom.put(var, restrictedDom);
                 filtering(voiture, mapDom);
                 if (!isBadFiltering(mapDom)) {
-                    backtrackingSols(solutions, copyMap(voiture), copyMapDomain(mapDom));
+                    backtrackingSolsFilter(solutions, copyMap(voiture), copyMapDomain(mapDom));
                 }
             }
             voiture.remove(var);

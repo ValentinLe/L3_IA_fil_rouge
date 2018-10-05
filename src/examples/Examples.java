@@ -118,9 +118,9 @@ public class Examples {
         Map<Variable,String> voiture = new HashMap<>();
         
         ArrayList<String> comp = new ArrayList<>(Arrays.asList(
-                "droit","toit"
+                "droit"
         ));
-        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("noir", "noir"));
+        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("noir"));
 
         for(int i = 0; i<comp.size(); i++) {
             voiture.put(this.variables.get(comp.get(i)), valeurs.get(i));
