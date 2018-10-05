@@ -168,11 +168,11 @@ public class Backtracking {
     }
 
     public boolean filtering(Map<Variable, String> voiture, Map<Variable, Set<String>> mapDom) {
-        System.out.println("\nVOITURE : " + voiture + "\n" + mapDom);
+        //System.out.println("\nVOITURE : " + voiture + "\n" + mapDom);
         for (Constraint c : this.constraints) {
-            System.out.println(c);
+            //System.out.println(c);
             if (c.filtrer(voiture, mapDom)) {
-                System.out.println("FILTRAGE : " + mapDom + "\n\n");
+                //System.out.println("\n >>>>> FILTRAGE : " + mapDom + "\n\n");
                 return filtering(voiture, mapDom) || true;
             }
         }
@@ -251,15 +251,17 @@ public class Backtracking {
             return null;
         }
         Variable var = choiceVar(voiture, mapDom);
+        Map<Variable, Set<String>> copyMapDomain;
         for (String value : mapDom.get(var)) {
             voiture.put(var, value);
             if (this.isCompatible(voiture)) {
+                copyMapDomain = copyMapDomain(mapDom);
                 Set<String> restrictedDom = new HashSet<>();
                 restrictedDom.add(value);
-                mapDom.put(var, restrictedDom);
-                filtering(voiture, mapDom);
-                if (!isBadFiltering(mapDom)) {
-                    backtrackingSolsFilter(solutions, copyMap(voiture), copyMapDomain(mapDom));
+                copyMapDomain.put(var, restrictedDom);
+                filtering(voiture, copyMapDomain);
+                if (!isBadFiltering(copyMapDomain)) {
+                    backtrackingSolsFilter(solutions, copyMap(voiture), copyMapDomain);
                 }
             }
             voiture.remove(var);

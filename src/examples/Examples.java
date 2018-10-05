@@ -41,7 +41,7 @@ public class Examples {
         this.composants2 = new ArrayList<>(Arrays.asList("toit ouvrant", "sono"));
 
         // domaines
-        this.domaineCouleur = new HashSet<>(Arrays.asList("noir","blanc","rouge"));
+        this.domaineCouleur = new HashSet<>(Arrays.asList("noir","blanc", "rouge"));
         this.domaineBool = new HashSet<>(Arrays.asList("true","false"));
 
         // Set<Variable>
@@ -118,9 +118,9 @@ public class Examples {
         Map<Variable,String> voiture = new HashMap<>();
         
         ArrayList<String> comp = new ArrayList<>(Arrays.asList(
-                "droit"
+                "hayon"
         ));
-        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("noir"));
+        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("blanc"));
 
         for(int i = 0; i<comp.size(); i++) {
             voiture.put(this.variables.get(comp.get(i)), valeurs.get(i));

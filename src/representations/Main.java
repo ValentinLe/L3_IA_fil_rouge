@@ -77,7 +77,7 @@ public class Main {
         Map<Variable, String> voiture1 = back.solution();
         System.out.println("backtrack : " + voiture1);
         */
-
+        
         Set<Map<Variable, String>> sols = back.solutionsFilter();
         
         
@@ -85,7 +85,7 @@ public class Main {
         for (Map<Variable, String> voiture : sols) {
             System.out.println(voiture + "\n");
         }
-
+        
         /*
         Map<Variable, String> voiture = ex.getVoiture1();
         Map<Variable, Set<String>> map = back.getMapVariableNotAssigned(voiture);
