@@ -63,40 +63,39 @@ public class Main {
         Disjunction c7 = ex.getExemple7();
 
         ArrayList<Constraint> constraints = new ArrayList<>();
-        constraints.add(c1);
-        constraints.add(c2);
-        constraints.add(c3);
-        constraints.add(c4);
+        //constraints.add(c1);
+        //constraints.add(c2);
+        //constraints.add(c3);
+        //constraints.add(c4);
         //constraints.add(c5);
-        //constraints.add(c6);
+        constraints.add(c6);
         //constraints.add(c7);
 
 
         Backtracking back = new Backtracking(variables, constraints);
-        /*
-        Map<Variable, String> voiture1 = back.solution();
-        System.out.println("backtrack : " + voiture1);
-        */
         
+        Map<Variable, String> voiture1 = back.solutionFilter();
+        System.out.println("backtrack : " + voiture1);
+        
+        /*
         Set<Map<Variable, String>> sols = back.solutionsFilter();
         
         
         System.out.println("Nombre de solutions : " + sols.size());
         for (Map<Variable, String> voiture : sols) {
             System.out.println(voiture + "\n");
-        }
+        }*/
         
         /*
         Map<Variable, String> voiture = ex.getVoiture1();
-        Map<Variable, Set<String>> map = back.getMapVariableNotAssigned(voiture);
-        System.out.println(voiture);
-        System.out.println(map);
-        System.out.println(c2.filtrer(voiture, map));
-        System.out.println(map);
-        System.out.println(c2.filtrer(voiture, map));
-        System.out.println(map);
+        Map<Variable, Set<String>> map = back.transformToMap(ex.getVariables());
+        System.out.println("VOITURE : " + voiture);
+        System.out.println("MAP AV " + map);
+        System.out.println(c6.filtrer(voiture, map));
+        System.out.println("MAP ap1 " + map);
+        System.out.println(c6.filtrer(voiture, map));
+        System.out.println("MAP ap2 " +map);
         */
-
     }
 
 }
