@@ -59,8 +59,30 @@ public abstract class ConstraintBool implements Constraint {
         return "(" + this.c1 + ")" + this.getSeparator() + "(" + this.c2 + ")";
     }
     
+    public boolean allVariablesAssigned(Map<Variable, String> voiture, Constraint constraint) {
+        Set<Variable> scopeConstraint = constraint.getScope();
+        for (Variable var : scopeConstraint) {
+            if (voiture.get(var) == null) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
     @Override
     public boolean filtrer(Map<Variable, String> voiture, Map<Variable, Set<String>> domaines) {
-        return (this.c1.filtrer(voiture, domaines) || this.c2.filtrer(voiture, domaines));
+        boolean res = false;
+        boolean c1Assigned = this.allVariablesAssigned(voiture, this.c1);
+        boolean c2Assigned = this.allVariablesAssigned(voiture, this.c2);
+        
+        if (!c1Assigned && !this.c2.isSatisfiedBy(voiture)) {
+            res = res || this.c1.filtrer(voiture, domaines);
+        }
+        
+        if (!c2Assigned && !this.c1.isSatisfiedBy(voiture)) {
+            res = res || this.c2.filtrer(voiture, domaines);
+        }
+        
+        return res;
     }
 }

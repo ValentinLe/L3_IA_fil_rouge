@@ -2,7 +2,6 @@
 package representations;
 
 import java.util.Map;
-import java.util.Set;
 
 /**
  * this class it's a AND combination between two constraints

@@ -64,7 +64,7 @@ public class Main {
 
         ArrayList<Constraint> constraints = new ArrayList<>();
         constraints.add(c1);
-        //constraints.add(c2);
+        constraints.add(c2);
         constraints.add(c3);
         constraints.add(c4);
         //constraints.add(c5);

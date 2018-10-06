@@ -168,11 +168,8 @@ public class Backtracking {
     }
 
     public boolean filtering(Map<Variable, String> voiture, Map<Variable, Set<String>> mapDom) {
-        //System.out.println("\nVOITURE : " + voiture + "\n" + mapDom);
         for (Constraint c : this.constraints) {
-            //System.out.println(c);
             if (c.filtrer(voiture, mapDom)) {
-                //System.out.println("\n >>>>> FILTRAGE : " + mapDom + "\n\n");
                 return filtering(voiture, mapDom) || true;
             }
         }
