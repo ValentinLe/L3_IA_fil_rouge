@@ -63,12 +63,12 @@ public class Main {
         Disjunction c7 = ex.getExemple7();
 
         ArrayList<Constraint> constraints = new ArrayList<>();
-        //constraints.add(c1);
-        //constraints.add(c2);
-        //constraints.add(c3);
-        //constraints.add(c4);
+        constraints.add(c1);
+        constraints.add(c2);
+        constraints.add(c3);
+        constraints.add(c4);
         //constraints.add(c5);
-        constraints.add(c6);
+        //constraints.add(c6);
         //constraints.add(c7);
 
 
@@ -77,14 +77,14 @@ public class Main {
         Map<Variable, String> voiture1 = back.solutionFilter();
         System.out.println("backtrack : " + voiture1);
         
-        /*
-        Set<Map<Variable, String>> sols = back.solutionsFilter();
+        
+        Set<Map<Variable, String>> sols = back.solutions();
         
         
         System.out.println("Nombre de solutions : " + sols.size());
         for (Map<Variable, String> voiture : sols) {
             System.out.println(voiture + "\n");
-        }*/
+        }
         
         /*
         Map<Variable, String> voiture = ex.getVoiture1();

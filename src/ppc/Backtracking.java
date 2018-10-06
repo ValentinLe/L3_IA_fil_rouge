@@ -108,16 +108,24 @@ public class Backtracking {
     }
 
     public Variable choiceVar(Map<Variable, String> voiture, Map<Variable, Set<String>> mapDom) {
+        // initialize the variable not assigned and its occurence in the constraints
+        // this will be the variable not assigned with the best occurence
         Variable varMax = null;
         int valueOcc = 0;
-        int currentValue;
+        
+        int currentValue; // initialize the current value of occurence
         for (Variable var : mapDom.keySet()) {
-            if (varMax == null) {
-                varMax = var;
-            } else {
-                if (!voiture.containsKey(var)) {
+            if (!voiture.containsKey(var)) {
+                // if the variable isn't definied in the car
+                if (varMax == null) {
+                    // if the max variable isn't initialize with a variable
+                    varMax = var;
+                    valueOcc = heuristic(var);
+                } else {
                     currentValue = heuristic(var);
                     if (currentValue > valueOcc) {
+                        // if the occurence of variable if better than the
+                        // last maximum find we replace it
                         valueOcc = currentValue;
                         varMax = var;
                     }
@@ -133,9 +141,9 @@ public class Backtracking {
      * @return the result of the test
      */
     public boolean isCompatible(Map<Variable, String> voiture) {
-        System.out.println("\n\nVOITURE : " + voiture);
+        //System.out.println("\n\nVOITURE : " + voiture);
         for(Constraint c : this.constraints) {
-            System.out.println("C : " + c + " > " + c.isSatisfiedBy(voiture));
+            //System.out.println("C : " + c + " > " + c.isSatisfiedBy(voiture));
             if (!c.isSatisfiedBy(voiture)) {
                 return false;
             }
