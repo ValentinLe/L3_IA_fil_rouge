@@ -2,8 +2,8 @@
 package representations;
 
 import java.util.*;
-import examples.Examples;
-import ppc.Backtracking;
+import examples.*;
+import ppc.*;
 
 
 public class Main {
@@ -50,6 +50,7 @@ public class Main {
         System.out.println(nEqu + " --> " + nEqu.isSatisfiedBy(voiture4) + "\n");
 
         */
+        /*
         Set<Variable> variables = ex.getVariables();
 
         AllEqualConstraint c1 = ex.getExemple1();
@@ -85,7 +86,7 @@ public class Main {
         System.out.println("Nombre de solutions : " + sols.size());
         System.out.println("Heuristic utilisée : " + heuristic);
         System.out.println("noeuds parcourus : " + back.getNbNode());
-        
+        */
         
         /*
         Map<Variable, String> voiture = ex.getVoiture1();
@@ -97,6 +98,9 @@ public class Main {
         System.out.println(c3.filtrer(voiture, map));
         System.out.println("MAP ap2 " +map);
         */
+        
+        AssemblyLine assembly = new AssemblyLine();
+        
     }
 
 }
