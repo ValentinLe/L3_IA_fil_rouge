@@ -1,11 +1,7 @@
 
 package representations;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * this constraint is about the variables' values that their are all differents

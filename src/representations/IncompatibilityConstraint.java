@@ -1,9 +1,7 @@
 
 package representations;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * The incompatibility is the rule : !(a=4 & b=5 & c=0 & ...)

@@ -1,9 +1,7 @@
 
 package representations;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * this constraint is about the variables' values that their are all equals

@@ -1,10 +1,8 @@
 
 package representations;
 
-import java.util.Map;
+import java.util.*;
 import examples.Examples;
-import java.util.ArrayList;
-import java.util.Set;
 import ppc.Backtracking;
 
 

@@ -1,10 +1,7 @@
 
 package representations;
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * A Rule is a constraint that represents a implication :  a implies b

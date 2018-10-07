@@ -1,9 +1,7 @@
 
 package representations;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * This abstract classe is a boolean combination between two constraints (And or OR)

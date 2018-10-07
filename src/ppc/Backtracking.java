@@ -1,13 +1,7 @@
 
 package ppc;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import representations.*;
 
 /**
@@ -21,6 +15,9 @@ public class Backtracking {
     private Heuristic heuristic;
     private int nbNode = 0;
     
+    /**
+     * enumeration of all heuristics
+     */
     public enum Heuristic {
         CONSTRAINT_MAX,
         CONSTRAINT_MIN,
