@@ -118,9 +118,9 @@ public class Examples {
         Map<Variable,String> voiture = new HashMap<>();
         
         ArrayList<String> comp = new ArrayList<>(Arrays.asList(
-                "hayon"
+                "droit","toit"
         ));
-        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("blanc"));
+        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("noir","rouge"));
 
         for(int i = 0; i<comp.size(); i++) {
             voiture.put(this.variables.get(comp.get(i)), valeurs.get(i));
@@ -230,13 +230,16 @@ public class Examples {
         ArrayList<Variable> comp = new ArrayList<>();
         comp.add(this.variables.get("droit"));
         comp.add(this.variables.get("gauche"));
+        comp.add(this.variables.get("toit"));
 
         ArrayList<String> val = new ArrayList<>();
         val.add("noir");
         val.add("noir");
-
-        constraint.put(comp.get(0), val.get(0));
-        constraint.put(comp.get(1), val.get(1));
+        val.add("rouge");
+        
+        for (int i = 0; i<comp.size(); i++) {
+            constraint.put(comp.get(i), val.get(i));
+        }
 
         IncompatibilityConstraint compNoir = new IncompatibilityConstraint(new HashSet<>(comp), constraint);
 

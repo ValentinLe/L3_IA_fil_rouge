@@ -143,6 +143,12 @@ public class Rule implements Constraint {
     @Override
     public String toString() {
         String ch = "";
+        
+        if (this.conclusion == null) {
+            // if it's a incompatibilityContraint
+            ch += "!(";
+        }
+        
         // add the "toString" of the premisse with the separator
         ch += this.getStringMap(this.premisse, "&&");
 
@@ -154,13 +160,18 @@ public class Rule implements Constraint {
         // add the "toString" of the conclusion with the separator
         ch += this.getStringMap(this.conclusion, "||");
 
+        if (this.conclusion == null) {
+            // if it's a incompatibilityContraint
+            ch += ")";
+        }
+        
         return ch;
     }
 
-    private int countVariable(Map<Variable, Set<String>> domaines) {
+    public int countVariable(Map<Variable, Set<String>> domaines, Map<Variable, String> part) {
         // counter of variable in the domaines of varibale not defined, that there are in this constraint
         int cpt = 0;
-        for (Variable var : this.conclusion.keySet()) { // for all variables in the conclusion
+        for (Variable var : part.keySet()) { // for all variables in the conclusion
             if (domaines.containsKey(var)) {
                 // if variable is not defined in the car
                 cpt += 1;
@@ -172,35 +183,47 @@ public class Rule implements Constraint {
         }
         return cpt;
     }
-
-    @Override
-    public boolean filtrer(Map<Variable, String> voiture, Map<Variable, Set<String>> domaines) {
+    
+    public boolean filterWithPart(Map<Variable, String> voiture, Map<Variable, Set<String>> domaines, Map<Variable, String> part, boolean equal) {
         boolean isFilter = false;
-        if (this.conclusion != null) {
-            // if there is a conclusion
-            if (countVariable(domaines) == 1) {
-                // if there is only one variable not difined in the conclusion
-                Variable varNotAssigned = null;
-                for (Variable var : this.conclusion.keySet()) { // for all variables in the conclusion
+        if (countVariable(domaines, part) == 1) {
+            // if there is only one variable not difined in the conclusion
+            Variable varNotAssigned = null;
+            for (Variable var : part.keySet()) { // for all variables in the conclusion
 
-                    String valueVoiture = voiture.get(var);
-                    if (valueVoiture != null && voiture.get(var).equals(this.conclusion.get(var))){
-                        // if the car has the variable and the value corresponding to the constraint, no need to filter
-                        return false;
-                    }
-                    if (voiture.get(var) == null) {
-                        // assignation of the variable that isn't defined in the car
-                        varNotAssigned = var;
-                    }
+                String valueVoiture = voiture.get(var);
+                if (equal && valueVoiture != null && valueVoiture.equals(part.get(var))){
+                    // if the car has the variable and the value corresponding to the constraint, no need to filter
+                    return false;
                 }
-                // reduction of the domain of the variable not difined to the value of this constraint
-                Set<String> domaineVarNotAssi = new HashSet<>();
-                domaineVarNotAssi.add(this.conclusion.get(varNotAssigned));
-                domaines.put(varNotAssigned, domaineVarNotAssi);
+                if (!equal && valueVoiture != null && !valueVoiture.equals(part.get(var))){
+                    // if the car has the variable and the value corresponding to the constraint, no need to filter
+                    return false;
+                }
+                if (voiture.get(var) == null) {
+                    // assignation of the variable that isn't defined in the car
+                    varNotAssigned = var;
+                }
+            }
+            // reduction of the domain of the variable not difined to the value of this constraint
+            Set<String> domaineVarNotAssi = new HashSet<>();
+            domaineVarNotAssi.add(part.get(varNotAssigned));
+            if (!domaines.get(varNotAssigned).equals(domaineVarNotAssi)) {
+                // if the domaine hasn't already been filtered
                 isFilter = true;
+                domaines.put(varNotAssigned, domaineVarNotAssi);
             }
         }
         return isFilter;
+    }
+
+    @Override
+    public boolean filtrer(Map<Variable, String> voiture, Map<Variable, Set<String>> domaines) {
+        if (this.conclusion != null) {
+            // if there is a conclusion
+            return this.filterWithPart(voiture, domaines, this.conclusion, true);
+        }
+        return false;
     }
 
 }

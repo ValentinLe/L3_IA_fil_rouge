@@ -20,10 +20,9 @@ public class IncompatibilityConstraint extends Rule {
         super(scope, premisse, null);
     }
     
+    // !(a=4 && b=3) = a!=4 || b!=3
     @Override
     public boolean filtrer(Map<Variable, String> voiture, Map<Variable, Set<String>> domaines) {
-        boolean isFilter = false;
-        
-        return isFilter;
+        return this.filterWithPart(voiture, domaines, this.getPremisse(), false);
     }
 }
