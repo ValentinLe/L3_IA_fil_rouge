@@ -19,10 +19,14 @@ public class Backtracking {
     private Set<Variable> variables;
     private ArrayList<Constraint> constraints;
     private Heuristic heuristic;
+    private int nbNode = 0;
     
     public enum Heuristic {
-        CONSTRAINT, 
-        DOMAINES;
+        CONSTRAINT_MAX,
+        CONSTRAINT_MIN,
+        DOMAINES_MIN,
+        DOMAINES_MAX,
+        NONE;
     }
 
     /**
@@ -41,15 +45,19 @@ public class Backtracking {
         }
         System.out.println();
     }
+    
+    public int getNbNode() {
+        return this.nbNode;
+    }
 
     /**
      * Test if all variables is in a car
      * @param voiture the car
-     * @param sortVar all variables
+     * @param setVar all variables
      * @return the result of the test
      */
-    public boolean isComplete(Map<Variable, String> voiture, ArrayList<Variable> sortVar) {
-        for(Variable var : sortVar) {
+    public boolean isComplete(Map<Variable, String> voiture, Set<Variable> setVar) {
+        for(Variable var : setVar) {
             if (!voiture.containsKey(var)) {
                 return false;
             }
@@ -71,15 +79,21 @@ public class Backtracking {
      * @param var the variable
      * @return the number of constraints contains
      */
-    public int heuristic(Variable var) {
-        if (this.heuristic == Heuristic.CONSTRAINT) {
-            return heuristicInConstraint(var);
+    public int heuristic(Variable var, Set<String> domain) {
+        if (this.heuristic == Heuristic.CONSTRAINT_MAX) {
+            return heuristicConstraintMax(var);
+        } else if (this.heuristic == Heuristic.CONSTRAINT_MIN) {
+            return heuristicConstraintMin(var);
+        } else if (this.heuristic == Heuristic.DOMAINES_MAX) {
+            return heuristicDomainMaxSize(var, domain);
+        } else if (this.heuristic == Heuristic.DOMAINES_MIN) {
+            return heuristicDomainMinSize(var, domain);
         } else {
-            return heuristicDomainSize(var);
+            return 0;
         }
     }
     
-    public int heuristicInConstraint(Variable var) {
+    public int heuristicConstraintMax(Variable var) {
         int cpt = 0;
         for(Constraint c : this.constraints) {
             if (c.getScope().contains(var)) {
@@ -89,37 +103,28 @@ public class Backtracking {
         return cpt;
     }
     
-    public int heuristicDomainSize(Variable var) {
-        return var.getDomaine().size();
+    public int heuristicConstraintMin(Variable var) {
+        return this.constraints.size() - heuristicConstraintMax(var);
     }
-
-    /**
-     * Sort a set of variable in decreasing order on their occurences
-     * @param variablesNontriees the set of variable to sort
-     * @return a copy of the list ordered
-     */
-    public ArrayList<Variable> getSortVariable(Set<Variable> variablesNontriees) {
-        ArrayList<Variable> listVar = new ArrayList<>();
-        Iterator<Variable> iter = variablesNontriees.iterator();
-        while(iter.hasNext()) {
-            Variable var = iter.next();
-            int valueVar = heuristic(var);
-            var.setOccurences(valueVar);
-            listVar.add(var);
-        }
-        Collections.sort(listVar);
-        Collections.reverse(listVar);
-        return listVar;
+    
+    public int heuristicDomainMaxSize(Variable var, Set<String> domain) {
+        return domain.size();
+    }
+    
+    public int heuristicDomainMinSize(Variable var, Set<String> domain) {
+        Iterator<Variable> iter = this.variables.iterator();
+        int sizeDom = iter.next().getDomaine().size();
+        return sizeDom - domain.size();
     }
 
     /**
      * choice a var not in the car
      * @param voiture the car
-     * @param sortVar the list of variable
+     * @param setVar the list of variable
      * @return A variable not in the car
      */
-    public Variable choiceVar(Map<Variable, String> voiture, ArrayList<Variable> sortVar) {
-        for (Variable var : sortVar) {
+    public Variable choiceVar(Map<Variable, String> voiture, Set<Variable> setVar) {
+        for (Variable var : setVar) {
             if (!voiture.containsKey(var)) {
                 return var;
             }
@@ -132,7 +137,6 @@ public class Backtracking {
         // this will be the variable not assigned with the best occurence
         Variable varMax = null;
         int valueOcc = 0;
-        
         int currentValue; // initialize the current value of occurence
         for (Variable var : mapDom.keySet()) {
             if (!voiture.containsKey(var)) {
@@ -140,9 +144,9 @@ public class Backtracking {
                 if (varMax == null) {
                     // if the max variable isn't initialize with a variable
                     varMax = var;
-                    valueOcc = heuristic(var);
+                    valueOcc = heuristic(var, mapDom.get(var));
                 } else {
-                    currentValue = heuristic(var);
+                    currentValue = heuristic(var, mapDom.get(var));
                     if (currentValue > valueOcc) {
                         // if the occurence of variable if better than the
                         // last maximum find we replace it
@@ -179,7 +183,7 @@ public class Backtracking {
 
     public Map<Variable, Set<String>> getMapVariableNotAssigned(Map<Variable, String> voiture) {
         Map<Variable, Set<String>> map = new HashMap<>();
-        for(Variable var : this.variables) {
+        for (Variable var : this.variables) {
             if (!voiture.containsKey(var)) {
                 map.put(var, new HashSet<>(var.getDomaine()));
             }
@@ -187,9 +191,9 @@ public class Backtracking {
         return map;
     }
 
-    public Map<Variable, Set<String>> transformToMap(Set<Variable> setVars) {
+    public Map<Variable, Set<String>> transformToMap(Set<Variable> setVar) {
         Map<Variable, Set<String>> mapRes = new HashMap<>();
-        for (Variable var : setVars) {
+        for (Variable var : setVar) {
             mapRes.put(var, new HashSet<>(var.getDomaine()));
         }
         return mapRes;
@@ -209,20 +213,24 @@ public class Backtracking {
      * @return the solution or null if the solution doesn't exist
      */
     public Map<Variable, String> solution() {
-        return backtracking(new HashMap<>(), new ArrayList<>(this.variables));
+        this.nbNode = 0;
+        return backtracking(new HashMap<>(), this.variables);
     }
 
     public Set<Map<Variable, String>> solutions() {
+        this.nbNode = 0;
         Set<Map<Variable, String>> solutions = new HashSet<>();
-        backtrackingSols(solutions, new HashMap<>(), new ArrayList<>(this.variables));
+        backtrackingSols(solutions, new HashMap<>(), this.variables);
         return solutions;
     }
     
     public Map<Variable, String> solutionFilter() {
+        this.nbNode = 0;
         return backtrackingFilter(new HashMap<>(), transformToMap(this.variables));
     }
     
     public Set<Map<Variable, String>> solutionsFilter() {
+        this.nbNode = 0;
         Set<Map<Variable, String>> solutions = new HashSet<>();
         backtrackingSolsFilter(solutions, new HashMap<>(), transformToMap(this.variables));
         return solutions;
@@ -230,16 +238,19 @@ public class Backtracking {
     
 
 
-    public Map<Variable, String> backtracking(Map<Variable, String> voiture, ArrayList<Variable> sortVar) {
-        if (this.isComplete(voiture, sortVar)) {
+    public Map<Variable, String> backtracking(Map<Variable, String> voiture, Set<Variable> setVar) {
+        
+        this.nbNode += 1;
+        
+        if (this.isComplete(voiture, setVar)) {
             return voiture;
         }
-        Variable var = choiceVar(voiture, sortVar);
+        Variable var = choiceVar(voiture, setVar);
         Map<Variable, String> backVoiture;
         for (String value : var.getDomaine()) {
             voiture.put(var, value);
             if (this.isCompatible(voiture)) {
-                backVoiture = backtracking(voiture, sortVar);
+                backVoiture = backtracking(voiture, setVar);
                 if (backVoiture != null) {
                     return backVoiture;
                 }
@@ -250,17 +261,19 @@ public class Backtracking {
     }
     
     public Map<Variable, String> backtrackingSols(Set<Map<Variable, String>> solutions, 
-                    Map<Variable, String> voiture, ArrayList<Variable> sortVar) {
+                    Map<Variable, String> voiture, Set<Variable> setVar) {
         
-        if (this.isComplete(voiture, sortVar)) {
+        this.nbNode += 1;
+        
+        if (this.isComplete(voiture, setVar)) {
             solutions.add(copyMap(voiture));
             return null;
         }
-        Variable var = choiceVar(voiture, sortVar);
+        Variable var = choiceVar(voiture, setVar);
         for (String value : var.getDomaine()) {
             voiture.put(var, value);
             if (this.isCompatible(voiture)) {
-                backtrackingSols(solutions, copyMap(voiture), sortVar);
+                backtrackingSols(solutions, copyMap(voiture), setVar);
             }
             voiture.remove(var);
         }
@@ -268,6 +281,9 @@ public class Backtracking {
     }
     
     public Map<Variable, String> backtrackingFilter(Map<Variable, String> voiture, Map<Variable, Set<String>> mapDom) {
+        
+        this.nbNode += 1;
+        
         if (this.isComplete(voiture, mapDom)) {
             return copyMap(voiture);
         }
@@ -294,6 +310,8 @@ public class Backtracking {
     
     public Map<Variable, String> backtrackingSolsFilter(Set<Map<Variable, String>> solutions, 
                     Map<Variable, String> voiture, Map<Variable, Set<String>> mapDom) {
+        
+        this.nbNode += 1;
         
         if (this.isComplete(voiture, mapDom)) {
             solutions.add(copyMap(voiture));

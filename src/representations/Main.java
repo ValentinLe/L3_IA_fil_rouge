@@ -71,8 +71,8 @@ public class Main {
         //constraints.add(c6);
         //constraints.add(c7);
 
-
-        Backtracking back = new Backtracking(variables, constraints, Backtracking.Heuristic.CONSTRAINT);
+        Backtracking.Heuristic heuristic = Backtracking.Heuristic.CONSTRAINT_MAX;
+        Backtracking back = new Backtracking(variables, constraints, heuristic);
         
         Map<Variable, String> voiture1 = back.solutionFilter();
         System.out.println("backtrack : " + voiture1);
@@ -80,10 +80,14 @@ public class Main {
         Set<Map<Variable, String>> sols = back.solutionsFilter();
         
         
-        System.out.println("Nombre de solutions : " + sols.size());
         for (Map<Variable, String> voiture : sols) {
             System.out.println(voiture + "\n");
         }
+        System.out.println("\n/\\ SOLUTIONS TROUVEES /\\\n");
+        System.out.println("Nombre de solutions : " + sols.size());
+        System.out.println("Heuristic utilisée : " + heuristic);
+        System.out.println("noeuds parcourus : " + back.getNbNode());
+        
         
         /*
         Map<Variable, String> voiture = ex.getVoiture1();
