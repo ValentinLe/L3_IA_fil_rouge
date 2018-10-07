@@ -230,12 +230,10 @@ public class Examples {
         ArrayList<Variable> comp = new ArrayList<>();
         comp.add(this.variables.get("droit"));
         comp.add(this.variables.get("gauche"));
-        comp.add(this.variables.get("toit"));
 
         ArrayList<String> val = new ArrayList<>();
         val.add("noir");
         val.add("noir");
-        val.add("rouge");
         
         for (int i = 0; i<comp.size(); i++) {
             constraint.put(comp.get(i), val.get(i));

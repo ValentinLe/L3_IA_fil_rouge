@@ -18,15 +18,23 @@ public class Backtracking {
 
     private Set<Variable> variables;
     private ArrayList<Constraint> constraints;
+    private Heuristic heuristic;
+    
+    public enum Heuristic {
+        CONSTRAINT, 
+        DOMAINES;
+    }
 
     /**
      * Build a instance of backtracking
      * @param variables all variables possibles
      * @param constraints constraints of the probleme
+     * @param heuristic the heuristic of backtracking
      */
-    public Backtracking(Set<Variable> variables, ArrayList<Constraint> constraints){
+    public Backtracking(Set<Variable> variables, ArrayList<Constraint> constraints, Heuristic heuristic){
         this.constraints = constraints;
         this.variables = variables;
+        this.heuristic = heuristic;
 
         for(int i = 1; i<(constraints.size()+1); i++) {
             System.out.println("c" + i + " : " + constraints.get(i-1));
@@ -64,6 +72,14 @@ public class Backtracking {
      * @return the number of constraints contains
      */
     public int heuristic(Variable var) {
+        if (this.heuristic == Heuristic.CONSTRAINT) {
+            return heuristicInConstraint(var);
+        } else {
+            return heuristicDomainSize(var);
+        }
+    }
+    
+    public int heuristicInConstraint(Variable var) {
         int cpt = 0;
         for(Constraint c : this.constraints) {
             if (c.getScope().contains(var)) {
@@ -71,6 +87,10 @@ public class Backtracking {
             }
         }
         return cpt;
+    }
+    
+    public int heuristicDomainSize(Variable var) {
+        return var.getDomaine().size();
     }
 
     /**
@@ -141,9 +161,7 @@ public class Backtracking {
      * @return the result of the test
      */
     public boolean isCompatible(Map<Variable, String> voiture) {
-        //System.out.println("\n\nVOITURE : " + voiture);
         for(Constraint c : this.constraints) {
-            //System.out.println("C : " + c + " > " + c.isSatisfiedBy(voiture));
             if (!c.isSatisfiedBy(voiture)) {
                 return false;
             }
@@ -259,7 +277,6 @@ public class Backtracking {
         for (String value : mapDom.get(var)) {
             voiture.put(var, value);
             if (this.isCompatible(voiture)) {
-                //System.out.println("\n\nVOITURE : " + voiture + "\nMAP : " + mapDom);
                 copyMapDomain = copyMapDomain(mapDom);
                 Set<String> restrictedDom = new HashSet<>();
                 restrictedDom.add(value);

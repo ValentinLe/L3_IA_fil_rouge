@@ -72,21 +72,20 @@ public class Main {
         //constraints.add(c7);
 
 
-        Backtracking back = new Backtracking(variables, constraints);
-        /*
+        Backtracking back = new Backtracking(variables, constraints, Backtracking.Heuristic.CONSTRAINT);
+        
         Map<Variable, String> voiture1 = back.solutionFilter();
         System.out.println("backtrack : " + voiture1);
         
-        
-        Set<Map<Variable, String>> sols = back.solutions();
+        Set<Map<Variable, String>> sols = back.solutionsFilter();
         
         
         System.out.println("Nombre de solutions : " + sols.size());
         for (Map<Variable, String> voiture : sols) {
             System.out.println(voiture + "\n");
-        }*/
+        }
         
-        
+        /*
         Map<Variable, String> voiture = ex.getVoiture1();
         Map<Variable, Set<String>> map = back.getMapVariableNotAssigned(voiture);
         System.out.println("VOITURE : " + voiture);
@@ -95,7 +94,7 @@ public class Main {
         System.out.println("MAP ap1 " + map);
         System.out.println(c3.filtrer(voiture, map));
         System.out.println("MAP ap2 " +map);
-        
+        */
     }
 
 }
