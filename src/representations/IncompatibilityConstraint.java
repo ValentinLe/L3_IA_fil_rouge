@@ -1,6 +1,7 @@
 
 package representations;
 
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -14,18 +15,15 @@ public class IncompatibilityConstraint extends Rule {
      * Build a instance of incompatibility
      * @param scope all variables in the constraint
      * @param premisse the incompatibility
-     * @param not if you want the not of the constraint
-     */
-    public IncompatibilityConstraint(Set<Variable> scope, Map<Variable, String> premisse, boolean not) {
-        super(scope, premisse, null, not);
-    }
-    
-    /**
-     * Build a instance of incompatibility
-     * @param scope all variables in the constraint
-     * @param premisse the incompatibility
      */
     public IncompatibilityConstraint(Set<Variable> scope, Map<Variable, String> premisse) {
-        super(scope, premisse, null, false);
+        super(scope, premisse, null);
+    }
+    
+    @Override
+    public boolean filtrer(Map<Variable, String> voiture, Map<Variable, Set<String>> domaines) {
+        boolean isFilter = false;
+        
+        return isFilter;
     }
 }

@@ -16,31 +16,18 @@ public class Rule implements Constraint {
     private Set<Variable> scope;
     private Map<Variable,String > premisse;
     private Map<Variable, String> conclusion;
-    private boolean not;
 
     /**
      * Build a instance of Rule
      * @param scope All Variables involved in the Constraint
      * @param premisse The premisse of the rule
      * @param conclusion The conclusion of the rule
-     * @param not If you want not(rule)
      */
 
-    public Rule(Set<Variable> scope, Map<Variable, String> premisse, Map<Variable,String> conclusion, boolean not) {
+    public Rule(Set<Variable> scope, Map<Variable, String> premisse, Map<Variable,String> conclusion) {
         this.scope = scope;
         this.premisse = premisse;
         this.conclusion = conclusion;
-        this.not = not;
-    }
-
-    /**
-     * Build a instance of Rule
-     * @param scope All Variables involved in the Constraint
-     * @param premisse The premisse of the rule
-     * @param conclusion The conclusion of the rule
-     */
-    public Rule(Set<Variable> scope, Map<Variable, String> premisse, Map<Variable,String> conclusion) {
-        this(scope, premisse, conclusion, false);
     }
 
     /**
@@ -122,13 +109,7 @@ public class Rule implements Constraint {
                 return true;
             }
         }
-
-        if (this.not) {
-            // return !(!p || c) if the constraint is not(constraint)
-            return p && !c;
-        } else {
-            return !p || c;
-        }
+        return !p || c;
     }
 
     /**
@@ -162,11 +143,6 @@ public class Rule implements Constraint {
     @Override
     public String toString() {
         String ch = "";
-        if (this.conclusion == null && !this.not) {
-            // if there is a conclusion and the constraint isn't not(constraint)
-            ch += "!(";
-        }
-
         // add the "toString" of the premisse with the separator
         ch += this.getStringMap(this.premisse, "&&");
 
@@ -178,10 +154,6 @@ public class Rule implements Constraint {
         // add the "toString" of the conclusion with the separator
         ch += this.getStringMap(this.conclusion, "||");
 
-        if (this.conclusion == null && !this.not) {
-            // if there is a conclusion and the constraint isn't not(constraint)
-            ch += ")";
-        }
         return ch;
     }
 

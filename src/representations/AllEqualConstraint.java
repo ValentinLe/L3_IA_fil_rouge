@@ -14,18 +14,9 @@ public class AllEqualConstraint extends AllCompareConstraint {
     /**
      * Build a instance of AllEqualConstraint
      * @param variables vairables of the constraint
-     * @param not if you want the not of the constraint
-     */
-    public AllEqualConstraint(Set<Variable> variables, boolean not){
-        super(variables, not);
-    }
-
-    /**
-     * Build a instance of AllEqualConstraint
-     * @param variables vairables of the constraint
      */
     public AllEqualConstraint(Set<Variable> variables){
-        super(variables,false);
+        super(variables);
     }
 
     /**
@@ -47,7 +38,7 @@ public class AllEqualConstraint extends AllCompareConstraint {
                         values = currentValue;
                     } else {
                         if (!values.equals(currentValue)) {
-                            return this.not;
+                            return false;
                         }
                         values = currentValue;
                     }
@@ -55,7 +46,7 @@ public class AllEqualConstraint extends AllCompareConstraint {
                     return true;
                 }
             }
-            return !this.not;
+            return true;
         }
     }
 

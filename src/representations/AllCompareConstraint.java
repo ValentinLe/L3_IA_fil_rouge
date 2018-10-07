@@ -11,24 +11,13 @@ import java.util.Set;
 public abstract class AllCompareConstraint implements Constraint {
 
     protected Set<Variable> variables;
-    protected boolean not;
-
-    /**
-     * Build a instance of AllCompareConstraint
-     * @param variables all variables of the constraint
-     * @param not if you want the not of the constraint
-     */
-    public AllCompareConstraint(Set<Variable> variables, boolean not){
-        this.variables = variables;
-        this.not = not;
-    }
 
     /**
      * Build a instance of AllCompareConstraint
      * @param variables all variables of the constraint
      */
     public AllCompareConstraint(Set<Variable> variables){
-        this(variables,false);
+        this.variables = variables;
     }
 
     /**
@@ -53,9 +42,6 @@ public abstract class AllCompareConstraint implements Constraint {
     @Override
     public String toString(){
         String ch = "";
-        if (this.not) {
-            ch += "!(";
-        }
         Iterator<Variable> iter = this.variables.iterator();
 
         while(iter.hasNext()) {
@@ -63,9 +49,6 @@ public abstract class AllCompareConstraint implements Constraint {
             if (iter.hasNext()) {
                 ch += this.getSeparator();
             }
-        }
-        if (this.not) {
-            ch += ")";
         }
         return ch;
     }

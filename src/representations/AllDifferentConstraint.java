@@ -16,18 +16,9 @@ public class AllDifferentConstraint extends AllCompareConstraint {
     /**
      * Build a instance of AllDifferentConstraint
      * @param variables vairables of the constraint
-     * @param not if you want the not of the constraint
-     */
-    public AllDifferentConstraint(Set<Variable> variables, boolean not){
-        super(variables, not);
-    }
-
-    /**
-     * Build a instance of AllDifferentConstraint
-     * @param variables vairables of the constraint
      */
     public AllDifferentConstraint(Set<Variable> variables){
-        super(variables,false);
+        super(variables);
     }
 
     /**
@@ -49,13 +40,13 @@ public class AllDifferentConstraint extends AllCompareConstraint {
                         values.add(currentValue);
                     } else {
                         if (values.contains(currentValue)) {
-                            return this.not;
+                            return false;
                         }
                         values.add(currentValue);
                     }
                 }
             }
-            return !this.not;
+            return true;
         }
     }
 
