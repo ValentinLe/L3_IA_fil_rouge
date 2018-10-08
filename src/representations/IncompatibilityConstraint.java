@@ -18,7 +18,14 @@ public class IncompatibilityConstraint extends Rule {
         super(scope, premisse, null);
     }
     
-    // !(a=4 && b=3) = a!=4 || b!=3
+    /**
+     * filtering of variables' domain, 
+     * not(a=1 and b=3 and ...) = a!=1 or b!=3 or ..., it's like filtering 
+     * of conclusion with test of equality is false (inequality)
+     * @param voiture a car for the filtering test
+     * @param domaines variables and its copy domain for filtering
+     * @return true if there is a filtering
+     */
     @Override
     public boolean filtrer(Map<Variable, String> voiture, Map<Variable, Set<String>> domaines) {
         return this.filterWithPart(voiture, domaines, this.getPremisse(), false);

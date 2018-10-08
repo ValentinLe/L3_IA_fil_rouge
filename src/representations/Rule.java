@@ -36,10 +36,18 @@ public class Rule implements Constraint {
       return this.scope;
     }
 
+    /**
+     * Getter of the rule's premisse
+     * @return the premisse of the rule
+     */
     public Map<Variable, String> getPremisse() {
         return this.premisse;
     }
 
+    /**
+     * Getter of the rule's conclusion
+     * @return the conclusion of the rule
+     */
     public Map<Variable, String> getConclusion() {
         return this.conclusion;
     }
@@ -72,7 +80,7 @@ public class Rule implements Constraint {
                 }
             }
         }
-        return testRes; // boolean of the part unchanged
+        return testRes;
     }
 
     /**
@@ -122,7 +130,7 @@ public class Rule implements Constraint {
            while (iter.hasNext()) {
                // iteration on the variables of the part
                Variable var = iter.next();
-               // add string : variable = value
+               // add the string "variable = value"
                ch += var.getName()+ " = " + part.get(var);
                if (iter.hasNext()) {
                    // if there is a next variable in the part
@@ -165,6 +173,12 @@ public class Rule implements Constraint {
         return ch;
     }
 
+    /**
+     * Counts the number of variables of the part present in the map
+     * @param domaines the map of variable with its copy domain
+     * @param part the part to count
+     * @return the number of variables of the part present in the map
+     */
     public int countVariable(Map<Variable, Set<String>> domaines, Map<Variable, String> part) {
         // counter of variable in the domaines of varibale not defined, that there are in this constraint
         int cpt = 0;
@@ -173,15 +187,23 @@ public class Rule implements Constraint {
                 // if variable is not defined in the car
                 cpt += 1;
             }
-            if (cpt > 1) {
-                // it's usefull tu continue when the value of the counter are more than one
-                return cpt;
-            }
         }
         return cpt;
     }
     
-    public boolean filterWithPart(Map<Variable, String> voiture, Map<Variable, Set<String>> domaines, Map<Variable, String> part, boolean equal) {
+    /**
+     * filters the variables' domain
+     * @param voiture a car for the filtering test
+     * @param domaines variables and its copy domain for filtering
+     * @param part the part for the filtering (premisse or conclusion)
+     * @param equal if it's test of equality : false for IncompatibilityConstraint
+     * or true for Rule
+     * @see IncompatibilityConstraint
+     * @return true if there is a filtering
+     */
+    public boolean filterWithPart(Map<Variable, String> voiture, 
+            Map<Variable, Set<String>> domaines, Map<Variable, String> part, boolean equal) {
+        
         boolean isFilter = false;
         if (countVariable(domaines, part) == 1) {
             // if there is only one variable not difined in the conclusion
@@ -213,7 +235,13 @@ public class Rule implements Constraint {
         }
         return isFilter;
     }
-
+    
+    /**
+     * filtering of variables' domain
+     * @param voiture a car for the filtering test
+     * @param domaines variables and its copy domain for filtering
+     * @return true if there is a filtering
+     */
     @Override
     public boolean filtrer(Map<Variable, String> voiture, Map<Variable, Set<String>> domaines) {
         if (this.conclusion != null) {

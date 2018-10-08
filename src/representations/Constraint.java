@@ -23,6 +23,12 @@ public interface Constraint {
      */
     public boolean isSatisfiedBy(Map<Variable,String> voiture);
     
+    /**
+     * filtering of variables' domain
+     * @param voiture a car for the filtering test
+     * @param domaines variables and its copy domain for filtering
+     * @return true if there is a filtering
+     */
     public boolean filtrer(Map<Variable, String> voiture, Map<Variable, Set<String>> domaines);
     
 }

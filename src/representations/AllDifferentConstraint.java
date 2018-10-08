@@ -55,6 +55,12 @@ public class AllDifferentConstraint extends AllCompareConstraint {
         return " != ";
     }
     
+    /**
+     * filtering of variables' domain
+     * @param voiture a car for the filtering test
+     * @param domaines variables and its copy domain for filtering
+     * @return true if there is a filtering
+     */
     @Override
     public boolean filtrer(Map<Variable, String> voiture, Map<Variable, Set<String>> domaines) {
         boolean isFilter = false;

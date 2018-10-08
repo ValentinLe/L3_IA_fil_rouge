@@ -57,6 +57,12 @@ public abstract class ConstraintBool implements Constraint {
         return "(" + this.c1 + ")" + this.getSeparator() + "(" + this.c2 + ")";
     }
     
+    /**
+     * Test if all variables of a constraint are definied in the car
+     * @param voiture the car for the test
+     * @param constraint the constraint for the test
+     * @return true if all variables are definied in the car
+     */
     public boolean allVariablesAssigned(Map<Variable, String> voiture, Constraint constraint) {
         Set<Variable> scopeConstraint = constraint.getScope();
         for (Variable var : scopeConstraint) {
@@ -67,6 +73,12 @@ public abstract class ConstraintBool implements Constraint {
         return true;
     }
     
+    /**
+     * filtering of variables' domain
+     * @param voiture a car for the filtering test
+     * @param domaines variables and its copy domain for filtering
+     * @return true if there is a filtering
+     */
     @Override
     public boolean filtrer(Map<Variable, String> voiture, Map<Variable, Set<String>> domaines) {
         boolean res = false;

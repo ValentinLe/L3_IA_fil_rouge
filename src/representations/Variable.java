@@ -7,12 +7,10 @@ import java.util.Set;
  * A variable is represented by a name and a domain
  * 
  */
-public class Variable implements Comparable<Variable> {
+public class Variable {
     
     private String name;
     private Set<String> domaine;
-    /** the value is the number of time the variable occurs */
-    private Integer occurences;
 
     /**
      * Construct a instance of Variable
@@ -22,7 +20,6 @@ public class Variable implements Comparable<Variable> {
     public Variable(String name, Set<String> domaine) {
         this.name = name;
         this.domaine = domaine;
-        this.occurences = 0;
     }
     
     /**
@@ -39,22 +36,6 @@ public class Variable implements Comparable<Variable> {
      */
     public Set<String> getDomaine(){
         return this.domaine;
-    }
-    
-    /**
-     * Getter of the variable's occurences
-     * @return the variable's occurences
-     */
-    public Integer getOccurences() {
-        return this.occurences;
-    }
-    
-    /**
-     * Setter of the variable's occurences
-     * @param newValue the new variable's occurences
-     */
-    public void setOccurences(Integer newValue) {
-        this.occurences = newValue;
     }
     
     /**
@@ -93,15 +74,5 @@ public class Variable implements Comparable<Variable> {
     @Override
     public String toString() {
         return this.name;
-    }
-
-    /**
-     * Compare two variable about their occurences
-     * @param var the other variable
-     * @return the result of the comparation of their occurences
-     */
-    @Override
-    public int compareTo(Variable var) {
-        return this.occurences.compareTo(var.getOccurences());
     }
 }
