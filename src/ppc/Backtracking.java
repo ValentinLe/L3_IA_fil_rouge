@@ -14,7 +14,7 @@ public class Backtracking {
     private ArrayList<Constraint> constraints;
     private Heuristic heuristic;
     private int nbNode = 0;
-    
+
     /**
      * enumeration of all heuristics
      */
@@ -48,7 +48,7 @@ public class Backtracking {
         }
         System.out.println();
     }
-    
+
     /**
      * Getter of heuristic of backtracking
      * @return the heuristic of backtracking
@@ -56,7 +56,7 @@ public class Backtracking {
     public Heuristic getHeuristic() {
         return this.heuristic;
     }
-    
+
     /**
      * Setter of heuristic of backtracking
      * @param heuristic the heuristic you want to use
@@ -64,7 +64,7 @@ public class Backtracking {
     public void setHeuristic(Heuristic heuristic) {
         this.heuristic = heuristic;
     }
-    
+
     /**
      * Getter of the number of nodes traveled in backtracking algorithm
      * @return the number of nodes
@@ -81,17 +81,23 @@ public class Backtracking {
     public int heuristic(Variable var, Set<String> domain) {
         if (this.heuristic == Heuristic.CONSTRAINT_MAX) {
             return heuristicConstraintMax(var);
+
         } else if (this.heuristic == Heuristic.CONSTRAINT_MIN) {
             return heuristicConstraintMin(var);
+
         } else if (this.heuristic == Heuristic.DOMAINES_MAX) {
             return heuristicDomainMaxSize(domain);
+
         } else if (this.heuristic == Heuristic.DOMAINES_MIN) {
             return heuristicDomainMinSize(domain);
+
         } else {
+            // no heuristic, all value=0 the function take the first variable
+            // not difinied found
             return 0;
         }
     }
-    
+
     /**
      * Calculates the occurence of variable in constraints
      * @param var the target variable
@@ -100,15 +106,17 @@ public class Backtracking {
     public int heuristicConstraintMax(Variable var) {
         int cpt = 0;
         for(Constraint c : this.constraints) {
+            // for all constraints
             if (c.getScope().contains(var)) {
+                // if variable is in the constraint's scope
                 cpt += 1;
             }
         }
         return cpt;
     }
-    
+
     /**
-     * Calculates the opposite of occurence of variable, the minimum 
+     * Calculates the opposite of occurence of variable, the minimum
      * will be the maximum
      * @param var the target variable
      * @return the opposite of occurence of variable
@@ -116,7 +124,7 @@ public class Backtracking {
     public int heuristicConstraintMin(Variable var) {
         return -heuristicConstraintMax(var);
     }
-    
+
     /**
      * Find the size of variable's domain
      * @param domain of variable
@@ -125,7 +133,7 @@ public class Backtracking {
     public int heuristicDomainMaxSize(Set<String> domain) {
         return domain.size();
     }
-    
+
     /**
      * Calculates the opposite of domain's size, the minimum will be the
      * maximum
@@ -137,11 +145,11 @@ public class Backtracking {
     }
 
     /**
-     * Chooses a variable not difinied int the car according 
+     * Chooses a variable not difinied int the car according
      * to the heuristic of backtracking
      * @param voiture the car
      * @param mapDom the map of variable and its domain
-     * @return one of variables not definied in the car with the best 
+     * @return one of variables not definied in the car with the best
      * heuristic value
      */
     public Variable choiceVar(Map<Variable, String> voiture, Map<Variable, Set<String>> mapDom) {
@@ -160,7 +168,7 @@ public class Backtracking {
                 } else {
                     currentValue = heuristic(var, mapDom.get(var));
                     if (currentValue > valueOcc) {
-                        // if the value of the current variable's heuristic 
+                        // if the value of the current variable's heuristic
                         //is better than the last maximum find we replace it
                         valueOcc = currentValue;
                         varMax = var;
@@ -170,7 +178,7 @@ public class Backtracking {
         }
         return varMax;
     }
-    
+
     /**
      * Test if all variables is in a car
      * @param voiture the car
@@ -179,7 +187,8 @@ public class Backtracking {
      */
     public boolean isComplete(Map<Variable, String> voiture, Map<Variable, Set<String>> mapVar) {
         for(Variable var : mapVar.keySet()) {
-            if (!voiture.containsKey(var)) {
+            // for all variable in the map
+            if (!voiture.containsKey(var) {
                 return false;
             }
         }
@@ -226,6 +235,7 @@ public class Backtracking {
     public Map<Variable, Set<String>> transformToMap(Set<Variable> setVar) {
         Map<Variable, Set<String>> mapRes = new HashMap<>();
         for (Variable var : setVar) {
+            // put variable with its copy domain
             mapRes.put(var, new HashSet<>(var.getDomaine()));
         }
         return mapRes;
@@ -240,6 +250,8 @@ public class Backtracking {
     public boolean filtering(Map<Variable, String> voiture, Map<Variable, Set<String>> mapDom) {
         for (Constraint c : this.constraints) {
             if (c.filtrer(voiture, mapDom)) {
+                // if there if filtering, return a recursivity or true to get
+                // all filtering and the boolean for the final return
                 return filtering(voiture, mapDom) || true;
             }
         }
@@ -265,7 +277,7 @@ public class Backtracking {
         backtrackingSols(solutions, new HashMap<>(), transformToMap(this.variables));
         return (solutions.isEmpty() ? null : solutions);
     }
-    
+
     /**
      * Get a solution of car with filtering
      * @return the first solution found or null if the solution doesn't exist
@@ -274,7 +286,7 @@ public class Backtracking {
         this.nbNode = 0;
         return backtrackingFilter(new HashMap<>(), transformToMap(this.variables));
     }
-    
+
     /**
      * Get a set of all solution of cars with filtering
      * @return a set of all solution cars or null if there aren't solutions
@@ -285,7 +297,7 @@ public class Backtracking {
         backtrackingSolsFilter(solutions, new HashMap<>(), transformToMap(this.variables));
         return (solutions.isEmpty() ? null : solutions);
     }
-    
+
     /**
      * Backtracking algorithm, return the first solution found without filtering
      * @param voiture the car for the build
@@ -293,53 +305,68 @@ public class Backtracking {
      * @return the first solution car found
      */
     public Map<Variable, String> backtracking(Map<Variable, String> voiture, Map<Variable, Set<String>> mapDom) {
-        
-        this.nbNode += 1;
-        
+
+        this.nbNode += 1; // node counter
+
         if (this.isComplete(voiture, mapDom)) {
+            // return the solution
             return voiture;
         }
+        // Chooses variable not definied in the car
         Variable var = choiceVar(voiture, mapDom);
         Map<Variable, String> backVoiture;
         for (String value : var.getDomaine()) {
+            // for all values in variable's domain
+            // add variable with the value in the car
             voiture.put(var, value);
             if (this.isCompatible(voiture)) {
+                // if all constraints are satisfied by the car
                 backVoiture = backtracking(voiture, mapDom);
                 if (backVoiture != null) {
+                    // if the recursivity found a solution, return this solution
                     return backVoiture;
                 }
             }
+            // remove variable with the value in the car, it's bad value
             voiture.remove(var);
         }
+        // solution not found
         return null;
     }
-    
+
     /**
-     * Backtracking algorithm, fill the set of cars with a copy of all solution 
+     * Backtracking algorithm, fill the set of cars with a copy of all solution
      * cars found without filtering
      * @param solutions the set will be fill
      * @param voiture the car build for the backtracking
      * @param mapDom mapDom the map of variable with a copy of its domain
      */
-    public void backtrackingSols(Set<Map<Variable, String>> solutions, 
+    public void backtrackingSols(Set<Map<Variable, String>> solutions,
                     Map<Variable, String> voiture, Map<Variable, Set<String>> mapDom) {
-        
-        this.nbNode += 1;
-        
+
+        this.nbNode += 1; // node counter
+
         if (this.isComplete(voiture, mapDom)) {
+            // add the car in the set of solutions
             solutions.add(copyMap(voiture));
+            // block the following of the function's call
             return;
         }
+        // Chooses variable not definied in the car
         Variable var = choiceVar(voiture, mapDom);
         for (String value : var.getDomaine()) {
+            // for all values in variable's domain
+            // add variable with the value in the car
             voiture.put(var, value);
             if (this.isCompatible(voiture)) {
+                // if all constraints are satisfied by the car
                 backtrackingSols(solutions, copyMap(voiture), mapDom);
             }
+            // remove variable with the value in the car, it's bad value
             voiture.remove(var);
         }
     }
-    
+
     /**
      * Backtracking algorithm, return the first solution found with filtering
      * @param voiture the car for the build
@@ -347,63 +374,85 @@ public class Backtracking {
      * @return the first solution car found
      */
     public Map<Variable, String> backtrackingFilter(Map<Variable, String> voiture, Map<Variable, Set<String>> mapDom) {
-        
-        this.nbNode += 1;
-        
+
+        this.nbNode += 1; // node counter
+
         if (this.isComplete(voiture, mapDom)) {
+            // return the solution
             return copyMap(voiture);
         }
+        // Chooses variable not definied in the car
         Variable var = choiceVar(voiture, mapDom);
         Map<Variable, Set<String>> copyMapDomain;
         Map<Variable, String> backVoiture;
         for (String value : mapDom.get(var)) {
+            // for all variable in filter domain
+            // add variable with the value in the car
             voiture.put(var, value);
             if (this.isCompatible(voiture)) {
+                // if all constraints are satisfied by the car
                 copyMapDomain = copyMapDomain(mapDom);
+
+                // reduce the domaine of variable to {value}
                 Set<String> restrictedDom = new HashSet<>();
                 restrictedDom.add(value);
                 copyMapDomain.put(var, restrictedDom);
+
+                // filtering of variables' domain
                 filtering(voiture, copyMapDomain);
                 backVoiture = backtrackingFilter(copyMap(voiture), copyMapDomain);
                 if (backVoiture != null) {
+                    // if the recursivity found a solution, return this solution
                     return backVoiture;
                 }
             }
+            // remove variable with the value in the car, it's bad value
             voiture.remove(var);
         }
+        // solution not found
         return null;
     }
-    
+
     /**
-     * Backtracking algorithm, fill the set of cars with a copy of all 
+     * Backtracking algorithm, fill the set of cars with a copy of all
      * solution cars found with filtering
      * @param solutions the set will be fill
      * @param voiture the car build for the backtracking
      * @param mapDom mapDom the map of variable with a copy of its domain
      */
-    public void backtrackingSolsFilter(Set<Map<Variable, String>> solutions, 
+    public void backtrackingSolsFilter(Set<Map<Variable, String>> solutions,
                     Map<Variable, String> voiture, Map<Variable, Set<String>> mapDom) {
-        
-        this.nbNode += 1;
-        
+
+        this.nbNode += 1; // node counter
+
         if (this.isComplete(voiture, mapDom)) {
+            // add the car in the set of solutions
             solutions.add(copyMap(voiture));
+            // block the following of the function's call
             return;
         }
+        // Chooses variable not definied in the car
         Variable var = choiceVar(voiture, mapDom);
         Map<Variable, Set<String>> copyMapDomain;
         for (String value : mapDom.get(var)) {
+            // for all variable in filter domain
+            // add variable with the value in the car
             voiture.put(var, value);
             if (this.isCompatible(voiture)) {
+                // if all constraints are satisfied by the car
                 copyMapDomain = copyMapDomain(mapDom);
+
+                // reduce the domaine of variable to {value}
                 Set<String> restrictedDom = new HashSet<>();
                 restrictedDom.add(value);
                 copyMapDomain.put(var, restrictedDom);
+
+                // filtering of variables' domain
                 filtering(voiture, copyMapDomain);
                 backtrackingSolsFilter(solutions, copyMap(voiture), copyMapDomain);
             }
-            voiture.remove(var);
         }
+        // remove variable with the value in the car, it's bad value
+        voiture.remove(var);
     }
-
 }
