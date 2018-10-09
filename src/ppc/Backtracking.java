@@ -188,7 +188,7 @@ public class Backtracking {
     public boolean isComplete(Map<Variable, String> voiture, Map<Variable, Set<String>> mapVar) {
         for(Variable var : mapVar.keySet()) {
             // for all variable in the map
-            if (!voiture.containsKey(var) {
+            if (!voiture.containsKey(var)) {
                 return false;
             }
         }

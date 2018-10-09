@@ -9,10 +9,6 @@ import representations.*;
  * 
  */
 public class Examples {
-    /** components of color domain */
-    private ArrayList<String> composants;
-    /** component of boolean domain */
-    private ArrayList<String> composants2;
 
     /** variables of components with color domain */
     private ArrayList<Variable> couleur;
@@ -30,9 +26,11 @@ public class Examples {
      * Build all components on their values possible of a car
      */
     public Examples() {
-        // composants
-        this.composants = new ArrayList<>(Arrays.asList("toit", "capot", "hayon","droit","gauche"));
-        this.composants2 = new ArrayList<>(Arrays.asList("toit ouvrant", "sono"));
+        
+        /** components of color domain */
+        ArrayList<String> composants = new ArrayList<>(Arrays.asList("toit", "capot", "hayon","droit","gauche"));
+        /** component of boolean domain */
+        ArrayList<String> composants2 = new ArrayList<>(Arrays.asList("toit ouvrant", "sono"));
 
         // domaines
         this.domaineCouleur = new HashSet<>(Arrays.asList("noir","blanc", "rouge","bleu","vert","violet","gris"));
@@ -68,22 +66,6 @@ public class Examples {
         vars.addAll(this.couleur);
         vars.addAll(this.boolVariable);
         return vars;
-    }
-    
-    /**
-     * Get components with color domain
-     * @return set of components
-     */
-    public Set<String> getComposants() {
-        return new HashSet<>(this.composants);
-    }
-
-    /**
-     * Get components with boolean domain
-     * @return set of components
-     */
-    public Set<String> getComposants2() {
-        return new HashSet<>(this.composants2);
     }
 
     /**

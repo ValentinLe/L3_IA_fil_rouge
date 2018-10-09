@@ -50,7 +50,7 @@ public class Main {
         System.out.println(nEqu + " --> " + nEqu.isSatisfiedBy(voiture4) + "\n");
 
         */
-        
+        /*
         Set<Variable> variables = ex.getVariables();
 
         AllEqualConstraint c1 = ex.getExemple1();
@@ -86,7 +86,7 @@ public class Main {
         System.out.println("Nombre de solutions : " + sols.size());
         System.out.println("Heuristic utilisée : " + back.getHeuristic());
         System.out.println("noeuds parcourus : " + back.getNbNode());
-        
+        */
         
         /*
         Map<Variable, String> voiture = ex.getVoiture1();
