@@ -38,4 +38,13 @@ public class Action {
         }
         return copyState;
     }
+    
+    @Override
+    public String toString() {
+        String ch = "";
+        for (Rule rule : this.preconditions) {
+            ch += rule.toString() + "\n";
+        }
+        return ch;
+    }
 }

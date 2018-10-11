@@ -13,7 +13,7 @@ public class AssemblyLine {
     private Set<String> elementsBool;
     private Set<String> componentsColor;
     private Set<Variable> HAS_ELEMENT;
-    private Set<Variable> X_Y_WHEEL_COLOR;
+    private Set<Variable> ELEMENT_COLOR;
     
     public AssemblyLine() {
        this.elementsBool = new HashSet<>(Arrays.asList(
@@ -26,7 +26,9 @@ public class AssemblyLine {
        ));
        
        this.componentsColor = new HashSet<>(Arrays.asList(
-               "FRONT_COLOR", "LEFT_COLOR", "REAR_COLOR", "RIGHT_COLOR", "ROOF_COLOR"
+               "FRONT_COLOR", "LEFT_COLOR", "REAR_COLOR", "RIGHT_COLOR", "ROOF_COLOR",
+               "FRONT_LEFT_WHEEL_COLOR", "FRONT_RIGHT_WHEEL_COLOR", "REAR_LEFT_WHEEL_COLOR",
+               "REAR_RIGHT_WHEEL_COLOR", "BODY_COLOR"
        ));
        
        this.domainColors = new HashSet<>(Arrays.asList(
@@ -46,17 +48,19 @@ public class AssemblyLine {
            this.mapVar.put(varBoolean, var);
        }
        
-       this.X_Y_WHEEL_COLOR = new HashSet<>();
+       this.ELEMENT_COLOR = new HashSet<>();
        
        for (String component : this.componentsColor) {
            Variable var = new Variable(component, this.domainColors);
-           this.X_Y_WHEEL_COLOR.add(var);
+           this.ELEMENT_COLOR.add(var);
            this.voiture.put(var,"GRAY");
            this.mapVar.put(component, var);
        }
        
-       voiture = generateCar();
-        System.out.println(voiture);
+       this.voiture = generateCar();
+        System.out.println(voiture + "\n");
+        Action a = this.getAction1();
+        System.out.println(a);
     }
     
     public String choiceValue(Set<String> setValues) {
@@ -77,9 +81,77 @@ public class AssemblyLine {
         for (Variable var : this.HAS_ELEMENT) {
             voiture.put(var, "TRUE");
         }
-        for (Variable var : this.X_Y_WHEEL_COLOR) {
+        for (Variable var : this.ELEMENT_COLOR) {
             voiture.put(var, colorSelect);
         }
         return voiture;
+    }
+    
+    public Map<Variable, String> buildMap(ArrayList<String> varStr, ArrayList<String> values) {
+        Map<Variable, String> map = new HashMap<>();
+        for (int i = 0; i<varStr.size(); i++) {
+            map.put(this.mapVar.get(varStr.get(i)),values.get(Math.floorMod(i,values.size())));
+        }
+        return map;
+    }
+    
+    public Action getAction1() {
+        Set<Rule> setRules = new HashSet<>();
+        
+        ArrayList<String> varStrP1 = new ArrayList<>(Arrays.asList(
+                "HAS_CHASSIS"
+        ));
+        ArrayList<String> valeursP1 = new ArrayList<>(Arrays.asList("TRUE"));
+        
+        Map<Variable, String> premisse1 = buildMap(varStrP1, valeursP1);
+        
+        ArrayList<String> varStrC1 = new ArrayList<>(Arrays.asList(
+                "HAS_BODY"
+        ));
+        ArrayList<String> valeursC1 = new ArrayList<>(Arrays.asList("TRUE"));
+        
+        Map<Variable, String> conclusion1 = buildMap(varStrC1, valeursC1);
+        
+        
+        setRules.add(new Rule(premisse1,conclusion1));
+        
+        
+        ArrayList<String> varStrP2 = new ArrayList<>(Arrays.asList(
+                "HAS_CHASSIS", "HAS_FRONT_LEFT_WHEEL", "HAS_FRONT_RIGHT_WHEEL"
+        ));
+        ArrayList<String> valeursP2 = new ArrayList<>(Arrays.asList("TRUE"));
+        
+        Map<Variable, String> premisse2 = buildMap(varStrP2, valeursP2);
+        
+        ArrayList<String> varStrC2 = new ArrayList<>(Arrays.asList(
+                "FRONT_LEFT_WHEEL_COLOR", "FRONT_RIGHT_WHEEL_COLOR"
+        ));
+        ArrayList<String> valeursC2 = new ArrayList<>(Arrays.asList("RED"));
+        
+        Map<Variable, String> conclusion2 = buildMap(varStrC2, valeursC2);
+        
+        
+        setRules.add(new Rule(premisse2,conclusion2));
+        
+        
+        
+        ArrayList<String> varStrP3 = new ArrayList<>(Arrays.asList(
+                "HAS_CHASSIS", "HAS_BODY"
+        ));
+        ArrayList<String> valeursP3 = new ArrayList<>(Arrays.asList("TRUE"));
+        
+        Map<Variable, String> premisse3 = buildMap(varStrP3, valeursP3);
+        
+        ArrayList<String> varStrC3 = new ArrayList<>(Arrays.asList(
+                "BODY_COLOR"
+        ));
+        ArrayList<String> valeursC3 = new ArrayList<>(Arrays.asList("GREEN"));
+        
+        Map<Variable, String> conclusion3 = buildMap(varStrC3, valeursC3);
+        
+        
+        setRules.add(new Rule(premisse3,conclusion3));
+        
+        return new Action(setRules);
     }
 }

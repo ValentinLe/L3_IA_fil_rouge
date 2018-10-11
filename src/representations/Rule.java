@@ -26,6 +26,12 @@ public class Rule implements Constraint {
         this.premisse = premisse;
         this.conclusion = conclusion;
     }
+    
+    public Rule(Map<Variable, String> premisse, Map<Variable,String> conclusion) {
+        this.premisse = premisse;
+        this.conclusion = conclusion;
+        this.createScope();
+    }
 
     /**
      * Getter of the rule's scope
@@ -50,6 +56,15 @@ public class Rule implements Constraint {
      */
     public Map<Variable, String> getConclusion() {
         return this.conclusion;
+    }
+    
+    /**
+     * build the scope of the rule
+     */
+    public void createScope() {
+        this.scope = new HashSet<>();
+        this.scope.addAll(this.premisse.keySet());
+        this.scope.addAll(this.conclusion.keySet());
     }
 
     /**
