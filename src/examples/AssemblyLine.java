@@ -16,51 +16,55 @@ public class AssemblyLine {
     private Set<Variable> ELEMENT_COLOR;
     
     public AssemblyLine() {
-       this.elementsBool = new HashSet<>(Arrays.asList(
-               "HAS_CHASSIS", "HAS_FRONT_LEFT_WHEEL", "HAS_FRONT_RIGHT_WHEEL",
-               "HAS_REAR_LEFT_WHEEL", "HAS_REAR_RIGHT_WHEEL", "HAS_BODY"
-       ));
-       
-       Set<String> domainBooleans = new HashSet<>(Arrays.asList(
-               "TRUE", "FALSE"
-       ));
-       
-       this.componentsColor = new HashSet<>(Arrays.asList(
-               "FRONT_COLOR", "LEFT_COLOR", "REAR_COLOR", "RIGHT_COLOR", "ROOF_COLOR",
-               "FRONT_LEFT_WHEEL_COLOR", "FRONT_RIGHT_WHEEL_COLOR", "REAR_LEFT_WHEEL_COLOR",
-               "REAR_RIGHT_WHEEL_COLOR", "BODY_COLOR"
-       ));
-       
-       this.domainColors = new HashSet<>(Arrays.asList(
-               "GRAY", "BLACK", "WHITE", "RED", "GREEN", "BLUE", "ORANGE", "YELLOW"
-       ));
-       
-       this.HAS_ELEMENT = new HashSet<>();
-       
-       this.mapVar = new HashMap<>();
-       
-       this.voiture = new HashMap<>();
-       
-       for (String varBoolean : this.elementsBool) {
-           Variable var = new Variable(varBoolean, domainBooleans);
-           this.HAS_ELEMENT.add(new Variable(varBoolean, domainBooleans));
-           this.voiture.put(var,"FALSE");
-           this.mapVar.put(varBoolean, var);
-       }
-       
-       this.ELEMENT_COLOR = new HashSet<>();
-       
-       for (String component : this.componentsColor) {
-           Variable var = new Variable(component, this.domainColors);
-           this.ELEMENT_COLOR.add(var);
-           this.voiture.put(var,"GRAY");
-           this.mapVar.put(component, var);
-       }
-       
-       this.voiture = generateCar();
-        System.out.println(voiture + "\n");
+        this.elementsBool = new HashSet<>(Arrays.asList(
+                "HAS_CHASSIS", "HAS_FRONT_LEFT_WHEEL", "HAS_FRONT_RIGHT_WHEEL",
+                "HAS_REAR_LEFT_WHEEL", "HAS_REAR_RIGHT_WHEEL", "HAS_BODY"
+        ));
+
+        Set<String> domainBooleans = new HashSet<>(Arrays.asList(
+                "TRUE", "FALSE"
+        ));
+
+        this.componentsColor = new HashSet<>(Arrays.asList(
+                "FRONT_COLOR", "LEFT_COLOR", "REAR_COLOR", "RIGHT_COLOR", "ROOF_COLOR",
+                "FRONT_LEFT_WHEEL_COLOR", "FRONT_RIGHT_WHEEL_COLOR", "REAR_LEFT_WHEEL_COLOR",
+                "REAR_RIGHT_WHEEL_COLOR", "BODY_COLOR"
+        ));
+
+        this.domainColors = new HashSet<>(Arrays.asList(
+                "GRAY", "BLACK", "WHITE", "RED", "GREEN", "BLUE", "ORANGE", "YELLOW"
+        ));
+
+        this.HAS_ELEMENT = new HashSet<>();
+
+        this.mapVar = new HashMap<>();
+
+        this.voiture = new HashMap<>();
+
+        for (String varBoolean : this.elementsBool) {
+            Variable var = new Variable(varBoolean, domainBooleans);
+            this.HAS_ELEMENT.add(new Variable(varBoolean, domainBooleans));
+            this.voiture.put(var,"FALSE");
+            this.mapVar.put(varBoolean, var);
+        }
+
+        this.ELEMENT_COLOR = new HashSet<>();
+
+        for (String component : this.componentsColor) {
+            Variable var = new Variable(component, this.domainColors);
+            this.ELEMENT_COLOR.add(var);
+            this.voiture.put(var,"GRAY");
+            this.mapVar.put(component, var);
+        }
+
+        this.voiture = generateCar();
+        State state = new State(this.voiture);
+        System.out.println(state + "\n");
         Action a = this.getAction1();
         System.out.println(a);
+        state = a.apply(state);
+        System.out.println(state);
+        state = a.apply(state);
     }
     
     public String choiceValue(Set<String> setValues) {

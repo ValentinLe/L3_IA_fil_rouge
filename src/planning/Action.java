@@ -18,7 +18,7 @@ public class Action {
     
     public boolean isApplicable(State state) {
         for (Rule rule : this.preconditions) {
-            if (state.satisfies(rule.getPremisse())) {
+            if (state.satisfies(rule.getPremisse()) && !state.satisfies(rule.getConclusion())) {
                 return true;
             }
         }

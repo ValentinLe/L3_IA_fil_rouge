@@ -25,4 +25,13 @@ public class State {
     public State getCopy() {
         return new State(new HashMap<>(this.voiture));
     }
+    
+    @Override
+    public String toString() {
+        String ch = "";
+        for (Variable var : this.voiture.keySet()) {
+            ch += var + " = " + this.voiture.get(var) + "\n";
+        }
+        return ch;
+    }
 }
