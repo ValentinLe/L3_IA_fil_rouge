@@ -4,6 +4,7 @@ package representations;
 import java.util.*;
 import examples.*;
 import ppc.*;
+import planning.*;
 
 
 public class Main {
@@ -72,13 +73,13 @@ public class Main {
 
         Backtracking.Heuristic heuristic = Backtracking.Heuristic.CONSTRAINT_MAX;
         Backtracking back = new Backtracking(variables, constraints, heuristic);
-        
+
         Map<Variable, String> voiture1 = back.solutionFilter();
         System.out.println("backtrack : " + voiture1);
-        
+
         Set<Map<Variable, String>> sols = back.solutionsFilter();
-        
-        
+
+
         for (Map<Variable, String> voiture : sols) {
             System.out.println(voiture + "\n");
         }
@@ -87,7 +88,7 @@ public class Main {
         System.out.println("Heuristic utilisée : " + back.getHeuristic());
         System.out.println("noeuds parcourus : " + back.getNbNode());
         */
-        
+
         /*
         Map<Variable, String> voiture = ex.getVoiture1();
         Map<Variable, Set<String>> map = back.getMapVariableNotAssigned(voiture);
@@ -98,9 +99,14 @@ public class Main {
         System.out.println(c3.filtrer(voiture, map));
         System.out.println("MAP ap2 " +map);
         */
-        
+
         AssemblyLine assembly = new AssemblyLine();
-        
+
+        Set<Action> actions = assembly.getActions();
+        PlanningProblem pb = new PlanningProblem(assembly.getInitState(), assembly.getGoal(), actions);
+        //System.out.println(actions);
+        System.out.println(pb.bfs());
+
     }
 
 }

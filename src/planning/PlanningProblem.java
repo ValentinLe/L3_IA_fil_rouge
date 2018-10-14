@@ -5,20 +5,24 @@ import java.util.*;
 import representations.*;
 
 public class PlanningProblem {
-    
+
     private State initialState;
     private State goal;
     private Set<Action> actions;
-    
+
     public PlanningProblem(State initialState, State goal, Set<Action> actions) {
         this.initialState = initialState;
         this.goal = goal;
         this.actions = actions;
     }
-    
-    public Stack<Action> dfs(State state, Stack<Action> plan, 
+
+    public Stack<Action> dfs() {
+        return this.dfs(this.initialState, new Stack<>(), new HashSet<>());
+    }
+
+    public Stack<Action> dfs(State state, Stack<Action> plan,
             Set<State> closed) {
-        
+
         if (state.satisfies(this.goal.getVoiture())) {
             return plan;
         } else {
@@ -40,11 +44,11 @@ public class PlanningProblem {
             return plan;
         }
     }
-    
+
     public void dfsIter() {
-        
+
     }
-    
+
     public Queue<Action> bfs() {
         Map<State, State> father = new HashMap<>();
         Map<State, Action> plan = new HashMap<>();
@@ -65,6 +69,13 @@ public class PlanningProblem {
                             return this.getBfsPlan(father, plan, next);
                         } else {
                             open.add(next);
+                            /*
+                            System.out.println("-----------\n\n" + this.goal + "\n\n" + next);
+                            try {
+                                Thread.sleep(2000);
+                            } catch(InterruptedException ex) {
+                                Thread.currentThread().interrupt();
+                            }*/
                         }
                     }
                 }
@@ -72,10 +83,10 @@ public class PlanningProblem {
         }
         return null;
     }
-    
-    public Queue<Action> getBfsPlan(Map<State, State> father, 
+
+    public Queue<Action> getBfsPlan(Map<State, State> father,
             Map<State, Action> actions, State goal) {
-        
+
         Queue<Action> plan = new LinkedList<>();
         while (goal != null) {
             plan.add(actions.get(goal));
