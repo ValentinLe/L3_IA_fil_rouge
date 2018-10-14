@@ -54,6 +54,7 @@ public class PlanningProblem {
         Map<State, Action> plan = new HashMap<>();
         Set<State> closed = new HashSet<>();
         Queue<State> open = new LinkedList<>();
+        Set<State> test = new HashSet<>();
         open.add(this.initialState);
         father.put(this.initialState, null);
         while (!open.isEmpty()) {
@@ -68,14 +69,22 @@ public class PlanningProblem {
                         if (next.satisfies(this.goal.getVoiture())) {
                             return this.getBfsPlan(father, plan, next);
                         } else {
-                            open.add(next);
-                            /*
-                            System.out.println("-----------\n\n" + this.goal + "\n\n" + next);
-                            try {
-                                Thread.sleep(2000);
-                            } catch(InterruptedException ex) {
-                                Thread.currentThread().interrupt();
-                            }*/
+                              open.add(next);
+                              test.add(next);
+
+                              if (test.size() < 20) {
+                                System.out.println(test + "\n");
+
+                              }
+                              //System.out.println("-----------\n\n" + this.goal + "\n\n" + next);
+                              /*
+                              try {
+                                  Thread.sleep(1000);
+                              } catch(InterruptedException ex) {
+                                  Thread.currentThread().interrupt();
+                              }*/
+
+
                         }
                     }
                 }
