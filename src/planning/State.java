@@ -25,18 +25,10 @@ public class State {
     public State getCopy() {
         return new State(new HashMap<>(this.voiture));
     }
-
-    public boolean sameCar(Map<Variable, String> otherCar) {
-      if (otherCar.size() != this.voiture.size()) {
-        return false;
-      } else {
-        for (Variable var : this.voiture.keySet()) {
-          if (!otherCar.get(var).equals(this.voiture.get(var))) {
-            return false;
-          }
-        }
-        return true;
-      }
+    
+    @Override
+    public int hashCode() {
+        return this.voiture.hashCode();
     }
 
     @Override
@@ -45,7 +37,7 @@ public class State {
           return true;
         } else {
             if(o instanceof State) {
-              return this.sameCar(((State) o).getVoiture());
+              return this.voiture.equals(((State) o).getVoiture());
             } else {
                 return false;
             }

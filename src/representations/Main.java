@@ -105,7 +105,8 @@ public class Main {
         Set<Action> actions = assembly.getActions();
         PlanningProblem pb = new PlanningProblem(assembly.getInitState(), assembly.getGoal(), actions);
         //System.out.println(actions);
-        System.out.println(pb.bfs());
+        //System.out.println(pb.bfs());
+        System.out.println(pb.dfs());
 
     }
 

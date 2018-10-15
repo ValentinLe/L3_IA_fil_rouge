@@ -9,6 +9,7 @@ public class PlanningProblem {
     private State initialState;
     private State goal;
     private Set<Action> actions;
+    private int n = 0;
 
     public PlanningProblem(State initialState, State goal, Set<Action> actions) {
         this.initialState = initialState;
@@ -22,7 +23,7 @@ public class PlanningProblem {
 
     public Stack<Action> dfs(State state, Stack<Action> plan,
             Set<State> closed) {
-
+        
         if (state.satisfies(this.goal.getVoiture())) {
             return plan;
         } else {
@@ -33,7 +34,7 @@ public class PlanningProblem {
                         plan.push(action);
                         closed.add(next);
                         Stack<Action> subplan = dfs(next, plan, closed);
-                        if (!(subplan != null)) {
+                        if (!subplan.isEmpty()) {
                             return subplan;
                         } else {
                             plan.pop();
@@ -54,7 +55,6 @@ public class PlanningProblem {
         Map<State, Action> plan = new HashMap<>();
         Set<State> closed = new HashSet<>();
         Queue<State> open = new LinkedList<>();
-        Set<State> test = new HashSet<>();
         open.add(this.initialState);
         father.put(this.initialState, null);
         while (!open.isEmpty()) {
@@ -70,21 +70,6 @@ public class PlanningProblem {
                             return this.getBfsPlan(father, plan, next);
                         } else {
                               open.add(next);
-                              test.add(next);
-
-                              if (test.size() < 20) {
-                                System.out.println(test + "\n");
-
-                              }
-                              //System.out.println("-----------\n\n" + this.goal + "\n\n" + next);
-                              /*
-                              try {
-                                  Thread.sleep(1000);
-                              } catch(InterruptedException ex) {
-                                  Thread.currentThread().interrupt();
-                              }*/
-
-
                         }
                     }
                 }
