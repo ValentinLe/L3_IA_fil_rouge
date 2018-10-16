@@ -6,16 +6,26 @@ import java.util.Map;
 import representations.*;
 
 
-public class State {
+public class State implements Comparable<State>{
 
     private Map<Variable, String> voiture;
+    private Integer distance;
 
     public State(Map<Variable, String> voiture) {
         this.voiture = voiture;
+        this.distance = Integer.MAX_VALUE;
     }
 
     public Map<Variable, String> getVoiture() {
         return this.voiture;
+    }
+
+    public int getDistance() {
+        return this.distance;
+    }
+
+    public void setDistance(int distance) {
+        this.distance = distance;
     }
 
     public boolean satisfies(Map<Variable, String> partialState) {
@@ -42,6 +52,11 @@ public class State {
                 return false;
             }
         }
+    }
+
+    @Override
+    public int compareTo(State other) {
+        return this.distance.compareTo(other.getDistance());
     }
 
     @Override

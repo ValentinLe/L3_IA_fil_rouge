@@ -6,10 +6,10 @@ import representations.*;
 
 public class PlanningProblem {
 
-    private State initialState;
-    private State goal;
-    private Set<Action> actions;
-    private int nbNode;
+    protected State initialState;
+    protected State goal;
+    protected Set<Action> actions;
+    protected int nbNode;
 
     public PlanningProblem(State initialState, State goal, Set<Action> actions) {
         this.initialState = initialState;
@@ -17,7 +17,7 @@ public class PlanningProblem {
         this.actions = actions;
         this.nbNode = 0;
     }
-    
+
     public int getNbNode() {
         return this.nbNode;
     }
