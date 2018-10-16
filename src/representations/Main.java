@@ -73,6 +73,7 @@ public class Main {
 
         Backtracking.Heuristic heuristic = Backtracking.Heuristic.CONSTRAINT_MAX;
         Backtracking back = new Backtracking(variables, constraints, heuristic);
+        System.out.println(back);
 
         Map<Variable, String> voiture1 = back.solutionFilter();
         System.out.println("backtrack : " + voiture1);
@@ -99,7 +100,7 @@ public class Main {
         System.out.println(c3.filtrer(voiture, map));
         System.out.println("MAP ap2 " +map);
         */
-
+        
         AssemblyLine assembly = new AssemblyLine();
 
         Set<Action> actions = assembly.getActions();

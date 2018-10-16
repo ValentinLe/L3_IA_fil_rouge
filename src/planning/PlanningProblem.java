@@ -60,14 +60,13 @@ public class PlanningProblem {
         open.push(this.initialState);
         father.put(this.initialState, null);
         while (!open.isEmpty()) {
-            State state = open.pop();
             this.nbNode += 1;
+            State state = open.pop();
             closed.add(state);
             for (Action action : this.actions) {
                 if (action.isApplicable(state)) {
                     State next = action.apply(state);
-                    open.push(next);
-                    if (!closed.contains(next)) {
+                    if (!closed.contains(next) && !open.contains(next)) {
                         father.put(next, state);
                         plan.put(next, action);
                         if (next.satisfies(this.goal.getVoiture())) {
@@ -90,9 +89,9 @@ public class PlanningProblem {
         open.add(this.initialState);
         father.put(this.initialState, null);
         while (!open.isEmpty()) {
+            this.nbNode += 1;
             State state = open.remove();
             closed.add(state);
-            this.nbNode += 1;
             for (Action action : this.actions) {
                 if (action.isApplicable(state)) {
                     State next = action.apply(state);

@@ -28,14 +28,16 @@ public class PlanningProblemWithCost extends PlanningProblem {
 
     public Stack<Action> dijkstra() {
         PriorityQueue<State> distance = new PriorityQueue<>();
+        Map<State, Integer> closed = new HashMap<>();
         Map<State, State> father = new HashMap<>();
         Map<State, Action> plan = new HashMap<>();
         Set<State> open = new HashSet<>();
         Set<State> goals = new HashSet<>();
+        this.initialState.setDistance(0);
         distance.add(this.initialState);
         open.add(this.initialState);
         father.put(this.initialState, null);
-        this.initialState.setDistance(0);
+        closed.put(this.initialState, 0);
         while (!open.isEmpty()) {
             State state = distance.remove();
             open.remove(state);
@@ -45,18 +47,12 @@ public class PlanningProblemWithCost extends PlanningProblem {
             for (Action action : this.actions) {
                 if (action.isApplicable(state)) {
                     State next = action.apply(state);
-                    System.out.println(next);
-                    try {
-                        Thread.sleep(1000);
-                    } catch(Exception e) {
-                        System.out.println("oulala pas bien");
-                    }
-                    if (!distance.contains(next)) {
+                    if (!closed.keySet().contains(next)) {
                         distance.add(next);
                     }
                     if (next.getDistance() > state.getDistance() + action.getCost()) {
                         next.setDistance(state.getDistance() + action.getCost());
-                        distance.add(next);
+                        closed.put(next, next.getDistance());
                         father.put(next, state);
                         plan.put(next, action);
                         open.add(next);

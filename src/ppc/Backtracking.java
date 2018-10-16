@@ -41,12 +41,16 @@ public class Backtracking {
         this.constraints = constraints;
         this.variables = variables;
         this.heuristic = heuristic;
-
+    }
+    
+    @Override
+    public String toString() {
+        String ch = "";
         // print of all constraint implicate in the backtracking
         for(int i = 1; i<(constraints.size()+1); i++) {
-            System.out.println("c" + i + " : " + constraints.get(i-1));
+            ch += "c" + i + " : " + constraints.get(i-1) + "\n";
         }
-        System.out.println();
+        return ch;
     }
 
     /**
