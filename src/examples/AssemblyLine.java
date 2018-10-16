@@ -30,7 +30,11 @@ public class AssemblyLine {
                 "FRONT_LEFT_WHEEL_COLOR", "FRONT_RIGHT_WHEEL_COLOR", "REAR_LEFT_WHEEL_COLOR",
                 "REAR_RIGHT_WHEEL_COLOR", "BODY_COLOR"
         ));
-
+        /*
+        this.domainColors = new HashSet<>(Arrays.asList(
+                "GRAY", "BLACK", "WHITE", "RED", "BLUE", "GREEN", "ORANGE", "YELLOW"
+        ));
+        */
         this.domainColors = new HashSet<>(Arrays.asList(
                 "GRAY", "BLACK"
         ));
@@ -137,7 +141,7 @@ public class AssemblyLine {
 
         setRules.add(new Rule(premisse1,conclusion1));
 
-        return new Action(setRules);
+        return new Action(setRules, 2);
     }
 
     public Action paintRoof(String color) {
@@ -160,7 +164,7 @@ public class AssemblyLine {
 
         setRules.add(new Rule(premisse1,conclusion1));
 
-        return new Action(setRules);
+        return new Action(setRules, 1);
     }
 
     public Action paintRear(String color) {
@@ -183,7 +187,7 @@ public class AssemblyLine {
 
         setRules.add(new Rule(premisse1,conclusion1));
 
-        return new Action(setRules);
+        return new Action(setRules, 1);
     }
 
     public Action paintFront(String color) {
@@ -206,7 +210,7 @@ public class AssemblyLine {
 
         setRules.add(new Rule(premisse1,conclusion1));
 
-        return new Action(setRules);
+        return new Action(setRules, 1);
     }
 
     public Action paintLeft(String color) {
@@ -229,7 +233,7 @@ public class AssemblyLine {
 
         setRules.add(new Rule(premisse1,conclusion1));
 
-        return new Action(setRules);
+        return new Action(setRules, 1);
     }
 
     public Action paintRight(String color) {
@@ -252,6 +256,6 @@ public class AssemblyLine {
 
         setRules.add(new Rule(premisse1,conclusion1));
 
-        return new Action(setRules);
+        return new Action(setRules, 1);
     }
 }

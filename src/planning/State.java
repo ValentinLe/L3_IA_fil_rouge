@@ -25,7 +25,7 @@ public class State {
     public State getCopy() {
         return new State(new HashMap<>(this.voiture));
     }
-    
+
     @Override
     public int hashCode() {
         return this.voiture.hashCode();

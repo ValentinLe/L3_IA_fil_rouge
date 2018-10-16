@@ -9,12 +9,17 @@ public class PlanningProblem {
     private State initialState;
     private State goal;
     private Set<Action> actions;
-    private int n = 0;
+    private int nbNode;
 
     public PlanningProblem(State initialState, State goal, Set<Action> actions) {
         this.initialState = initialState;
         this.goal = goal;
         this.actions = actions;
+        this.nbNode = 0;
+    }
+    
+    public int getNbNode() {
+        return this.nbNode;
     }
 
     public Stack<Action> dfs() {
@@ -23,7 +28,8 @@ public class PlanningProblem {
 
     public Stack<Action> dfs(State state, Stack<Action> plan,
             Set<State> closed) {
-        
+
+        this.nbNode += 1;
         if (state.satisfies(this.goal.getVoiture())) {
             return plan;
         } else {
@@ -46,8 +52,34 @@ public class PlanningProblem {
         }
     }
 
-    public void dfsIter() {
-
+    public Queue<Action> dfsIter() {
+        Map<State, State> father = new HashMap<>();
+        Map<State, Action> plan = new HashMap<>();
+        Set<State> closed = new HashSet<>();
+        Stack<State> open = new Stack<>();
+        open.push(this.initialState);
+        father.put(this.initialState, null);
+        while (!open.isEmpty()) {
+            State state = open.pop();
+            this.nbNode += 1;
+            closed.add(state);
+            for (Action action : this.actions) {
+                if (action.isApplicable(state)) {
+                    State next = action.apply(state);
+                    open.push(next);
+                    if (!closed.contains(next)) {
+                        father.put(next, state);
+                        plan.put(next, action);
+                        if (next.satisfies(this.goal.getVoiture())) {
+                            return this.getBfsPlan(father, plan, next);
+                        } else {
+                            open.add(next);
+                        }
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     public Queue<Action> bfs() {
@@ -60,6 +92,7 @@ public class PlanningProblem {
         while (!open.isEmpty()) {
             State state = open.remove();
             closed.add(state);
+            this.nbNode += 1;
             for (Action action : this.actions) {
                 if (action.isApplicable(state)) {
                     State next = action.apply(state);

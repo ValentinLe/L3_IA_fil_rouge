@@ -6,16 +6,23 @@ import java.util.Set;
 import representations.*;
 
 public class Action {
+
     private Set<Rule> preconditions;
-    
-    public Action(Set<Rule> preconditions){
+    private int cost;
+
+    public Action(Set<Rule> preconditions, int cost){
         this.preconditions = preconditions;
+        this.cost = cost;
     }
-    
+
     public Set<Rule> getPreconditions() {
         return this.preconditions;
     }
-    
+
+    public int getCost() {
+        return this.cost;
+    }
+
     public boolean isApplicable(State state) {
         for (Rule rule : this.preconditions) {
             if (state.satisfies(rule.getPremisse()) && !state.satisfies(rule.getConclusion())) {
@@ -24,7 +31,7 @@ public class Action {
         }
         return false;
     }
-    
+
     public State apply(State state) {
         State copyState = state.getCopy();
         if (this.isApplicable(state)) {
@@ -38,7 +45,7 @@ public class Action {
         }
         return copyState;
     }
-    
+
     @Override
     public String toString() {
         String ch = "";
