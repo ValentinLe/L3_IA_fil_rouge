@@ -30,14 +30,16 @@ public class AssemblyLine {
                 "FRONT_LEFT_WHEEL_COLOR", "FRONT_RIGHT_WHEEL_COLOR", "REAR_LEFT_WHEEL_COLOR",
                 "REAR_RIGHT_WHEEL_COLOR", "BODY_COLOR"
         ));
-        /*
+        
         this.domainColors = new HashSet<>(Arrays.asList(
                 "GRAY", "BLACK", "WHITE", "RED", "BLUE", "GREEN", "ORANGE", "YELLOW"
         ));
-        */
+        
+        /*
         this.domainColors = new HashSet<>(Arrays.asList(
-                "GRAY", "BLACK"
+                "GRAY", "BLACK", "RED"
         ));
+        */
 
         this.HAS_ELEMENT = new HashSet<>();
 

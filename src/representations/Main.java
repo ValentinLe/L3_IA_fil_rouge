@@ -109,13 +109,15 @@ public class Main {
         //System.out.println(pb.bfs());
         //System.out.println(pb.dfs());
         //System.out.println(pb.dfsIter());
-        //System.out.println(pb.getNbNode());
+        
 
         PlanningProblemWithCost pb2 = new PlanningProblemWithCost(assembly.getInitState(), assembly.getGoal(), actions);
 
-        //System.out.println(pb2.dijkstra());
+        System.out.println(pb2.dijkstra());
+        System.out.println(pb2.getNbNode());
+        
         System.out.println(pb2.aStar());
-
+        System.out.println(pb2.getNbNode());
     }
 
 }

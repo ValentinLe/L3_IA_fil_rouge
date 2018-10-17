@@ -8,7 +8,7 @@ public class PlanningProblem {
 
     protected State initialState;
     protected State goal;
-    protected Set<Action> actions;
+    public Set<Action> actions;
     protected int nbNode;
 
     public PlanningProblem(State initialState, State goal, Set<Action> actions) {
@@ -21,15 +21,24 @@ public class PlanningProblem {
     public int getNbNode() {
         return this.nbNode;
     }
+    
+    public void upNbNode() {
+        this.nbNode += 1;
+    }
+    
+    public void initNbNode() {
+        this.nbNode = 0;
+    }
 
     public Stack<Action> dfs() {
+        this.initNbNode();
         return this.dfs(this.initialState, new Stack<>(), new HashSet<>());
     }
 
     public Stack<Action> dfs(State state, Stack<Action> plan,
             Set<State> closed) {
 
-        this.nbNode += 1;
+        this.upNbNode();
         if (state.satisfies(this.goal.getVoiture())) {
             return plan;
         } else {
@@ -53,6 +62,7 @@ public class PlanningProblem {
     }
 
     public Queue<Action> dfsIter() {
+        this.initNbNode();
         Map<State, State> father = new HashMap<>();
         Map<State, Action> plan = new HashMap<>();
         Set<State> closed = new HashSet<>();
@@ -60,7 +70,7 @@ public class PlanningProblem {
         open.push(this.initialState);
         father.put(this.initialState, null);
         while (!open.isEmpty()) {
-            this.nbNode += 1;
+            this.upNbNode();
             State state = open.pop();
             closed.add(state);
             for (Action action : this.actions) {
@@ -82,6 +92,7 @@ public class PlanningProblem {
     }
 
     public Queue<Action> bfs() {
+        this.initNbNode();
         Map<State, State> father = new HashMap<>();
         Map<State, Action> plan = new HashMap<>();
         Set<State> closed = new HashSet<>();
@@ -89,7 +100,7 @@ public class PlanningProblem {
         open.add(this.initialState);
         father.put(this.initialState, null);
         while (!open.isEmpty()) {
-            this.nbNode += 1;
+            this.upNbNode();
             State state = open.remove();
             closed.add(state);
             for (Action action : this.actions) {
