@@ -56,23 +56,18 @@ public class PlanningProblemWithCost extends PlanningProblem {
                         father.put(next, state);
                         plan.put(next, action);
                         open.add(next);
+                        priority.add(next);
                     }
-                    priority.add(next);
                 }
             }
         }
         System.out.println(this.initialState);
         System.out.println(this.goal);
-        return this.getDijkstraPlan(father, plan, goals, priority);
+        return this.getDijkstraPlan(father, plan, goals, distance);
     }
 
-    public Stack<Action> getDijkstraPlan(Map<State, State> father, Map<State, Action> actions, Set<State> goals, PriorityQueue<State> distance) {
+    public Stack<Action> getDijkstraPlan(Map<State, State> father, Map<State, Action> actions, Set<State> goals, Map<State, Integer> distance) {
         Stack<Action> plan = new Stack<>();
-        State state = null;
-        while (!goals.contains(state)) {
-            state = distance.remove();
-        }
-        State goal = distance.remove();
         Action action = actions.get(goal);
         do {
             plan.push(action);
@@ -99,6 +94,8 @@ public class PlanningProblemWithCost extends PlanningProblem {
         while (!open.isEmpty()) {
             State state = priority.remove();
             if (state.satisfies(this.goal.getVoiture())) {
+                System.out.println(this.initialState);
+                System.out.println(this.goal);
                 return this.getBfsPlan(father, plan, state);
             } else {
                 open.remove(state);
@@ -115,8 +112,8 @@ public class PlanningProblemWithCost extends PlanningProblem {
                             father.put(next, state);
                             plan.put(next, action);
                             open.add(next);
+                            priority.add(next);
                         }
-                        priority.add(next);
                     }
                 }
             }
