@@ -4,7 +4,7 @@ package representations;
 import java.util.*;
 
 /**
- * A Rule is a constraint that represents a implication :  a implies b
+ * A Rule is a constraint that represents an implication :  a implies b
  *
  */
 
@@ -15,8 +15,8 @@ public class Rule implements Constraint {
     private Map<Variable, String> conclusion;
 
     /**
-     * Build a instance of Rule
-     * @param scope All Variables involved in the Constraint
+     * Build an instance of Rule
+     * @param scope All Variables involved in a Constraint
      * @param premisse The premisse of the rule
      * @param conclusion The conclusion of the rule
      */
@@ -26,7 +26,7 @@ public class Rule implements Constraint {
         this.premisse = premisse;
         this.conclusion = conclusion;
     }
-    
+
     public Rule(Map<Variable, String> premisse, Map<Variable,String> conclusion) {
         this.premisse = premisse;
         this.conclusion = conclusion;
@@ -34,7 +34,7 @@ public class Rule implements Constraint {
     }
 
     /**
-     * Getter of the rule's scope
+     * Getter method of the rule's scope
      * @return the rule's scope
      */
     @Override
@@ -43,7 +43,7 @@ public class Rule implements Constraint {
     }
 
     /**
-     * Getter of the rule's premisse
+     * Getter method of the rule's premisse
      * @return the premisse of the rule
      */
     public Map<Variable, String> getPremisse() {
@@ -51,13 +51,13 @@ public class Rule implements Constraint {
     }
 
     /**
-     * Getter of the rule's conclusion
+     * Getter method of the rule's conclusion
      * @return the conclusion of the rule
      */
     public Map<Variable, String> getConclusion() {
         return this.conclusion;
     }
-    
+
     /**
      * build the scope of the rule
      */
@@ -71,12 +71,12 @@ public class Rule implements Constraint {
      * Test if the part (premise or conclusion) is satisfied by a car
      * @param voiture the car of the test
      * @param part the part (premise or conclusion)
-     * @param testPart the boolean of the initialization of test
-     * @return the result of the test or null if at least one of variables of the part are a null value
+     * @param testPart the boolean of the initialization of a test
+     * @return a test result or a null if at least one of the variable's part values is null
      */
     public static Boolean isPartSatisfied(Map<Variable, String> voiture, Map<Variable, String> part, boolean testPart) {
         boolean testRes = testPart;
-        for (Variable var : part.keySet()) { // for all of variables in the part
+        for (Variable var : part.keySet()) { // for all of the variables in the part
             if (voiture.get(var) == null) {
                 // if the variable isn't defined in the car
                 return null;
@@ -101,7 +101,7 @@ public class Rule implements Constraint {
     /**
      * Test if the rule is satisfied by a car
      * @param voiture the car of the test
-     * @return the result of the test
+     * @return test result
      */
     @Override
     public boolean isSatisfiedBy(Map<Variable,String> voiture) {
@@ -116,7 +116,7 @@ public class Rule implements Constraint {
             // if there is a premisse
             p = isPartSatisfied(voiture, this.premisse, p);
             if (p == null) {
-                // if there is at least one variable of the premisse not defined in the car
+                // if there is at least one the premisse's variable is not defined in the car
                 return true;
             }
         }
@@ -125,7 +125,7 @@ public class Rule implements Constraint {
             // if there is a conclusion
             c = isPartSatisfied(voiture, this.conclusion, c);
             if (c == null) {
-                // if there is at least one variable of the conclusion not defined in the car
+                // if there is at least one of the conclusion's variables is not defined in the car
                 return true;
             }
         }
@@ -133,17 +133,17 @@ public class Rule implements Constraint {
     }
 
     /**
-     * Construct a string of a part of the rule with the variable their value
+     * Construct a string of a rule's part with the variable as their value
      * @param part the part of the rule
-     * @param separator the separator between each variables
-     * @return the string result of the representation of the part
+     * @param separator the separator between each variable
+     * @return the string result of the representation of a part
      */
     public String getStringMap(Map<Variable, String> part, String separator) {
         String ch = "";
         if (part != null) {
            Iterator<Variable> iter = part.keySet().iterator();
            while (iter.hasNext()) {
-               // iteration on the variables of the part
+               // iteration on the variables of a part
                Variable var = iter.next();
                // add the string "variable = value"
                ch += var.getName()+ " = " + part.get(var);
@@ -158,17 +158,17 @@ public class Rule implements Constraint {
 
     /**
      * Construct a string representation of the rule
-     * @return the string representation
+     * @return the string's representation
      */
     @Override
     public String toString() {
         String ch = "";
-        
+
         if (this.conclusion == null) {
-            // if it's a incompatibilityContraint
+            // if it's an incompatibilityContraint
             ch += "!(";
         }
-        
+
         // add the "toString" of the premisse with the separator
         ch += this.getStringMap(this.premisse, "&&");
 
@@ -181,21 +181,21 @@ public class Rule implements Constraint {
         ch += this.getStringMap(this.conclusion, "||");
 
         if (this.conclusion == null) {
-            // if it's a incompatibilityContraint
+            // if it's an incompatibilityContraint
             ch += ")";
         }
-        
+
         return ch;
     }
 
     /**
-     * Counts the number of variables of the part present in the map
-     * @param domaines the map of variable with its copy domain
+     * Counts the number of the part's variables present in the map
+     * @param domaines the map of variable with its copied domain
      * @param part the part to count
-     * @return the number of variables of the part present in the map
+     * @return the number of the part's variables in the map
      */
     public int countVariable(Map<Variable, Set<String>> domaines, Map<Variable, String> part) {
-        // counter of variable in the domaines of varibale not defined, that there are in this constraint
+        // counter of the domaine's not defined variables in this constraint
         int cpt = 0;
         for (Variable var : part.keySet()) { // for all variables in the conclusion
             if (domaines.containsKey(var)) {
@@ -205,41 +205,41 @@ public class Rule implements Constraint {
         }
         return cpt;
     }
-    
+
     /**
-     * filters the variables' domain
+     * Filters the domain's variables
      * @param voiture a car for the filtering test
-     * @param domaines variables and its copy domain for filtering
-     * @param part the part for the filtering (premisse or conclusion)
-     * @param equal if it's test of equality : false for IncompatibilityConstraint
+     * @param domaines variables and its copied domain for filtering
+     * @param part the part for filtering (premisse or conclusion)
+     * @param equal test of equality : false for IncompatibilityConstraint
      * or true for Rule
      * @see IncompatibilityConstraint
-     * @return true if there is a filtering
+     * @return true if a filtering occures
      */
-    public boolean filterWithPart(Map<Variable, String> voiture, 
+    public boolean filterWithPart(Map<Variable, String> voiture,
             Map<Variable, Set<String>> domaines, Map<Variable, String> part, boolean equal) {
-        
+
         boolean isFilter = false;
         if (countVariable(domaines, part) == 1) {
-            // if there is only one variable not difined in the conclusion
+            // if there is only one variable not defined in the conclusion
             Variable varNotAssigned = null;
-            for (Variable var : part.keySet()) { // for all variables in the conclusion
+            for (Variable var : part.keySet()) { // for all the variables in the conclusion
 
                 String valueVoiture = voiture.get(var);
                 if (equal && valueVoiture != null && valueVoiture.equals(part.get(var))){
-                    // if the car has the variable and the value corresponding to the constraint, no need to filter
+                    // if the car has the variable and the value corresponding to the constraint, no need for filtering
                     return false;
                 }
                 if (!equal && valueVoiture != null && !valueVoiture.equals(part.get(var))){
-                    // if the car has the variable and the value corresponding to the constraint, no need to filter
+                    // if the car has the variable and the value corresponding to the constraint, no need for filtering
                     return false;
                 }
                 if (voiture.get(var) == null) {
-                    // assignation of the variable that isn't defined in the car
+                    // assigne the variables that aren't defined in the car
                     varNotAssigned = var;
                 }
             }
-            // reduction of the domain of the variable not difined to the value of this constraint
+            // reduction of the variable's domain that is not defined in value of this constraint
             Set<String> domaineVarNotAssi = new HashSet<>();
             domaineVarNotAssi.add(part.get(varNotAssigned));
             if (!domaines.get(varNotAssigned).equals(domaineVarNotAssi)) {
@@ -250,12 +250,12 @@ public class Rule implements Constraint {
         }
         return isFilter;
     }
-    
+
     /**
-     * filtering of variables' domain
+     * Filters the domain's variables
      * @param voiture a car for the filtering test
-     * @param domaines variables and its copy domain for filtering
-     * @return true if there is a filtering
+     * @param domaines variables and its copied domain for filtering
+     * @return true if a filtering occures
      */
     @Override
     public boolean filtrer(Map<Variable, String> voiture, Map<Variable, Set<String>> domaines) {

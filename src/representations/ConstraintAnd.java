@@ -4,13 +4,13 @@ package representations;
 import java.util.Map;
 
 /**
- * this class it's a AND combination between two constraints
+ * this class is an AND combination between two constraints
  *
  */
 public class ConstraintAnd extends ConstraintBool implements Constraint {
-    
+
     /**
-     * Build a constraint OR
+     * Build an AND constraint
      * @param c1 the first constraint
      * @param c2 the second constraint
      */
@@ -19,18 +19,18 @@ public class ConstraintAnd extends ConstraintBool implements Constraint {
     }
 
     /**
-     * Test if the first constraint AND the second constraint is satisfied by a car
+     * Test if the first constraint AND the second constraint are satisfied by a car
      * @param voiture the car
-     * @return the result of the test
+     * @return test result
      */
     @Override
     public boolean isSatisfiedBy(Map<Variable, String> voiture) {
         return (this.c1.isSatisfiedBy(voiture) && this.c2.isSatisfiedBy(voiture));
     }
-    
+
     /**
-     * Get the string separator of the AND
-     * @return the string separator
+     * Get the string separator of AND
+     * @return the string's separator
      */
     @Override
     public String getSeparator() {

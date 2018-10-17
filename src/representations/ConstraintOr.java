@@ -4,13 +4,13 @@ package representations;
 import java.util.Map;
 
 /**
- * this class it's a OR combination between two constraints
+ * this class is an OR combination between two constraints
  *
  */
 public class ConstraintOr extends ConstraintBool implements Constraint {
 
     /**
-     * Build a constraint OR
+     * Build an OR constraint
      * @param c1 the first constraint
      * @param c2 the second constraint
      */
@@ -21,16 +21,16 @@ public class ConstraintOr extends ConstraintBool implements Constraint {
     /**
      * Test if the first constraint OR the second constraint is satisfied by a car
      * @param voiture the car
-     * @return the result of the test
+     * @return test result
      */
     @Override
     public boolean isSatisfiedBy(Map<Variable, String> voiture) {
         return (this.c1.isSatisfiedBy(voiture) || this.c2.isSatisfiedBy(voiture));
     }
-    
+
     /**
-     * Get the string separator of the OR
-     * @return the string separator
+     * Get the string's separator of OR
+     * @return the string's separator
      */
     @Override
     public String getSeparator() {

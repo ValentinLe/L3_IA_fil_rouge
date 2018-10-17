@@ -5,43 +5,43 @@ import java.util.Set;
 
 /**
  * A variable is represented by a name and a domain
- * 
+ *
  */
 public class Variable {
-    
+
     private String name;
     private Set<String> domaine;
 
     /**
-     * Construct a instance of Variable
+     * Construct an instance of Variable
      * @param name the variable's name
-     * @param domaine all the values that the varible can be worth
+     * @param domaine all of the varible's possible values
      */
     public Variable(String name, Set<String> domaine) {
         this.name = name;
         this.domaine = domaine;
     }
-    
+
     /**
-     * Getter of the variable's name
+     * Getter method of the variable's name
      * @return the variable's name
      */
     public String getName() {
         return this.name;
     }
-    
+
     /**
-     * Getter of the variable's domain
+     * Getter method of the variable's domain
      * @return the variable's domain
      */
     public Set<String> getDomaine(){
         return this.domaine;
     }
-    
+
     /**
      * The equals test
-     * @param o the other object of the comparation
-     * @return true if the variable and the object are the same name
+     * @param o the other object of the comparison
+     * @return true if the variable and the object have the same name
      */
     @Override
     public boolean equals(Object o) {
@@ -55,9 +55,9 @@ public class Variable {
             }
         }
     }
-    
+
     /**
-     * hash fonction of the variable object with the variable's name
+     * hash function of the variable's object with the variable's name
      * @return the hashcode
      */
     @Override
@@ -66,9 +66,9 @@ public class Variable {
       result = 31 * this.name.hashCode();
       return result;
     }
-    
+
     /**
-     * The reprensentation of a variable is its name
+     * The reprensentation of a variable's name
      * @return the string of the variable's name
      */
     @Override

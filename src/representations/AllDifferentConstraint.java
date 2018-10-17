@@ -4,23 +4,23 @@ package representations;
 import java.util.*;
 
 /**
- * this constraint is about the variables' values that their are all differents
- * 
+ * This class represents all the values with different constraints
+ *
  */
 public class AllDifferentConstraint extends AllCompareConstraint {
 
     /**
-     * Build a instance of AllDifferentConstraint
-     * @param variables vairables of the constraint
+     * Build an instance of AllDifferentConstraint
+     * @param variables vairables of constraint
      */
     public AllDifferentConstraint(Set<Variable> variables){
         super(variables);
     }
 
     /**
-     * Test if all variables is differents in a car
+     * Test if all the variables are different in a car
      * @param voiture the car
-     * @return the result of the test
+     * @return test result
      */
     @Override
     public boolean isSatisfiedBy(Map<Variable, String> voiture) {
@@ -48,18 +48,18 @@ public class AllDifferentConstraint extends AllCompareConstraint {
 
     /**
      * Get the string separator of this constraint
-     * @return the string separator
+     * @return the string's separator
      */
     @Override
     public String getSeparator() {
         return " != ";
     }
-    
+
     /**
-     * filtering of variables' domain
+     * Filters the domain's variables
      * @param voiture a car for the filtering test
-     * @param domaines variables and its copy domain for filtering
-     * @return true if there is a filtering
+     * @param domaines variables and its copied domain for filtering
+     * @return true if filtering occures
      */
     @Override
     public boolean filtrer(Map<Variable, String> voiture, Map<Variable, Set<String>> domaines) {
@@ -82,7 +82,7 @@ public class AllDifferentConstraint extends AllCompareConstraint {
                     }
                     domaines.put(var, copyDom);
                 }
-                
+
             }
         }
         return isFilter;

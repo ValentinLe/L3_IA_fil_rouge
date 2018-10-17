@@ -5,23 +5,23 @@ import java.util.Iterator;
 import java.util.Set;
 
 /**
- * This constraint compare variables on their value
- * 
+ * This class compares the values of constraint
+ *
  */
 public abstract class AllCompareConstraint implements Constraint {
 
     protected Set<Variable> variables;
 
     /**
-     * Build a instance of AllCompareConstraint
-     * @param variables all variables of the constraint
+     * Build an instance of AllCompareConstraint
+     * @param variables all the variables of constraint
      */
     public AllCompareConstraint(Set<Variable> variables){
         this.variables = variables;
     }
 
     /**
-     * Getter of the constraint's scope
+     * Getter method of constraint's scope
      * @return the scope of this constraint
      */
     @Override
@@ -30,14 +30,14 @@ public abstract class AllCompareConstraint implements Constraint {
     }
 
     /**
-     * Getter of the string separator, "=" for equal, "!=" for different
-     * @return the string separator
+     * Getter method of the string separator, "=" for equal, "!=" for different
+     * @return the string's separator
      */
     public abstract String getSeparator();
 
     /**
-     * The representation of a allCompareConstraint with separator
-     * @return the string representation
+     * Representation of a allCompareConstraint with separators
+     * @return the string's representation
      */
     @Override
     public String toString(){

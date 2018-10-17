@@ -5,15 +5,15 @@ import java.util.*;
 
 /**
  * This abstract classe is a boolean combination between two constraints (And or OR)
- * 
+ *
  */
 public abstract class ConstraintBool implements Constraint {
-    
+
     protected Constraint c1;
     protected Constraint c2;
-    
+
     /**
-     * build a instance of the boolean constraint
+     * build an instance of the boolean's constraint
      * @param c1 the first constraint
      * @param c2 the second constraint
      */
@@ -21,9 +21,9 @@ public abstract class ConstraintBool implements Constraint {
         this.c1 = c1;
         this.c2 = c2;
     }
-    
+
     /**
-     * Getter of the scope's union
+     * Getter method of the scope's union
      * @return the scope's union
      */
     @Override
@@ -33,34 +33,34 @@ public abstract class ConstraintBool implements Constraint {
         scopeFinal.addAll(this.c2.getScope());
         return scopeFinal;
     }
-    
+
     /**
-     * Test if the first constraint AND/OR the second constraint is satisfied by a car
+     * Test if the first constraint AND/OR the second constraint are/is satisfied by a car
      * @param voiture the car
-     * @return the result of the test
+     * @return test result
      */
     @Override
     public abstract boolean isSatisfiedBy(Map<Variable, String> voiture);
-    
+
     /**
-     * Getter of the string separator, "&&" for AND, "||" for OR
+     * Getter method of the string's separator: "&&" for AND, "||" for OR
      * @return the string separator
      */
     public abstract String getSeparator();
-    
+
     /**
-     * Build a string representation of the boolean constraint
+     * Build a string representation of the boolean's constraint
      * @return the string representation
      */
     @Override
     public String toString() {
         return "(" + this.c1 + ")" + this.getSeparator() + "(" + this.c2 + ")";
     }
-    
+
     /**
-     * Test if all variables of a constraint are definied in the car
+     * Test if all the variables of constraint are definied in the car
      * @param voiture the car for the test
-     * @param constraint the constraint for the test
+     * @param constraint test's constraint
      * @return true if all variables are definied in the car
      */
     public boolean allVariablesAssigned(Map<Variable, String> voiture, Constraint constraint) {
@@ -72,27 +72,27 @@ public abstract class ConstraintBool implements Constraint {
         }
         return true;
     }
-    
+
     /**
-     * filtering of variables' domain
+     * Filters the domain's variables
      * @param voiture a car for the filtering test
-     * @param domaines variables and its copy domain for filtering
-     * @return true if there is a filtering
+     * @param domaines variables and its copied domain for filtering
+     * @return true if filtering occures
      */
     @Override
     public boolean filtrer(Map<Variable, String> voiture, Map<Variable, Set<String>> domaines) {
         boolean res = false;
         boolean c1Assigned = this.allVariablesAssigned(voiture, this.c1);
         boolean c2Assigned = this.allVariablesAssigned(voiture, this.c2);
-        
+
         if (!c1Assigned && !this.c2.isSatisfiedBy(voiture)) {
             res = res || this.c1.filtrer(voiture, domaines);
         }
-        
+
         if (!c2Assigned && !this.c1.isSatisfiedBy(voiture)) {
             res = res || this.c2.filtrer(voiture, domaines);
         }
-        
+
         return res;
     }
 }
