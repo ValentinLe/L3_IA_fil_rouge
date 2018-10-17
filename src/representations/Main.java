@@ -113,7 +113,8 @@ public class Main {
 
         PlanningProblemWithCost pb2 = new PlanningProblemWithCost(assembly.getInitState(), assembly.getGoal(), actions);
 
-        System.out.println(pb2.dijkstra());
+        //System.out.println(pb2.dijkstra());
+        System.out.println(pb2.aStar());
 
     }
 

@@ -27,19 +27,19 @@ public class PlanningProblemWithCost extends PlanningProblem {
     }
 
     public Stack<Action> dijkstra() {
-        PriorityQueue<State> distance = new PriorityQueue<>();
-        Map<State, Integer> closed = new HashMap<>();
+        PriorityQueue<State> priority = new PriorityQueue<>();
+        Map<State, Integer> distance = new HashMap<>();
         Map<State, State> father = new HashMap<>();
         Map<State, Action> plan = new HashMap<>();
         Set<State> open = new HashSet<>();
         Set<State> goals = new HashSet<>();
         this.initialState.setDistance(0);
-        distance.add(this.initialState);
+        priority.add(this.initialState);
         open.add(this.initialState);
         father.put(this.initialState, null);
-        closed.put(this.initialState, 0);
+        distance.put(this.initialState, 0);
         while (!open.isEmpty()) {
-            State state = distance.remove();
+            State state = priority.remove();
             open.remove(state);
             if (state.satisfies(this.goal.getVoiture())) {
                 goals.add(state);
@@ -47,24 +47,30 @@ public class PlanningProblemWithCost extends PlanningProblem {
             for (Action action : this.actions) {
                 if (action.isApplicable(state)) {
                     State next = action.apply(state);
-                    if (!closed.keySet().contains(next)) {
-                        distance.add(next);
+                    if (!distance.keySet().contains(next)) {
+                        distance.put(next, Integer.MAX_VALUE);
                     }
-                    if (next.getDistance() > state.getDistance() + action.getCost()) {
-                        next.setDistance(state.getDistance() + action.getCost());
-                        closed.put(next, next.getDistance());
+                    if (distance.get(next) > distance.get(state) + action.getCost()) {
+                        next.setDistance(distance.get(state) + action.getCost());
+                        distance.put(next, next.getDistance());
                         father.put(next, state);
                         plan.put(next, action);
                         open.add(next);
                     }
+                    priority.add(next);
                 }
             }
         }
-        return this.getDijkstraPlan(father, plan, goals, distance);
+        System.out.println(goals);
+        return this.getDijkstraPlan(father, plan, goals, priority);
     }
 
     public Stack<Action> getDijkstraPlan(Map<State, State> father, Map<State, Action> actions, Set<State> goals, PriorityQueue<State> distance) {
         Stack<Action> plan = new Stack<>();
+        State state = null;
+        while (!goals.contains(state)) {
+            state = distance.remove();
+        }
         State goal = distance.remove();
         while (goal != null) {
             plan.push(actions.get(goal));
@@ -75,7 +81,8 @@ public class PlanningProblemWithCost extends PlanningProblem {
     }
 
     public Queue<Action> aStar() {
-        PriorityQueue<State> distance = new PriorityQueue<>();
+        PriorityQueue<State> priority = new PriorityQueue<>();
+        Map<State, Integer> distance = new HashMap<>();
         Map<State, Action> plan = new HashMap<>();
         Map<State, State> father = new HashMap<>();
         Map<State, Integer> value = new HashMap<>();
@@ -83,10 +90,11 @@ public class PlanningProblemWithCost extends PlanningProblem {
         open.add(this.initialState);
         father.put(this.initialState, null);
         this.initialState.setDistance(0);
-        distance.add(this.initialState);
+        distance.put(this.initialState, 0);
+        priority.add(this.initialState);
         value.put(this.initialState, this.simpleHeuristic(this.initialState));
         while (!open.isEmpty()) {
-            State state = distance.remove();
+            State state = priority.remove();
             if (state.satisfies(this.goal.getVoiture())) {
                 return this.getBfsPlan(father, plan, state);
             } else {
@@ -94,17 +102,18 @@ public class PlanningProblemWithCost extends PlanningProblem {
                 for (Action action : this.actions) {
                     if (action.isApplicable(state)) {
                         State next = action.apply(state);
-                        if (!distance.contains(next)) {
-                            distance.add(next);
+                        if (!distance.keySet().contains(next)) {
+                            distance.put(next, Integer.MAX_VALUE);
                         }
-                        if (next.getDistance() > state.getDistance() + action.getCost()) {
+                        if (distance.get(next) > distance.get(state) + action.getCost()) {
                             next.setDistance(state.getDistance() + action.getCost());
-                            distance.add(next);
-                            value.put(next, next.getDistance() + this.simpleHeuristic(next));
+                            distance.put(next, next.getDistance());
+                            value.put(next, distance.get(next) + this.simpleHeuristic(next));
                             father.put(next, state);
                             plan.put(next, action);
                             open.add(next);
                         }
+                        priority.add(next);
                     }
                 }
             }
