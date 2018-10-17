@@ -61,7 +61,8 @@ public class PlanningProblemWithCost extends PlanningProblem {
                 }
             }
         }
-        System.out.println(goals);
+        System.out.println(this.initialState);
+        System.out.println(this.goal);
         return this.getDijkstraPlan(father, plan, goals, priority);
     }
 
@@ -72,10 +73,12 @@ public class PlanningProblemWithCost extends PlanningProblem {
             state = distance.remove();
         }
         State goal = distance.remove();
-        while (goal != null) {
-            plan.push(actions.get(goal));
+        Action action = actions.get(goal);
+        do {
+            plan.push(action);
             goal = father.get(goal);
-        }
+            action = actions.get(goal);
+        } while (goal != null && action != null);
         Collections.reverse(plan);
         return plan;
     }

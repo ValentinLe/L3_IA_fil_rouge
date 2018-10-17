@@ -114,10 +114,12 @@ public class PlanningProblem {
             Map<State, Action> actions, State goal) {
 
         Queue<Action> plan = new LinkedList<>();
-        while (goal != null) {
-            plan.add(actions.get(goal));
+        Action action = actions.get(goal);
+        do {
+            plan.add(action);
             goal = father.get(goal);
-        }
+            action = actions.get(goal);
+        } while (goal != null && action != null);
         Collections.reverse((LinkedList<Action>)plan);
         return plan;
     }
