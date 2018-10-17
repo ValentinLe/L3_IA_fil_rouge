@@ -111,13 +111,13 @@ public class Main {
         //System.out.println(pb.dfsIter());
         
 
-        PlanningProblemWithCost pb2 = new PlanningProblemWithCost(assembly.getInitState(), assembly.getGoal(), actions);
+        PlanningProblemWithCost pb2 = new PlanningProblemWithCost(assembly.getInitState(), assembly.getGoal(), actions, new SimpleHeuristic());
 
         System.out.println(pb2.dijkstra());
-        System.out.println(pb2.getNbNode());
+        System.out.println("Nombre de noeuds parcourus : " + pb2.getNbNode());
         
         System.out.println(pb2.aStar());
-        System.out.println(pb2.getNbNode());
+        System.out.println("Nombre de noeuds parcourus : " + pb2.getNbNode());
     }
 
 }
