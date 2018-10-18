@@ -90,7 +90,7 @@ public class PlanningProblemWithCost extends PlanningProblem {
         this.initialState.setDistance(0);
         distance.put(this.initialState, 0);
         priority.add(this.initialState);
-        value.put(this.initialState, this.heuristic.heuristicValue(this.goal, this.initialState));
+        value.put(this.initialState, this.heuristic.heuristicValue(this.initialState, this.goal));
         while (!open.isEmpty()) {
             State state = priority.remove();
             if (state.satisfies(this.goal.getVoiture())) {
@@ -107,7 +107,7 @@ public class PlanningProblemWithCost extends PlanningProblem {
                         if (distance.get(next) > distance.get(state) + action.getCost()) {
                             next.setDistance(state.getDistance() + action.getCost());
                             distance.put(next, next.getDistance());
-                            value.put(next, distance.get(next) + this.heuristic.heuristicValue(this.goal, next));
+                            value.put(next, distance.get(next) + this.heuristic.heuristicValue(next, this.goal));
                             father.put(next, state);
                             plan.put(next, action);
                             open.add(next);

@@ -110,8 +110,9 @@ public class Main {
         //System.out.println(pb.dfs());
         //System.out.println(pb.dfsIter());
         
-
-        PlanningProblemWithCost pb2 = new PlanningProblemWithCost(assembly.getInitState(), assembly.getGoal(), actions, new SimpleHeuristic());
+        State initialState = assembly.getInitState();
+        State goal = assembly.getGoal();
+        PlanningProblemWithCost pb2 = new PlanningProblemWithCost(initialState, goal, actions, new InformedHeuristic(initialState, goal));
 
         System.out.println(pb2.dijkstra());
         System.out.println("Nombre de noeuds parcourus : " + pb2.getNbNode());
