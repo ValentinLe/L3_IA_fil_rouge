@@ -72,6 +72,7 @@ public class PlanningProblem {
 
         this.upNbNode();
         if (state.satisfies(this.goal.getVoiture())) {
+            Collections.reverse(plan);
             return plan;
         } else {
             for (Action action : this.actions) {
@@ -178,7 +179,7 @@ public class PlanningProblem {
             goal = father.get(goal);
             action = actions.get(goal);
         } while (goal != null && action != null);
-        // no need to reverse the plan
+        Collections.reverse((LinkedList<Action>) plan);
         return plan;
     }
 }

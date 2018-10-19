@@ -105,16 +105,15 @@ public class Main {
         AssemblyLine assembly = new AssemblyLine();
 
         Set<Action> actions = assembly.getActions();
-        PlanningProblem pb = new PlanningProblem(assembly.getInitState(), assembly.getGoal(), actions);
+        State initialState = assembly.getInitState();
+        PlanningProblem pb = new PlanningProblem(initialState, assembly.getGoal(), actions);
         //System.out.println(actions);
         //System.out.println(pb.bfs());
-        Stack<Action> que =  pb.dfs();
-        Collections.reverse(que);
+        Queue<Action> que =  pb.bfs();
         System.out.println(que);
-        State initialState = assembly.getInitState();
         Action action = null;
         while (!que.isEmpty()) {
-            action = que.pop();
+            action = que.remove();
             initialState = action.apply(initialState);
         }
         System.out.println(initialState);
