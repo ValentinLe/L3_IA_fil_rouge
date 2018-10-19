@@ -26,6 +26,7 @@ public class PlanningProblemWithCost extends PlanningProblem {
         father.put(this.initialState, null);
         distance.put(this.initialState, 0);
         while (!open.isEmpty()) {
+            this.upNbNode();
             State state = priority.remove();
             open.remove(state);
             if (state.satisfies(this.goal.getVoiture())) {
@@ -33,7 +34,7 @@ public class PlanningProblemWithCost extends PlanningProblem {
             }
             for (Action action : this.actions) {
                 if (action.isApplicable(state)) {
-                    this.upNbNode();
+                    
                     State next = action.apply(state);
                     if (!distance.keySet().contains(next)) {
                         distance.put(next, Integer.MAX_VALUE);
@@ -83,15 +84,14 @@ public class PlanningProblemWithCost extends PlanningProblem {
         Map<State, Integer> distance = new HashMap<>();
         Map<State, Action> plan = new HashMap<>();
         Map<State, State> father = new HashMap<>();
-        Map<State, Integer> value = new HashMap<>();
         Set<State> open = new HashSet<>();
         open.add(this.initialState);
         father.put(this.initialState, null);
         this.initialState.setDistance(0);
         distance.put(this.initialState, 0);
         priority.add(this.initialState);
-        value.put(this.initialState, this.heuristic.heuristicValue(this.initialState, this.goal));
         while (!open.isEmpty()) {
+            this.upNbNode();
             State state = priority.remove();
             if (state.satisfies(this.goal.getVoiture())) {
                 return this.getBfsPlan(father, plan, state);
@@ -99,15 +99,13 @@ public class PlanningProblemWithCost extends PlanningProblem {
                 open.remove(state);
                 for (Action action : this.actions) {
                     if (action.isApplicable(state)) {
-                        this.upNbNode();
                         State next = action.apply(state);
                         if (!distance.keySet().contains(next)) {
                             distance.put(next, Integer.MAX_VALUE);
                         }
                         if (distance.get(next) > distance.get(state) + action.getCost()) {
-                            next.setDistance(state.getDistance() + action.getCost());
-                            distance.put(next, next.getDistance());
-                            value.put(next, distance.get(next) + this.heuristic.heuristicValue(next, this.goal));
+                            distance.put(next, distance.get(state) + action.getCost());
+                            next.setDistance(distance.get(next) + this.heuristic.heuristicValue(next, this.goal));
                             father.put(next, state);
                             plan.put(next, action);
                             open.add(next);

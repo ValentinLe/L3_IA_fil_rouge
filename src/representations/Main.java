@@ -100,7 +100,8 @@ public class Main {
         System.out.println(c3.filtrer(voiture, map));
         System.out.println("MAP ap2 " +map);
         */
-
+        
+        
         AssemblyLine assembly = new AssemblyLine();
 
         Set<Action> actions = assembly.getActions();
@@ -112,13 +113,27 @@ public class Main {
         
         State initialState = assembly.getInitState();
         State goal = assembly.getGoal();
-        PlanningProblemWithCost pb2 = new PlanningProblemWithCost(initialState, goal, actions, new InformedHeuristic(initialState, goal));
-
+        PlanningProblemWithCost pb2 = new PlanningProblemWithCost(initialState, goal, actions, new SimpleHeuristic(initialState, goal));
+        
         System.out.println(pb2.dijkstra());
         System.out.println("Nombre de noeuds parcourus : " + pb2.getNbNode());
         
         System.out.println(pb2.aStar());
         System.out.println("Nombre de noeuds parcourus : " + pb2.getNbNode());
+        
+        pb2 = new PlanningProblemWithCost(initialState, goal, actions, new InformedHeuristic(initialState, goal));
+        
+        System.out.println(pb2.aStar());
+        System.out.println("Nombre de noeuds parcourus : " + pb2.getNbNode());
+        /*
+        Heuristic heuristic = new SimpleHeuristic(initialState, goal);
+        Heuristic heuristicInf = new InformedHeuristic(initialState, goal);
+        
+        System.out.println(initialState);
+        System.out.println(goal);
+        System.out.println(heuristic.heuristicValue(initialState, goal));
+        System.out.println(heuristicInf.heuristicValue(initialState, goal));*/
+       
     }
 
 }

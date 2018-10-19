@@ -6,16 +6,20 @@ import java.util.Map;
 import representations.*;
 
 
-public class State implements Comparable<State>{
+public class State implements Comparable<State> {
 
     private Map<Variable, String> voiture;
     private Integer distance;
 
-    public State(Map<Variable, String> voiture) {
+    public State(Map<Variable, String> voiture, Integer distance) {
         this.voiture = voiture;
-        this.distance = Integer.MAX_VALUE;
+        this.distance = distance;
     }
 
+    public State(Map<Variable, String> voiture) {
+        this(voiture, Integer.MAX_VALUE);
+    }
+    
     public Map<Variable, String> getVoiture() {
         return this.voiture;
     }
@@ -33,7 +37,7 @@ public class State implements Comparable<State>{
     }
 
     public State getCopy() {
-        return new State(new HashMap<>(this.voiture));
+        return new State(new HashMap<>(this.voiture), this.distance);
     }
 
     @Override

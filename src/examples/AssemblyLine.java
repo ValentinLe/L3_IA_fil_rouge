@@ -37,9 +37,9 @@ public class AssemblyLine {
         
         /*
         this.domainColors = new HashSet<>(Arrays.asList(
-                "GRAY", "BLACK", "RED"
-        ));
-        */
+                "GRAY", "BLACK", "RED", "GREEN", "PURPLE"
+        ));*/
+        
 
         this.HAS_ELEMENT = new HashSet<>();
 

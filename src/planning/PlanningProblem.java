@@ -123,7 +123,7 @@ public class PlanningProblem {
 
     public Queue<Action> getBfsPlan(Map<State, State> father,
             Map<State, Action> actions, State goal) {
-
+        
         Queue<Action> plan = new LinkedList<>();
         Action action = actions.get(goal);
         do {
