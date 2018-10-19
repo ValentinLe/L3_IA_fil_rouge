@@ -4,13 +4,24 @@ package planning;
 import java.util.*;
 import representations.*;
 
+/**
+ * PlanningProblem contains the DFS and BFS methods
+ * 
+ */
 public class PlanningProblem {
 
     protected State initialState;
     protected State goal;
     public Set<Action> actions;
+    /** counter of node */
     protected int nbNode;
 
+    /**
+     * Build an instance of PlanningProblem
+     * @param initialState the initial state of the problem
+     * @param goal the target state
+     * @param actions set of possible actions
+     */
     public PlanningProblem(State initialState, State goal, Set<Action> actions) {
         this.initialState = initialState;
         this.goal = goal;
@@ -18,23 +29,44 @@ public class PlanningProblem {
         this.nbNode = 0;
     }
 
+    /**
+     * Getter of the number of node
+     * @return the number of node
+     */
     public int getNbNode() {
         return this.nbNode;
     }
     
+    /**
+     * Increments the number of node
+     */
     public void upNbNode() {
         this.nbNode += 1;
     }
     
+    /**
+     * Initializes the number of node to 0
+     */
     public void initNbNode() {
         this.nbNode = 0;
     }
 
+    /**
+     * Function to call the DFS method
+     * @return the plan of action to execute to go to the target state
+     */
     public Stack<Action> dfs() {
         this.initNbNode();
         return this.dfs(this.initialState, new Stack<>(), new HashSet<>());
     }
 
+    /**
+     * DFS recursive method
+     * @param state the state of the beginning
+     * @param plan the plan to build
+     * @param closed the set of state visited
+     * @return the plan of action to execute to go to the target state
+     */
     public Stack<Action> dfs(State state, Stack<Action> plan,
             Set<State> closed) {
 
@@ -61,6 +93,10 @@ public class PlanningProblem {
         }
     }
 
+    /**
+     * DFS iterative method
+     * @return the plan of action to execute to go to the target state
+     */
     public Queue<Action> dfsIter() {
         this.initNbNode();
         Map<State, State> father = new HashMap<>();
@@ -91,6 +127,10 @@ public class PlanningProblem {
         return null;
     }
 
+    /**
+     * BFS iterative method
+     * @return the plan of action to execute to go to the target state
+     */
     public Queue<Action> bfs() {
         this.initNbNode();
         Map<State, State> father = new HashMap<>();
@@ -121,6 +161,13 @@ public class PlanningProblem {
         return null;
     }
 
+    /**
+     * Build the plan of action to go to the initialState to the goal
+     * @param father map of (son, father) 
+     * @param actions 
+     * @param goal
+     * @return 
+     */
     public Queue<Action> getBfsPlan(Map<State, State> father,
             Map<State, Action> actions, State goal) {
         
@@ -131,7 +178,7 @@ public class PlanningProblem {
             goal = father.get(goal);
             action = actions.get(goal);
         } while (goal != null && action != null);
-        Collections.reverse((LinkedList<Action>)plan);
+        // no need to reverse the plan
         return plan;
     }
 }
