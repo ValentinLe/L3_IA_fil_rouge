@@ -5,7 +5,7 @@ import java.util.*;
 import representations.*;
 
 /**
- * represent a state of car
+ * represents a state of car
  *
  */
 public class State implements Comparable<State> {

@@ -115,7 +115,7 @@ public class Main {
         
         State initialState = assembly.getInitState();
         State goal = assembly.getGoal();
-        PlanningProblemWithCost pb2 = new PlanningProblemWithCost(initialState, goal, actions, new SimpleHeuristic(initialState, goal));
+        PlanningProblemWithCost pb2 = new PlanningProblemWithCost(initialState, goal, actions, new SimpleHeuristic());
         
         System.out.println(pb2.dijkstra());
         System.out.println("Nombre de noeuds parcourus : " + pb2.getNbNode());
@@ -123,7 +123,7 @@ public class Main {
         System.out.println(pb2.aStar());
         System.out.println("Nombre de noeuds parcourus : " + pb2.getNbNode());
         
-        pb2 = new PlanningProblemWithCost(initialState, goal, actions, new InformedHeuristic(initialState, goal));
+        pb2 = new PlanningProblemWithCost(initialState, goal, actions, new InformedHeuristic());
         
         System.out.println(pb2.aStar());
         System.out.println("Nombre de noeuds parcourus : " + pb2.getNbNode());
