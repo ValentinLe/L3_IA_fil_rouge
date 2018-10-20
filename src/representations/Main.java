@@ -101,45 +101,51 @@ public class Main {
         System.out.println("MAP ap2 " +map);
         */
         
+        //-----------------------------PLANNING-------------------------------//
         
         AssemblyLine assembly = new AssemblyLine();
 
         Set<Action> actions = assembly.getActions();
         
-        PlanningProblem pb = new PlanningProblem(assembly.getInitState(), assembly.getGoal(), actions);
+        //--------------------------Tests of dfs and bfs----------------------//
+        
+        PlanningProblem problem = new PlanningProblem(
+                assembly.getInitState(), 
+                assembly.getGoal(), 
+                actions
+        );
+        
         //System.out.println(actions);
-        //System.out.println(pb.bfs());
         //System.out.println(pb.dfs());
-        
         //System.out.println(pb.dfsIter());
+        //System.out.println(pb.bfs());
+        System.out.println("Nombre de noeuds parcourus : " + problem.getNbNode());
         
-        State initialState = assembly.getInitState();
-        State goal = assembly.getGoal();
-        PlanningProblemWithCost pb2 = new PlanningProblemWithCost(initialState, goal, actions, new SimpleHeuristic());
         
-        System.out.println(pb2.dijkstra());
-        System.out.println("Nombre de noeuds parcourus : " + pb2.getNbNode());
-        
-        System.out.println(pb2.aStar());
-        System.out.println("Nombre de noeuds parcourus : " + pb2.getNbNode());
-        
-        pb2 = new PlanningProblemWithCost(initialState, goal, actions, new InformedHeuristic());
-        
-        System.out.println(pb2.aStar());
-        System.out.println("Nombre de noeuds parcourus : " + pb2.getNbNode());
-        
-        System.out.println(pb2.weightedAStar(5));
-        System.out.println("Nombre de noeuds parcourus : " + pb2.getNbNode());
+        //----------Test of algorithms dijkstra/aStar and heuristics-----------//
         
         /*
-        Heuristic heuristic = new SimpleHeuristic(initialState, goal);
-        Heuristic heuristicInf = new InformedHeuristic(initialState, goal);
+        PlanningProblemWithCost problemWithCost = new PlanningProblemWithCost(
+                assembly.getInitState(), 
+                assembly.getGoal(), 
+                actions, 
+                new SimpleHeuristic()
+        );
         
-        System.out.println(initialState);
-        System.out.println(goal);
-        System.out.println(heuristic.heuristicValue(initialState, goal));
-        System.out.println(heuristicInf.heuristicValue(initialState, goal));*/
-       
+        System.out.println(problemWithCost.dijkstra());
+        System.out.println("Nombre de noeuds parcourus : " + problemWithCost.getNbNode());
+        
+        System.out.println(problemWithCost.aStar());
+        System.out.println("Nombre de noeuds parcourus : " + problemWithCost.getNbNode());
+        
+        problemWithCost.setHeuristic(new InformedHeuristic());
+        
+        System.out.println(problemWithCost.aStar());
+        System.out.println("Nombre de noeuds parcourus : " + problemWithCost.getNbNode());
+        
+        System.out.println(problemWithCost.weightedAStar(5));
+        System.out.println("Nombre de noeuds parcourus : " + problemWithCost.getNbNode());
+        */
     }
 
 }

@@ -3,6 +3,13 @@ package planning;
 
 import java.util.*;
 
+/* RESULTS OF TESTS
+
+
+
+*/
+
+
 /**
  * PlanningProblem contains the DFS and BFS methods
  * 
