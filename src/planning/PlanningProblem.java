@@ -164,9 +164,9 @@ public class PlanningProblem {
     /**
      * Build the plan of action to go to the initialState to the goal
      * @param father map of (son, father) 
-     * @param actions 
-     * @param goal
-     * @return 
+     * @param actions the plan of actions
+     * @param goal the target state
+     * @return the plan of actions to go to the target state
      */
     public Queue<Action> getBfsPlan(Map<State, State> father,
             Map<State, Action> actions, State goal) {

@@ -71,7 +71,8 @@ public class Rule implements Constraint {
      * Test if the part (premise or conclusion) is satisfied by a car
      * @param voiture the car of the test
      * @param part the part (premise or conclusion)
-     * @param testPart the boolean of the initialization of a test
+     * @param testPart the boolean of the initialization of a test (the neutral element 
+     * of the part, true for the premisse and false for the conclusion)
      * @return a test result or a null if at least one of the variable's part values is null
      */
     public static Boolean isPartSatisfied(Map<Variable, String> voiture, Map<Variable, String> part, boolean testPart) {

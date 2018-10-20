@@ -1,10 +1,13 @@
 
 package planning;
 
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import representations.*;
 
+/**
+ * represent an Action 
+ * 
+ */
 public class Action {
 
     private Set<Rule> preconditions;
