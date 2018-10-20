@@ -105,21 +105,14 @@ public class Main {
         AssemblyLine assembly = new AssemblyLine();
 
         Set<Action> actions = assembly.getActions();
-        State initialState = assembly.getInitState();
-        PlanningProblem pb = new PlanningProblem(initialState, assembly.getGoal(), actions);
+        
+        PlanningProblem pb = new PlanningProblem(assembly.getInitState(), assembly.getGoal(), actions);
         //System.out.println(actions);
         //System.out.println(pb.bfs());
-        Queue<Action> que =  pb.bfs();
-        System.out.println(que);
-        Action action = null;
-        while (!que.isEmpty()) {
-            action = que.remove();
-            initialState = action.apply(initialState);
-        }
-        System.out.println(initialState);
+        //System.out.println(pb.dfs());
         
         //System.out.println(pb.dfsIter());
-        /*
+        
         State initialState = assembly.getInitState();
         State goal = assembly.getGoal();
         PlanningProblemWithCost pb2 = new PlanningProblemWithCost(initialState, goal, actions, new SimpleHeuristic(initialState, goal));
@@ -133,7 +126,11 @@ public class Main {
         pb2 = new PlanningProblemWithCost(initialState, goal, actions, new InformedHeuristic(initialState, goal));
         
         System.out.println(pb2.aStar());
-        System.out.println("Nombre de noeuds parcourus : " + pb2.getNbNode());*/
+        System.out.println("Nombre de noeuds parcourus : " + pb2.getNbNode());
+        
+        System.out.println(pb2.weightedAStar(5));
+        System.out.println("Nombre de noeuds parcourus : " + pb2.getNbNode());
+        
         /*
         Heuristic heuristic = new SimpleHeuristic(initialState, goal);
         Heuristic heuristicInf = new InformedHeuristic(initialState, goal);

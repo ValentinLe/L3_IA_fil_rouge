@@ -4,9 +4,9 @@ package planning;
 import java.util.*;
 
 public class PlanningProblemWithCost extends PlanningProblem {
-    
+
     private Heuristic heuristic;
-    
+
     public PlanningProblemWithCost(State initialState, State goal, Set<Action> actions, Heuristic heuristic) {
         super(initialState, goal, actions);
         this.heuristic = heuristic;
@@ -19,7 +19,7 @@ public class PlanningProblemWithCost extends PlanningProblem {
         Map<State, State> father = new HashMap<>();
         Map<State, Action> plan = new HashMap<>();
         Set<State> open = new HashSet<>();
-        Set<State> goals = new HashSet<>();
+        PriorityQueue<State> goals = new PriorityQueue<>();
         this.initialState.setDistance(0);
         priority.add(this.initialState);
         open.add(this.initialState);
@@ -34,7 +34,7 @@ public class PlanningProblemWithCost extends PlanningProblem {
             }
             for (Action action : this.actions) {
                 if (action.isApplicable(state)) {
-                    
+
                     State next = action.apply(state);
                     if (!distance.keySet().contains(next)) {
                         distance.put(next, Integer.MAX_VALUE);
@@ -52,22 +52,10 @@ public class PlanningProblemWithCost extends PlanningProblem {
         }
         return this.getDijkstraPlan(father, plan, goals, distance);
     }
-
-    public State getMinimumState(Set<State> goals, Map<State, Integer> distance) {
-        int minimum = Integer.MAX_VALUE;
-        State stateMin = null;
-        for (State state : goals) {
-            if (state.getDistance() < minimum) {
-                minimum = state.getDistance();
-                stateMin = state;
-            }
-        }
-        return stateMin;
-    }
     
-    public Stack<Action> getDijkstraPlan(Map<State, State> father, Map<State, Action> actions, Set<State> goals, Map<State, Integer> distance) {
+    public Stack<Action> getDijkstraPlan(Map<State, State> father, Map<State, Action> actions, PriorityQueue<State> goals, Map<State, Integer> distance) {
         Stack<Action> plan = new Stack<>();
-        State goal = this.getMinimumState(goals, distance);
+        State goal = goals.remove();
         Action action = actions.get(goal);
         do {
             plan.push(action);
@@ -77,8 +65,12 @@ public class PlanningProblemWithCost extends PlanningProblem {
         Collections.reverse(plan);
         return plan;
     }
-
+    
     public Queue<Action> aStar() {
+        return weightedAStar(1);
+    }
+
+    public Queue<Action> weightedAStar(int weight) {
         this.initNbNode();
         PriorityQueue<State> priority = new PriorityQueue<>();
         Map<State, Integer> distance = new HashMap<>();
@@ -105,7 +97,7 @@ public class PlanningProblemWithCost extends PlanningProblem {
                         }
                         if (distance.get(next) > distance.get(state) + action.getCost()) {
                             distance.put(next, distance.get(state) + action.getCost());
-                            next.setDistance(distance.get(next) + this.heuristic.heuristicValue(next, this.goal));
+                            next.setDistance(distance.get(next) + weight*this.heuristic.heuristicValue(next, this.goal));
                             father.put(next, state);
                             plan.put(next, action);
                             open.add(next);

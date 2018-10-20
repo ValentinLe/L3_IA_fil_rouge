@@ -2,7 +2,6 @@
 package planning;
 
 import java.util.*;
-import representations.*;
 
 /**
  * PlanningProblem contains the DFS and BFS methods
