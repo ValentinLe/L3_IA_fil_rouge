@@ -5,8 +5,45 @@ import java.util.*;
 
 /* RESULTS OF TESTS
 
+Tests with 3 colors in the component_color :
+- dfs : 
+nodes : 594, 469 and 153
+number of actions : 468, 593 and 152
 
+- dfs iterative :
+nodes : 191, 11, 41
+number of actions : 35, 113 and 11
 
+- bfs :
+nodes : 2124, 1962 and 81
+number of actions : 10, 10 and 5
+__________________________________________
+
+Tests with 5 colors in the component_color :
+- dfs :
+nodes : 3216, 2774, 2419 and StackOverflowError
+number of actions : 2418, 2773, 3115 and StackOverflowError
+
+- dfs iterative :
+nodes : 230, 5, 491, 1922, 2242
+number of actions : 5, 309, 1133, 1280, 145
+
+- bfs :
+nodes : 18884, 16159, 637, 17091, 16578
+number of actions : 10, 5, 10, 10, 10
+___________________________________________
+
+Tests with 8 colors in the component_color :
+- dfs : StackOverflowError
+
+- dfs iterative : we interrupt the program after 30 minutes because it's so long...
+
+- bfs : we interrupt the program after 30 minutes because it's so long too...
+___________________________________________
+
+Conclusion :
+The bfs method with few colors possible find a solution quickly but it's not the
+best solution, 
 */
 
 
