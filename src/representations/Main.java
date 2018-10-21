@@ -118,9 +118,7 @@ public class Main {
         //System.out.println(actions);
         //System.out.println(problem.dfs());
         //System.out.println(problem.dfsIter());
-        Queue<Action> que = problem.bfs();
-        System.out.println(que);
-        System.out.println(que.size());
+        //System.out.println(problem.bfs());
         System.out.println("Nombre de noeuds parcourus : " + problem.getNbNode());
         
         

@@ -43,7 +43,11 @@ ___________________________________________
 
 Conclusion :
 The bfs method with few colors possible find a solution quickly but it's not the
-best solution, 
+best solution, there are many actions in the plan and with 5 or 8 colors there are
+StackOverflowError or it's infinity. The dfs isn't a good algorithm to find a solution.
+As well, the bfs with few colors possible find a solution not quickly but there 
+are just the actions that are needed with many node browsed. With 8 colors, the algorithm
+is so long to find a solution. The bfs isn't a good algorithm to find a solution.
 */
 
 

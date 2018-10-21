@@ -136,43 +136,73 @@ public class PlanningProblemWithCost extends PlanningProblem {
     }
 
     /**
-     * 
-     * @param weight
-     * @return 
+     * WA* algorithm, it's A* with a weight on the heuristic
+     * @param weight the weight of the heuristic
+     * @return the best plan to go to the target state
      */
     public Queue<Action> weightedAStar(int weight) {
+        // initialize the counter of node
         this.initNbNode();
+        // priority queue of the open states
         PriorityQueue<State> open = new PriorityQueue<>();
+        // the map of states' distance
         Map<State, Integer> distance = new HashMap<>();
+        // the state and the action do to get this state
         Map<State, Action> plan = new HashMap<>();
+        // map of fathers (son, father)
         Map<State, State> father = new HashMap<>();
+        // add the initial state on the open states
         open.add(this.initialState);
+        // the initial state hasn't a father
         father.put(this.initialState, null);
+        // initialise the distance of the initial state to 0
         this.initialState.setDistance(0);
+        // the distance of the initial state is 0
         distance.put(this.initialState, 0);
         while (!open.isEmpty()) {
+            // while there is a state in the list of open states
+            // increment the counter of node
             this.upNbNode();
+            // take the state with the minimal distance
             State state = open.remove();
             if (state.satisfies(this.goal.getVoiture())) {
+                // if the state is the goal, return the build plan of the best path
+                // use the fonction of buildPlan of the bfs
                 return this.getBfsPlan(father, plan, state);
             } else {
                 for (Action action : this.actions) {
+                    // for all actions possibles of the problem
                     if (action.isApplicable(state)) {
+                        // if the action is applicable
+                        // apply this action to create a new state
                         State next = action.apply(state);
                         if (!distance.keySet().contains(next)) {
+                            // if the new state hasn't a distance, we add it with the
+                            // max value possible to its distance
                             distance.put(next, Integer.MAX_VALUE);
                         }
                         if (distance.get(next) > distance.get(state) + action.getCost()) {
+                            // if the distance of the new state are more than the distance
+                            // of the state and the cost of the action
+                            
+                            // add the distance of the new state to distance of state
+                            // and the action's cost
                             distance.put(next, distance.get(state) + action.getCost());
+                            // set the distance of the new state to its distance and
+                            // wieght * heuristic between the new state and the goal
                             next.setDistance(distance.get(next) + weight*this.heuristic.heuristicValue(next, this.goal));
+                            // add the state to father of the new state
                             father.put(next, state);
+                            // add the new state with its action in the plan
                             plan.put(next, action);
+                            // add the new state to the list of open states
                             open.add(next);
                         }
                     }
                 }
             }
         }
+        // no solution found
         return null;
     }
 }
