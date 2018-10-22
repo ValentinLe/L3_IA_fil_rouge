@@ -124,7 +124,7 @@ public class Main {
         
         //----------Test of algorithms dijkstra/aStar and heuristics-----------//
         
-        /*
+        
         PlanningProblemWithCost problemWithCost = new PlanningProblemWithCost(
                 assembly.getInitState(), 
                 assembly.getGoal(), 
@@ -134,8 +134,8 @@ public class Main {
         
         System.out.println("SimpleHeuristic : \n");
         
-        System.out.println(problemWithCost.dijkstra());
-        System.out.println("Nombre de noeuds parcourus : " + problemWithCost.getNbNode());
+        //System.out.println(problemWithCost.dijkstra());
+        //System.out.println("Nombre de noeuds parcourus : " + problemWithCost.getNbNode());
         
         System.out.println(problemWithCost.aStar());
         System.out.println("Nombre de noeuds parcourus : " + problemWithCost.getNbNode());
@@ -152,7 +152,7 @@ public class Main {
         
         System.out.println(problemWithCost.weightedAStar(5));
         System.out.println("Nombre de noeuds parcourus : " + problemWithCost.getNbNode());
-        */
+        
     }
 
 }
