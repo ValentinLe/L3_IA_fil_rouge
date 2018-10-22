@@ -3,6 +3,45 @@ package planning;
 
 import java.util.*;
 
+/* RESULTS OF TESTS
+
+Tests with 3 colors (actions are generated with colors in the class AssemblyLine,
+more there are colors, more there are actions) :
+
+- Dijkstra : 2332
+- aStar SimpleHeuristic : 580
+- weightAStar(5) SimpleHeuristic : 23
+- aStar InformedHeuristic : 96
+- weightAStar(5) InformedHeuristic : 9
+
+______________________________________
+Tests with 5 colors :
+
+- Dijkstra : 24336
+- aStar SimpleHeuristic : 2311
+- weightAStar(5) SimpleHeuristic : 19
+- aStar InformedHeuristic : 97
+- weightAStar(5) InformedHeuristic : 10
+
+____________________________________
+Tests with 8 colors :
+
+- Dijkstra : 221232
+- aStar SimpleHeuristic : 7362
+- weightAStar(5) SimpleHeuristic : 19
+- aStar InformedHeuristic : 109
+- weightAStar(5) InformedHeuristic : 10
+
+_____________________________________
+Conclusion :
+The Dijkstra algorithm browse many nodes than aStar and more there are possibility,
+more the difference of number between Dijkstra and aStar will be important. With
+weightAStar, the number of colors obviously has no influence on the number of
+nodes browsed. The heuristic informed heuristic is more efficiency than the
+simple heuristic.
+
+*/
+
 /**
  * PlanningProblemWithCost contains the Dijkstra and aStar algortihms
  * actions of the problem are now a cost
