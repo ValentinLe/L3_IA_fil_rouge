@@ -42,7 +42,7 @@ public class Backtracking {
         this.variables = variables;
         this.heuristic = heuristic;
     }
-    
+
     /**
      * Create a String representation of constraints in the backtrack
      * @return the string representation of constraints
@@ -83,6 +83,7 @@ public class Backtracking {
     /**
      * calculates the heuristic of the variable with the enum selected in the constructor
      * @param var the variable
+     * @param domain the domain of the variable with a possible filtering
      * @return the value of its heuristic
      */
     public int heuristic(Variable var, Set<String> domain) {

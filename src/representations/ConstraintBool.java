@@ -43,7 +43,7 @@ public abstract class ConstraintBool implements Constraint {
     public abstract boolean isSatisfiedBy(Map<Variable, String> voiture);
 
     /**
-     * Getter method of the string's separator: "&&" for AND, "||" for OR
+     * Getter method of the string's separator for AND and OR
      * @return the string separator
      */
     public abstract String getSeparator();

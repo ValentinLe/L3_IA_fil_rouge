@@ -4,7 +4,7 @@ package representations;
 import java.util.*;
 
 /**
- * The incompatibility is the rule : !(a=4 & b=5 & c=0 & ...)
+ * The incompatibility is the rule : !(a=4 and b=5 and c=0 and ...)
  *
  */
 public class IncompatibilityConstraint extends Rule {
