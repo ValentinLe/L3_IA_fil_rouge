@@ -18,7 +18,7 @@ public class Main {
 
 
         // voiture
-        /*
+        
         Map<Variable,String> voiture = ex.getVoiture1();
         System.out.println(voiture);
 
@@ -50,26 +50,24 @@ public class Main {
         System.out.println("Voiture : " + voiture4);
         System.out.println(nEqu + " --> " + nEqu.isSatisfiedBy(voiture4) + "\n");
 
-        */
-        /*
+        
+        
         Set<Variable> variables = ex.getVariables();
 
         AllEqualConstraint c1 = ex.getExemple1();
         ConstraintOr c2 = ex.getExemple2();
         IncompatibilityConstraint c3 = ex.getExemple3();
         IncompatibilityConstraint c4 = ex.getExemple4();
-        AllEqualConstraint c5 = ex.getExemple5();
-        AllDifferentConstraint c6 = ex.getExemple6();
-        Disjunction c7 = ex.getExemple7();
+        AllDifferentConstraint c5 = ex.getExemple5();
+        Disjunction c6 = ex.getExemple6();
 
         ArrayList<Constraint> constraints = new ArrayList<>();
         constraints.add(c1);
         constraints.add(c2);
         constraints.add(c3);
         constraints.add(c4);
-        //constraints.add(c5);
-        //constraints.add(c6);
-        //constraints.add(c7);
+        constraints.add(c5);
+        constraints.add(c6);
 
         Backtracking.Heuristic heuristic = Backtracking.Heuristic.CONSTRAINT_MAX;
         Backtracking back = new Backtracking(variables, constraints, heuristic);
@@ -80,15 +78,15 @@ public class Main {
 
         Set<Map<Variable, String>> sols = back.solutionsFilter();
 
-
-        for (Map<Variable, String> voiture : sols) {
-            System.out.println(voiture + "\n");
-        }
-        System.out.println("\n/\\ SOLUTIONS TROUVEES /\\\n");
-        System.out.println("Nombre de solutions : " + sols.size());
-        System.out.println("Heuristic utilisée : " + back.getHeuristic());
-        System.out.println("noeuds parcourus : " + back.getNbNode());
-        */
+        if (sols != null) {
+            for (Map<Variable, String> car : sols) {
+                System.out.println(car + "\n");
+            }
+            System.out.println("\n/\\ SOLUTIONS TROUVEES /\\\n");
+            System.out.println("Nombre de solutions : " + sols.size());
+            System.out.println("Heuristic utilisée : " + back.getHeuristic());
+            System.out.println("noeuds parcourus : " + back.getNbNode()); 
+        }  
 
         /*
         Map<Variable, String> voiture = ex.getVoiture1();
@@ -124,7 +122,7 @@ public class Main {
         
         //----------Test of algorithms dijkstra/aStar and heuristics-----------//
         
-        
+        /*
         PlanningProblemWithCost problemWithCost = new PlanningProblemWithCost(
                 assembly.getInitState(), 
                 assembly.getGoal(), 
@@ -152,7 +150,7 @@ public class Main {
         
         System.out.println(problemWithCost.weightedAStar(5));
         System.out.println("Nombre de noeuds parcourus : " + problemWithCost.getNbNode());
-        
+        */
     }
 
 }

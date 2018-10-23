@@ -43,8 +43,11 @@ public class Backtracking {
         this.heuristic = heuristic;
     }
     
-    @Override
-    public String toString() {
+    /**
+     * Create a String representation of constraints in the backtrack
+     * @return the string representation of constraints
+     */
+    public String getStringConstraints() {
         String ch = "";
         // print of all constraint implicate in the backtracking
         for(int i = 1; i<(constraints.size()+1); i++) {
