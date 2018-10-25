@@ -8,15 +8,7 @@ import representations.*;
  * this heuristic give the size of the domain
  * 
  */
-public class DomainMaxHeuristic extends AbstractHeuristic {
-    
-    /**
-     * Build the heuristic with a list of constraints
-     * @param constraints the list of constraints
-     */
-    public DomainMaxHeuristic(List<Constraint> constraints) {
-        super(constraints);
-    }
+public class DomainMaxHeuristic implements Heuristic {
     
     /**
      * Calculates the value of the variable or/and this domain
@@ -25,7 +17,7 @@ public class DomainMaxHeuristic extends AbstractHeuristic {
      * @return the value of the variable
      */
     @Override
-    public int heuristicValue(Variable var, Set<String> domaine) {
+    public int heuristicValue(List<Constraint> constraints, Variable var, Set<String> domaine) {
         return domaine.size();
     }
     

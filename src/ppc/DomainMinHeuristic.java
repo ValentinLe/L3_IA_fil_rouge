@@ -8,16 +8,8 @@ import representations.*;
  * this heuristic give the opposite of the variable's size domain, the minimum
  * in the list of variables is the opposite of the maximum value
  */
-public class DomainMinHeuristic extends AbstractHeuristic {
-    
-    /**
-     * Build the heuristic with a list of constraints
-     * @param constraints the list of constraints
-     */
-    public DomainMinHeuristic(List<Constraint> constraints) {
-        super(constraints);
-    }
-    
+public class DomainMinHeuristic implements Heuristic {
+
     /**
      * Calculates the value of the variable or/and this domain
      * @param var the variable
@@ -26,7 +18,7 @@ public class DomainMinHeuristic extends AbstractHeuristic {
      * @see DomainMaxHeuristic.heuristicValue
      */
     @Override
-    public int heuristicValue(Variable var, Set<String> domaine) {
+    public int heuristicValue(List<Constraint> constraints, Variable var, Set<String> domaine) {
         return -domaine.size();
     }
     

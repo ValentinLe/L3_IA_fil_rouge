@@ -67,7 +67,7 @@ public class Main {
         //constraints.add(c5);
         //constraints.add(c6);
 
-        ppc.Heuristic heuristic = new ConstraintMaxHeuristic(constraints);
+        ppc.Heuristic heuristic = new ConstraintMaxHeuristic();
         Backtracking back = new Backtracking(variables, constraints, heuristic);
         System.out.println(back.getStringConstraints());
 

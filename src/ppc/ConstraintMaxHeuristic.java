@@ -8,15 +8,7 @@ import representations.*;
  * this heuristic counts the occurence of the variable in constraints 
  * 
  */
-public class ConstraintMaxHeuristic extends AbstractHeuristic {
-    
-    /**
-     * Build the heuristic with a list of constraints
-     * @param constraints the list of constraints
-     */
-    public ConstraintMaxHeuristic(List<Constraint> constraints) {
-        super(constraints);
-    }
+public class ConstraintMaxHeuristic implements Heuristic {
     
     /**
      * Calculates the value of the variable or/and this domain
@@ -25,9 +17,9 @@ public class ConstraintMaxHeuristic extends AbstractHeuristic {
      * @return the value of the variable
      */
     @Override
-    public int heuristicValue(Variable var, Set<String> domaine) {
+    public int heuristicValue(List<Constraint> constraints, Variable var, Set<String> domaine) {
         int cpt = 0;
-        for(Constraint c : this.constraints) {
+        for(Constraint c : constraints) {
             // for all constraints
             if (c.getScope().contains(var)) {
                 // if variable is in the constraint's scope

@@ -84,9 +84,9 @@ public class Backtracking {
                 if (varMax == null) {
                     // if the max variable isn't initialize with a variable
                     varMax = var;
-                    valueOcc = this.heuristic.heuristicValue(var, mapDom.get(var));
+                    valueOcc = this.heuristic.heuristicValue(this.constraints, var, mapDom.get(var));
                 } else {
-                    currentValue = this.heuristic.heuristicValue(var, mapDom.get(var));
+                    currentValue = this.heuristic.heuristicValue(this.constraints, var, mapDom.get(var));
                     if (currentValue > valueOcc) {
                         // if the value of the current variable's heuristic
                         //is better than the last maximum find we replace it
