@@ -8,10 +8,11 @@ import representations.*;
  * this heuristic give the opposite of the variable's size domain, the minimum
  * in the list of variables is the opposite of the maximum value
  */
-public class DomainMinHeuristic implements Heuristic {
+public class DomainMinHeuristic implements HeuristicVariable {
 
     /**
      * Calculates the value of the variable or/and this domain
+     * @param constraints list of constraints
      * @param var the variable
      * @param domaine the domain of the variable possibly filtered
      * @return the value of the variable

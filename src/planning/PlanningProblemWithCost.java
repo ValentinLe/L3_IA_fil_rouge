@@ -48,7 +48,7 @@ simple heuristic.
  */
 public class PlanningProblemWithCost extends PlanningProblem {
 
-    private Heuristic heuristic;
+    private HeuristicState heuristic;
 
     /**
      * Build an instance of PlanningProblemWithCost with a heuristic
@@ -57,7 +57,7 @@ public class PlanningProblemWithCost extends PlanningProblem {
      * @param actions set of possible actions
      * @param heuristic the heuristic on states
      */
-    public PlanningProblemWithCost(State initialState, State goal, Set<Action> actions, Heuristic heuristic) {
+    public PlanningProblemWithCost(State initialState, State goal, Set<Action> actions, HeuristicState heuristic) {
         super(initialState, goal, actions);
         this.heuristic = heuristic;
     }
@@ -66,7 +66,7 @@ public class PlanningProblemWithCost extends PlanningProblem {
      * Setter of the heuristic
      * @param heuristic the new heuristic you want use
      */
-    public void setHeuristic(Heuristic heuristic) {
+    public void setHeuristic(HeuristicState heuristic) {
         this.heuristic = heuristic;
     }
 

@@ -8,7 +8,7 @@ import representations.*;
  * interface of heuristic to the backtrack
  * 
  */
-public interface Heuristic {
+public interface HeuristicVariable {
     
     /**
      * Calculates the value of the variable or/and this domain

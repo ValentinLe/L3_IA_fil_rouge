@@ -8,7 +8,7 @@ import representations.Variable;
  * Informed heuristic that count the number of all components not equal between the
  * initial state and the target state
  */
-public class InformedHeuristic implements Heuristic {
+public class InformedHeuristic implements HeuristicState {
 
     /**
      * Calculate the heuristic value between an initial state to the target state

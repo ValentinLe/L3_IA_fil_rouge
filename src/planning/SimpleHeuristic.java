@@ -8,7 +8,7 @@ import representations.Variable;
  * Simple heuristic that count the number of the colors not equal between the
  * initial state and the target state
  */
-public class SimpleHeuristic implements Heuristic {
+public class SimpleHeuristic implements HeuristicState {
 
     /**
      * Calculate the heuristic value between an initial state to the target state

@@ -8,10 +8,11 @@ import representations.*;
  * this heuristic counts the occurence of the variable in constraints 
  * 
  */
-public class ConstraintMaxHeuristic implements Heuristic {
+public class ConstraintMaxHeuristic implements HeuristicVariable {
     
     /**
      * Calculates the value of the variable or/and this domain
+     * @param constraints list of constraints
      * @param var the variable
      * @param domaine the domain of the variable possibly filtered
      * @return the value of the variable

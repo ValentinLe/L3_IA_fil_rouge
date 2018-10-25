@@ -12,7 +12,7 @@ public class Backtracking {
 
     private Set<Variable> variables;
     private List<Constraint> constraints;
-    private Heuristic heuristic;
+    private HeuristicVariable heuristic;
     private int nbNode = 0;
 
     /**
@@ -21,7 +21,7 @@ public class Backtracking {
      * @param constraints constraints of the probleme
      * @param heuristic the heuristic of backtracking
      */
-    public Backtracking(Set<Variable> variables, List<Constraint> constraints, Heuristic heuristic){
+    public Backtracking(Set<Variable> variables, List<Constraint> constraints, HeuristicVariable heuristic){
         this.constraints = constraints;
         this.variables = variables;
         this.heuristic = heuristic;
@@ -44,7 +44,7 @@ public class Backtracking {
      * Getter of heuristic of backtracking
      * @return the heuristic of backtracking
      */
-    public Heuristic getHeuristic() {
+    public HeuristicVariable getHeuristic() {
         return this.heuristic;
     }
 
@@ -52,7 +52,7 @@ public class Backtracking {
      * Setter of heuristic of backtracking
      * @param heuristic the heuristic you want to use
      */
-    public void setHeuristic(Heuristic heuristic) {
+    public void setHeuristic(HeuristicVariable heuristic) {
         this.heuristic = heuristic;
     }
 

@@ -49,7 +49,7 @@ public class Main {
         System.out.println(nEqu + " --> " + nEqu.isSatisfiedBy(voiture4) + "\n");
         */
         
-        
+        /*
         Set<Variable> variables = ex.getVariables();
 
         AllEqualConstraint c1 = ex.getExemple1();
@@ -67,7 +67,7 @@ public class Main {
         //constraints.add(c5);
         //constraints.add(c6);
 
-        ppc.Heuristic heuristic = new ConstraintMaxHeuristic();
+        HeuristicVariable heuristic = new ConstraintMaxHeuristic();
         Backtracking back = new Backtracking(variables, constraints, heuristic);
         System.out.println(back.getStringConstraints());
 
@@ -85,7 +85,8 @@ public class Main {
             System.out.println("Heuristic utilisée : " + back.getHeuristic());
             System.out.println("noeuds parcourus : " + back.getNbNode()); 
         }  
-
+        */
+        
         /*
         Map<Variable, String> voiture = ex.getVoiture1();
         Map<Variable, Set<String>> map = back.getMapVariableNotAssigned(voiture);
@@ -120,7 +121,7 @@ public class Main {
         
         //----------Test of algorithms dijkstra/aStar and heuristics-----------//
         
-        /*
+        
         PlanningProblemWithCost problemWithCost = new PlanningProblemWithCost(
                 assembly.getInitState(), 
                 assembly.getGoal(), 
@@ -128,7 +129,7 @@ public class Main {
                 new SimpleHeuristic()
         );
         
-        System.out.println("SimpleHeuristic : \n");
+        System.out.println("\nSimpleHeuristic : \n");
         
         //System.out.println(problemWithCost.dijkstra());
         //System.out.println("Nombre de noeuds parcourus : " + problemWithCost.getNbNode());
@@ -148,7 +149,7 @@ public class Main {
         
         System.out.println(problemWithCost.weightedAStar(5));
         System.out.println("Nombre de noeuds parcourus : " + problemWithCost.getNbNode());
-        */
+        
     }
 
 }

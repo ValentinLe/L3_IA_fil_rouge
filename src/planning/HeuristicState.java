@@ -5,7 +5,7 @@ package planning;
  * Interface of heuristics
  * 
  */
-public interface Heuristic {
+public interface HeuristicState {
     
     /**
      * Calculate the heuristic value between an initial state to the target state
