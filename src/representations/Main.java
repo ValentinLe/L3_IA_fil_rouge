@@ -48,7 +48,7 @@ public class Main {
         System.out.println("Voiture : " + voiture4);
         System.out.println(nEqu + " --> " + nEqu.isSatisfiedBy(voiture4) + "\n");
         */
-        
+
         /*
         Set<Variable> variables = ex.getVariables();
 
@@ -83,10 +83,10 @@ public class Main {
             System.out.println("\n/\\ SOLUTIONS TROUVEES /\\\n");
             System.out.println("Nombre de solutions : " + sols.size());
             System.out.println("Heuristic utilisée : " + back.getHeuristic());
-            System.out.println("noeuds parcourus : " + back.getNbNode()); 
-        }  
+            System.out.println("noeuds parcourus : " + back.getNbNode());
+        }
         */
-        
+
         /*
         Map<Variable, String> voiture = ex.getVoiture1();
         Map<Variable, Set<String>> map = back.getMapVariableNotAssigned(voiture);
@@ -97,59 +97,59 @@ public class Main {
         System.out.println(c3.filtrer(voiture, map));
         System.out.println("MAP ap2 " + map);
         */
-        
+
         //-----------------------------PLANNING-------------------------------//
-        
+
         AssemblyLine assembly = new AssemblyLine();
 
         Set<Action> actions = assembly.getActions();
-        
+
         //--------------------------Tests of dfs and bfs----------------------//
         /*
         PlanningProblem problem = new PlanningProblem(
-                assembly.getInitState(), 
-                assembly.getGoal(), 
+                assembly.getInitState(),
+                assembly.getGoal(),
                 actions
         );
-        
+
         //System.out.println(actions);
         //System.out.println(problem.dfs());
         //System.out.println(problem.dfsIter());
         //System.out.println(problem.bfs());
         System.out.println("Nombre de noeuds parcourus : " + problem.getNbNode());
         */
-        
+
         //----------Test of algorithms dijkstra/aStar and heuristics-----------//
-        
-        
+
+
         PlanningProblemWithCost problemWithCost = new PlanningProblemWithCost(
-                assembly.getInitState(), 
-                assembly.getGoal(), 
-                actions, 
+                assembly.getInitState(),
+                assembly.getGoal(),
+                actions,
                 new SimpleHeuristic()
         );
-        
+
         System.out.println("\nSimpleHeuristic : \n");
-        
+
         //System.out.println(problemWithCost.dijkstra());
         //System.out.println("Nombre de noeuds parcourus : " + problemWithCost.getNbNode());
-        
+
         System.out.println(problemWithCost.aStar());
         System.out.println("Nombre de noeuds parcourus : " + problemWithCost.getNbNode());
-        
+
         System.out.println(problemWithCost.weightedAStar(5));
         System.out.println("Nombre de noeuds parcourus : " + problemWithCost.getNbNode());
-        
+
         problemWithCost.setHeuristic(new InformedHeuristic());
-        
+
         System.out.println("\nInformedHeuristic : \n");
-        
+
         System.out.println(problemWithCost.aStar());
         System.out.println("Nombre de noeuds parcourus : " + problemWithCost.getNbNode());
-        
+
         System.out.println(problemWithCost.weightedAStar(5));
         System.out.println("Nombre de noeuds parcourus : " + problemWithCost.getNbNode());
-        
+
     }
 
 }

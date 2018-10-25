@@ -61,7 +61,7 @@ public class PlanningProblemWithCost extends PlanningProblem {
         super(initialState, goal, actions);
         this.heuristic = heuristic;
     }
-    
+
     /**
      * Setter of the heuristic
      * @param heuristic the new heuristic you want use
@@ -119,7 +119,7 @@ public class PlanningProblemWithCost extends PlanningProblem {
                     if (distance.get(next) > distance.get(state) + action.getCost()) {
                         // if the distance of the new state are more than the distance
                         // of the state and the cost of the action
-                        
+
                         // set the distance of the new state to the distance of
                         // the state and the cost of the action
                         next.setDistance(distance.get(state) + action.getCost());
@@ -138,7 +138,7 @@ public class PlanningProblemWithCost extends PlanningProblem {
         // return the plan build
         return this.getDijkstraPlan(father, plan, goals);
     }
-    
+
     /**
      * Build the plan of the best path to go to the target state
      * @param father the map of fathers
@@ -165,7 +165,7 @@ public class PlanningProblemWithCost extends PlanningProblem {
         Collections.reverse(plan);
         return plan;
     }
-    
+
     /**
      * aStar algorithm, A* it's the WA* with a weight=1
      * @return the best plan to go to the target state
@@ -223,7 +223,7 @@ public class PlanningProblemWithCost extends PlanningProblem {
                         if (distance.get(next) > distance.get(state) + action.getCost()) {
                             // if the distance of the new state are more than the distance
                             // of the state and the cost of the action
-                            
+
                             // add the distance of the new state to distance of state
                             // and the action's cost
                             distance.put(next, distance.get(state) + action.getCost());

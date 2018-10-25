@@ -36,7 +36,6 @@ public class Rule implements Constraint {
         this.premisse = premisse;
         this.conclusion = conclusion;
         this.scope = this.createScope();
-        System.out.println(this.scope);
     }
 
     /**
