@@ -33,7 +33,7 @@ public class Examples {
         ArrayList<String> composants2 = new ArrayList<>(Arrays.asList("toit ouvrant", "sono"));
 
         // domaines
-        this.domaineCouleur = new HashSet<>(Arrays.asList("noir","blanc", "rouge","bleu","vert","violet","gris"));
+        this.domaineCouleur = new HashSet<>(Arrays.asList("noir", "blanc", "rouge"));
         this.domaineBool = new HashSet<>(Arrays.asList("true","false"));
 
         // Set<Variable>

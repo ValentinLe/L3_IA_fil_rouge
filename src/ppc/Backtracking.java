@@ -11,25 +11,9 @@ import representations.*;
 public class Backtracking {
 
     private Set<Variable> variables;
-    private ArrayList<Constraint> constraints;
+    private List<Constraint> constraints;
     private Heuristic heuristic;
     private int nbNode = 0;
-
-    /**
-     * enumeration of all heuristics
-     */
-    public enum Heuristic {
-        // this heuristic take the max occurence of variables in constraint
-        CONSTRAINT_MAX,
-        // this heuristic take the min occurence of variables in constraint
-        CONSTRAINT_MIN,
-        // this heuristic take the max size of variables' domain
-        DOMAINES_MAX,
-        // this heuristic take the min size of variables' domain
-        DOMAINES_MIN,
-        // no heuristic
-        NONE;
-    }
 
     /**
      * Build a instance of backtracking
@@ -37,7 +21,7 @@ public class Backtracking {
      * @param constraints constraints of the probleme
      * @param heuristic the heuristic of backtracking
      */
-    public Backtracking(Set<Variable> variables, ArrayList<Constraint> constraints, Heuristic heuristic){
+    public Backtracking(Set<Variable> variables, List<Constraint> constraints, Heuristic heuristic){
         this.constraints = constraints;
         this.variables = variables;
         this.heuristic = heuristic;
@@ -81,78 +65,6 @@ public class Backtracking {
     }
 
     /**
-     * calculates the heuristic of the variable with the enum selected in the constructor
-     * @param var the variable
-     * @param domain the domain of the variable with a possible filtering
-     * @return the value of its heuristic
-     */
-    public int heuristic(Variable var, Set<String> domain) {
-        if (this.heuristic == Heuristic.CONSTRAINT_MAX) {
-            return heuristicConstraintMax(var);
-
-        } else if (this.heuristic == Heuristic.CONSTRAINT_MIN) {
-            return heuristicConstraintMin(var);
-
-        } else if (this.heuristic == Heuristic.DOMAINES_MAX) {
-            return heuristicDomainMaxSize(domain);
-
-        } else if (this.heuristic == Heuristic.DOMAINES_MIN) {
-            return heuristicDomainMinSize(domain);
-
-        } else {
-            // no heuristic, all value=0 the function take the first variable
-            // not difinied found
-            return 0;
-        }
-    }
-
-    /**
-     * Calculates the occurence of variable in constraints
-     * @param var the target variable
-     * @return the number of this variable in constraints
-     */
-    public int heuristicConstraintMax(Variable var) {
-        int cpt = 0;
-        for(Constraint c : this.constraints) {
-            // for all constraints
-            if (c.getScope().contains(var)) {
-                // if variable is in the constraint's scope
-                cpt += 1;
-            }
-        }
-        return cpt;
-    }
-
-    /**
-     * Calculates the opposite of occurence of variable, the minimum
-     * will be the maximum
-     * @param var the target variable
-     * @return the opposite of occurence of variable
-     */
-    public int heuristicConstraintMin(Variable var) {
-        return -heuristicConstraintMax(var);
-    }
-
-    /**
-     * Find the size of variable's domain
-     * @param domain of variable
-     * @return the size of the domain
-     */
-    public int heuristicDomainMaxSize(Set<String> domain) {
-        return domain.size();
-    }
-
-    /**
-     * Calculates the opposite of domain's size, the minimum will be the
-     * maximum
-     * @param domain the domain of variable
-     * @return the opposite domain's size
-     */
-    public int heuristicDomainMinSize(Set<String> domain) {
-        return -heuristicDomainMaxSize(domain);
-    }
-
-    /**
      * Chooses a variable not difinied int the car according
      * to the heuristic of backtracking
      * @param voiture the car
@@ -172,9 +84,9 @@ public class Backtracking {
                 if (varMax == null) {
                     // if the max variable isn't initialize with a variable
                     varMax = var;
-                    valueOcc = heuristic(var, mapDom.get(var));
+                    valueOcc = this.heuristic.heuristicValue(var, mapDom.get(var));
                 } else {
-                    currentValue = heuristic(var, mapDom.get(var));
+                    currentValue = this.heuristic.heuristicValue(var, mapDom.get(var));
                     if (currentValue > valueOcc) {
                         // if the value of the current variable's heuristic
                         //is better than the last maximum find we replace it

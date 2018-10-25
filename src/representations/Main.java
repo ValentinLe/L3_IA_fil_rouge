@@ -16,9 +16,7 @@ public class Main {
 
         Examples ex = new Examples();
 
-
-        // voiture
-        
+        /*
         Map<Variable,String> voiture = ex.getVoiture1();
         System.out.println(voiture);
 
@@ -49,7 +47,7 @@ public class Main {
         IncompatibilityConstraint nEqu = ex.getExemple4();
         System.out.println("Voiture : " + voiture4);
         System.out.println(nEqu + " --> " + nEqu.isSatisfiedBy(voiture4) + "\n");
-
+        */
         
         
         Set<Variable> variables = ex.getVariables();
@@ -66,10 +64,10 @@ public class Main {
         constraints.add(c2);
         constraints.add(c3);
         constraints.add(c4);
-        constraints.add(c5);
-        constraints.add(c6);
+        //constraints.add(c5);
+        //constraints.add(c6);
 
-        Backtracking.Heuristic heuristic = Backtracking.Heuristic.CONSTRAINT_MAX;
+        ppc.Heuristic heuristic = new ConstraintMaxHeuristic(constraints);
         Backtracking back = new Backtracking(variables, constraints, heuristic);
         System.out.println(back.getStringConstraints());
 
