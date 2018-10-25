@@ -1,6 +1,6 @@
-#!bin/bash
+#!bin/sh
 
-cd src/
-javac */*.java
-java representations/Main
-rm -f */*.class
+cd $(dirname $0)
+sh scripts/compile.sh
+cd build/
+java representations.Main
