@@ -5,13 +5,13 @@ import java.util.*;
 import representations.*;
 
 /**
- * this heuristic counts the occurence of the variable in constraints 
- * 
+ * this heuristic counts the occurence of the variable in constraints
+ *
  */
 public class ConstraintMaxHeuristic implements HeuristicVariable {
-    
+
     /**
-     * Calculates the value of the variable or/and this domain
+     * Calculates the occurence this of the variable in constraints
      * @param constraints list of constraints
      * @param var the variable
      * @param domaine the domain of the variable possibly filtered
@@ -29,7 +29,7 @@ public class ConstraintMaxHeuristic implements HeuristicVariable {
         }
         return cpt;
     }
-    
+
     /**
      * String name of the heuristic
      * @return the heuristic's name

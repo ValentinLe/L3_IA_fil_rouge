@@ -1,3 +1,4 @@
+#!bin/sh
 
 cd $(dirname $0)/..
 [ -d doc ] || mkdir doc

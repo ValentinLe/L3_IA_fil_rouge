@@ -29,7 +29,7 @@ public class ConstraintAnd extends ConstraintBool implements Constraint {
     }
 
     /**
-     * Get the string separator of AND
+     * Get the string separator of AND : "&#038;&#038;"
      * @return the string's separator
      */
     @Override

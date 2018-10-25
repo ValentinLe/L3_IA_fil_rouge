@@ -6,7 +6,7 @@ import java.util.*;
 /* RESULTS OF TESTS
 
 Tests with 3 colors in the component_color :
-- dfs : 
+- dfs :
 nodes : 594, 469 and 153
 number of actions : 468, 593 and 152
 
@@ -45,7 +45,7 @@ Conclusion :
 The bfs method with few colors possible find a solution quickly but it's not the
 best solution, there are many actions in the plan and with 5 or 8 colors there are
 StackOverflowError or it's infinity. The dfs isn't a good algorithm to find a solution.
-As well, the bfs with few colors possible find a solution not quickly but there 
+As well, the bfs with few colors possible find a solution not quickly but there
 are just the actions that are needed with many node browsed. With 8 colors, the algorithm
 is so long to find a solution. The bfs isn't a good algorithm to find a solution.
 */
@@ -53,7 +53,7 @@ is so long to find a solution. The bfs isn't a good algorithm to find a solution
 
 /**
  * PlanningProblem contains the DFS and BFS methods
- * 
+ *
  */
 public class PlanningProblem {
 
@@ -83,14 +83,14 @@ public class PlanningProblem {
     public int getNbNode() {
         return this.nbNode;
     }
-    
+
     /**
      * Increments the number of node
      */
     public void upNbNode() {
         this.nbNode += 1;
     }
-    
+
     /**
      * Initializes the number of node to 0
      */
@@ -99,7 +99,7 @@ public class PlanningProblem {
     }
 
     /**
-     * Function to call the DFS method
+     * Function to call the DFS recursive method with the good arguments
      * @return the plan of action to execute to go to the target state
      */
     public Stack<Action> dfs() {
@@ -160,7 +160,7 @@ public class PlanningProblem {
     public Queue<Action> dfsIter() {
         // initialize the counter of node
         this.initNbNode();
-        // map of (son, father) 
+        // map of (son, father)
         Map<State, State> father = new HashMap<>();
         // map of the plan state and action to go to this state
         Map<State, Action> plan = new HashMap<>();
@@ -216,7 +216,7 @@ public class PlanningProblem {
     public Queue<Action> bfs() {
         // initialize the counter of node
         this.initNbNode();
-        // map of (son, father) 
+        // map of (son, father)
         Map<State, State> father = new HashMap<>();
         // map of the plan state and action to go to this state
         Map<State, Action> plan = new HashMap<>();
@@ -267,14 +267,14 @@ public class PlanningProblem {
 
     /**
      * Build the plan of action to go to the initialState to the goal
-     * @param father map of (son, father) 
+     * @param father map of (son, father)
      * @param actions the plan of actions
      * @param goal the target state
      * @return the plan of actions to go to the target state
      */
     public Queue<Action> getBfsPlan(Map<State, State> father,
             Map<State, Action> actions, State goal) {
-        
+
         // initialize the plan
         Queue<Action> plan = new LinkedList<>();
         // get the action to go to the goal

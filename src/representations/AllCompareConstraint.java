@@ -13,7 +13,7 @@ public abstract class AllCompareConstraint implements Constraint {
     protected Set<Variable> variables;
 
     /**
-     * Build an instance of AllCompareConstraint
+     * Constructor of the abstract class with the set of variables
      * @param variables all the variables of constraint
      */
     public AllCompareConstraint(Set<Variable> variables){
@@ -30,7 +30,7 @@ public abstract class AllCompareConstraint implements Constraint {
     }
 
     /**
-     * Getter method of the string separator, "=" for equal, "!=" for different
+     * Getter method of the string separator, "=" for equal, "&#033;=" for different
      * @return the string's separator
      */
     public abstract String getSeparator();

@@ -12,7 +12,7 @@ public class ConstraintMinHeuristic implements HeuristicVariable {
 
 
     /**
-     * Calculates the value of the variable or/and this domain
+     * Calculates the opposite of the occurence this of the variable in constraints
      * @param constraints list of constraints
      * @param var the variable
      * @param domaine the domain of the variable possibly filtered

@@ -4,7 +4,7 @@ package representations;
 import java.util.*;
 
 /**
- * A Rule is a constraint that represents an implication :  a implies b
+ * A Rule is a constraint that represents an implication :  premisse -&#062; conclusion
  *
  */
 
@@ -15,22 +15,28 @@ public class Rule implements Constraint {
     private Map<Variable, String> conclusion;
 
     /**
-     * Build an instance of Rule
+     * Build an instance of Rule with a scope
      * @param scope All Variables involved in a Constraint
      * @param premisse The premisse of the rule
      * @param conclusion The conclusion of the rule
      */
-
     public Rule(Set<Variable> scope, Map<Variable, String> premisse, Map<Variable,String> conclusion) {
         this.scope = scope;
         this.premisse = premisse;
         this.conclusion = conclusion;
     }
 
+    /**
+     * Build an instance of Rule and build the scope of variables present in the
+     * premisse and the conclusion
+     * @param premisse The premisse of the rule
+     * @param conclusion The conclusion of the rule
+     */
     public Rule(Map<Variable, String> premisse, Map<Variable,String> conclusion) {
         this.premisse = premisse;
         this.conclusion = conclusion;
-        this.createScope();
+        this.scope = this.createScope();
+        System.out.println(this.scope);
     }
 
     /**
@@ -60,18 +66,21 @@ public class Rule implements Constraint {
 
     /**
      * build the scope of the rule
+     * @return the scope of the rule
      */
-    public void createScope() {
-        this.scope = new HashSet<>();
-        this.scope.addAll(this.premisse.keySet());
-        this.scope.addAll(this.conclusion.keySet());
+    public Set<Variable> createScope() {
+        Set<Variable> scope = new HashSet<>();
+        scope = new HashSet<>();
+        scope.addAll(this.premisse.keySet());
+        scope.addAll(this.conclusion.keySet());
+        return scope;
     }
 
     /**
      * Test if the part (premise or conclusion) is satisfied by a car
      * @param voiture the car of the test
      * @param part the part (premise or conclusion)
-     * @param testPart the boolean of the initialization of a test (the neutral element 
+     * @param testPart the boolean of the initialization of a test (the neutral element
      * of the part, true for the premisse and false for the conclusion)
      * @return a test result or a null if at least one of the variable's part values is null
      */

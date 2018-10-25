@@ -6,7 +6,7 @@ import representations.*;
 
 /**
  * This class is a build constraints and cars examples
- * 
+ *
  */
 public class Examples {
 
@@ -26,7 +26,7 @@ public class Examples {
      * Build all components on their values possible of a car
      */
     public Examples() {
-        
+
         /** components of color domain */
         ArrayList<String> composants = new ArrayList<>(Arrays.asList("toit", "capot", "hayon","droit","gauche"));
         /** component of boolean domain */
@@ -39,7 +39,7 @@ public class Examples {
         // Set<Variable>
         this.couleur = new ArrayList<>();
         this.boolVariable = new ArrayList<>();
-        
+
         for(String str : composants) {
             // add the color variables
             this.couleur.add(new Variable(str,new HashSet<>(domaineCouleur)));
@@ -49,20 +49,20 @@ public class Examples {
             // add the boolean variables
             this.boolVariable.add(new Variable(str,new HashSet<>(domaineBool)));
         }
-        
+
         // map of variables with a acces by their name
         this.variables = new HashMap<>();
         for (Variable var : this.couleur) {
             // add color variables into the map
             this.variables.put(var.getName(), var);
         }
-        
+
         for(Variable var : this.boolVariable) {
             // add boolean variables into the map
             this.variables.put(var.getName(), var);
         }
     }
-    
+
     /**
      * Get all variables with color and boolean domain
      * @return set of variables
@@ -178,19 +178,19 @@ public class Examples {
     }
 
     // constraints
-    
+
     /**
      * Get Example of constraint : toit = hayon = capot
      * @return example of constraint
      */
     public AllEqualConstraint getExemple1() {
       Set<Variable> allEqual = new HashSet<>();
-      
+
       // all names of variables will be present in the constraint
       ArrayList<String> comp = new ArrayList<>(Arrays.asList(
                 "toit", "capot", "hayon"
         ));
-      
+
       for(String str : comp) {
           // add the variable corresponding to the name
           allEqual.add(this.variables.get(str));
@@ -220,7 +220,7 @@ public class Examples {
     }
 
     /**
-     * Get Example of constraint : !(droit="noir" and gauche="noir")
+     * Get Example of constraint : not(droit="noir" and gauche="noir")
      * @return example of constraint
      */
     public IncompatibilityConstraint getExemple3(){
@@ -236,7 +236,7 @@ public class Examples {
         ArrayList<String> val = new ArrayList<>();
         val.add("noir");
         val.add("noir");
-        
+
         for (int i = 0; i<comp.size(); i++) {
             // assignation of variables in the premisse
             premisse.put(comp.get(i), val.get(i));
@@ -248,7 +248,7 @@ public class Examples {
     }
 
     /**
-     * Get Example of constraint : !(sono="true" and "toit ouvrant="true")
+     * Get Example of constraint : not(sono="true" and "toit ouvrant="true")
      * @return example of constraint
      */
     public IncompatibilityConstraint getExemple4(){
@@ -256,10 +256,10 @@ public class Examples {
         Set<Variable> nEqual = new HashSet<>();
         nEqual.add(this.variables.get("toit ouvrant"));
         nEqual.add(this.variables.get("sono"));
-        
+
         // conclusion of the constraint
         Map<Variable,String> conclusion = new HashMap<>();
-        
+
         Iterator<Variable> iter = nEqual.iterator();
         while(iter.hasNext()){
             // variables assigned to true
@@ -268,9 +268,9 @@ public class Examples {
 
         return new IncompatibilityConstraint(nEqual,conclusion);
     }
-    
+
     /**
-     * Get Example of constraint : hayon != droit != porte
+     * Get Example of constraint : hayon &#033;= droit &#033;= porte
      * @return example of constraint
      */
     public AllDifferentConstraint getExemple5(){
@@ -283,7 +283,7 @@ public class Examples {
       AllDifferentConstraint all = new AllDifferentConstraint(allEqual);
       return all;
     }
-    
+
     /**
      * Get Example of constraint : droit="noir" or gauche="blanc"
      * @return example of constraint
