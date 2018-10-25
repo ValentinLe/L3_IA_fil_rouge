@@ -30,7 +30,7 @@ public class State implements Comparable<State> {
     public State(Map<Variable, String> voiture) {
         this(voiture, Integer.MAX_VALUE);
     }
-    
+
     /**
      * Getter of the car
      * @return the map of the car
@@ -59,13 +59,14 @@ public class State implements Comparable<State> {
      * Test if the car satisfies a premisse of Rule
      * @param partialState the premisse of rule
      * @return true if the part is satisfied by the car
+     * @see Rule#isPartSatisfied
      */
     public boolean satisfies(Map<Variable, String> partialState) {
         // we use the static function isPartSatisfied definied in the class Rule
         // like a premisse : testpart = true
         return Rule.isPartSatisfied(this.voiture, partialState, true);
     }
-    
+
     /**
      * Create a copy of this state
      * @return the copy of this state
@@ -122,7 +123,7 @@ public class State implements Comparable<State> {
         String ch = "";
         for (Variable var : this.voiture.keySet()) {
             // for all variable in the car
-            // add String like "variable = value \n" 
+            // add String like "variable = value \n"
             ch += var + " = " + this.voiture.get(var) + "\n";
         }
         return ch;

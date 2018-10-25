@@ -9,14 +9,14 @@ import representations.*;
  * max value of a list of variable will be the min value with this heuristic
  */
 public class ConstraintMinHeuristic implements Heuristic {
-    
-    
+
+
     /**
      * Calculates the value of the variable or/and this domain
      * @param var the variable
      * @param domaine the domain of the variable possibly filtered
      * @return the value of the variable
-     * @see ConstraintMaxHeuristic.heuristicValue
+     * @see ConstraintMaxHeuristic#heuristicValue
      */
     @Override
     public int heuristicValue(List<Constraint> constraints, Variable var, Set<String> domaine) {
@@ -24,7 +24,7 @@ public class ConstraintMinHeuristic implements Heuristic {
         // the min value is the opposite of the max value
         return -constraintMax.heuristicValue(constraints, var, domaine);
     }
-    
+
     /**
      * String name of the heuristic
      * @return the heuristic's name
