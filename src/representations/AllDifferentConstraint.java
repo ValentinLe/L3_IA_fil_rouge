@@ -10,7 +10,7 @@ import java.util.*;
 public class AllDifferentConstraint extends AllCompareConstraint {
 
     /**
-     * Build an instance of AllDifferentConstraint
+     * Builds an instance of AllDifferentConstraint
      * @param variables vairables of constraint
      */
     public AllDifferentConstraint(Set<Variable> variables){

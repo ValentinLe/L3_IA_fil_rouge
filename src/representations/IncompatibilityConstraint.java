@@ -10,7 +10,7 @@ import java.util.*;
 public class IncompatibilityConstraint extends Rule {
 
     /**
-     * Build an instance of incompatibility
+     * Builds an instance of incompatibility
      * @param scope all variables in constraint
      * @param premisse the incompatibility
      */

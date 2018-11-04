@@ -5,8 +5,8 @@ import java.util.*;
 import representations.*;
 
 /**
- * this heuristic give the opposite value of the ConstraintMaxHeuristic, the
- * max value of a list of variable will be the min value with this heuristic
+ * This heuristic gives the opposite value of the ConstraintMaxHeuristic, the
+ * max value of a list of variables will be the min value with this heuristic
  */
 public class ConstraintMinHeuristic implements HeuristicVariable {
 

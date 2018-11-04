@@ -5,7 +5,7 @@ import java.util.*;
 import representations.*;
 
 /**
- * represents a state of car
+ * Represents a state of a car
  *
  */
 public class State implements Comparable<State> {
@@ -14,7 +14,7 @@ public class State implements Comparable<State> {
     private Integer distance;
 
     /**
-     * Build an instance of State
+     * Builds an instance of State
      * @param voiture the map of the car
      * @param distance the distance to the target car
      */
@@ -24,7 +24,7 @@ public class State implements Comparable<State> {
     }
 
     /**
-     * Build an instance of State with a distance to max value possible
+     * Builds an instance of State with a distance to max value possible
      * @param voiture the map of the car
      */
     public State(Map<Variable, String> voiture) {
@@ -32,7 +32,7 @@ public class State implements Comparable<State> {
     }
 
     /**
-     * Getter of the car
+     * Getter method of the car
      * @return the map of the car
      */
     public Map<Variable, String> getVoiture() {
@@ -40,7 +40,7 @@ public class State implements Comparable<State> {
     }
 
     /**
-     * Getter of the state's distance
+     * Getter method of the state's distance
      * @return the distance of the state
      */
     public int getDistance() {
@@ -48,7 +48,7 @@ public class State implements Comparable<State> {
     }
 
     /**
-     * Setter of the state's distance
+     * Setter method of the state's distance
      * @param distance the value to set
      */
     public void setDistance(int distance) {
@@ -68,7 +68,7 @@ public class State implements Comparable<State> {
     }
 
     /**
-     * Create a copy of this state
+     * Creates a copy of this state
      * @return the copy of this state
      */
     public State getCopy() {
@@ -85,7 +85,7 @@ public class State implements Comparable<State> {
     }
 
     /**
-     * Equals of the State, two state are equals if their car are equals
+     * Equals of the State, two states are equals if their cars are equals
      * @param o the other element for the test
      * @return true if states are the same car
      */
@@ -104,10 +104,10 @@ public class State implements Comparable<State> {
     }
 
     /**
-     * CompareTo of a State, the comparation of two states if the comparation
+     * CompareTo of a State, the comparison of two states if the comparison
      * of their distance
-     * @param other the other State for the comparation
-     * @return the result of the comparation of their distance
+     * @param other the other State for the comparison
+     * @return the result of the comparison of their distance
      */
     @Override
     public int compareTo(State other) {

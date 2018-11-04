@@ -21,21 +21,21 @@ public class AssemblyLine {
     private Set<Variable> ELEMENT_COLOR;
 
     /**
-     * Build all lists and maps will need
+     * Build all lists and maps needed
      */
     public AssemblyLine() {
-        // set of all names of variables with a boolean domain
+        // set of all the names of variables with a boolean domain
         this.elementsBool = new HashSet<>(Arrays.asList(
                 "HAS_CHASSIS", "HAS_FRONT_LEFT_WHEEL", "HAS_FRONT_RIGHT_WHEEL",
                 "HAS_REAR_LEFT_WHEEL", "HAS_REAR_RIGHT_WHEEL", "HAS_BODY"
         ));
 
-        // boolean domain
+        // boolean's domain
         this.domainBooleans = new HashSet<>(Arrays.asList(
                 "TRUE", "FALSE"
         ));
 
-        // set of all names of variables with a colors domain
+        // set of all the names of variables with a color domain
         this.componentsColor = new HashSet<>(Arrays.asList(
                 "FRONT_COLOR", "LEFT_COLOR", "REAR_COLOR", "RIGHT_COLOR", "ROOF_COLOR",
                 "FRONT_LEFT_WHEEL_COLOR", "FRONT_RIGHT_WHEEL_COLOR", "REAR_LEFT_WHEEL_COLOR",
@@ -43,7 +43,7 @@ public class AssemblyLine {
         ));
 
 
-        // colors domain
+        // colors' domain
         this.domainColors = new HashSet<>(Arrays.asList(
                 "GRAY", "BLACK", "WHITE", "RED", "BLUE", "GREEN", "ORANGE", "YELLOW"
         ));
@@ -58,19 +58,19 @@ public class AssemblyLine {
                 "GRAY", "BLACK", "RED"
         ));*/
 
-        // set of variable with boolean domain
+        // set of variable with a boolean domain
         this.HAS_ELEMENT = new HashSet<>();
 
-        // map to get a variable with this name
+        // map to get a variable with its name
         this.mapVar = new HashMap<>();
 
         for (String varBoolean : this.elementsBool) {
             // for all names of boolean components
             // build a variable with the name and the boolean domain
             Variable var = new Variable(varBoolean, domainBooleans);
-            // add the variable on the set of variable boolean
+            // add the variable to the set of variable boolean
             this.HAS_ELEMENT.add(var);
-            // put the names of variable and the variable on the map
+            // put the names of the variables and the variables on the map
             this.mapVar.put(varBoolean, var);
         }
 
@@ -93,7 +93,7 @@ public class AssemblyLine {
 
     /**
      * Builds a state with the car of this class
-     * @return the state builded
+     * @return the state built
      */
     public State getInitState() {
         return new State(this.voiture);
@@ -101,20 +101,20 @@ public class AssemblyLine {
 
     /**
      * Builds a random state with a car with one random color
-     * @return the state builded
+     * @return the state built
      */
     public State getGoal() {
         return new State(this.generateCar());
     }
 
     /**
-     * Builds all actions possbile of the problem
+     * Builds all actions possbile of a problem
      * @return a set of all actions
      */
     public Set<Action> getActions() {
         Set<Action> actions = new HashSet<>();
         for (String color : this.domainColors) {
-            // for all color add all paints possible
+            // for all colors add all paints possible
             actions.add(this.paintRear(color));
             actions.add(this.paintFront(color));
             actions.add(this.paintLeft(color));
@@ -123,10 +123,10 @@ public class AssemblyLine {
         }
 
         for (String comp : this.elementsBool) {
-            // for all component add all uniques installations possibles
+            // for all component add all unique installations possible
             actions.add(this.installPiece(comp));
         }
-        // add the action of place two wheels
+        // add the action of placing two wheels
         actions.add(this.installRightWheel());
         actions.add(this.installLeftWheel());
         actions.add(this.installFrontWheel());
@@ -137,45 +137,45 @@ public class AssemblyLine {
     }
 
     /**
-     * Choice a string value in a set and return it
+     * Choose a string value in a set and return it
      * @param setValues the set of values
-     * @return the value choose
+     * @return the value choosen
      */
     public String choiceValue(Set<String> setValues) {
         Random r = new Random();
-        // un random value between 0 and the size of the set
+        // a random value between 0 and the set's size
         int valueRandom = r.nextInt(setValues.size());
         int i = 0;
         for (String value : setValues) {
             // for all value in the set
             if (i++ == valueRandom) {
-                // if this value position (not the position in the set)
-                // corresponding to the counter return the value
+                // if this value's position (not the position in the set)
+                // corresponds to the counter, return the value
                 return value;
             }
         }
-        // never return null
+        // never returns null
         return null;
     }
 
     /**
-     * Build a car with all color to colorInitial and all pieces to FALSE excepted
+     * Builds a car with all colors to colorInitial and all pieces to FALSE except
      * the chassis
-     * @param colorInitial the initial color of all pieces
+     * @param colorInitial the initial colors of all the pieces
      * @return a initialized car
      */
     public Map<Variable, String> initializeCar(String colorInitial) {
         Map<Variable, String> voiture = new HashMap<>();
         for (String varBoolean : this.elementsBool) {
             // for all names of boolean components
-            // add value of variable to FALSE in the car
+            //set the value of variables to FALSE in the car
             voiture.put(this.mapVar.get(varBoolean), "FALSE");
         }
-        // a car has minimum a chassis else it's nothing
+        // a car has at least a chassis or else it has nothing
         voiture.put(this.mapVar.get("HAS_CHASSIS"), "TRUE");
         for (String component : this.componentsColor) {
-            // for all names of components with colors domain
-            // initialize in the car this component to GRAY
+            // for all components with a color domain
+            // initialized in the car, turn this component to GRAY
             voiture.put(this.mapVar.get(component), colorInitial);
         }
         return voiture;
@@ -183,36 +183,36 @@ public class AssemblyLine {
 
     /**
      * Create a random car
-     * @return the builded car
+     * @return the built car
      */
     public Map<Variable, String> generateCar() {
-        // take a copy of the initial car to the beginning
+        // make a copy of the initial car to the beginning
         Map<Variable, String> voiture = new HashMap<>(this.voiture);
         // get a random color
         String colorSelect = choiceValue(this.domainColors);
         for (Variable var : this.HAS_ELEMENT) {
-            // for all variable in the copy, add all boolean variables to TRUE
+            // for all variables in the copy, set all boolean variables to TRUE
             voiture.put(var, "TRUE");
         }
         for (Variable var : this.ELEMENT_COLOR) {
-            // for all variable in the copy, add all color variables to the color choose
+            // for all variables in the copy, set all color variables to the color choosen
             voiture.put(var, colorSelect);
         }
         return voiture;
     }
 
     /**
-     * Build a part of rule (premisse or conclusion)
+     * Builds a part of a rule (premisse or conclusion)
      * @param varStr the string names of variables
-     * @param values the values of each variables or the value to assign to each
+     * @param values the values of each variable or the value to assign to each
      * variables
-     * @return the builded part of rule
+     * @return the buildt part of rule
      */
     public Map<Variable, String> buildMap(ArrayList<String> varStr, ArrayList<String> values) {
         Map<Variable, String> map = new HashMap<>();
         for (int i = 0; i<varStr.size(); i++) {
             map.put(
-                    // the variable of the name
+                    // the variable's name
                     this.mapVar.get(varStr.get(i)),
                     // the modulo if there is one value gift else the value in
                     // the same position as the name of variable
@@ -223,14 +223,14 @@ public class AssemblyLine {
     }
 
     /**
-     * Build the action install the piece if there is the chassis
+     * Build the action, install the piece if there is a chassis
      * @param piece the piece to install
-     * @return the builded action
+     * @return the built action
      */
     public Action installPiece(String piece) {
         Set<Rule> setRules = new HashSet<>();
 
-        // the list of names of variables engaged in the premisse
+        // the list of variables engaged in the premisse
         ArrayList<String> varStrP1 = new ArrayList<>(Arrays.asList(
                 "HAS_CHASSIS"
         ));
@@ -240,7 +240,7 @@ public class AssemblyLine {
         // build the premisse
         Map<Variable, String> premisse1 = buildMap(varStrP1, valeursP1);
 
-        // the list of names of variables engaged in the conclusion
+        // the list variables engaged in the conclusion
         ArrayList<String> varStrC1 = new ArrayList<>(Arrays.asList(
                 piece
         ));
@@ -258,10 +258,10 @@ public class AssemblyLine {
     }
 
     /**
-     * Paint the the roof and the body if there is the body
+     * Paint the roof and the body if there is a body
      * @param color the color of the paint
      * @see AssemblyLine#buildMap
-     * @return the builded action
+     * @return the built action
      */
     public Action paintRoof(String color) {
         Set<Rule> setRules = new HashSet<>();
@@ -277,13 +277,13 @@ public class AssemblyLine {
         // build the premisse
         Map<Variable, String> premisse1 = buildMap(varStrP1, valeursP1);
 
-        // the list of names of variables engaged in the conclusion
+        // the list of variables engaged in the conclusion
         ArrayList<String> varStrC1 = new ArrayList<>(Arrays.asList(
                 "ROOF_COLOR", "BODY_COLOR"
         ));
 
-        // the value assigned to the variables, here, there is one value in the
-        // list, it will be assign to all variables with the modulo
+        // the value assigned to the variables. Here, there is one value in the
+        // list, it will be assigned to all the variables with the modulo
         ArrayList<String> valeursC1 = new ArrayList<>(Arrays.asList(color));
 
         // build the conclusion
@@ -297,7 +297,7 @@ public class AssemblyLine {
     }
 
     /**
-     * Paint the rear and the roof if there is the body
+     * Paint the rear and the roof if there is a body
      * @param color the color of the paint
      * @see AssemblyLine#buildMap
      * @return the builded action
@@ -305,7 +305,7 @@ public class AssemblyLine {
     public Action paintRear(String color) {
         Set<Rule> setRules = new HashSet<>();
 
-        // the list of names of variables engaged in the premisse
+        // the list of variables engaged in the premisse
         ArrayList<String> varStrP1 = new ArrayList<>(Arrays.asList(
                 "HAS_BODY"
         ));
@@ -315,12 +315,12 @@ public class AssemblyLine {
         // build the premisse
         Map<Variable, String> premisse1 = buildMap(varStrP1, valeursP1);
 
-        // the list of names of variables engaged in the conclusion
+        // the list of variables engaged in the conclusion
         ArrayList<String> varStrC1 = new ArrayList<>(Arrays.asList(
                 "REAR_COLOR","ROOF_COLOR"
         ));
-        // the value assigned to the variables, here, there is one value in the
-        // list, it will be assign to all variables with the modulo
+        // the value assigned to the variables. Here, there is one value in the
+        // list, it will be assigned to all variables with the modulo
         ArrayList<String> valeursC1 = new ArrayList<>(Arrays.asList(color));
 
         // build the conclusion
@@ -334,7 +334,7 @@ public class AssemblyLine {
     }
 
     /**
-     * Paint the roof and the front if there are the chassis and the body
+     * Paint the roof and the front if there are a chassis and a body
      * @param color the color of the paint
      * @see AssemblyLine#buildMap
      * @return the builded action
@@ -342,23 +342,23 @@ public class AssemblyLine {
     public Action paintFront(String color) {
         Set<Rule> setRules = new HashSet<>();
 
-        // the list of names of variables engaged in the premisse
+        // the list of variables engaged in the premisse
         ArrayList<String> varStrP1 = new ArrayList<>(Arrays.asList(
                 "HAS_CHASSIS", "HAS_BODY"
         ));
-        // the value assigned to the variables, here, there is one value in the
-        // list, it will be assign to all variables with the modulo
+        // the value assigned to the variables. Here, there is one value in the
+        // list, it will be assigned to all variables with the modulo
         ArrayList<String> valeursP1 = new ArrayList<>(Arrays.asList("TRUE"));
 
         // build the premisse
         Map<Variable, String> premisse1 = buildMap(varStrP1, valeursP1);
 
-        // the list of names of variables engaged in the conclusion
+        // the list of variables engaged in the conclusion
         ArrayList<String> varStrC1 = new ArrayList<>(Arrays.asList(
                 "ROOF_COLOR", "FRONT_COLOR"
         ));
-        // the value assigned to the variables, here, there is one value in the
-        // list, it will be assign to all variables with the modulo
+        // the value assigned to the variables. Here, there is one value in the
+        // list, it will be assigned to all variables with the modulo
         ArrayList<String> valeursC1 = new ArrayList<>(Arrays.asList(color));
 
         // build the conclusion
@@ -372,8 +372,8 @@ public class AssemblyLine {
     }
 
     /**
-     * Paint the roof, front and rear left wheel and the left if there are the
-     * chassis, body, front and rear left wheel
+     * Paint the roof, front and rear left wheel and the left if there's a
+     * chassis, a body, a front and a rear left wheel
      * @param color the color of the paint
      * @see AssemblyLine#buildMap
      * @return the builded action
@@ -381,23 +381,23 @@ public class AssemblyLine {
     public Action paintLeft(String color) {
         Set<Rule> setRules = new HashSet<>();
 
-        // the list of names of variables engaged in the premisse
+        // the list of variables engaged in the premisse
         ArrayList<String> varStrP1 = new ArrayList<>(Arrays.asList(
                 "HAS_CHASSIS", "HAS_BODY", "HAS_FRONT_LEFT_WHEEL", "HAS_REAR_LEFT_WHEEL"
         ));
-        // the value assigned to the variables, here, there is one value in the
-        // list, it will be assign to all variables with the modulo
+        // the value assigned to the variables. Here, there is one value in the
+        // list, it will be assigned to all variables with the modulo
         ArrayList<String> valeursP1 = new ArrayList<>(Arrays.asList("TRUE"));
 
         // build the premisse
         Map<Variable, String> premisse1 = buildMap(varStrP1, valeursP1);
 
-        // the list of names of variables engaged in the conclusion
+        // the list of variables engaged in the conclusion
         ArrayList<String> varStrC1 = new ArrayList<>(Arrays.asList(
                 "ROOF_COLOR", "FRONT_LEFT_WHEEL_COLOR", "REAR_LEFT_WHEEL_COLOR", "LEFT_COLOR"
         ));
-        // the value assigned to the variables, here, there is one value in the
-        // list, it will be assign to all variables with the modulo
+        // the value assigned to the variables. Here, there is one value in the
+        // list, it will be assigned to all variables with the modulo
         ArrayList<String> valeursC1 = new ArrayList<>(Arrays.asList(color));
 
         // build the conclusion
@@ -411,8 +411,8 @@ public class AssemblyLine {
     }
 
     /**
-     * Paint the roof, front and rear right wheel and the right if there are the
-     * chassis, body, front and rear right wheel
+     * Paint the roof, front and rear right wheel and the right if there is a
+     * chassis, a body, a front and a rear right wheel
      * @param color the color of the paint
      * @see AssemblyLine#buildMap
      * @return the builded action
@@ -420,23 +420,23 @@ public class AssemblyLine {
     public Action paintRight(String color) {
         Set<Rule> setRules = new HashSet<>();
 
-        // the list of names of variables engaged in the premisse
+        // the list of variables engaged in the premisse
         ArrayList<String> varStrP1 = new ArrayList<>(Arrays.asList(
                 "HAS_CHASSIS", "HAS_BODY", "HAS_FRONT_RIGHT_WHEEL", "HAS_REAR_RIGHT_WHEEL"
         ));
-        // the value assigned to the variables, here, there is one value in the
-        // list, it will be assign to all variables with the modulo
+        // the value assigned to the variables. Here, there is one value in the
+        // list, it will be assigned to all variables with the modulo
         ArrayList<String> valeursP1 = new ArrayList<>(Arrays.asList("TRUE"));
 
         // build the premisse
         Map<Variable, String> premisse1 = buildMap(varStrP1, valeursP1);
 
-        // the list of names of variables engaged in the conclusion
+        // the list of variables engaged in the conclusion
         ArrayList<String> varStrC1 = new ArrayList<>(Arrays.asList(
                 "ROOF_COLOR", "FRONT_RIGHT_WHEEL_COLOR", "REAR_RIGHT_WHEEL_COLOR", "RIGHT_COLOR"
         ));
-        // the value assigned to the variables, here, there is one value in the
-        // list, it will be assign to all variables with the modulo
+        // the value assigned to the variables. Here, there is one value in the
+        // list, it will be assigned to all variables with the modulo
         ArrayList<String> valeursC1 = new ArrayList<>(Arrays.asList(color));
 
         // build the conclusion
@@ -457,7 +457,7 @@ public class AssemblyLine {
     public Action installRightWheel() {
         Set<Rule> setRules = new HashSet<>();
 
-        // the list of names of variables engaged in the premisse
+        // the list of variables engaged in the premisse
         ArrayList<String> varStrP1 = new ArrayList<>(Arrays.asList(
                 "HAS_CHASSIS"
         ));
@@ -467,12 +467,12 @@ public class AssemblyLine {
         // build the premisse
         Map<Variable, String> premisse1 = buildMap(varStrP1, valeursP1);
 
-        // the list of names of variables engaged in the conclusion
+        // the list of variables engaged in the conclusion
         ArrayList<String> varStrC1 = new ArrayList<>(Arrays.asList(
                 "HAS_FRONT_RIGHT_WHEEL", "HAS_REAR_RIGHT_WHEEL"
         ));
-        // the value assigned to the variables, here, there is one value in the
-        // list, it will be assign to all variables with the modulo
+        // the value assigned to the variables. Here, there is one value in the
+        // list, it will be assigned to all variables with the modulo
         ArrayList<String> valeursC1 = new ArrayList<>(Arrays.asList("TRUE"));
 
         // build the conclusion
@@ -493,7 +493,7 @@ public class AssemblyLine {
     public Action installLeftWheel() {
         Set<Rule> setRules = new HashSet<>();
 
-        // the list of names of variables engaged in the premisse
+        // the list of variables engaged in the premisse
         ArrayList<String> varStrP1 = new ArrayList<>(Arrays.asList(
                 "HAS_CHASSIS"
         ));
@@ -503,12 +503,12 @@ public class AssemblyLine {
         // build the premisse
         Map<Variable, String> premisse1 = buildMap(varStrP1, valeursP1);
 
-        // the list of names of variables engaged in the conclusion
+        // the list of variables engaged in the conclusion
         ArrayList<String> varStrC1 = new ArrayList<>(Arrays.asList(
                 "HAS_FRONT_LEFT_WHEEL", "HAS_REAR_LEFT_WHEEL"
         ));
-        // the value assigned to the variables, here, there is one value in the
-        // list, it will be assign to all variables with the modulo
+        // the value assigned to the variables. Here, there is one value in the
+        // list, it will be assigned to all variables with the modulo
         ArrayList<String> valeursC1 = new ArrayList<>(Arrays.asList("TRUE"));
 
         // build the conclusion
@@ -529,7 +529,7 @@ public class AssemblyLine {
     public Action installFrontWheel() {
         Set<Rule> setRules = new HashSet<>();
 
-        // the list of names of variables engaged in the premisse
+        // the list of variables engaged in the premisse
         ArrayList<String> varStrP1 = new ArrayList<>(Arrays.asList(
                 "HAS_CHASSIS"
         ));
@@ -539,12 +539,12 @@ public class AssemblyLine {
         // build the premisse
         Map<Variable, String> premisse1 = buildMap(varStrP1, valeursP1);
 
-        // the list of names of variables engaged in the conclusion
+        // the list of variables engaged in the conclusion
         ArrayList<String> varStrC1 = new ArrayList<>(Arrays.asList(
                 "HAS_FRONT_LEFT_WHEEL", "HAS_FRONT_RIGHT_WHEEL"
         ));
-        // the value assigned to the variables, here, there is one value in the
-        // list, it will be assign to all variables with the modulo
+        // the value assigned to the variables. Here, there is one value in the
+        // list, it will be assigned to all variables with the modulo
         ArrayList<String> valeursC1 = new ArrayList<>(Arrays.asList("TRUE"));
 
         // build the conclusion
@@ -565,7 +565,7 @@ public class AssemblyLine {
     public Action installRearWheel() {
         Set<Rule> setRules = new HashSet<>();
 
-        // the list of names of variables engaged in the premisse
+        // the list of variables engaged in the premisse
         ArrayList<String> varStrP1 = new ArrayList<>(Arrays.asList(
                 "HAS_CHASSIS"
         ));
@@ -575,12 +575,12 @@ public class AssemblyLine {
         // build the premisse
         Map<Variable, String> premisse1 = buildMap(varStrP1, valeursP1);
 
-        // the list of names of variables engaged in the conclusion
+        // the list of variables engaged in the conclusion
         ArrayList<String> varStrC1 = new ArrayList<>(Arrays.asList(
                 "HAS_REAR_LEFT_WHEEL", "HAS_REAR_RIGHT_WHEEL"
         ));
-        // the value assigned to the variables, here, there is one value in the
-        // list, it will be assign to all variables with the modulo
+        // the value assigned to the variables. Here, there is one value in the
+        // list, it will be assigned to all variables with the modulo
         ArrayList<String> valeursC1 = new ArrayList<>(Arrays.asList("TRUE"));
 
         // build the conclusion

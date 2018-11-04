@@ -57,7 +57,7 @@ public class Variable {
     }
 
     /**
-     * hash function of the variable's object with the variable's name
+     * Hash function of the variable's object with the variable's name
      * @return the hashcode
      */
     @Override

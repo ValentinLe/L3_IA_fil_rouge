@@ -34,10 +34,10 @@ Tests with 8 colors :
 
 _____________________________________
 Conclusion :
-The Dijkstra algorithm browse many nodes than aStar and more there are possibility,
-more the difference of number between Dijkstra and aStar will be important. With
+The Dijkstra algorithm browses many more nodes than aStar, therefore there are many more possibilities,
+which leads to a bigger difference in number between Dijkstra and aStar. With
 weightAStar, the number of colors obviously has no influence on the number of
-nodes browsed. The heuristic informed heuristic is more efficiency than the
+nodes visited. The informed heuristic is more efficient than the
 simple heuristic.
 
 */
@@ -51,7 +51,7 @@ public class PlanningProblemWithCost extends PlanningProblem {
     private HeuristicState heuristic;
 
     /**
-     * Build an instance of PlanningProblemWithCost with a heuristic
+     * Builds an instance of PlanningProblemWithCost with a heuristic
      * @param initialState the initial state of the problem
      * @param goal the target state
      * @param actions set of possible actions
@@ -63,8 +63,8 @@ public class PlanningProblemWithCost extends PlanningProblem {
     }
 
     /**
-     * Setter of the heuristic
-     * @param heuristic the new heuristic you want use
+     * Setter method of the heuristic
+     * @param heuristic the new heuristic you want to use
      */
     public void setHeuristic(HeuristicState heuristic) {
         this.heuristic = heuristic;
@@ -75,7 +75,7 @@ public class PlanningProblemWithCost extends PlanningProblem {
      * @return the plan of actions
      */
     public Stack<Action> dijkstra() {
-        // initialize the counter of node
+        // initialize the counter of nodes
         this.initNbNode();
         // priority queue of the open states
         PriorityQueue<State> open = new PriorityQueue<>();
@@ -83,21 +83,21 @@ public class PlanningProblemWithCost extends PlanningProblem {
         Map<State, Integer> distance = new HashMap<>();
         // map of fathers (son, father)
         Map<State, State> father = new HashMap<>();
-        // the state and the action do to get this state
+        // the state and the actions to do to get this state
         Map<State, Action> plan = new HashMap<>();
         // list of priority of goals found
         PriorityQueue<State> goals = new PriorityQueue<>();
-        // initialise the distance of the initial state to 0
+        // initialises the distance of the initial state to 0
         this.initialState.setDistance(0);
-        // add the initial state on the open states
+        // add the initial state to the open states
         open.add(this.initialState);
-        // the initial state hasn't a father
+        // the initial state doesn't have a father
         father.put(this.initialState, null);
         // the distance of the initial state is 0
         distance.put(this.initialState, 0);
         while (!open.isEmpty()) {
             // while there is a state in the list of open states
-            // increment the counter of node
+            // increment the counter of nodes
             this.upNbNode();
             // take the state with the minimal distance
             State state = open.remove();
@@ -106,18 +106,18 @@ public class PlanningProblemWithCost extends PlanningProblem {
                 goals.add(state);
             }
             for (Action action : this.actions) {
-                // for all actions possibles of the problem
+                // for all actions possible of the problem
                 if (action.isApplicable(state)) {
                     // if the action is applicable on the state
                     // apply this action to create a new state
                     State next = action.apply(state);
                     if (!distance.keySet().contains(next)) {
-                        // if the new state hasn't a distance, we add it with the
+                        // if the new state doesn't have a distance, we add it with the
                         // max value possible to its distance
                         distance.put(next, Integer.MAX_VALUE);
                     }
                     if (distance.get(next) > distance.get(state) + action.getCost()) {
-                        // if the distance of the new state are more than the distance
+                        // if the distance of the new state is more than the distance
                         // of the state and the cost of the action
 
                         // set the distance of the new state to the distance of
@@ -135,12 +135,12 @@ public class PlanningProblemWithCost extends PlanningProblem {
                 }
             }
         }
-        // return the plan build
+        // return the plan built
         return this.getDijkstraPlan(father, plan, goals);
     }
 
     /**
-     * Build the plan of the best path to go to the target state
+     * Builds the plan of the best path to go to the target state
      * @param father the map of fathers
      * @param actions the map of plan
      * @param goals the list of goals found
@@ -151,7 +151,7 @@ public class PlanningProblemWithCost extends PlanningProblem {
         Stack<Action> plan = new Stack<>();
         // get the target state with the minimal distance
         State goal = goals.remove();
-        // initialize the action with the last action before the target state
+        // initializes the action with the last action before the target state
         Action action = actions.get(goal);
         do {
             // add the action to the plan
@@ -180,7 +180,7 @@ public class PlanningProblemWithCost extends PlanningProblem {
      * @return the best plan to go to the target state
      */
     public Queue<Action> weightedAStar(int weight) {
-        // initialize the counter of node
+        // initialize the counter of nodes
         this.initNbNode();
         // priority queue of the open states
         PriorityQueue<State> open = new PriorityQueue<>();
@@ -190,38 +190,38 @@ public class PlanningProblemWithCost extends PlanningProblem {
         Map<State, Action> plan = new HashMap<>();
         // map of fathers (son, father)
         Map<State, State> father = new HashMap<>();
-        // add the initial state on the open states
+        // add the initial state to the open states
         open.add(this.initialState);
-        // the initial state hasn't a father
+        // the initial state doesn't have a father
         father.put(this.initialState, null);
-        // initialise the distance of the initial state to 0
+        // initialises the distance of the initial state to 0
         this.initialState.setDistance(0);
         // the distance of the initial state is 0
         distance.put(this.initialState, 0);
         while (!open.isEmpty()) {
             // while there is a state in the list of open states
-            // increment the counter of node
+            // increment the counter of nodes
             this.upNbNode();
-            // take the state with the minimal distance
+            // takes the state with the minimal distance
             State state = open.remove();
             if (state.satisfies(this.goal.getVoiture())) {
                 // if the state is the goal, return the build plan of the best path
-                // use the fonction of buildPlan of the bfs
+                // use the function of buildPlan of the bfs
                 return this.getBfsPlan(father, plan, state);
             } else {
                 for (Action action : this.actions) {
-                    // for all actions possibles of the problem
+                    // for all actions possible of the problem
                     if (action.isApplicable(state)) {
                         // if the action is applicable
                         // apply this action to create a new state
                         State next = action.apply(state);
                         if (!distance.keySet().contains(next)) {
-                            // if the new state hasn't a distance, we add it with the
+                            // if the new state doesn't have a distance, we add it with the
                             // max value possible to its distance
                             distance.put(next, Integer.MAX_VALUE);
                         }
                         if (distance.get(next) > distance.get(state) + action.getCost()) {
-                            // if the distance of the new state are more than the distance
+                            // if the distance of the new state is more than the distance
                             // of the state and the cost of the action
 
                             // add the distance of the new state to distance of state

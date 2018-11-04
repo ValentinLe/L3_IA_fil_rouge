@@ -36,18 +36,18 @@ ___________________________________________
 Tests with 8 colors in the component_color :
 - dfs : StackOverflowError
 
-- dfs iterative : we interrupt the program after 30 minutes because it's so long...
+- dfs iterative : we interrupt the program after 30 minutes because it takes too long...
 
-- bfs : we interrupt the program after 30 minutes because it's so long too...
+- bfs : we interrupt the program after 30 minutes because it takes too long too...
 ___________________________________________
 
 Conclusion :
-The bfs method with few colors possible find a solution quickly but it's not the
-best solution, there are many actions in the plan and with 5 or 8 colors there are
-StackOverflowError or it's infinity. The dfs isn't a good algorithm to find a solution.
-As well, the bfs with few colors possible find a solution not quickly but there
-are just the actions that are needed with many node browsed. With 8 colors, the algorithm
-is so long to find a solution. The bfs isn't a good algorithm to find a solution.
+The dfs method with a few selected colors finds a solution faster but it's not the
+best solution, there are too many actions in the plan and with 5 to 8 colors, we obtain a
+StackOverflowError or it's infinit. Therefore dfs isn't a good algorithm to find a solution.
+As well, the bfs with a few selected colors finds a solution, not quickly but it finds
+only the actions that are needed between many nodes visited. With 8 colors, the algorithm
+takes too long to find a solution. Therefore bfs isn't a good algorithm to find a solution.
 */
 
 
@@ -77,7 +77,7 @@ public class PlanningProblem {
     }
 
     /**
-     * Getter of the number of node
+     * Getter method of the number of nodes
      * @return the number of node
      */
     public int getNbNode() {
@@ -85,25 +85,25 @@ public class PlanningProblem {
     }
 
     /**
-     * Increments the number of node
+     * Increments the number of nodes
      */
     public void upNbNode() {
         this.nbNode += 1;
     }
 
     /**
-     * Initializes the number of node to 0
+     * Initializes the number of nodes to 0
      */
     public void initNbNode() {
         this.nbNode = 0;
     }
 
     /**
-     * Function to call the DFS recursive method with the good arguments
+     * Function to call the DFS recursive method with the right arguments
      * @return the plan of action to execute to go to the target state
      */
     public Stack<Action> dfs() {
-        // initialize the number of node
+        // initialize the number of nodes
         this.initNbNode();
         return this.dfs(this.initialState, new Stack<>(), new HashSet<>());
     }
@@ -112,8 +112,8 @@ public class PlanningProblem {
      * DFS recursive method
      * @param state the state of the beginning
      * @param plan the plan to build
-     * @param closed the set of state visited
-     * @return the plan of action to execute to go to the target state
+     * @param closed the set of states visited
+     * @return the plan of actions to execute to go to the target state
      */
     public Stack<Action> dfs(State state, Stack<Action> plan,
             Set<State> closed) {
@@ -127,7 +127,7 @@ public class PlanningProblem {
             for (Action action : this.actions) {
                 // for all action in the set of actions of the problem
                 if (action.isApplicable(state)) {
-                    // if the action is applicable on the state
+                    // if the action is applicable to the state
                     // apply the action to build a new state
                     State next = action.apply(state);
                     if (!closed.contains(next)) {
@@ -139,7 +139,7 @@ public class PlanningProblem {
                         // recusivity with the new state
                         Stack<Action> subplan = dfs(next, plan, closed);
                         if (!subplan.isEmpty()) {
-                            // if the recursivity return an empty plan
+                            // if the recursivity returns an empty plan
                             return subplan;
                         } else {
                             // remove the new state
@@ -155,25 +155,25 @@ public class PlanningProblem {
 
     /**
      * DFS iterative method
-     * @return the plan of action to execute to go to the target state
+     * @return the plan of actions to execute to go to the target state
      */
     public Queue<Action> dfsIter() {
-        // initialize the counter of node
+        // initialize the counter of nodes
         this.initNbNode();
         // map of (son, father)
         Map<State, State> father = new HashMap<>();
-        // map of the plan state and action to go to this state
+        // map of the plan state and the actions to go to this state
         Map<State, Action> plan = new HashMap<>();
-        // set of visited state
+        // set of visited states
         Set<State> closed = new HashSet<>();
-        // stack of state to visit
+        // stack of states to visit
         Stack<State> open = new Stack<>();
         // add the initial state to the open
         open.push(this.initialState);
-        // the initial state hasn't a father
+        // the initial state doesn't have a father
         father.put(this.initialState, null);
         while (!open.isEmpty()) {
-            // increment the counter of node
+            // increment the counter of nodes
             this.upNbNode();
             // take the state at the top of the stack
             State state = open.pop();
@@ -187,15 +187,15 @@ public class PlanningProblem {
                     State next = action.apply(state);
                     if (!closed.contains(next) && !open.contains(next)) {
                         // if the new state isn't already visited and isn't in the open
-                        // add the state before apply the action at father of the
+                        // add the state before applying the action to the father of the
                         // new state
                         father.put(next, state);
-                        // add the new state in the plan with the action apply
+                        // add the new state in the plan with the action applied
                         plan.put(next, action);
                         if (next.satisfies(this.goal.getVoiture())) {
                             // if the new state satisfies the goal
                             // use the function satisfies of state because
-                            // satisfies a premisse is the same as satisfies a car
+                            // it satisfies the same premisse that satisfies a car
                             return this.getBfsPlan(father, plan, next);
                         } else {
                             // add the new state to the open
@@ -220,20 +220,20 @@ public class PlanningProblem {
         Map<State, State> father = new HashMap<>();
         // map of the plan state and action to go to this state
         Map<State, Action> plan = new HashMap<>();
-        // set of visited state
+        // set of visited states
         Set<State> closed = new HashSet<>();
-        // Queue of state to visit
+        // Queue of states to visit
         Queue<State> open = new LinkedList<>();
         // add the initial state to the open
         open.add(this.initialState);
-        // the initial state hasn't a father
+        // the initial state doesn't have a father
         father.put(this.initialState, null);
         while (!open.isEmpty()) {
-            // increment the counter of node
+            // increment the counter of nodes
             this.upNbNode();
             // dequeue of the open
             State state = open.remove();
-            // add the state to visited state
+            // add the state to visited states
             closed.add(state);
             for (Action action : this.actions) {
                 // for all action in the set of actions of the problem
@@ -243,15 +243,15 @@ public class PlanningProblem {
                     State next = action.apply(state);
                     if (!closed.contains(next) && !open.contains(next)) {
                         // if the new state isn't already visited and isn't in the open
-                        // add the state before apply the action at father of the
+                        // add the state before applying the action to the father of the
                         // new state
                         father.put(next, state);
-                        // add the new state in the plan with the action apply
+                        // add the new state in the plan with the action applied
                         plan.put(next, action);
                         if (next.satisfies(this.goal.getVoiture())) {
                             // if the new state satisfies the goal
                             // use the function satisfies of state because
-                            // satisfies a premisse is the same as satisfies a car
+                            // it satisfies the same premisse that satisfies a car
                             return this.getBfsPlan(father, plan, next);
                         } else {
                             // add the new state to the open
@@ -266,7 +266,7 @@ public class PlanningProblem {
     }
 
     /**
-     * Build the plan of action to go to the initialState to the goal
+     * Build the plan of actions to go to the initialState of the goal
      * @param father map of (son, father)
      * @param actions the plan of actions
      * @param goal the target state

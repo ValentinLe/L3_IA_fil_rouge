@@ -55,7 +55,7 @@ public class Main {
         System.out.println(c3.filtrer(voiture, map));
         System.out.println("MAP ap1 " + map);
         System.out.println(c3.filtrer(voiture, map));
-        System.out.println("MAP ap2 " + map);
+        System.out.println("MAP ap2 " + map); 
         */
     }
 }

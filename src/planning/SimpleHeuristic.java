@@ -11,7 +11,7 @@ import representations.Variable;
 public class SimpleHeuristic implements HeuristicState {
 
     /**
-     * Calculate the heuristic value between an initial state to the target state
+     * Calculates the heuristic value between an initial state and the target state
      * @param currentState the initial state
      * @param goal the target state
      * @return the value of the heuristic
@@ -19,7 +19,7 @@ public class SimpleHeuristic implements HeuristicState {
     @Override
     public int heuristicValue(State currentState, State goal) {
         int cpt = 0;
-        // the car of initial state
+        // the car of the initial state
         Map<Variable, String> voitureState = currentState.getVoiture();
         // the car of the target state
         Map<Variable, String> voitureGoal = goal.getVoiture();
@@ -27,7 +27,7 @@ public class SimpleHeuristic implements HeuristicState {
             // for all variable of the initial state's car
             if (voitureState.get(var)!="TRUE" && voitureState.get(var)!="FALSE" && !voitureState.get(var).equals(voitureGoal.get(var))) {
                 // if the value isn't TRUE or FALSE then it's a color and if the
-                // value not corresponding with the variable of the goal's state
+                // value doesn't correspond with the variable of the goal's state
                 cpt += 1;
             }
         }

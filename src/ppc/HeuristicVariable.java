@@ -5,11 +5,11 @@ import java.util.*;
 import representations.*;
 
 /**
- * interface of heuristic to the backtrack
- * 
+ * Interface of heuristic to the backtrack
+ *
  */
 public interface HeuristicVariable {
-    
+
     /**
      * Calculates the value of the variable or/and this domain
      * @param constraints constraints of the problem

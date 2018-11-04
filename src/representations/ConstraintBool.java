@@ -13,7 +13,7 @@ public abstract class ConstraintBool implements Constraint {
     protected Constraint c2;
 
     /**
-     * build an instance of the boolean's constraint
+     * builds an instance of the boolean's constraint
      * @param c1 the first constraint
      * @param c2 the second constraint
      */

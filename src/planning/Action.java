@@ -5,8 +5,8 @@ import java.util.*;
 import representations.*;
 
 /**
- * represents an Action to apply on a car
- * 
+ * represents an Action applied to a car
+ *
  */
 public class Action {
 
@@ -24,7 +24,7 @@ public class Action {
     }
 
     /**
-     * Getter of the preconditions
+     * Getter method of the preconditions
      * @return the preconditions of the action
      */
     public Set<Rule> getPreconditions() {
@@ -32,7 +32,7 @@ public class Action {
     }
 
     /**
-     * Getter of the action's cost
+     * Getter method of the action's cost
      * @return the cost of the action
      */
     public int getCost() {
@@ -40,17 +40,17 @@ public class Action {
     }
 
     /**
-     * Test is the action is applicable on the state
-     * @param state the state
+     * Test if the action is applicable on a state
+     * @param state state
      * @return true if the action is applicable
      */
     public boolean isApplicable(State state) {
         for (Rule rule : this.preconditions) {
-            // for all rule in the precondistions
+            // for all rules in the precondistions
             if (state.satisfies(rule.getPremisse()) && !state.satisfies(rule.getConclusion())) {
                 // if the state satisfies the premisse of the rule and
-                // the state don't satisfies the conclusion (if one or more value(s) 
-                // of the car's variables not corresponding to the conclusion's value
+                // the state doesn't satisfy the conclusion (if one or more value(s)
+                // of the car's variables doesn't correspond to the conclusion's value
                 return true;
             }
         }
@@ -58,9 +58,9 @@ public class Action {
     }
 
     /**
-     * Applies the action on the state
+     * Applies the action to the state
      * @param state a copy of the result of the application of the action
-     * @return a state copy with the action apply
+     * @return a state copy with the applied action
      */
     public State apply(State state) {
         // create a copy of the state
@@ -83,7 +83,7 @@ public class Action {
     }
 
     /**
-     * toString of the action is the toString of all rules
+     * toString of an action is the toString of all rules
      * @return String representation of the action
      */
     @Override

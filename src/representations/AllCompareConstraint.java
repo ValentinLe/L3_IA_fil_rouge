@@ -50,6 +50,6 @@ public abstract class AllCompareConstraint implements Constraint {
                 ch += this.getSeparator();
             }
         }
-        return ch;
+        return ch; 
     }
 }

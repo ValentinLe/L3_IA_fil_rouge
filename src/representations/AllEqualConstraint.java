@@ -10,7 +10,7 @@ import java.util.*;
 public class AllEqualConstraint extends AllCompareConstraint {
 
     /**
-     * Build an instance of AllEqualConstraint
+     * Builds an instance of AllEqualConstraint
      * @param variables vairables of constraint
      */
     public AllEqualConstraint(Set<Variable> variables){

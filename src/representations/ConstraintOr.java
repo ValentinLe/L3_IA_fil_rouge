@@ -10,7 +10,7 @@ import java.util.Map;
 public class ConstraintOr extends ConstraintBool implements Constraint {
 
     /**
-     * Build an OR constraint
+     * Builds an OR constraint
      * @param c1 the first constraint
      * @param c2 the second constraint
      */

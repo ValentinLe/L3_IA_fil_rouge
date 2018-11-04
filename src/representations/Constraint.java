@@ -17,7 +17,7 @@ public interface Constraint {
     public Set<Variable> getScope();
 
     /**
-     * test if the constraint is satisfied by a car
+     * Test if the constraint is satisfied by a car
      * @param voiture the car
      * @return test result
      */

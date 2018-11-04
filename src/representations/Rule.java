@@ -15,7 +15,7 @@ public class Rule implements Constraint {
     private Map<Variable, String> conclusion;
 
     /**
-     * Build an instance of Rule with a scope
+     * Builds an instance of Rule with a scope
      * @param scope All Variables involved in a Constraint
      * @param premisse The premisse of the rule
      * @param conclusion The conclusion of the rule
@@ -27,7 +27,7 @@ public class Rule implements Constraint {
     }
 
     /**
-     * Build an instance of Rule and build the scope of variables present in the
+     * Builds an instance of Rule and build the scope of variables present in the
      * premisse and the conclusion
      * @param premisse The premisse of the rule
      * @param conclusion The conclusion of the rule
@@ -64,7 +64,7 @@ public class Rule implements Constraint {
     }
 
     /**
-     * build the scope of the rule
+     * builds the scope of the rule
      * @return the scope of the rule
      */
     public Set<Variable> createScope() {

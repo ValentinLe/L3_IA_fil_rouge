@@ -5,7 +5,7 @@ import java.util.*;
 import representations.*;
 
 /**
- * this heuristic counts the occurence of the variable in constraints
+ * This heuristic counts the occurence of the variable in constraints
  *
  */
 public class ConstraintMaxHeuristic implements HeuristicVariable {

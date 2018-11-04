@@ -11,7 +11,7 @@ import java.util.Set;
 public class Disjunction extends Rule {
 
     /**
-     * Build an instance of disjunction
+     * Builds an instance of disjunction
      * @param scope all variables in constraint
      * @param conclusion the disjunction
      */

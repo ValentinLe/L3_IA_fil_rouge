@@ -5,7 +5,7 @@ import java.util.*;
 import representations.*;
 
 /**
- * this heuristic give the opposite of the variable's size domain, the minimum
+ * This heuristic gives the opposite of the variable's size domain, the minimum
  * in the list of variables is the opposite of the maximum value
  */
 public class DomainMinHeuristic implements HeuristicVariable {

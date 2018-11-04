@@ -5,7 +5,7 @@ import java.util.*;
 import representations.*;
 
 /**
- * this heuristic give the size of the domain
+ * This heuristic give the size of the domain
  *
  */
 public class DomainMaxHeuristic implements HeuristicVariable {

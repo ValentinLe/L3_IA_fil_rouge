@@ -55,7 +55,7 @@ public class Main {
         System.out.println("Nombre de noeuds parcourus : " + problemWithCost.getNbNode());
 
         System.out.println(problemWithCost.weightedAStar(5));
-        System.out.println("Nombre de noeuds parcourus : " + problemWithCost.getNbNode());
+        System.out.println("Nombre de noeuds parcourus : " + problemWithCost.getNbNode()); 
 
     }
 }
