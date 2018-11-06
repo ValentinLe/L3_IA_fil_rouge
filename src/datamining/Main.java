@@ -76,6 +76,15 @@ public class Main {
         listTransactions.add(t6);
         
         BooleanDatabase bdb = new BooleanDatabase(listVar, listTransactions);
-        System.out.println(bdb.getSubSet());
+        FrequentItemsetMiner fim = new FrequentItemsetMiner(bdb);
+        
+        Set<Variable> item = new HashSet<>();
+        item.add(a);
+        item.add(c);
+        
+        int fr = fim.frequence(listTransactions, item);
+        Map<Set<Variable>, Integer> res = fim.frequentItemsets(2);
+        System.out.println("res : " + res);
+        System.out.println("nb : " + res.size());
     }
 }
