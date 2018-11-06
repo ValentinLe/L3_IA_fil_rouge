@@ -21,10 +21,8 @@ public class FrequentItemsetMiner {
         while (k < listVariables.size() + 1) {
             if (k==0) {
                 items = this.getSingletons(listVariables);
-            } else if (k==1) {
-                items = combinaisons(items, k + 1);
             } else {
-                items = combinaisons2(items, k + 1);
+                items = combinaisons(items, k + 1);
             }
             for (Set<Variable> item : new HashSet<>(items)) {
                 int frequence = this.frequence(listTransactions, item);
@@ -50,7 +48,7 @@ public class FrequentItemsetMiner {
         return singletons;
     }
     
-    
+    /*
     public Set<Set<Variable>> combinaisons(Set<Set<Variable>> setVar, int sizeCondition) {
         Set<Set<Variable>> comb = new HashSet<>();
         Set<Variable> itemTemp;
@@ -67,14 +65,14 @@ public class FrequentItemsetMiner {
             }
         }
         return comb;
-    }
+    }*/
     
-    public Set<Set<Variable>> combinaisons2(Set<Set<Variable>> setVar, int sizeCondition) {
+    public Set<Set<Variable>> combinaisons(Set<Set<Variable>> setVar, int sizeCondition) {
         Set<Set<Variable>> comb = new HashSet<>();
         Set<Variable> itemTemp;
         for (Set<Variable> item : setVar) {
             for (Set<Variable> item2 : setVar) {
-                if (item != item2 && this.hasSameFirstElment(item, item2)) {
+                if (item != item2 && (sizeCondition == 2 || this.hasSameFirstElment(item, item2))) {
                     itemTemp = new HashSet<>();
                     itemTemp.addAll(item);
                     itemTemp.addAll(item2);
