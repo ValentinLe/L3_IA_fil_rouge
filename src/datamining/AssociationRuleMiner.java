@@ -46,15 +46,15 @@ public class AssociationRuleMiner {
     }
     
     public Set<Set<Variable>> getClosed() {
-        Set<Set<Variable>> res = new HashSet<>(this.itemsets.keySet());
+        Set<Set<Variable>> closed = new HashSet<>(this.itemsets.keySet());
         for (Set<Variable> item1 : this.itemsets.keySet()) {
             for (Set<Variable> item2 : this.itemsets.keySet()) {
                 if (item1 != item2 && this.isInclude(item1, item2) && this.haveSameFrequence(item1, item2)) {
-                    res.remove(item1);
+                    closed.remove(item1);
                 }
             }
         }
-        return res;
+        return closed;
     }
     
     public boolean isInclude(Set<Variable> item1, Set<Variable> item2) {
@@ -71,7 +71,7 @@ public class AssociationRuleMiner {
     }
     
     public boolean haveSameFrequence(Set<Variable> item1, Set<Variable> item2) {
-        return this.itemsets.get(item1).equals(this.itemsets.get(item2));
+        return this.frequence(item1) == this.frequence(item2);
     }
     
     public Set<Rule> generateRules(Set<Variable> item, int minfr) {
