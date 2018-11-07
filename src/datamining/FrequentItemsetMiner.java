@@ -22,7 +22,7 @@ public class FrequentItemsetMiner {
             if (k==0) {
                 items = this.getSingletons(listVariables);
             } else {
-                items = combinaisons(items, k + 1);
+                items = combinaisons(items);
             }
             for (Set<Variable> item : new HashSet<>(items)) {
                 int frequence = this.frequence(listTransactions, item);
@@ -48,62 +48,49 @@ public class FrequentItemsetMiner {
         return singletons;
     }
     
-    /*
-    public Set<Set<Variable>> combinaisons(Set<Set<Variable>> setVar, int sizeCondition) {
+    public Set<Set<Variable>> combinaisons(Set<Set<Variable>> setVar) {
         Set<Set<Variable>> comb = new HashSet<>();
         Set<Variable> itemTemp;
         for (Set<Variable> item : setVar) {
             for (Set<Variable> item2 : setVar) {
-                if (item != item2) {
+                if (item != item2 && this.hasSameKFirstElment(item, item2)) {
                     itemTemp = new HashSet<>();
                     itemTemp.addAll(item);
                     itemTemp.addAll(item2);
-                    if (itemTemp.size() == sizeCondition) {
-                        comb.add(itemTemp);
-                    }
-                }
-            }
-        }
-        return comb;
-    }*/
-    
-    public Set<Set<Variable>> combinaisons(Set<Set<Variable>> setVar, int sizeCondition) {
-        Set<Set<Variable>> comb = new HashSet<>();
-        Set<Variable> itemTemp;
-        for (Set<Variable> item : setVar) {
-            for (Set<Variable> item2 : setVar) {
-                if (item != item2 && (sizeCondition == 2 || this.hasSameFirstElment(item, item2))) {
-                    itemTemp = new HashSet<>();
-                    itemTemp.addAll(item);
-                    itemTemp.addAll(item2);
-                    if (itemTemp.size() == sizeCondition) {
-                        comb.add(itemTemp);
-                    }
+                    comb.add(itemTemp);
                 }
             }
         }
         return comb;
     }
     
-    public boolean hasSameFirstElment(Set<Variable> item1, Set<Variable> item2) {
-        return this.getFirstElement(item1).equals(this.getFirstElement(item2));
-    }
-    
-    public Variable getFirstElement(Set<Variable> item) {
-        Iterator<Variable> iter = item.iterator();
-        return iter.next();
+    public boolean hasSameKFirstElment(Set<Variable> item1, Set<Variable> item2) {
+        Iterator<Variable> iter1 = item1.iterator();
+        Iterator<Variable> iter2 = item2.iterator();
+        int k = item1.size() - 1;
+        Variable var1;
+        Variable var2;
+        while (k > 0) {
+            var1 = iter1.next();
+            var2 = iter2.next();
+            if (!var1.equals(var2)) {
+                return false;
+            }
+            k--;
+        }
+        return true;
     }
     
     public int frequence(List<Map<Variable, String>> listTransaction, Set<Variable> item) {
         int cpt = 0;
         for (Map<Variable, String> transactions : listTransaction) {
-            boolean test = true;
+            boolean itemInTransaction = true;
             for (Variable var : item) {
                 if (transactions.get(var)=="0") {
-                    test = false;
+                    itemInTransaction = false;
                 }
             }
-            if (test) {
+            if (itemInTransaction) {
                 cpt += 1;
             }
         }

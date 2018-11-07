@@ -27,15 +27,15 @@ public class DBReader {
      * as the first line, then one ';'-separated list of values per instance
      * each on its own line
      */
-    public BooleanDatabase importDB (String filename) throws IOException {
+    public Database importDB (String filename) throws IOException {
         try (BufferedReader reader = new BufferedReader (new FileReader (filename))) {
-            BooleanDatabase res = this.readDB(reader);
+            Database res = this.readDB(reader);
             reader.close();
             return res;
         }
     }
     
-    public BooleanDatabase readDB(BufferedReader in) throws IOException {
+    public Database readDB(BufferedReader in) throws IOException {
         // Reading variables
         List<Variable> orderedVariables = new ArrayList<>();
         String variableLine = in.readLine();
@@ -68,7 +68,7 @@ public class DBReader {
             instances.add(instance);
             lineNb++;
         }
-        return new BooleanDatabase(orderedVariables, instances);
+        return new Database(orderedVariables, instances);
     }
 
 }

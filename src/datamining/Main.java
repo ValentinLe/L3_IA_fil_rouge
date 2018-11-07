@@ -8,8 +8,6 @@ public class Main {
     public static void main(String[] args) {
         
         Set<String> dom = new HashSet<>();
-        dom.add("0");
-        dom.add("1");
         
         Variable a = new Variable("A", dom);
         Variable b = new Variable("B", dom);
@@ -83,8 +81,12 @@ public class Main {
         item.add(c);
         
         int fr = fim.frequence(listTransactions, item);
-        Map<Set<Variable>, Integer> res = fim.frequentItemsets(2);
+        Map<Set<Variable>, Integer> res = fim.frequentItemsets(3);
         System.out.println("res : " + res);
         System.out.println("nb : " + res.size());
+        AssociationRuleMiner arm = new AssociationRuleMiner(res);
+        Set<Rule> rules = arm.getAssociationsRules(3, 0.9);
+        System.out.println("associa : " + rules);
+        System.out.println("size : " + rules.size());
     }
 }
