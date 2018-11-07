@@ -81,12 +81,15 @@ public class Main {
         item.add(c);
         
         int fr = fim.frequence(listTransactions, item);
-        Map<Set<Variable>, Integer> res = fim.frequentItemsets(3);
+        Map<Set<Variable>, Integer> res = fim.frequentItemsets(0);
         System.out.println("res : " + res);
         System.out.println("nb : " + res.size());
         AssociationRuleMiner arm = new AssociationRuleMiner(res);
-        Set<Rule> rules = arm.getAssociationsRules(3, 0.9);
+        Set<Rule> rules = arm.getAssociationsRules(0, 0.1);
         System.out.println("associa : " + rules);
         System.out.println("size : " + rules.size());
+        Set<Set<Variable>> closed = arm.getClosed();
+        System.out.println("le " + closed);
+        System.out.println("size " + closed.size());
     }
 }

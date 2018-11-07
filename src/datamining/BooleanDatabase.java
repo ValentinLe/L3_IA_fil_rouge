@@ -21,20 +21,4 @@ public class BooleanDatabase {
     public List<Map<Variable, String>> getListTransactions() {
         return this.listTransactions;
     }
-    
-    public Set<Set<Variable>> getSubSet() {
-        Set<Set<Variable>> subSet = new HashSet<>();
-        int n = this.listVariables.size();
-        Set<Variable> vars;
-        for(int i = 0; i < (1<<n); i++) {
-            vars = new HashSet<>();
-            for (int j = 0; j<n; j++) {
-                if ((i & (1 << j)) > 0) {
-                    vars.add(this.listVariables.get(j));
-                }
-            }
-            subSet.add(vars);
-        }
-        return subSet;
-    }
 }
