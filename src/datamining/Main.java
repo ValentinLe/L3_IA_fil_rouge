@@ -89,7 +89,12 @@ public class Main {
         System.out.println("associa : " + rules);
         System.out.println("size : " + rules.size());
         Set<Set<Variable>> closed = arm.getClosed();
-        System.out.println("le " + closed);
+        System.out.println("closed : " + closed);
         System.out.println("size " + closed.size());
+        Set<Variable> abc = new HashSet<>();
+        abc.add(a);
+        abc.add(b);
+        abc.add(c);
+        arm.generateRules(abc, 0);
     }
 }

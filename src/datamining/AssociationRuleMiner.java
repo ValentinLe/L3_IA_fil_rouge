@@ -74,16 +74,34 @@ public class AssociationRuleMiner {
         return this.frequence(item1) == this.frequence(item2);
     }
     
+    public Set<Set<Variable>> generateSubSets(Set<Variable> item) {
+        Set<Set<Variable>> subSet = new HashSet<>();
+        Set<Variable> vars;
+        int n = item.size();
+        Iterator<Variable> iter;
+        Variable var;
+        for (int i = 1; i<(1<<n); i++) {
+            vars = new HashSet<>();
+            iter = item.iterator();
+            for (int j = 0; j<n; j++) {
+                var = iter.next();
+                if ((i & (1 << j)) > 0) {
+                    vars.add(var);
+                }
+            }
+            subSet.add(vars);
+        }
+        return subSet;
+    }
+    
     public Set<Rule> generateRules(Set<Variable> item, int minfr) {
         Set<Rule> rules = new HashSet<>();
-        Iterator<Variable> iter = item.iterator();
-        Map<Variable, String> premisse = new HashMap<>();
-        premisse.put(iter.next(), "_");
-        Map<Variable, String> conclusion = new HashMap<>();
-        for (Variable var : item) {
-            conclusion.put(var,"_ ");
+        Set<Set<Variable>> subSetsOfItem = this.generateSubSets(item);
+        for (Set<Variable> itemize : subSetsOfItem) {
+            if (itemize.size() < item.size()) {
+                System.out.println("it " + itemize);
+            }
         }
-        rules.add(new Rule(premisse, conclusion));
         return rules;
     }
 }
