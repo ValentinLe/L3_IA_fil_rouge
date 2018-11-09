@@ -13,4 +13,13 @@ public class Database {
         this.listVariables = listVariables;
         this.listTransactions = listTransactions;
     }
+    
+    @Override
+    public String toString() {
+        String ch = "";
+        for (Map<Variable, String> map : this.listTransactions) {
+            ch += map;
+        }
+        return ch;
+    }
 }

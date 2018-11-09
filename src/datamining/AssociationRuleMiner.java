@@ -94,12 +94,24 @@ public class AssociationRuleMiner {
         return subSet;
     }
     
+    public Set<Variable> itemPrivateOfItem(Set<Variable> item1, Set<Variable> item2) {
+        for (Variable var : item2) {
+            if (item1.contains(var)) {
+                item1.remove(var);
+            }
+        }
+        return item1;
+    }
+    
     public Set<Rule> generateRules(Set<Variable> item, int minfr) {
         Set<Rule> rules = new HashSet<>();
         Set<Set<Variable>> subSetsOfItem = this.generateSubSets(item);
+        Set<Variable> complementItem;
         for (Set<Variable> itemize : subSetsOfItem) {
             if (itemize.size() < item.size()) {
-                System.out.println("it " + itemize);
+                complementItem = this.itemPrivateOfItem(new HashSet<>(item), itemize);
+                
+                System.out.println("it " + itemize + " -> " + complementItem);
             }
         }
         return rules;

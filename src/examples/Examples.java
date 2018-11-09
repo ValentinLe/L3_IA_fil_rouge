@@ -11,9 +11,9 @@ import representations.*;
 public class Examples {
 
     /** this variables contains components with color domain */
-    private ArrayList<Variable> couleur;
+    private List<Variable> couleur;
     /** this variables contains components with boolean domain */
-    private ArrayList<Variable> boolVariable;
+    private List<Variable> boolVariable;
 
     /** color's domain */
     private Set<String> domaineCouleur;
@@ -28,9 +28,9 @@ public class Examples {
     public Examples() {
 
         /** components of color's domain */
-        ArrayList<String> composants = new ArrayList<>(Arrays.asList("toit", "capot", "hayon","droit","gauche"));
+        List<String> composants = new ArrayList<>(Arrays.asList("toit", "capot", "hayon","droit","gauche"));
         /** component of boolean's domain */
-        ArrayList<String> composants2 = new ArrayList<>(Arrays.asList("toit ouvrant", "sono"));
+        List<String> composants2 = new ArrayList<>(Arrays.asList("toit ouvrant", "sono"));
 
         // domains
         this.domaineCouleur = new HashSet<>(Arrays.asList("noir", "blanc", "rouge"));
@@ -102,11 +102,11 @@ public class Examples {
         Map<Variable,String> voiture = new HashMap<>();
 
         // all names of variables present in a car
-        ArrayList<String> comp = new ArrayList<>(Arrays.asList(
+        List<String> comp = new ArrayList<>(Arrays.asList(
                 "droit","toit"
         ));
         // values of futur variables
-        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("noir","rouge"));
+        List<String> valeurs = new ArrayList<>(Arrays.asList("noir","rouge"));
 
         for(int i = 0; i<comp.size(); i++) {
             // add the variable corresponding to the name and its value affected
@@ -123,11 +123,11 @@ public class Examples {
         Map<Variable,String> voiture = new HashMap<>();
 
         // all names of variables present in a car
-        ArrayList<String> comp = new ArrayList<>(Arrays.asList(
+        List<String> comp = new ArrayList<>(Arrays.asList(
                 "toit","hayon","droit","gauche","toit ouvrant","sono"
         ));
         // values of futur variables
-        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("noir", "blanc", "noir","noir","blanc","true","true"));
+        List<String> valeurs = new ArrayList<>(Arrays.asList("noir", "blanc", "noir","noir","blanc","true","true"));
 
         for(int i = 0; i<comp.size(); i++) {
             // add the variable corresponding to the name and its value affected
@@ -144,11 +144,11 @@ public class Examples {
         Map<Variable,String> voiture = new HashMap<>();
 
         // all names of variables present in a car
-        ArrayList<String> comp = new ArrayList<>(Arrays.asList(
+        List<String> comp = new ArrayList<>(Arrays.asList(
                 "toit","hayon","droit","gauche","toit ouvrant","sono"
         ));
         // values of futur variables
-        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("noir", "noir", "blanc","balnc","blanc","true","true"));
+        List<String> valeurs = new ArrayList<>(Arrays.asList("noir", "noir", "blanc","balnc","blanc","true","true"));
 
         for(int i = 0; i<comp.size(); i++) {
             // add the variable corresponding to the name and its value affected
@@ -165,11 +165,11 @@ public class Examples {
         Map<Variable,String> voiture = new HashMap<>();
 
         // all names of variables present in a car
-        ArrayList<String> comp = new ArrayList<>(Arrays.asList(
+        List<String> comp = new ArrayList<>(Arrays.asList(
                 "toit","hayon","droit","gauche","toit ouvrant","sono"
         ));
         // values of futur variables
-        ArrayList<String> valeurs = new ArrayList<>(Arrays.asList("rouge", "blanc", "rouge","noir","noir","false","true"));
+        List<String> valeurs = new ArrayList<>(Arrays.asList("rouge", "blanc", "rouge","noir","noir","false","true"));
 
         for(int i = 0; i<comp.size(); i++) {
             // add the variable corresponding to the name and its value affected
@@ -188,7 +188,7 @@ public class Examples {
       Set<Variable> allEqual = new HashSet<>();
 
       // all names of variables present in a constraint
-      ArrayList<String> comp = new ArrayList<>(Arrays.asList(
+      List<String> comp = new ArrayList<>(Arrays.asList(
                 "toit", "capot", "hayon"
         ));
 
@@ -229,12 +229,12 @@ public class Examples {
         Map<Variable,String> premisse = new HashMap<>();
 
         // all variables engaged in the constraint
-        ArrayList<Variable> comp = new ArrayList<>();
+        List<Variable> comp = new ArrayList<>();
         comp.add(this.variables.get("droit"));
         comp.add(this.variables.get("gauche"));
 
         // their value will be assigned
-        ArrayList<String> val = new ArrayList<>();
+        List<String> val = new ArrayList<>();
         val.add("noir");
         val.add("noir");
 
@@ -292,13 +292,13 @@ public class Examples {
     public Disjunction getExemple6() {
         Map<Variable, String> conclusion = new HashMap<>();
 
-        ArrayList<Variable> comp = new ArrayList<>();
+        List<Variable> comp = new ArrayList<>();
         // all variables engaged in a constraint
         comp.add(this.variables.get("droit"));
         comp.add(this.variables.get("gauche"));
 
         // their value
-        ArrayList<String> val = new ArrayList<>();
+        List<String> val = new ArrayList<>();
         val.add("noir");
         val.add("blanc");
 

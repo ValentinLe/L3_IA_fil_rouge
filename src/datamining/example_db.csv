@@ -1,4 +1,4 @@
-couleur_gauche;couleur_toit;toit_ouvrant;couleur_capot;sono;couleur_hayon;couleur_droite;
+gauche;toit;toit ouvrant;capot;sono;hayon;droit;
 noir;rouge;0;noir;1;noir;blanc;
 rouge;noir;1;noir;0;noir;noir;
 rouge;noir;0;noir;1;noir;noir;
