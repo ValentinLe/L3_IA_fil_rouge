@@ -24,7 +24,6 @@ public class DatabaseReader {
         String variableLine = in.readLine();
         List<Variable> orderedVariables = this.readVariables(variableLine);
         List<Map<Variable, String>> transactions = this.readTransactions(in, orderedVariables);
-        System.out.println("tr " + transactions);
         return new Database(orderedVariables, transactions);
     }
 
@@ -47,7 +46,10 @@ public class DatabaseReader {
         return variables;
     }
 
-    public List<Map<Variable, String>> readTransactions(BufferedReader in, List<Variable> orderedVariables)  throws IOException {
+    public List<Map<Variable, String>> readTransactions(
+            BufferedReader in, List<Variable> orderedVariables
+        )  throws IOException {
+
         List<Map<Variable, String>> transactions = new ArrayList<>();
         String line;
         int lineNb = 1;
