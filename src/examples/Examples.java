@@ -91,6 +91,15 @@ public class Examples {
     public Set<String> getDomaineBool() {
         return this.domaineBool;
     }
+    
+    /**
+     * Get a variable with her name
+     * @param variableName the variable's name
+     * @return the variable corresponding
+     */
+    public Variable getVariableWithName(String variableName) {
+        return this.variables.get(variableName);
+    }
 
     // Cars
 

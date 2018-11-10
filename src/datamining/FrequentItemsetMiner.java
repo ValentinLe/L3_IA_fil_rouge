@@ -5,88 +5,88 @@ import java.util.*;
 import representations.*;
 
 public class FrequentItemsetMiner {
-    
+
     private BooleanDatabase database;
-    
+
     public FrequentItemsetMiner(BooleanDatabase database) {
         this.database = database;
     }
-    
-    public Map<Set<Variable>, Integer> frequentItemsets(int minfr) {
-        Map<Set<Variable>, Integer> mapFrequent = new HashMap<>();
-        List<Variable> listVariables = this.database.getListVariables();
-        List<Map<Variable, String>> listTransactions = this.database.getListTransactions();
-        Set<Set<Variable>> items = null;
+
+    public Map<Set<Item>, Integer> frequentItemsets(int minfr) {
+        Map<Set<Item>, Integer> mapFrequent = new HashMap<>();
+        List<Item> listItems = this.database.getListVariables();
+        List<Map<Item, String>> listTransactions = this.database.getListTransactions();
+        Set<Set<Item>> motifs = null;
         int k = 0;
-        while (k < listVariables.size() + 1) {
+        while (k < listItems.size() + 1) {
             if (k==0) {
-                items = this.getSingletons(listVariables);
+                motifs = this.getSingletons(listItems);
             } else {
-                items = combinaisons(items);
+                motifs = combinaisons(motifs);
             }
-            for (Set<Variable> item : new HashSet<>(items)) {
-                int frequence = this.frequence(listTransactions, item);
+            for (Set<Item> motif : new HashSet<>(motifs)) {
+                int frequence = this.frequence(listTransactions, motif);
                 if (frequence >= minfr) {
-                    mapFrequent.put(item, frequence);
+                    mapFrequent.put(motif, frequence);
                 } else {
-                    items.remove(item);
+                    motifs.remove(motif);
                 }
             }
             k ++;
         }
         return mapFrequent;
     }
-    
-    public Set<Set<Variable>> getSingletons(List<Variable> listVariables) {
-        Set<Set<Variable>> singletons = new HashSet<>();
-        Set<Variable> item;
-        for (Variable var : listVariables) {
-            item = new HashSet<>();
-            item.add(var);
-            singletons.add(item);
+
+    public Set<Set<Item>> getSingletons(List<Item> listVariables) {
+        Set<Set<Item>> singletons = new HashSet<>();
+        Set<Item> motif;
+        for (Item var : listVariables) {
+            motif = new HashSet<>();
+            motif.add(var);
+            singletons.add(motif);
         }
         return singletons;
     }
-    
-    public Set<Set<Variable>> combinaisons(Set<Set<Variable>> setVar) {
-        Set<Set<Variable>> comb = new HashSet<>();
-        Set<Variable> itemTemp;
-        for (Set<Variable> item : setVar) {
-            for (Set<Variable> item2 : setVar) {
-                if (item != item2 && this.hasSameKFirstElment(item, item2)) {
-                    itemTemp = new HashSet<>();
-                    itemTemp.addAll(item);
-                    itemTemp.addAll(item2);
-                    comb.add(itemTemp);
+
+    public Set<Set<Item>> combinaisons(Set<Set<Item>> setVar) {
+        Set<Set<Item>> comb = new HashSet<>();
+        Set<Item> motifTemp;
+        for (Set<Item> motif1 : setVar) {
+            for (Set<Item> motif2 : setVar) {
+                if (motif1 != motif2 && this.hasSameKFirstElment(motif1, motif2)) {
+                    motifTemp = new HashSet<>();
+                    motifTemp.addAll(motif1);
+                    motifTemp.addAll(motif2);
+                    comb.add(motifTemp);
                 }
             }
         }
         return comb;
     }
-    
-    public boolean hasSameKFirstElment(Set<Variable> item1, Set<Variable> item2) {
-        Iterator<Variable> iter1 = item1.iterator();
-        Iterator<Variable> iter2 = item2.iterator();
-        int k = item1.size() - 1;
-        Variable var1;
-        Variable var2;
+
+    public boolean hasSameKFirstElment(Set<Item> motif1, Set<Item> motif2) {
+        Iterator<Item> iter1 = motif1.iterator();
+        Iterator<Item> iter2 = motif2.iterator();
+        int k = motif1.size() - 1;
+        Item item1;
+        Item item2;
         while (k > 0) {
-            var1 = iter1.next();
-            var2 = iter2.next();
-            if (!var1.equals(var2)) {
+            item1 = iter1.next();
+            item2 = iter2.next();
+            if (!item1.equals(item2)) {
                 return false;
             }
             k--;
         }
         return true;
     }
-    
-    public int frequence(List<Map<Variable, String>> listTransaction, Set<Variable> item) {
+
+    public int frequence(List<Map<Item, String>> listTransaction, Set<Item> motif) {
         int cpt = 0;
-        for (Map<Variable, String> transactions : listTransaction) {
+        for (Map<Item, String> transactions : listTransaction) {
             boolean itemInTransaction = true;
-            for (Variable var : item) {
-                if (transactions.get(var)=="0") {
+            for (Item item : motif) {
+                if (transactions.get(item)=="0") {
                     itemInTransaction = false;
                 }
             }

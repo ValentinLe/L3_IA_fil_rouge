@@ -5,20 +5,20 @@ import java.util.*;
 import representations.*;
 
 public class BooleanDatabase {
-    
-    private List<Variable> listVariables;
-    private List<Map<Variable, String>> listTransactions;
-    
-    public BooleanDatabase(List<Variable> listVariables, List<Map<Variable, String>> listTransactions) {
+
+    private List<Item> listVariables;
+    private List<Map<Item, String>> listTransactions;
+
+    public BooleanDatabase(List<Item> listVariables, List<Map<Item, String>> listTransactions) {
         this.listVariables = listVariables;
         this.listTransactions = listTransactions;
     }
-    
-    public List<Variable> getListVariables() {
+
+    public List<Item> getListVariables() {
         return this.listVariables;
     }
-    
-    public List<Map<Variable, String>> getListTransactions() {
+
+    public List<Map<Item, String>> getListTransactions() {
         return this.listTransactions;
     }
 }

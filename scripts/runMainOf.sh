@@ -1,6 +1,8 @@
 #!bin/sh
 
 cd $(dirname $0)/..
-sh scripts/compile.sh
+if sh scripts/compile.sh
+then
 cd build/
 java $1.Main
+fi

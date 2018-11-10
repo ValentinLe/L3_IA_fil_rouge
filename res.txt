@@ -1,0 +1,314 @@
+rules [capot = rouge && hayon = rouge && droit = rouge -> toit = rouge, capot = rouge && sono = true -> toit = rouge, toit ouvrant = false && toit = rouge && gauche = rouge -> hayon = rouge, toit ouvrant = false && sono = true && toit = rouge -> hayon = rouge, hayon = rouge && droit = rouge && toit = rouge -> capot = rouge, capot = rouge && toit ouvrant = false && sono = true -> toit = rouge, capot = rouge && toit ouvrant = false && sono = true && toit = rouge -> hayon = rouge, hayon = blanc && droit = blanc -> toit = blanc, capot = rouge && hayon = rouge && sono = true -> toit ouvrant = false, capot = rouge && sono = true -> toit ouvrant = false, sono = false && toit = blanc -> capot = blanc, hayon = rouge && droit = rouge -> capot = rouge, hayon = noir && droit = noir -> toit = noir, sono = true && toit = rouge -> hayon = rouge, capot = rouge && gauche = rouge -> toit = rouge, capot = rouge && hayon = rouge -> toit = rouge, capot = blanc && toit ouvrant = false && toit = blanc -> hayon = blanc, capot = rouge && droit = rouge -> hayon = rouge, capot = noir && gauche = noir && toit = noir -> hayon = noir, toit ouvrant = false && hayon = noir -> toit = noir, hayon = noir && sono = false -> toit = noir, hayon = rouge && toit ouvrant = false && sono = true -> capot = rouge, droit = rouge && toit = rouge -> capot = rouge || hayon = rouge, hayon = rouge && sono = false -> toit = rouge, capot = rouge && droit = rouge -> hayon = rouge || toit = rouge, capot = blanc && droit = blanc -> hayon = blanc, hayon = rouge && gauche = rouge -> toit = rouge, hayon = rouge && toit = rouge -> capot = rouge, hayon = blanc && toit = blanc -> capot = blanc, capot = rouge && hayon = rouge && sono = false -> toit = rouge, hayon = noir && droit = noir && toit = noir -> capot = noir, capot = noir && toit ouvrant = false && toit = noir -> hayon = noir, hayon = noir && gauche = noir -> capot = noir, capot = noir && hayon = noir && sono = false -> toit = noir, toit = rouge && gauche = rouge -> hayon = rouge, capot = rouge && hayon = rouge && sono = true && toit = rouge -> toit ouvrant = false, droit = noir && toit = noir -> capot = noir || hayon = noir, hayon = rouge && toit ouvrant = false -> toit = rouge, hayon = noir && gauche = noir -> toit = noir, capot = noir && droit = noir -> hayon = noir, capot = rouge && hayon = rouge && sono = true -> toit = rouge, capot = rouge && toit ouvrant = false -> toit = rouge, capot = rouge && droit = rouge -> toit = rouge, capot = blanc && toit = blanc -> hayon = blanc, toit ouvrant = false && hayon = noir -> capot = noir, toit = rouge && gauche = rouge -> capot = rouge, droit = rouge && toit = rouge -> capot = rouge, capot = rouge && sono = false && toit = rouge -> hayon = rouge, capot = rouge && toit ouvrant = false && toit = rouge -> hayon = rouge, toit ouvrant = false && hayon = noir && toit = noir -> capot = noir, capot = rouge && sono = true && toit = rouge -> hayon = rouge, droit = blanc && toit = blanc -> capot = blanc, capot = rouge && toit ouvrant = false && gauche = rouge -> toit = rouge, toit = blanc && gauche = blanc -> hayon = blanc, hayon = noir && toit = noir -> capot = noir, capot = blanc && hayon = blanc && sono = false -> toit = blanc, hayon = noir -> toit = noir, capot = blanc && hayon = blanc -> toit = blanc, hayon = rouge && gauche = rouge -> capot = rouge, hayon = blanc && sono = false -> toit = blanc, toit ouvrant = false && sono = true && toit = rouge -> capot = rouge, sono = false && toit = blanc -> hayon = blanc, toit ouvrant = false && hayon = blanc && toit = blanc -> capot = blanc, capot = rouge && sono = false -> toit = rouge, capot = noir && sono = false -> hayon = noir, hayon = rouge -> toit = rouge, toit = blanc && gauche = blanc -> capot = blanc, capot = noir && sono = false && toit = noir -> hayon = noir, capot = rouge && sono = false -> hayon = rouge, capot = rouge && toit = rouge -> hayon = rouge, capot = blanc && toit = blanc && gauche = blanc -> hayon = blanc, capot = rouge && hayon = rouge && gauche = rouge -> toit = rouge, capot = blanc && sono = false -> hayon = blanc, hayon = rouge -> capot = rouge, hayon = blanc && droit = blanc -> capot = blanc, hayon = rouge && sono = true && toit = rouge -> toit ouvrant = false, hayon = rouge && sono = true -> toit ouvrant = false, hayon = noir && droit = noir -> capot = noir, capot = rouge && hayon = rouge && sono = true -> toit ouvrant = false || toit = rouge, capot = rouge && hayon = rouge && toit ouvrant = false -> toit = rouge, capot = rouge && toit ouvrant = false && sono = true -> hayon = rouge || toit = rouge, sono = true && toit = rouge -> toit ouvrant = false, toit ouvrant = false && toit = rouge && gauche = rouge -> capot = rouge, capot = rouge && sono = true -> hayon = rouge, gauche = noir && toit = noir -> capot = noir, capot = rouge && toit = rouge && gauche = rouge -> hayon = rouge, sono = false && toit = rouge -> hayon = rouge, droit = noir && toit = noir -> hayon = noir, hayon = rouge && sono = true -> capot = rouge, capot = rouge && toit ouvrant = false -> hayon = rouge, capot = blanc && sono = false -> toit = blanc, hayon = rouge && toit ouvrant = false && toit = rouge -> capot = rouge, droit = noir && toit = noir -> capot = noir, capot = noir && toit = noir -> hayon = noir, capot = noir && hayon = noir -> toit = noir, capot = rouge && droit = rouge && toit = rouge -> hayon = rouge, capot = blanc && sono = false && toit = blanc -> hayon = blanc, capot = rouge -> hayon = rouge, capot = rouge && hayon = rouge && toit ouvrant = false && sono = true -> toit = rouge, toit ouvrant = false && toit = rouge -> hayon = rouge, capot = noir && hayon = noir && droit = noir -> toit = noir, capot = blanc && gauche = blanc -> hayon = blanc, toit ouvrant = true -> sono = false, toit ouvrant = false && toit = noir -> hayon = noir, hayon = blanc && sono = false -> capot = blanc, capot = rouge && sono = true && toit = rouge -> hayon = rouge || toit ouvrant = false, hayon = rouge && droit = rouge -> capot = rouge || toit = rouge, toit = rouge -> hayon = rouge, capot = blanc && droit = blanc -> toit = blanc, hayon = noir && sono = false -> capot = noir, capot = rouge && toit ouvrant = false && gauche = rouge -> hayon = rouge, sono = true -> toit ouvrant = false, gauche = noir && toit = noir -> hayon = noir, capot = noir && gauche = noir -> toit = noir, hayon = rouge && sono = true && toit = rouge -> capot = rouge || toit ouvrant = false, hayon = rouge && sono = false && toit = rouge -> capot = rouge, capot = noir && hayon = noir && gauche = noir -> toit = noir, capot = blanc && toit ouvrant = false && hayon = blanc -> toit = blanc, hayon = rouge && toit ouvrant = false && sono = true && toit = rouge -> capot = rouge, capot = noir && gauche = noir -> hayon = noir, toit = blanc && gauche = blanc -> capot = blanc || hayon = blanc, sono = false && toit = noir -> capot = noir, toit = noir -> hayon = noir, sono = true && toit = rouge -> capot = rouge, hayon = noir && gauche = noir -> capot = noir || toit = noir, hayon = rouge && droit = rouge -> toit = rouge, capot = noir && toit ouvrant = false && hayon = noir -> toit = noir, hayon = rouge && toit = rouge && gauche = rouge -> capot = rouge, capot = blanc && gauche = blanc -> toit = blanc, hayon = noir && gauche = noir && toit = noir -> capot = noir, toit ouvrant = false && toit = rouge -> capot = rouge, droit = rouge && toit = rouge -> hayon = rouge, hayon = blanc && sono = false && toit = blanc -> capot = blanc, hayon = blanc && toit = blanc && gauche = blanc -> capot = blanc, hayon = rouge && toit ouvrant = false && gauche = rouge -> capot = rouge, hayon = rouge && sono = true -> toit = rouge, capot = rouge -> toit = rouge, capot = rouge && sono = true && toit = rouge -> toit ouvrant = false, hayon = rouge && toit ouvrant = false && sono = true -> toit = rouge, capot = rouge && toit ouvrant = false && sono = true -> hayon = rouge, hayon = blanc && gauche = blanc -> toit = blanc, hayon = noir && sono = false && toit = noir -> capot = noir, droit = blanc && toit = blanc -> hayon = blanc, hayon = blanc && gauche = blanc -> capot = blanc, hayon = rouge && toit ouvrant = false -> capot = rouge, capot = rouge && gauche = rouge -> hayon = rouge, hayon = rouge && gauche = rouge -> capot = rouge || toit = rouge, sono = false && toit = noir -> hayon = noir, toit = rouge -> capot = rouge, gauche = noir && toit = noir -> capot = noir || hayon = noir, capot = noir && droit = noir -> toit = noir, hayon = rouge && sono = true && toit = rouge -> capot = rouge, hayon = rouge && toit ouvrant = false && gauche = rouge -> toit = rouge, capot = noir && droit = noir && toit = noir -> hayon = noir, capot = rouge && gauche = rouge -> hayon = rouge || toit = rouge, capot = blanc && hayon = blanc && gauche = blanc -> toit = blanc]
+156 rules
+
+capot = rouge && hayon = rouge && droit = rouge -> toit = rouge
+
+capot = rouge && sono = true -> toit = rouge
+
+toit ouvrant = false && toit = rouge && gauche = rouge -> hayon = rouge
+
+toit ouvrant = false && sono = true && toit = rouge -> hayon = rouge
+
+hayon = rouge && droit = rouge && toit = rouge -> capot = rouge
+
+capot = rouge && toit ouvrant = false && sono = true -> toit = rouge
+
+capot = rouge && toit ouvrant = false && sono = true && toit = rouge -> hayon = rouge
+
+hayon = blanc && droit = blanc -> toit = blanc
+
+capot = rouge && hayon = rouge && sono = true -> toit ouvrant = false
+
+capot = rouge && sono = true -> toit ouvrant = false
+
+sono = false && toit = blanc -> capot = blanc
+
+hayon = rouge && droit = rouge -> capot = rouge
+
+hayon = noir && droit = noir -> toit = noir
+
+sono = true && toit = rouge -> hayon = rouge
+
+capot = rouge && gauche = rouge -> toit = rouge
+
+capot = rouge && hayon = rouge -> toit = rouge
+
+capot = blanc && toit ouvrant = false && toit = blanc -> hayon = blanc
+
+capot = rouge && droit = rouge -> hayon = rouge
+
+capot = noir && gauche = noir && toit = noir -> hayon = noir
+
+toit ouvrant = false && hayon = noir -> toit = noir
+
+hayon = noir && sono = false -> toit = noir
+
+hayon = rouge && toit ouvrant = false && sono = true -> capot = rouge
+
+droit = rouge && toit = rouge -> capot = rouge || hayon = rouge
+
+hayon = rouge && sono = false -> toit = rouge
+
+capot = rouge && droit = rouge -> hayon = rouge || toit = rouge
+
+capot = blanc && droit = blanc -> hayon = blanc
+
+hayon = rouge && gauche = rouge -> toit = rouge
+
+hayon = rouge && toit = rouge -> capot = rouge
+
+hayon = blanc && toit = blanc -> capot = blanc
+
+capot = rouge && hayon = rouge && sono = false -> toit = rouge
+
+hayon = noir && droit = noir && toit = noir -> capot = noir
+
+capot = noir && toit ouvrant = false && toit = noir -> hayon = noir
+
+hayon = noir && gauche = noir -> capot = noir
+
+capot = noir && hayon = noir && sono = false -> toit = noir
+
+toit = rouge && gauche = rouge -> hayon = rouge
+
+capot = rouge && hayon = rouge && sono = true && toit = rouge -> toit ouvrant = false
+
+droit = noir && toit = noir -> capot = noir || hayon = noir
+
+hayon = rouge && toit ouvrant = false -> toit = rouge
+
+hayon = noir && gauche = noir -> toit = noir
+
+capot = noir && droit = noir -> hayon = noir
+
+capot = rouge && hayon = rouge && sono = true -> toit = rouge
+
+capot = rouge && toit ouvrant = false -> toit = rouge
+
+capot = rouge && droit = rouge -> toit = rouge
+
+capot = blanc && toit = blanc -> hayon = blanc
+
+toit ouvrant = false && hayon = noir -> capot = noir
+
+toit = rouge && gauche = rouge -> capot = rouge
+
+droit = rouge && toit = rouge -> capot = rouge
+
+capot = rouge && sono = false && toit = rouge -> hayon = rouge
+
+capot = rouge && toit ouvrant = false && toit = rouge -> hayon = rouge
+
+toit ouvrant = false && hayon = noir && toit = noir -> capot = noir
+
+capot = rouge && sono = true && toit = rouge -> hayon = rouge
+
+droit = blanc && toit = blanc -> capot = blanc
+
+capot = rouge && toit ouvrant = false && gauche = rouge -> toit = rouge
+
+toit = blanc && gauche = blanc -> hayon = blanc
+
+hayon = noir && toit = noir -> capot = noir
+
+capot = blanc && hayon = blanc && sono = false -> toit = blanc
+
+hayon = noir -> toit = noir
+
+capot = blanc && hayon = blanc -> toit = blanc
+
+hayon = rouge && gauche = rouge -> capot = rouge
+
+hayon = blanc && sono = false -> toit = blanc
+
+toit ouvrant = false && sono = true && toit = rouge -> capot = rouge
+
+sono = false && toit = blanc -> hayon = blanc
+
+toit ouvrant = false && hayon = blanc && toit = blanc -> capot = blanc
+
+capot = rouge && sono = false -> toit = rouge
+
+capot = noir && sono = false -> hayon = noir
+
+hayon = rouge -> toit = rouge
+
+toit = blanc && gauche = blanc -> capot = blanc
+
+capot = noir && sono = false && toit = noir -> hayon = noir
+
+capot = rouge && sono = false -> hayon = rouge
+
+capot = rouge && toit = rouge -> hayon = rouge
+
+capot = blanc && toit = blanc && gauche = blanc -> hayon = blanc
+
+capot = rouge && hayon = rouge && gauche = rouge -> toit = rouge
+
+capot = blanc && sono = false -> hayon = blanc
+
+hayon = rouge -> capot = rouge
+
+hayon = blanc && droit = blanc -> capot = blanc
+
+hayon = rouge && sono = true && toit = rouge -> toit ouvrant = false
+
+hayon = rouge && sono = true -> toit ouvrant = false
+
+hayon = noir && droit = noir -> capot = noir
+
+capot = rouge && hayon = rouge && sono = true -> toit ouvrant = false || toit = rouge
+
+capot = rouge && hayon = rouge && toit ouvrant = false -> toit = rouge
+
+capot = rouge && toit ouvrant = false && sono = true -> hayon = rouge || toit = rouge
+
+sono = true && toit = rouge -> toit ouvrant = false
+
+toit ouvrant = false && toit = rouge && gauche = rouge -> capot = rouge
+
+capot = rouge && sono = true -> hayon = rouge
+
+gauche = noir && toit = noir -> capot = noir
+
+capot = rouge && toit = rouge && gauche = rouge -> hayon = rouge
+
+sono = false && toit = rouge -> hayon = rouge
+
+droit = noir && toit = noir -> hayon = noir
+
+hayon = rouge && sono = true -> capot = rouge
+
+capot = rouge && toit ouvrant = false -> hayon = rouge
+
+capot = blanc && sono = false -> toit = blanc
+
+hayon = rouge && toit ouvrant = false && toit = rouge -> capot = rouge
+
+droit = noir && toit = noir -> capot = noir
+
+capot = noir && toit = noir -> hayon = noir
+
+capot = noir && hayon = noir -> toit = noir
+
+capot = rouge && droit = rouge && toit = rouge -> hayon = rouge
+
+capot = blanc && sono = false && toit = blanc -> hayon = blanc
+
+capot = rouge -> hayon = rouge
+
+capot = rouge && hayon = rouge && toit ouvrant = false && sono = true -> toit = rouge
+
+toit ouvrant = false && toit = rouge -> hayon = rouge
+
+capot = noir && hayon = noir && droit = noir -> toit = noir
+
+capot = blanc && gauche = blanc -> hayon = blanc
+
+toit ouvrant = true -> sono = false
+
+toit ouvrant = false && toit = noir -> hayon = noir
+
+hayon = blanc && sono = false -> capot = blanc
+
+capot = rouge && sono = true && toit = rouge -> hayon = rouge || toit ouvrant = false
+
+hayon = rouge && droit = rouge -> capot = rouge || toit = rouge
+
+toit = rouge -> hayon = rouge
+
+capot = blanc && droit = blanc -> toit = blanc
+
+hayon = noir && sono = false -> capot = noir
+
+capot = rouge && toit ouvrant = false && gauche = rouge -> hayon = rouge
+
+sono = true -> toit ouvrant = false
+
+gauche = noir && toit = noir -> hayon = noir
+
+capot = noir && gauche = noir -> toit = noir
+
+hayon = rouge && sono = true && toit = rouge -> capot = rouge || toit ouvrant = false
+
+hayon = rouge && sono = false && toit = rouge -> capot = rouge
+
+capot = noir && hayon = noir && gauche = noir -> toit = noir
+
+capot = blanc && toit ouvrant = false && hayon = blanc -> toit = blanc
+
+hayon = rouge && toit ouvrant = false && sono = true && toit = rouge -> capot = rouge
+
+capot = noir && gauche = noir -> hayon = noir
+
+toit = blanc && gauche = blanc -> capot = blanc || hayon = blanc
+
+sono = false && toit = noir -> capot = noir
+
+toit = noir -> hayon = noir
+
+sono = true && toit = rouge -> capot = rouge
+
+hayon = noir && gauche = noir -> capot = noir || toit = noir
+
+hayon = rouge && droit = rouge -> toit = rouge
+
+capot = noir && toit ouvrant = false && hayon = noir -> toit = noir
+
+hayon = rouge && toit = rouge && gauche = rouge -> capot = rouge
+
+capot = blanc && gauche = blanc -> toit = blanc
+
+hayon = noir && gauche = noir && toit = noir -> capot = noir
+
+toit ouvrant = false && toit = rouge -> capot = rouge
+
+droit = rouge && toit = rouge -> hayon = rouge
+
+hayon = blanc && sono = false && toit = blanc -> capot = blanc
+
+hayon = blanc && toit = blanc && gauche = blanc -> capot = blanc
+
+hayon = rouge && toit ouvrant = false && gauche = rouge -> capot = rouge
+
+hayon = rouge && sono = true -> toit = rouge
+
+capot = rouge -> toit = rouge
+
+capot = rouge && sono = true && toit = rouge -> toit ouvrant = false
+
+hayon = rouge && toit ouvrant = false && sono = true -> toit = rouge
+
+capot = rouge && toit ouvrant = false && sono = true -> hayon = rouge
+
+hayon = blanc && gauche = blanc -> toit = blanc
+
+hayon = noir && sono = false && toit = noir -> capot = noir
+
+droit = blanc && toit = blanc -> hayon = blanc
+
+hayon = blanc && gauche = blanc -> capot = blanc
+
+hayon = rouge && toit ouvrant = false -> capot = rouge
+
+capot = rouge && gauche = rouge -> hayon = rouge
+
+hayon = rouge && gauche = rouge -> capot = rouge || toit = rouge
+
+sono = false && toit = noir -> hayon = noir
+
+toit = rouge -> capot = rouge
+
+gauche = noir && toit = noir -> capot = noir || hayon = noir
+
+capot = noir && droit = noir -> toit = noir
+
+hayon = rouge && sono = true && toit = rouge -> capot = rouge
+
+hayon = rouge && toit ouvrant = false && gauche = rouge -> toit = rouge
+
+capot = noir && droit = noir && toit = noir -> hayon = noir
+
+capot = rouge && gauche = rouge -> hayon = rouge || toit = rouge
+
+capot = blanc && hayon = blanc && gauche = blanc -> toit = blanc

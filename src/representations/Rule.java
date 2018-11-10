@@ -11,7 +11,7 @@ import java.util.*;
 public class Rule implements Constraint {
 
     private Set<Variable> scope;
-    private Map<Variable,String > premisse;
+    private Map<Variable, String> premisse;
     private Map<Variable, String> conclusion;
 
     /**
@@ -274,5 +274,9 @@ public class Rule implements Constraint {
         }
         return false;
     }
-
+    
+    public boolean isEquals(Rule other) {
+        return this.premisse.equals(other.getPremisse()) && 
+                this.conclusion.equals(other.getConclusion());
+    }
 }
