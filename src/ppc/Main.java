@@ -45,17 +45,5 @@ public class Main {
             System.out.println("Heuristic utilisée : " + back.getHeuristic());
             System.out.println("noeuds parcourus : " + back.getNbNode());
         }
-
-
-        /*
-        Map<Variable, String> voiture = ex.getVoiture1();
-        Map<Variable, Set<String>> map = back.getMapVariableNotAssigned(voiture);
-        System.out.println("VOITURE : " + voiture);
-        System.out.println("MAP AV " + map);
-        System.out.println(c3.filtrer(voiture, map));
-        System.out.println("MAP ap1 " + map);
-        System.out.println(c3.filtrer(voiture, map));
-        System.out.println("MAP ap2 " + map); 
-        */
     }
 }
