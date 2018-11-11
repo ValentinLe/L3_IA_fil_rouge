@@ -274,9 +274,27 @@ public class Rule implements Constraint {
         }
         return false;
     }
-    
+
     public boolean isEquals(Rule other) {
-        return this.premisse.equals(other.getPremisse()) && 
+        return this.premisse.equals(other.getPremisse()) &&
                 this.conclusion.equals(other.getConclusion());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this==o) {
+            return true;
+        } else {
+            if (o instanceof Rule) {
+                return this.isEquals(((Rule)o));
+            } else {
+                return false;
+            }
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return this.premisse.hashCode() * this.conclusion.hashCode();
     }
 }

@@ -15,6 +15,17 @@ public class AssociationRuleMiner {
     public Set<Rule> getAssociationsRules(int minfr, double minconf) {
         Set<Rule> rules = new HashSet<>();
         Set<Set<Item>> closed = this.getClosed();
+        System.out.println("motifs " + this.itemsets.size());
+        System.out.println("fermés " + closed.size());
+
+        for (Set<Item> motifm : this.itemsets.keySet()) {
+            System.out.println("motif " + this.itemsets.get(motifm) + " : " + motifm);
+        }
+        System.out.println();
+        for(Set<Item> motif : closed) {
+            System.out.println("fermé " + this.itemsets.get(motif) + " : " + motif);
+        }
+
         for(Set<Item> motif : closed) {
             Set<Rule> rulesGenerated = this.generateRules(motif);
             for (Rule rule : rulesGenerated) {
@@ -39,7 +50,7 @@ public class AssociationRuleMiner {
         double v2 = this.frequence(this.createItems(rule));
         return v1 / v2;
     }
-    
+
     public Set<Item> createItems(Rule rule) {
         Set<Item> items = new HashSet<>();
         Map<Variable, String> premisse = rule.getPremisse();
@@ -123,7 +134,7 @@ public class AssociationRuleMiner {
         }
         return motif1;
     }
-    
+
     public Map<Variable, String> buildMap(Set<Item> motif) {
         Map<Variable, String> part = new HashMap<>();
         for (Item item : motif) {
@@ -131,7 +142,7 @@ public class AssociationRuleMiner {
         }
         return part;
     }
-    
+
     public Rule buildRule(Set<Item> motifPremisse, Set<Item> motifConclusion) {
         Map<Variable, String> premisse = this.buildMap(motifPremisse);
         Map<Variable, String> conclusion = this.buildMap(motifConclusion);

@@ -6,7 +6,7 @@ import representations.*;
 
 public class FrequentItemsetMiner {
 
-    private BooleanDatabase database;
+    public BooleanDatabase database;
 
     public FrequentItemsetMiner(BooleanDatabase database) {
         this.database = database;
@@ -18,7 +18,7 @@ public class FrequentItemsetMiner {
         List<Map<Item, String>> listTransactions = this.database.getListTransactions();
         Set<Set<Item>> motifs = null;
         int k = 0;
-        while (k < listItems.size() + 1) {
+        while (k < listItems.size() + 1 && (motifs==null || !motifs.isEmpty())) {
             if (k==0) {
                 motifs = this.getSingletons(listItems);
             } else {
@@ -81,17 +81,23 @@ public class FrequentItemsetMiner {
         return true;
     }
 
-    public int frequence(List<Map<Item, String>> listTransaction, Set<Item> motif) {
+    public int frequence(List<Map<Item, String>> listTransactions, Set<Item> motif) {
         int cpt = 0;
-        for (Map<Item, String> transactions : listTransaction) {
+        for (Map<Item, String> transaction : listTransactions) {
             boolean itemInTransaction = true;
             for (Item item : motif) {
-                if (transactions.get(item)=="0") {
+                if (transaction.get(item)=="0") {
                     itemInTransaction = false;
+                    break;
                 }
             }
             if (itemInTransaction) {
                 cpt += 1;
+                /*
+                if (cpt == 1) {
+                    System.out.println(transaction);
+                    System.out.println(motif);
+                }*/
             }
         }
         return cpt;
