@@ -17,13 +17,17 @@ public class Main {
         } catch(IOException excep) {
             excep.printStackTrace();
         }
+
+        int minfr = 5;
+        double minconf = 0.9;
+
         BooleanDatabase bdb = database.toBooleanDatabase();
 
         FrequentItemsetMiner frim = new FrequentItemsetMiner(bdb);
 
-        Map<Set<Item>, Integer> itemsets = frim.frequentItemsets(5);
+        Map<Set<Item>, Integer> itemsets = frim.frequentItemsets(minfr);
         AssociationRuleMiner arm = new AssociationRuleMiner(itemsets);
-        Set<Rule> rules = arm.getAssociationsRules(5, 0.9);
+        Set<Rule> rules = arm.getAssociationsRules(minfr, minconf);
 
         System.out.println("\n" + rules.size() + " rules :");
 

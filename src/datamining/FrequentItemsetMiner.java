@@ -86,7 +86,7 @@ public class FrequentItemsetMiner {
         for (Map<Item, String> transaction : listTransactions) {
             boolean itemInTransaction = true;
             for (Item item : motif) {
-                if (transaction.get(item)=="0") {
+                if (transaction.get(item).equals("0")) {
                     itemInTransaction = false;
                     break;
                 }
