@@ -1,68 +1,65 @@
-motifs 22
-fermés 22
-motif 3208 : [droit=noir]
-motif 3963 : [hayon=rouge]
-motif 6724 : [toit ouvrant=false]
-motif 3281 : [droit=blanc]
-motif 3732 : [toit ouvrant=false, sono=true]
-motif 3438 : [toit=rouge, hayon=rouge, capot=rouge]
-motif 3511 : [droit=rouge]
-motif 3042 : [hayon=noir]
-motif 3276 : [toit ouvrant=true]
-motif 3002 : [capot=blanc]
-motif 3972 : [toit=rouge]
-motif 3628 : [gauche=rouge]
-motif 5964 : [sono=false]
-motif 3624 : [toit=rouge, hayon=rouge]
-motif 3924 : [capot=rouge]
-motif 3182 : [gauche=noir]
-motif 3601 : [hayon=rouge, capot=rouge]
-motif 3074 : [capot=noir]
-motif 3037 : [toit=noir]
-motif 3190 : [gauche=blanc]
-motif 3593 : [toit=rouge, capot=rouge]
-motif 4036 : [sono=true]
+motifs 23
+fermés 10
 
-fermé 3208 : [droit=noir]
-fermé 3963 : [hayon=rouge]
-fermé 6724 : [toit ouvrant=false]
-fermé 3281 : [droit=blanc]
-fermé 3732 : [toit ouvrant=false, sono=true]
-fermé 3438 : [toit=rouge, hayon=rouge, capot=rouge]
-fermé 3511 : [droit=rouge]
-fermé 3042 : [hayon=noir]
-fermé 3276 : [toit ouvrant=true]
-fermé 3002 : [capot=blanc]
-fermé 3972 : [toit=rouge]
-fermé 3628 : [gauche=rouge]
-fermé 5964 : [sono=false]
-fermé 3624 : [toit=rouge, hayon=rouge]
-fermé 3924 : [capot=rouge]
-fermé 3182 : [gauche=noir]
-fermé 3601 : [hayon=rouge, capot=rouge]
-fermé 3074 : [capot=noir]
-fermé 3037 : [toit=noir]
-fermé 3190 : [gauche=blanc]
-fermé 3593 : [toit=rouge, capot=rouge]
-fermé 4036 : [sono=true]
-10 rules
+motif 5 : [droit=noir, capot=noir, hayon=noir]
+motif 6 : [capot=noir, toit=noir]
+motif 6 : [droit=noir]
+motif 5 : [toit ouvrant=false, capot=noir]
+motif 6 : [toit ouvrant=false]
+motif 7 : [capot=noir, hayon=noir]
+motif 5 : [droit=noir, toit=noir]
+motif 5 : [toit ouvrant=false, sono=true]
+motif 5 : [droit=noir, capot=noir]
+motif 6 : [capot=noir, hayon=noir, toit=noir]
+motif 7 : [hayon=noir]
+motif 5 : [droit=noir, capot=noir, toit=noir]
+motif 6 : [hayon=noir, toit=noir]
+motif 5 : [sono=false]
+motif 5 : [toit ouvrant=false, hayon=noir]
+motif 5 : [toit ouvrant=false, capot=noir, hayon=noir]
+motif 8 : [capot=noir]
+motif 5 : [droit=noir, toit=noir, hayon=noir]
+motif 6 : [toit=noir]
+motif 5 : [gauche=blanc]
+motif 5 : [droit=noir, capot=noir, hayon=noir, toit=noir]
+motif 5 : [sono=true]
+motif 5 : [droit=noir, hayon=noir]
 
-toit = rouge -> capot = rouge
+fermé 6 : [droit=noir]
+fermé 6 : [toit ouvrant=false]
+fermé 7 : [capot=noir, hayon=noir]
+fermé 5 : [toit ouvrant=false, sono=true]
+fermé 6 : [capot=noir, hayon=noir, toit=noir]
+fermé 5 : [sono=false]
+fermé 5 : [toit ouvrant=false, capot=noir, hayon=noir]
+fermé 8 : [capot=noir]
+fermé 5 : [gauche=blanc]
+fermé 5 : [droit=noir, capot=noir, hayon=noir, toit=noir]
 
-capot = rouge -> toit = rouge
+13 rules :
+
+hayon = noir -> capot = noir
 
 sono = true -> toit ouvrant = false
 
-hayon = rouge -> capot = rouge
+hayon = noir && droit = noir -> capot = noir || toit = noir
 
-capot = rouge -> hayon = rouge
+toit ouvrant = false && hayon = noir -> capot = noir
 
-capot = rouge && hayon = rouge -> toit = rouge
+capot = noir && toit ouvrant = false -> hayon = noir
 
-capot = rouge && toit = rouge -> hayon = rouge
+hayon = noir && toit = noir -> capot = noir
 
-hayon = rouge && toit = rouge -> capot = rouge
+capot = noir && droit = noir -> hayon = noir || toit = noir
 
-toit = rouge -> hayon = rouge
+droit = noir && toit = noir -> capot = noir || hayon = noir
 
-hayon = rouge -> toit = rouge
+capot = noir && hayon = noir && droit = noir -> toit = noir
+
+hayon = noir && droit = noir && toit = noir -> capot = noir
+
+capot = noir && toit = noir -> hayon = noir
+
+toit = noir -> capot = noir || hayon = noir
+
+capot = noir && droit = noir && toit = noir -> hayon = noir

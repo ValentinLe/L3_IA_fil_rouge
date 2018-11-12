@@ -16,7 +16,7 @@ public class AssociationRuleMiner {
         Set<Rule> rules = new HashSet<>();
         Set<Set<Item>> closed = this.getClosed();
         System.out.println("motifs " + this.itemsets.size());
-        System.out.println("fermés " + closed.size());
+        System.out.println("fermés " + closed.size() + "\n");
 
         for (Set<Item> motifm : this.itemsets.keySet()) {
             System.out.println("motif " + this.itemsets.get(motifm) + " : " + motifm);

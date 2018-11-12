@@ -93,11 +93,6 @@ public class FrequentItemsetMiner {
             }
             if (itemInTransaction) {
                 cpt += 1;
-                /*
-                if (cpt == 1) {
-                    System.out.println(transaction);
-                    System.out.println(motif);
-                }*/
             }
         }
         return cpt;

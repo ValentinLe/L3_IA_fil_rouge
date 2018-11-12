@@ -13,7 +13,7 @@ public class Main {
         DatabaseReader data = new DatabaseReader(ex.getVariables());
         Database database = null;
         try {
-            database = data.importDB("datamining/example_db.csv");
+            database = data.importDB("datamining/example2_db.csv");
         } catch(IOException excep) {
             excep.printStackTrace();
         }
@@ -21,11 +21,11 @@ public class Main {
 
         FrequentItemsetMiner frim = new FrequentItemsetMiner(bdb);
 
-        Map<Set<Item>, Integer> itemsets = frim.frequentItemsets(3000);
+        Map<Set<Item>, Integer> itemsets = frim.frequentItemsets(5);
         AssociationRuleMiner arm = new AssociationRuleMiner(itemsets);
-        Set<Rule> rules = arm.getAssociationsRules(3000, 0.9);
-        //System.out.println("rules " + rules);
-        System.out.println(rules.size() + " rules");
+        Set<Rule> rules = arm.getAssociationsRules(5, 0.9);
+
+        System.out.println("\n" + rules.size() + " rules :");
 
         Map<Variable, String> premisse = new HashMap<>();
         premisse.put(ex.getVariableWithName("hayon"), "noir");
@@ -39,7 +39,7 @@ public class Main {
         System.out.println("frequence = " + arm.frequence(rule));
         System.out.println("confiance = " + arm.confiance(rule));*/
 
-        
+
         for (Rule rule1 : rules) {
             System.out.println("\n" + rule1);
         }
