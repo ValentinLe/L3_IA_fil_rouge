@@ -12,12 +12,12 @@ public class Main {
 
         Set<Variable> variables = ex.getVariables();
 
-        AllEqualConstraint c1 = ex.getExemple1();
-        ConstraintOr c2 = ex.getExemple2();
-        IncompatibilityConstraint c3 = ex.getExemple3();
-        IncompatibilityConstraint c4 = ex.getExemple4();
-        AllDifferentConstraint c5 = ex.getExemple5();
-        Disjunction c6 = ex.getExemple6();
+        Constraint c1 = ex.getExemple1();
+        Constraint c2 = ex.getExemple2();
+        Constraint c3 = ex.getExemple3();
+        Constraint c4 = ex.getExemple4();
+        Constraint c5 = ex.getExemple5();
+        Constraint c6 = ex.getExemple6();
 
         ArrayList<Constraint> constraints = new ArrayList<>();
         constraints.add(c1);

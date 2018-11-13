@@ -26,6 +26,14 @@ public class Backtracking {
         this.variables = variables;
         this.heuristic = heuristic;
     }
+    
+    /**
+     * Getter method of variables of backtracking
+     * @return the set of variables of backtracking
+     */
+    public Set<Variable> getVariables() {
+      return this.variables;
+    }
 
     /**
      * Creates a String representation of constraints in backtrack

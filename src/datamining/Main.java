@@ -13,12 +13,12 @@ public class Main {
         DatabaseReader data = new DatabaseReader(ex.getVariables());
         Database database = null;
         try {
-            database = data.importDB("datamining/example2_db.csv");
+            database = data.importDB("datamining/example_db.csv");
         } catch(IOException excep) {
             excep.printStackTrace();
         }
 
-        int minfr = 5;
+        int minfr = 1500;
         double minconf = 0.9;
 
         BooleanDatabase bdb = database.toBooleanDatabase();
