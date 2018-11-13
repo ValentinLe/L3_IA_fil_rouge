@@ -7,50 +7,53 @@ import ppc.*;
 
 public class Diagnoser {
   
-  private Backtracking backtrack;
-  private Map<Variable, Set<String>> csp;
+    private Backtracking backtrack;
+    private Map<Variable, Set<String>> csp;
   
-  public Diagnoser(Backtracking backtrack) {
-    this.backtrack = backtrack;
-    this.csp = this.backtrack.transformToMap(this.backtrack.getVariables());
-  }
-  
-  public boolean isExplication(Map<Variable, String> choices, Variable variable, String value) {
-    Set<String> reduceDomain;
-    for (Variable var : choices.keySet()) {
-      reduceDomain = new HashSet<>();
-      reduceDomain.add(choices.get(var));
-      this.csp.put(var, reduceDomain);
+    public Diagnoser(Backtracking backtrack) {
+        this.backtrack = backtrack;
+        this.csp = this.backtrack.transformToMap(this.backtrack.getVariables());
     }
-    reduceDomain = new HashSet<>();
-    reduceDomain.add(value);
-    this.csp.put(variable, reduceDomain);
-    Map<Variable, String> solution = this.backtrack.backtrackingFilter(choices, this.csp);
-    return solution == null;
-  }
-  
-  public Variable choiceVariable(Map<Variable, String> map) {
-    Iterator<Variable> iter = map.keySet().iterator();
-    return iter.next();
-  }
-  
-  public Map<Variable, String> findExplication(Map<Variable, String> choices, Variable variable, String value) {
-    Map<Variable, String> map = new HashMap<>(choices);
-    Map<Variable, String> mapTemp;
-    Map<Variable, String> nextChoices = new HashMap<>(choices);
-    Variable var;
-    while (!map.isEmpty()) {
-      mapTemp = new HashMap<>(map);
-      var = this.choiceVariable(mapTemp);
-      System.out.println("\nmap " + mapTemp);
-      nextChoices.remove(var);
-      System.out.println("next " + nextChoices);
-      if (this.isExplication(nextChoices, variable, value)) {
-        System.out.println("explication " + this.isExplication(nextChoices, variable, value));
-        choices = new HashMap<>(nextChoices);
-      }
-      map.remove(var);
+
+    public boolean isExplication(Map<Variable, String> choices, Variable variable, String value) {
+        Set<String> reduceDomain;
+        Map<Variable, Set<String>> copyCsp = new HashMap<>(this.csp);
+        for (Variable var : choices.keySet()) {
+            reduceDomain = new HashSet<>();
+            reduceDomain.add(choices.get(var));
+            copyCsp.put(var, reduceDomain);
+        }
+        reduceDomain = new HashSet<>();
+        reduceDomain.add(value);
+        copyCsp.put(variable, reduceDomain);
+        Map<Variable, String> solution = this.backtrack.backtrackingFilter(choices, copyCsp);
+        return solution == null;
     }
-    return nextChoices;
-  }
+
+    public Variable getFirst(Map<Variable, String> map) {
+        Iterator<Variable> iter = map.keySet().iterator();
+        return iter.next();
+    }
+    
+    public Map<Variable, String> findExplication(Map<Variable, String> choices, Variable variable, String value) {
+        Map<Variable, String> file = new HashMap<>(choices);
+        Map<Variable, String> explication = new HashMap<>(choices);
+        Map<Variable, String> ePrime;
+        Variable var;
+        while (!file.isEmpty()) {
+            var = this.getFirst(file);
+            System.out.println("\nF = " + file);
+            System.out.println("Var : " + var);
+            ePrime = new HashMap<>(explication);
+            ePrime.remove(var);
+            System.out.println("E = " + explication);
+            System.out.println("E' = " + ePrime);
+            System.out.println("Explication : " + this.isExplication(ePrime, variable, value));
+            if (this.isExplication(ePrime, variable, value)) {
+                explication = new HashMap<>(ePrime);
+            }
+            file.remove(var);
+        }
+        return explication;
+    }
 }
