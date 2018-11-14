@@ -34,6 +34,22 @@ public class Backtracking {
     public Set<Variable> getVariables() {
       return this.variables;
     }
+    
+    /**
+     * Add a variable in the set of variables
+     * @param variable the variable to add
+     */
+    public void addVariable(Variable variable) {
+        this.variables.add(variable);
+    }
+    
+    /**
+     * Remove a variable in the set of variables
+     * @param variable the variable to remove
+     */
+    public void removeVariable(Variable variable) {
+        this.variables.remove(variable);
+    }
 
     /**
      * Creates a String representation of constraints in backtrack

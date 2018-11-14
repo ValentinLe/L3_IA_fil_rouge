@@ -7,7 +7,7 @@ import java.util.Set;
  * A variable is represented by a name and a domain
  *
  */
-public class Variable {
+public class Variable implements Comparable<Variable> {
 
     private String name;
     private Set<String> domaine;
@@ -74,5 +74,10 @@ public class Variable {
     @Override
     public String toString() {
         return this.name;
+    }
+
+    @Override
+    public int compareTo(Variable variable) {
+        return this.name.compareTo(variable.getName());
     }
 }

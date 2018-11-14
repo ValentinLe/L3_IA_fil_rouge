@@ -39,7 +39,10 @@ public class Main {
         //boolean test = diagnoser.isExplication(choices, ex.getVariableWithName("gauche"), "noir");
         //System.out.println("test = " + test);
 
-        Map<Variable, String> explication = diagnoser.findExplication(choices, ex.getVariableWithName("gauche"), "noir");
+        Map<Variable, String> explication = diagnoser.findExplanation(choices, ex.getVariableWithName("gauche"), "noir");
         System.out.println("\nexplication : " + explication); // droit=noir
+        
+        Set<Map<Variable, String>> set = diagnoser.findAllExplanations(choices, ex.getVariableWithName("gauche"), "noir");
+        System.out.println("Set : " + set);
     }
 }
