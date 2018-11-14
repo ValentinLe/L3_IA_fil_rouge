@@ -65,6 +65,7 @@ public class DatabaseReader {
             transactions.add(transaction);
             lineNb += 1;
         }
+        System.out.println("nb = " + lineNb);
         return transactions;
     }
 }

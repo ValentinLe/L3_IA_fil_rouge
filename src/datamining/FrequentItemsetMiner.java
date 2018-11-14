@@ -3,6 +3,7 @@ package datamining;
 
 import java.util.*;
 import representations.*;
+import examples.*;
 
 public class FrequentItemsetMiner {
 
@@ -83,6 +84,9 @@ public class FrequentItemsetMiner {
 
     public int frequence(List<Map<Item, String>> listTransactions, Set<Item> motif) {
         int cpt = 0;
+        Examples ex = new Examples();
+        Item toitb = new Item(ex.getVariableWithName("toit"), "blanc");
+        Item itemTest = null;
         for (Map<Item, String> transaction : listTransactions) {
             boolean itemInTransaction = true;
             for (Item item : motif) {
