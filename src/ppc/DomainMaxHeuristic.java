@@ -18,7 +18,7 @@ public class DomainMaxHeuristic implements HeuristicVariable {
      * @return the value of the variable
      */
     @Override
-    public int heuristicValue(List<Constraint> constraints, Variable var, Set<String> domaine) {
+    public int heuristicValue(Set<Constraint> constraints, Variable var, Set<String> domaine) {
         return domaine.size();
     }
 

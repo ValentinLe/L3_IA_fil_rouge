@@ -18,7 +18,7 @@ public class ConstraintMaxHeuristic implements HeuristicVariable {
      * @return the value of the variable
      */
     @Override
-    public int heuristicValue(List<Constraint> constraints, Variable var, Set<String> domaine) {
+    public int heuristicValue(Set<Constraint> constraints, Variable var, Set<String> domaine) {
         int cpt = 0;
         for(Constraint c : constraints) {
             // for all constraints

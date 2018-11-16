@@ -17,6 +17,6 @@ public interface HeuristicVariable {
      * @param domaine the domain of the variable possibly filtered
      * @return the value of the variable
      */
-    public int heuristicValue(List<Constraint> constraints, Variable var, Set<String> domaine);
+    public int heuristicValue(Set<Constraint> constraints, Variable var, Set<String> domaine);
 
 }

@@ -20,7 +20,7 @@ public class ConstraintMinHeuristic implements HeuristicVariable {
      * @see ConstraintMaxHeuristic#heuristicValue
      */
     @Override
-    public int heuristicValue(List<Constraint> constraints, Variable var, Set<String> domaine) {
+    public int heuristicValue(Set<Constraint> constraints, Variable var, Set<String> domaine) {
         HeuristicVariable constraintMax = new ConstraintMaxHeuristic();
         // the min value is the opposite of the max value
         return -constraintMax.heuristicValue(constraints, var, domaine);

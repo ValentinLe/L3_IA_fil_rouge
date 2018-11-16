@@ -40,7 +40,7 @@ public class Diagnoser {
         return solution == null;
     }
     
-    public Map<Variable, String> findExplanation(Map<Variable, String> choices, Variable variable, String value) {
+    public Map<Variable, String> findMinimalInclusionExplanation(Map<Variable, String> choices, Variable variable, String value) {
         Map<Variable, String> explanation = new HashMap<>(choices);
         Map<Variable, String> ePrime;
         for(Variable var : choices.keySet()) {
@@ -53,7 +53,7 @@ public class Diagnoser {
         return explanation;
     }
     
-    public Map<Variable, String> findMinimalExplanation(Map<Variable, String> choices, Variable variable, String value) {
+    public Map<Variable, String> findMinimalCardinalExplanation(Map<Variable, String> choices, Variable variable, String value) {
         Set<Map<Variable, String>> solution = this.findExplanations(choices, variable, value, false);
         Iterator<Map<Variable, String>> iter = solution.iterator();
         if (!solution.isEmpty()) {
@@ -67,28 +67,55 @@ public class Diagnoser {
         return this.findExplanations(choices, variable, value, true);
     }
     
+    private Set<Map<Variable, String>> generateSingletons(Map<Variable, String> map) {
+        Set<Map<Variable, String>> singletonsMap = new HashSet<>();
+        Map<Variable, String> mapTemp;
+        for (Variable var : map.keySet()) {
+            mapTemp = new HashMap<>();
+            mapTemp.put(var, map.get(var));
+            singletonsMap.add(mapTemp);
+        }
+        return singletonsMap;
+    }
+    
     private Set<Map<Variable, String>> findExplanations(Map<Variable, String> choices, Variable variable, String value, boolean allExplanation) {
-        Set<Map<Variable, String>> allRes = new HashSet<>();
-        Set<Map<Variable, String>> res = new HashSet<>();
+        Set<Map<Variable, String>> finalRes = new HashSet<>();
+        Set<Map<Variable, String>> res = this.generateSingletons(choices);
         Set<Map<Variable, String>> resPrec;
+        Map<Variable, String> copyPart;
+        
+        for (Map<Variable, String> singleton : res) {
+            if (this.isExplanation(new HashMap<>(singleton), variable, value)) {
+                if (allExplanation) {
+                    finalRes.add(singleton);
+                } else {
+                    resPrec = new HashSet<>();
+                    resPrec.add(singleton);
+                    return resPrec;
+                }
+            }
+        }
+        
         for (int size = 1; size<choices.size(); size++) {
             resPrec = new HashSet<>(res);
             res = new HashSet<>();
             for (Map<Variable, String> part : resPrec) {
-                for (Variable var : part.keySet()) {
-                    if (var.compareTo(Collections.max(part.keySet())) > 0 && this.isExplanation(part, variable, value)) {
-                        part.put(var,part.get(var));
-                        res.add(part);
-                        if (!allExplanation) {
-                            res = new HashSet<>();
-                            res.add(part);
-                            return res;
+                for (Variable var : choices.keySet()) {
+                    copyPart = new HashMap<>(part);
+                    copyPart.put(var, choices.get(var));
+                    if (var.compareTo(Collections.max(part.keySet())) > 0 && this.isExplanation(copyPart, variable, value)) {
+                        if (allExplanation) {
+                            res.add(copyPart);
+                        } else {
+                            finalRes = new HashSet<>();
+                            finalRes.add(copyPart);
+                            return finalRes;
                         }
                     }
                 }
             }
-            allRes.addAll(res);
+            finalRes.addAll(res);
         }
-        return res;
+        return finalRes;
     }
 }

@@ -295,6 +295,13 @@ public class Rule implements Constraint {
 
     @Override
     public int hashCode() {
-        return this.premisse.hashCode() * this.conclusion.hashCode();
+        int value = 1;
+        if (this.premisse != null) {
+            value *= this.premisse.hashCode();
+        }
+        if (this.conclusion != null) {
+            value *= this.conclusion.hashCode();
+        }
+        return value;
     }
 }

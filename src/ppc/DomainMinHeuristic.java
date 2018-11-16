@@ -19,7 +19,7 @@ public class DomainMinHeuristic implements HeuristicVariable {
      * @see DomainMaxHeuristic#heuristicValue
      */
     @Override
-    public int heuristicValue(List<Constraint> constraints, Variable var, Set<String> domaine) {
+    public int heuristicValue(Set<Constraint> constraints, Variable var, Set<String> domaine) {
         return -domaine.size();
     }
 

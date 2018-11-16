@@ -11,7 +11,7 @@ import representations.*;
 public class Backtracking {
 
     private Set<Variable> variables;
-    private List<Constraint> constraints;
+    private Set<Constraint> constraints;
     private HeuristicVariable heuristic;
     private int nbNode = 0;
 
@@ -21,7 +21,7 @@ public class Backtracking {
      * @param constraints constraints of the probleme
      * @param heuristic the heuristic of backtracking
      */
-    public Backtracking(Set<Variable> variables, List<Constraint> constraints, HeuristicVariable heuristic){
+    public Backtracking(Set<Variable> variables, Set<Constraint> constraints, HeuristicVariable heuristic){
         this.constraints = constraints;
         this.variables = variables;
         this.heuristic = heuristic;
@@ -57,9 +57,11 @@ public class Backtracking {
      */
     public String getStringConstraints() {
         String ch = "";
+        int i = 1;
         // prints all constraints implicated in backtracking
-        for(int i = 1; i<(constraints.size()+1); i++) {
-            ch += "c" + i + " : " + constraints.get(i-1) + "\n";
+        for(Constraint c : this.constraints) {
+            ch += "c" + i + " : " + c + "\n";
+            i++;
         }
         return ch;
     }

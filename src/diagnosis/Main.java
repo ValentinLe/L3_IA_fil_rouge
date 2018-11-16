@@ -18,7 +18,7 @@ public class Main {
         Constraint c3 = ex.getExemple3();
         Constraint c4 = ex.getExemple4();
 
-        ArrayList<Constraint> constraints = new ArrayList<>();
+        Set<Constraint> constraints = new HashSet<>();
         constraints.add(c1);
         constraints.add(c2);
         constraints.add(c3);
@@ -35,14 +35,13 @@ public class Main {
         choices.put(ex.getVariableWithName("droit"), "noir");
         choices.put(ex.getVariableWithName("hayon"), "rouge");
 
-        //boolean test = diagnoser.isExplication(choices, ex.getVariableWithName("hayon"), "rouge");
-        //boolean test = diagnoser.isExplication(choices, ex.getVariableWithName("gauche"), "noir");
-        //System.out.println("test = " + test);
-
-        Map<Variable, String> explication = diagnoser.findExplanation(choices, ex.getVariableWithName("gauche"), "noir");
-        System.out.println("\nexplication : " + explication); // droit=noir
+        Map<Variable, String> explication = diagnoser.findMinimalInclusionExplanation(choices, ex.getVariableWithName("gauche"), "noir");
+        System.out.println("minimal inclusion explication : " + explication); // droit=noir
         
         Set<Map<Variable, String>> set = diagnoser.findAllExplanations(choices, ex.getVariableWithName("gauche"), "noir");
-        System.out.println("Set : " + set);
+        System.out.println("\nall explanations : " + set);
+        
+        Map<Variable, String> minC = diagnoser.findMinimalCardinalExplanation(choices, ex.getVariableWithName("gauche"), "noir");
+        System.out.println("\nminimal cardinal explanation : " + minC);
     }
 }

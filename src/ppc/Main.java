@@ -19,7 +19,7 @@ public class Main {
         Constraint c5 = ex.getExemple5();
         Constraint c6 = ex.getExemple6();
 
-        ArrayList<Constraint> constraints = new ArrayList<>();
+        Set<Constraint> constraints = new HashSet<>();
         constraints.add(c1);
         constraints.add(c2);
         constraints.add(c3);
