@@ -6,20 +6,20 @@ import representations.*;
 import ppc.*;
 
 public class Diagnoser {
-  
+
     private Backtracking backtrack;
     private Map<Variable, Set<String>> variablesWithDomain;
-  
+
     public Diagnoser(Backtracking backtrack) {
         this.backtrack = backtrack;
         this.variablesWithDomain = this.backtrack.transformToMap(this.backtrack.getVariables());
     }
-    
+
     public void add(Variable variable, String value) {
         this.backtrack.addVariable(variable);
         this.variablesWithDomain.put(variable, new HashSet<>(variable.getDomaine()));
     }
-    
+
     public void remove(Variable variable) {
         this.backtrack.removeVariable(variable);
         this.variablesWithDomain.remove(variable);
@@ -39,7 +39,7 @@ public class Diagnoser {
         Map<Variable, String> solution = this.backtrack.backtrackingFilter(choices, copyDomain);
         return solution == null;
     }
-    
+
     public Map<Variable, String> findMinimalInclusionExplanation(Map<Variable, String> choices, Variable variable, String value) {
         Map<Variable, String> explanation = new HashMap<>(choices);
         Map<Variable, String> ePrime;
@@ -52,7 +52,7 @@ public class Diagnoser {
         }
         return explanation;
     }
-    
+
     public Map<Variable, String> findMinimalCardinalExplanation(Map<Variable, String> choices, Variable variable, String value) {
         Set<Map<Variable, String>> solution = this.findExplanations(choices, variable, value, false);
         Iterator<Map<Variable, String>> iter = solution.iterator();
@@ -60,13 +60,13 @@ public class Diagnoser {
             return iter.next();
         } else {
             return new HashMap<>();
-        } 
+        }
     }
-    
+
     public Set<Map<Variable, String>> findAllExplanations(Map<Variable, String> choices, Variable variable, String value) {
         return this.findExplanations(choices, variable, value, true);
     }
-    
+
     private Set<Map<Variable, String>> generateSingletons(Map<Variable, String> map) {
         Set<Map<Variable, String>> singletonsMap = new HashSet<>();
         Map<Variable, String> mapTemp;
@@ -77,7 +77,7 @@ public class Diagnoser {
         }
         return singletonsMap;
     }
-    
+
     private Set<Map<Variable, String>> findExplanations(Map<Variable, String> choices, Variable variable, String value, boolean allExplanation) {
         Set<Map<Variable, String>> finalRes = new HashSet<>();
         Set<Map<Variable, String>> res = this.generateSingletons(choices);
@@ -95,7 +95,7 @@ public class Diagnoser {
                 }
             }
         }
-        
+
         for (int size = 1; size<choices.size(); size++) {
             resPrec = new HashSet<>(res);
             res = new HashSet<>();

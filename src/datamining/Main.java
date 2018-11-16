@@ -43,10 +43,10 @@ public class Main {
         System.out.println("frequence = " + arm.frequence(rule));
         System.out.println("confiance = " + arm.confiance(rule));*/
 
-        /*
+
         for (Rule rule1 : rules) {
             System.out.println("\n" + rule1);
-        }*/
+        }
 
         /*
         System.out.println("rule " + rule);

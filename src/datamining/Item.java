@@ -2,8 +2,9 @@
 package datamining;
 
 import representations.*;
+import java.util.*;
 
-public class Item {
+public class Item implements Comparable<Item> {
 
     private Variable variable;
     private String value;
@@ -52,6 +53,11 @@ public class Item {
             val *= this.value.hashCode();
         }
         return val;
+    }
+
+    @Override
+    public int compareTo(Item other) {
+        return this.variable.compareTo(other.getVariable());
     }
 
     @Override

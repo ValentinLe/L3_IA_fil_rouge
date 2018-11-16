@@ -98,15 +98,7 @@ public class Main {
         abc.add(b);
         abc.add(c);
         arm.generateRules(abc, 0);
-
-        Examples ex = new Examples();
-        DatabaseReader data = new DatabaseReader(ex.getVariables());
-        Database database = null;
-        try {
-            database = data.importDB("datamining/example_db.csv");
-        } catch(IOException excep) {
-            excep.printStackTrace();
-        }
-        System.out.println(database);
+        
+        System.out.println("sub " + arm.generateSubSets(abc));
     }
 }

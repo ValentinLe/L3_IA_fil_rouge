@@ -103,26 +103,38 @@ public class AssociationRuleMiner {
         return this.frequence(motif1) == this.frequence(motif2);
     }
 
-    /*
-        https://www.geeksforgeeks.org/finding-all-subsets-of-a-given-set-in-java/
-    */
+    public Set<Set<Item>> getSingletons(Set<Item> motif) {
+        Set<Set<Item>> singletons = new HashSet<>();
+        Set<Item> motifTemp;
+        for (Item item : motif) {
+            motifTemp = new HashSet<>();
+            motifTemp.add(item);
+            singletons.add(motifTemp);
+        }
+        return singletons;
+    }
+
     public Set<Set<Item>> generateSubSets(Set<Item> motif) {
         Set<Set<Item>> subSets = new HashSet<>();
-        Set<Item> subSetMotif;
-        int n = motif.size();
-        Iterator<Item> iter;
-        Item item;
-        for (int i = 1; i<(1<<n); i++) {
-            subSetMotif = new HashSet<>();
-            iter = motif.iterator();
-            for (int j = 0; j<n; j++) {
-                item = iter.next();
-                if ((i & (1 << j)) > 0) {
-                    subSetMotif.add(item);
+        Set<Set<Item>> subSetPrec = this.getSingletons(motif);
+        Set<Set<Item>> subSetRes;
+        Set<Item> motifRes;
+        subSets.addAll(subSetPrec);
+        for (int size = 1; size<motif.size(); size++) {
+            subSetRes = new HashSet<>();
+            for (Set<Item> subMotif : new HashSet<>(subSetPrec)) {
+                for (Item item : motif) {
+                    motifRes = new HashSet<>(subMotif);
+                    if (item.compareTo(Collections.max(subMotif)) > 0) {
+                        motifRes.add(item);
+                        subSetRes.add(motifRes);
+                    }
                 }
             }
-            subSets.add(subSetMotif);
+            subSetPrec = new HashSet<>(subSetRes);
+            subSets.addAll(subSetPrec);
         }
+        subSets.add(new HashSet<>(motif));
         return subSets;
     }
 
