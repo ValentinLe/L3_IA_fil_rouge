@@ -2,34 +2,53 @@
 package datamining;
 
 import java.util.*;
-import representations.*;
-import examples.*;
 
+/**
+ * This class find the frequent items of a boolean database
+ *
+ */
 public class FrequentItemsetMiner {
 
     public BooleanDatabase database;
 
+    /**
+     * Build an instance of FrequentItemsetMiner
+     * @param database a boolean database
+     */
     public FrequentItemsetMiner(BooleanDatabase database) {
         this.database = database;
     }
 
+    /**
+     * Build a map of the motifs and their frequence
+     * @param minfr the minimum of the frequence you want
+     * @return the map of frequence of motifs builded
+     */
     public Map<Set<Item>, Integer> frequentItemsets(int minfr) {
         Map<Set<Item>, Integer> mapFrequent = new HashMap<>();
-        List<Item> listItems = this.database.getListVariables();
+        List<Item> listItems = this.database.getListItems();
         List<Map<Item, String>> listTransactions = this.database.getListTransactions();
         Set<Set<Item>> motifs = null;
-        int k = 0;
-        while (k < listItems.size() + 1 && (motifs==null || !motifs.isEmpty())) {
-            if (k==0) {
+        // k is the size of motifs builded
+        int k = 1;
+        while (motifs==null || !motifs.isEmpty()) {
+            // while there are no more combination possible
+            if (k==1) {
+                // build motifs with the size 1
                 motifs = this.getSingletons(listItems);
             } else {
+                // make a combination between all motifs of size k
                 motifs = combinaisons(motifs);
             }
             for (Set<Item> motif : new HashSet<>(motifs)) {
+                // for all motifs of combination builded
                 int frequence = this.frequence(listTransactions, motif);
                 if (frequence >= minfr) {
+                    // if the motif has a frequence more important than the minimum
+                    // of frequence
                     mapFrequent.put(motif, frequence);
                 } else {
+                    // remove the motif to the combination
                     motifs.remove(motif);
                 }
             }
@@ -38,17 +57,25 @@ public class FrequentItemsetMiner {
         return mapFrequent;
     }
 
-    public Set<Set<Item>> getSingletons(List<Item> listVariables) {
+    /**
+     * Build a set of motifs with the size 1 of a list of item
+     * @param listItem the list of item
+     * @return the set of motifs with size 1
+     */
+    public Set<Set<Item>> getSingletons(List<Item> listItem) {
         Set<Set<Item>> singletons = new HashSet<>();
         Set<Item> motif;
-        for (Item var : listVariables) {
+        for (Item item : listItem) {
+            // for all item of the list of items
+            // add a motif with size 1 in the set
             motif = new HashSet<>();
-            motif.add(var);
+            motif.add(item);
             singletons.add(motif);
         }
         return singletons;
     }
 
+    
     public Set<Set<Item>> combinaisons(Set<Set<Item>> setVar) {
         Set<Set<Item>> comb = new HashSet<>();
         Set<Item> motifTemp;
@@ -84,8 +111,6 @@ public class FrequentItemsetMiner {
 
     public int frequence(List<Map<Item, String>> listTransactions, Set<Item> motif) {
         int cpt = 0;
-        Examples ex = new Examples();
-        Item toitb = new Item(ex.getVariableWithName("toit"), "blanc");
         Item itemTest = null;
         for (Map<Item, String> transaction : listTransactions) {
             boolean itemInTransaction = true;

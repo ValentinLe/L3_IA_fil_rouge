@@ -103,17 +103,6 @@ public class AssociationRuleMiner {
         return this.frequence(motif1) == this.frequence(motif2);
     }
 
-    public Set<Set<Item>> getSingletons(Set<Item> motif) {
-        Set<Set<Item>> singletons = new HashSet<>();
-        Set<Item> motifTemp;
-        for (Item item : motif) {
-            motifTemp = new HashSet<>();
-            motifTemp.add(item);
-            singletons.add(motifTemp);
-        }
-        return singletons;
-    }
-
     public Set<Set<Item>> generateSubSets(Set<Item> motif) {
         Set<Set<Item>> subSets = new HashSet<>();
         Set<Set<Item>> subSetPrec = new HashSet<>();
