@@ -13,7 +13,7 @@ public class Main {
         DatabaseReader data = new DatabaseReader(ex.getVariables());
         Database database = null;
         try {
-            database = data.importDB("datamining/example_db.csv");
+            database = data.importDB("build/classes/datamining/example_db.csv");
         } catch(IOException excep) {
             excep.printStackTrace();
         }

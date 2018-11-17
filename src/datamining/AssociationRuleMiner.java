@@ -116,16 +116,16 @@ public class AssociationRuleMiner {
 
     public Set<Set<Item>> generateSubSets(Set<Item> motif) {
         Set<Set<Item>> subSets = new HashSet<>();
-        Set<Set<Item>> subSetPrec = this.getSingletons(motif);
+        Set<Set<Item>> subSetPrec = new HashSet<>();
+        subSetPrec.add(new HashSet<>());
         Set<Set<Item>> subSetRes;
         Set<Item> motifRes;
-        subSets.addAll(subSetPrec);
         for (int size = 1; size<motif.size(); size++) {
             subSetRes = new HashSet<>();
             for (Set<Item> subMotif : new HashSet<>(subSetPrec)) {
                 for (Item item : motif) {
                     motifRes = new HashSet<>(subMotif);
-                    if (item.compareTo(Collections.max(subMotif)) > 0) {
+                    if (subMotif.isEmpty() || item.compareTo(Collections.max(subMotif)) > 0) {
                         motifRes.add(item);
                         subSetRes.add(motifRes);
                     }
