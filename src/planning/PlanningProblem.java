@@ -99,6 +99,22 @@ public class PlanningProblem {
     }
 
     /**
+     * Getter of the initialState
+     * @return the initial state of the problem
+     */
+    public State getInitState() {
+        return this.initialState;
+    }
+
+    /**
+     * Getter of the goal
+     * @return the goal of the problem
+     */
+    public State getGoal() {
+        return this.goal;
+    }
+
+    /**
      * Function to call the DFS recursive method with the right arguments
      * @return the plan of action to execute to go to the target state
      */

@@ -91,7 +91,7 @@ public class Examples {
     public Set<String> getDomaineBool() {
         return this.domaineBool;
     }
-    
+
     /**
      * Get a variable with her name
      * @param variableName the variable's name
@@ -112,10 +112,10 @@ public class Examples {
 
         // all names of variables present in a car
         List<String> comp = new ArrayList<>(Arrays.asList(
-                "droit","toit"
+                "toit","hayon","capot","droit","gauche","toit ouvrant","sono"
         ));
         // values of futur variables
-        List<String> valeurs = new ArrayList<>(Arrays.asList("noir","rouge"));
+        List<String> valeurs = new ArrayList<>(Arrays.asList("noir", "blanc","noir","noir","noir","true","false"));
 
         for(int i = 0; i<comp.size(); i++) {
             // add the variable corresponding to the name and its value affected
@@ -133,10 +133,10 @@ public class Examples {
 
         // all names of variables present in a car
         List<String> comp = new ArrayList<>(Arrays.asList(
-                "toit","hayon","droit","gauche","toit ouvrant","sono"
+                "toit","hayon","capot","droit","gauche","toit ouvrant","sono"
         ));
         // values of futur variables
-        List<String> valeurs = new ArrayList<>(Arrays.asList("noir", "blanc", "noir","noir","blanc","true","true"));
+        List<String> valeurs = new ArrayList<>(Arrays.asList("blanc","blanc","noir","blanc","blanc","false","true"));
 
         for(int i = 0; i<comp.size(); i++) {
             // add the variable corresponding to the name and its value affected
@@ -154,10 +154,10 @@ public class Examples {
 
         // all names of variables present in a car
         List<String> comp = new ArrayList<>(Arrays.asList(
-                "toit","hayon","droit","gauche","toit ouvrant","sono"
+                "toit","hayon","capot","droit","gauche","toit ouvrant","sono"
         ));
         // values of futur variables
-        List<String> valeurs = new ArrayList<>(Arrays.asList("noir", "noir", "blanc","balnc","blanc","true","true"));
+        List<String> valeurs = new ArrayList<>(Arrays.asList("noir","rouge","noir","noir","blanc","true","true"));
 
         for(int i = 0; i<comp.size(); i++) {
             // add the variable corresponding to the name and its value affected
@@ -175,10 +175,10 @@ public class Examples {
 
         // all names of variables present in a car
         List<String> comp = new ArrayList<>(Arrays.asList(
-                "toit","hayon","droit","gauche","toit ouvrant","sono"
+                "toit","hayon","capot","droit","gauche","toit ouvrant","sono"
         ));
         // values of futur variables
-        List<String> valeurs = new ArrayList<>(Arrays.asList("rouge", "blanc", "rouge","noir","noir","false","true"));
+        List<String> valeurs = new ArrayList<>(Arrays.asList("blanc","blanc","blanc","noir","noir","false","false"));
 
         for(int i = 0; i<comp.size(); i++) {
             // add the variable corresponding to the name and its value affected
@@ -284,13 +284,13 @@ public class Examples {
      * @return example of a constraint
      */
     public AllDifferentConstraint getExemple5(){
-      Set<Variable> allEqual = new HashSet<>();
+      Set<Variable> setVar = new HashSet<>();
       // add all variable in the futur AllDifferentConstraint
-      allEqual.add(this.variables.get("hayon"));
-      allEqual.add(this.variables.get("toit"));
-      allEqual.add(this.variables.get("capot"));
+      setVar.add(this.variables.get("hayon"));
+      setVar.add(this.variables.get("toit"));
+      setVar.add(this.variables.get("capot"));
       // build the constraint
-      AllDifferentConstraint all = new AllDifferentConstraint(allEqual);
+      AllDifferentConstraint all = new AllDifferentConstraint(setVar);
       return all;
     }
 

@@ -5,21 +5,41 @@ import java.io.*;
 import java.util.*;
 import representations.*;
 import examples.Examples;
+import java.security.InvalidParameterException;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InvalidParameterException {
+
+        // if the number of parameters is invalid
+        if (args.length != 3) {
+            throw new InvalidParameterException("Need 3 parameters (file name of database, minfr, minconf). You gave " + args.length + " parameters.");
+        }
+
+        String filename = args[0];
+        int minfr;
+        double minconf;
+
+        // try to convert the parameters of minfr and minconf
+        try {
+            minfr = Integer.parseInt(args[1]);
+        } catch (NumberFormatException e) {
+            throw new InvalidParameterException("the second parameter must be an integer, you gave : " + args[1]);
+        }
+        try {
+            minconf = Double.parseDouble(args[2]);
+        } catch (NumberFormatException e2) {
+            throw new InvalidParameterException("the third parameter must be a float, you gave : " + args[2]);
+        }
 
         Examples ex = new Examples();
         DatabaseReader data = new DatabaseReader(ex.getVariables());
         Database database = null;
+
         try {
-            database = data.importDB("build/classes/datamining/example_db.csv");
+            database = data.importDB(filename);
         } catch(IOException excep) {
             excep.printStackTrace();
         }
-
-        int minfr = 1500;
-        double minconf = 0.9;
 
         BooleanDatabase bdb = database.toBooleanDatabase();
 
@@ -31,28 +51,8 @@ public class Main {
 
         System.out.println("\n" + rules.size() + " rules :");
 
-        Map<Variable, String> premisse = new HashMap<>();
-        premisse.put(ex.getVariableWithName("hayon"), "noir");
-
-        Map<Variable, String> conclusion = new HashMap<>();
-        conclusion.put(ex.getVariableWithName("toit"), "noir");
-        Rule rule = new Rule(premisse, conclusion);
-        /*
-        System.out.println(rule);
-        System.out.println("regle trouvee : " + rules.contains(rule));
-        System.out.println("frequence = " + arm.frequence(rule));
-        System.out.println("confiance = " + arm.confiance(rule));*/
-
-
         for (Rule rule1 : rules) {
             System.out.println("\n" + rule1);
         }
-
-        /*
-        System.out.println("rule " + rule);
-        System.out.println("fr " + arm.frequence(rule));
-        System.out.println("conf " + arm.confiance(rule));
-        System.out.println("test " + rules.contains(rule));
-        */
     }
 }

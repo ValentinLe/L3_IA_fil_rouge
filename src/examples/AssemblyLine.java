@@ -47,11 +47,6 @@ public class AssemblyLine {
         this.domainColors = new HashSet<>(Arrays.asList(
                 "GRAY", "BLACK", "WHITE", "RED", "BLUE", "GREEN", "ORANGE", "YELLOW"
         ));
-        /*
-        this.domainColors = new HashSet<>(Arrays.asList(
-                "GRAY", "BLACK", "WHITE", "RED", "BLUE", "GREEN", "ORANGE", "YELLOW",
-                 "BROWN", "CYAN", "MAGENTA", "PINK", "PURPLE", "KAKI"
-        ));*/
 
         /*
         this.domainColors = new HashSet<>(Arrays.asList(
@@ -103,7 +98,7 @@ public class AssemblyLine {
      * Builds a random state with a car with one random color
      * @return the state built
      */
-    public State getGoal() {
+    public State generateGoal() {
         return new State(this.generateCar());
     }
 

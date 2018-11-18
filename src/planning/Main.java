@@ -13,9 +13,11 @@ public class Main {
 
         //--------------------------Tests of dfs and bfs----------------------//
 
+        State goal = assembly.generateGoal();
+
         PlanningProblem problem = new PlanningProblem(
                 assembly.getInitState(),
-                assembly.getGoal(),
+                goal,
                 actions
         );
 
@@ -31,31 +33,40 @@ public class Main {
 
         PlanningProblemWithCost problemWithCost = new PlanningProblemWithCost(
                 assembly.getInitState(),
-                assembly.getGoal(),
+                goal,
                 actions,
                 new SimpleHeuristic()
         );
 
-        //System.out.println(problemWithCost.dijkstra());
-        //System.out.println("Nombre de noeuds parcourus : " + problemWithCost.getNbNode());
-
-        System.out.println("\nSimpleHeuristic : \n");
-
-        System.out.println(problemWithCost.aStar());
+        System.out.println("\nLe temps de calcul est d'environ 20s pour dijkstra, A* et WA* avec SimpleHeuristic, A* et WA* avec InformedHeuristic");
+        System.out.println("Une voiture a au départ un chassis, sinon elle est considéré comme rien");
+        System.out.println("\nVoiture de départ : \n" + problemWithCost.getInitState());
+        System.out.println("\nVoiture d'arrivée : \n" + problemWithCost.getGoal());
+        System.out.println("\n--> DIJKSTRA \\/\n");
+        System.out.println("actions : \n" + problemWithCost.dijkstra());
         System.out.println("Nombre de noeuds parcourus : " + problemWithCost.getNbNode());
 
-        System.out.println(problemWithCost.weightedAStar(5));
+        System.out.println("\n<> SimpleHeuristic :");
+
+        System.out.println("\n--> A* \\/\n");
+        System.out.println("actions : \n" + problemWithCost.aStar());
+        System.out.println("Nombre de noeuds parcourus : " + problemWithCost.getNbNode());
+
+        System.out.println("\n--> WA* \\/\n");
+        System.out.println("actions : \n" + problemWithCost.weightedAStar(5));
         System.out.println("Nombre de noeuds parcourus : " + problemWithCost.getNbNode());
 
         problemWithCost.setHeuristic(new InformedHeuristic());
 
-        System.out.println("\nInformedHeuristic : \n");
+        System.out.println("\n<> InformedHeuristic :");
 
-        System.out.println(problemWithCost.aStar());
+        System.out.println("\n--> A* \\/\n");
+        System.out.println("actions : \n" + problemWithCost.aStar());
         System.out.println("Nombre de noeuds parcourus : " + problemWithCost.getNbNode());
 
-        System.out.println(problemWithCost.weightedAStar(5));
-        System.out.println("Nombre de noeuds parcourus : " + problemWithCost.getNbNode()); 
+        System.out.println("\n--> WA* \\/\n");
+        System.out.println("actions : \n" + problemWithCost.weightedAStar(5));
+        System.out.println("Nombre de noeuds parcourus : " + problemWithCost.getNbNode());
 
     }
 }

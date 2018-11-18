@@ -1,4 +1,8 @@
 #!bin/sh
 
 cd $(dirname $0)/..
-sh scripts/runMainOf.sh "datamining"
+if sh scripts/compile.sh
+then
+cd build/
+java datamining.Main $1 $2 $3
+fi

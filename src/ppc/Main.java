@@ -27,23 +27,40 @@ public class Main {
         //constraints.add(c5);
         //constraints.add(c6);
 
-        HeuristicVariable heuristic = new ConstraintMaxHeuristic();
+        HeuristicVariable heuristic = new DomainMinHeuristic();
         Backtracking back = new Backtracking(variables, constraints, heuristic);
-        System.out.println(back.getStringConstraints());
+        System.out.println("\n" + back.getStringConstraints());
 
-        Map<Variable, String> voiture1 = back.solutionFilter();
-        System.out.println("backtrack : " + voiture1);
+        Map<Variable, String> voiture1 = back.solution();
+        Map<Variable, String> voiture2 = back.solutionFilter();
+        System.out.println("backtrack avec premiere solution sans filtrage trouvée :\n" + voiture1);
+        System.out.println("\nbacktrack avec premiere solution avec filtrage trouvée :\n" + voiture2);
 
-        Set<Map<Variable, String>> sols = back.solutionsFilter();
+        Set<Map<Variable, String>> sols = back.solutions();
 
         if (sols != null) {
-            for (Map<Variable, String> car : sols) {
-                System.out.println(car + "\n");
-            }
-            System.out.println("\n/\\ SOLUTIONS TROUVEES /\\\n");
+            System.out.println("\n\\/ SOLUTIONS TROUVEES SANS FILTRAGE\\/\n");
             System.out.println("Nombre de solutions : " + sols.size());
             System.out.println("Heuristic utilisée : " + back.getHeuristic());
             System.out.println("noeuds parcourus : " + back.getNbNode());
+        } else {
+            System.out.println("Aucune solutions trouvées");
         }
+
+        sols = back.solutionsFilter();
+
+        if (sols != null) {
+            System.out.println("\n\\/ SOLUTIONS TROUVEES AVEC FILTRAGE\\/\n");
+            System.out.println("Nombre de solutions : " + sols.size());
+            System.out.println("Heuristic utilisée : " + back.getHeuristic());
+            System.out.println("noeuds parcourus : " + back.getNbNode());
+            System.out.println("\nVoitures trouvées : \n");
+            for (Map<Variable, String> car : sols) {
+                System.out.println(car);
+            }
+        } else {
+            System.out.println("Aucune solutions trouvées");
+        }
+
     }
 }
