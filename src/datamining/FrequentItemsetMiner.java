@@ -38,7 +38,7 @@ public class FrequentItemsetMiner {
                 motifs = this.getSingletons(listItems);
             } else {
                 // make a combination between all motifs of size k
-                motifs = combinaisons(motifs);
+                motifs = combinations(motifs);
             }
             for (Set<Item> motif : new HashSet<>(motifs)) {
                 // for all motifs of combination builded
@@ -75,33 +75,49 @@ public class FrequentItemsetMiner {
         return singletons;
     }
 
-    
-    public Set<Set<Item>> combinaisons(Set<Set<Item>> setVar) {
-        Set<Set<Item>> comb = new HashSet<>();
+    /**
+     * Creates all combinations of a set of motifs
+     * @param setMotif the set of motifs
+     * @return a set of all combination
+     */
+    public Set<Set<Item>> combinations(Set<Set<Item>> setMotif) {
+        Set<Set<Item>> combinations = new HashSet<>();
         Set<Item> motifTemp;
-        for (Set<Item> motif1 : setVar) {
-            for (Set<Item> motif2 : setVar) {
-                if (motif1 != motif2 && this.hasSameKFirstElment(motif1, motif2)) {
+        for (Set<Item> motif1 : setMotif) {
+            for (Set<Item> motif2 : setMotif) {
+                if (motif1 != motif2 && this.hasSameKFirstElements(motif1, motif2)) {
+                    // if the motif1 and motif2 has the same K first elements
+                    // do the combination between motifs
                     motifTemp = new HashSet<>();
                     motifTemp.addAll(motif1);
                     motifTemp.addAll(motif2);
-                    comb.add(motifTemp);
+                    combinations.add(motifTemp);
                 }
             }
         }
-        return comb;
+        return combinations;
     }
 
-    public boolean hasSameKFirstElment(Set<Item> motif1, Set<Item> motif2) {
+    /**
+     * Test if two motifs has the same k first element with k the minimum (size-1)
+     * of motifs
+     * @param motif1 the first motif
+     * @param motif2 the second motif
+     * @return true if they are the same k first elements
+     */
+    public boolean hasSameKFirstElements(Set<Item> motif1, Set<Item> motif2) {
         Iterator<Item> iter1 = motif1.iterator();
         Iterator<Item> iter2 = motif2.iterator();
-        int k = motif1.size() - 1;
+        // take the minimum of size-1 of motifs to avoid error with iterator
+        int k = Math.min(motif1.size() - 1, motif2.size() - 1);
         Item item1;
         Item item2;
         while (k > 0) {
+            // take the i th element of each set
             item1 = iter1.next();
             item2 = iter2.next();
             if (!item1.equals(item2)) {
+                // if the elements are differents
                 return false;
             }
             k--;
@@ -109,18 +125,28 @@ public class FrequentItemsetMiner {
         return true;
     }
 
+    /**
+     * Calculates the frequence of a item in a list of transactions 
+     * @param listTransactions the list of transactions
+     * @param motif the motif
+     * @return the number of occurence of the motif in the list of transactions
+     */
     public int frequence(List<Map<Item, String>> listTransactions, Set<Item> motif) {
         int cpt = 0;
         Item itemTest = null;
         for (Map<Item, String> transaction : listTransactions) {
+            // for all transactions
             boolean itemInTransaction = true;
             for (Item item : motif) {
+                // for all item in the motif
                 if (transaction.get(item).equals("0")) {
+                    // if the item isn't in the transaction
                     itemInTransaction = false;
                     break;
                 }
             }
             if (itemInTransaction) {
+                // if all item of the motif are in the transaction
                 cpt += 1;
             }
         }
