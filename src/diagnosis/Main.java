@@ -34,14 +34,15 @@ public class Main {
         choices.put(ex.getVariableWithName("capot"), "rouge");
         choices.put(ex.getVariableWithName("droit"), "noir");
         choices.put(ex.getVariableWithName("hayon"), "rouge");
-
+        /*
         Map<Variable, String> explication = diagnoser.findMinimalInclusionExplanation(choices, ex.getVariableWithName("gauche"), "noir");
         System.out.println("minimal inclusion explication : " + explication); // droit=noir
-        
+        */
         Set<Map<Variable, String>> set = diagnoser.findAllExplanations(choices, ex.getVariableWithName("gauche"), "noir");
         System.out.println("\nall explanations : " + set);
-        
+        /*
         Map<Variable, String> minC = diagnoser.findMinimalCardinalExplanation(choices, ex.getVariableWithName("gauche"), "noir");
         System.out.println("\nminimal cardinal explanation : " + minC);
+        */
     }
 }

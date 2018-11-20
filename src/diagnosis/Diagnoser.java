@@ -60,19 +60,22 @@ public class Diagnoser {
     public boolean isExplanation(Map<Variable, String> choices, Variable variable, String value) {
         Set<String> reduceDomain;
         Map<Variable, Set<String>> copyDomain = new HashMap<>(this.variablesWithDomain);
-        for (Variable var : choices.keySet()) {
+        Map<Variable, String> copyChoices = new HashMap<>(choices);
+        for (Variable var : copyChoices.keySet()) {
             // for all choice in the set of choices
             // reduce the domain too the value assigned in the choices
             reduceDomain = new HashSet<>();
-            reduceDomain.add(choices.get(var));
+            reduceDomain.add(copyChoices.get(var));
             copyDomain.put(var, reduceDomain);
         }
         // add the new choix with the domain reduce to their value
         reduceDomain = new HashSet<>();
         reduceDomain.add(value);
         copyDomain.put(variable, reduceDomain);
+        // add the new value in the choices copy
+        copyChoices.put(variable, value);
         // try to find a solution
-        Map<Variable, String> solution = this.backtrack.backtrackingFilter(choices, copyDomain);
+        Map<Variable, String> solution = this.backtrack.backtrackingFilter(copyChoices, copyDomain);
         // solution = null <=> no solution found
         return solution == null;
     }
@@ -114,7 +117,8 @@ public class Diagnoser {
         }
         return singletonsMap;
     }
-
+    
+    /*
     private Set<Map<Variable, String>> findExplanations(Map<Variable, String> choices, Variable variable, String value, boolean allExplanation) {
         Set<Map<Variable, String>> finalRes = new HashSet<>();
         Set<Map<Variable, String>> res = new HashSet<>();
@@ -133,6 +137,7 @@ public class Diagnoser {
                     System.out.println("copyPart " + copyPart);
                     if ((part.isEmpty() || var.compareTo(Collections.max(part.keySet())) > 0) && this.isExplanation(copyPart, variable, value)) {
                         if (allExplanation) {
+                            System.out.println("ok");
                             res.add(copyPart);
                         } else {
                             finalRes = new HashSet<>();
@@ -146,5 +151,42 @@ public class Diagnoser {
         }
         finalRes.add(new HashMap<>(choices));
         return finalRes;
+    }*/
+    
+    private Set<Map<Variable, String>> findExplanations(Map<Variable, String> choices, Variable variable, String value, boolean allExplanation) {
+        Set<Map<Variable, String>> finalRes = new HashSet<>();
+        Set<Map<Variable, String>> res = new HashSet<>();
+        Set<Map<Variable, String>> resPrec;
+        Map<Variable, String> copyPart;
+        res.add(new HashMap<>(choices));
+        
+        for (int size = choices.size(); size>0; size--) {
+            resPrec = new HashSet<>(res);
+            res = new HashSet<>();
+            for (Map<Variable, String> part : resPrec) {
+                System.out.println("\npart " + part);
+                for (Variable var : part.keySet()) {
+                    copyPart = new HashMap<>(part);
+                    copyPart.remove(var);
+                    System.out.println("copypart " + copyPart);
+                    System.out.println("compareTo " + var.compareTo(Collections.max(part.keySet())));
+                    if (!copyPart.isEmpty() && this.isExplanation(copyPart, variable, value)) {
+                        if (allExplanation) {
+                            System.out.println("ok");
+                            res.add(copyPart);
+                        } else {
+                            finalRes = new HashSet<>();
+                            finalRes.add(copyPart);
+                            return finalRes;
+                        }
+                    }
+                }
+            }
+            finalRes.addAll(res);
+        }
+        
+        return finalRes;
     }
+    // tester choices explication avant ? pas tester mais le mettre
+    // utiliser le compareTo ? non
 }
