@@ -28,6 +28,14 @@ public class Diagnoser {
         this.variablesWithDomain = this.backtrack.transformToMap(this.backtrack.getVariables());
     }
 
+    public Diagnoser(Set<Variable> variables, Set<Constraint> constraints, HeuristicVariable heuristic) {
+        this(new Backtracking(variables, constraints, heuristic));
+    }
+
+    public Diagnoser(Set<Variable> variables, Set<Constraint> constraints) {
+        this(variables, constraints, new DomainMinHeuristic());
+    }
+
     /**
      * Ajoute une variable dans la map des variable avec leur domaine copié et
      * l'ajoute également dans l'ensemble de variable de l'instance de Backtracking
@@ -37,11 +45,11 @@ public class Diagnoser {
         this.backtrack.addVariable(variable);
         this.variablesWithDomain.put(variable, new HashSet<>(variable.getDomaine()));
     }
-    
+
     /**
-     * Supprime une variable dans la map des variables et dans l'ensemble de 
+     * Supprime une variable dans la map des variables et dans l'ensemble de
      * variable du backtrack
-     * @param variable la variable a supprimée 
+     * @param variable la variable a supprimée
      */
     public void remove(Variable variable) {
         this.backtrack.removeVariable(variable);
@@ -49,13 +57,13 @@ public class Diagnoser {
     }
 
     /**
-     * Test si un ensemble de choix donnée est une explication avec l'ajout d'un 
-     * choix supplémentaire. Les choix sont une explication si il n'existe pas 
+     * Test si un ensemble de choix donnée est une explication avec l'ajout d'un
+     * choix supplémentaire. Les choix sont une explication si il n'existe pas
      * de solution qui permet de satisfaire toutes les contraintes
      * @param choices l'ensemble de choix
      * @param variable la variable du choix supplémentaire
      * @param value la valeur de la variable du choix supplémentaire
-     * @return true si le choix supplémentaire avec les autre choix ne 
+     * @return true si le choix supplémentaire avec les autre choix ne
      */
     public boolean isExplanation(Map<Variable, String> choices, Variable variable, String value) {
         Set<String> reduceDomain;
@@ -79,7 +87,7 @@ public class Diagnoser {
         // solution = null <=> no solution found
         return solution == null;
     }
-    
+
     public Map<Variable, String> findMinimalInclusionExplanation(Map<Variable, String> choices, Variable variable, String value) {
         Map<Variable, String> explanation = new HashMap<>(choices);
         Map<Variable, String> ePrime;
@@ -107,86 +115,40 @@ public class Diagnoser {
         return this.findExplanations(choices, variable, value, true);
     }
 
-    private Set<Map<Variable, String>> generateSingletons(Map<Variable, String> map) {
-        Set<Map<Variable, String>> singletonsMap = new HashSet<>();
-        Map<Variable, String> mapTemp;
-        for (Variable var : map.keySet()) {
-            mapTemp = new HashMap<>();
-            mapTemp.put(var, map.get(var));
-            singletonsMap.add(mapTemp);
-        }
-        return singletonsMap;
-    }
-    
-    /*
     private Set<Map<Variable, String>> findExplanations(Map<Variable, String> choices, Variable variable, String value, boolean allExplanation) {
         Set<Map<Variable, String>> finalRes = new HashSet<>();
         Set<Map<Variable, String>> res = new HashSet<>();
         Set<Map<Variable, String>> resPrec;
         Map<Variable, String> copyPart;
-        res.add(new HashMap<>());
-        
-        for (int size = 1; size<choices.size(); size++) {
-            resPrec = new HashSet<>(res);
-            res = new HashSet<>();
-            System.out.println("size : " + size);
-            for (Map<Variable, String> part : resPrec) {
-                for (Variable var : choices.keySet()) {
-                    copyPart = new HashMap<>(part);
-                    copyPart.put(var, choices.get(var));
-                    System.out.println("copyPart " + copyPart);
-                    if ((part.isEmpty() || var.compareTo(Collections.max(part.keySet())) > 0) && this.isExplanation(copyPart, variable, value)) {
-                        if (allExplanation) {
-                            System.out.println("ok");
-                            res.add(copyPart);
-                        } else {
-                            finalRes = new HashSet<>();
-                            finalRes.add(copyPart);
-                            return finalRes;
-                        }
-                    }
-                }
-            }
-            finalRes.addAll(res);
+        Map<Variable, String> minimalExplication = new HashMap<>(choices);
+        res.add(minimalExplication);
+
+        if (allExplanation) {
+            finalRes.add(minimalExplication);
         }
-        finalRes.add(new HashMap<>(choices));
-        return finalRes;
-    }*/
-    
-    private Set<Map<Variable, String>> findExplanations(Map<Variable, String> choices, Variable variable, String value, boolean allExplanation) {
-        Set<Map<Variable, String>> finalRes = new HashSet<>();
-        Set<Map<Variable, String>> res = new HashSet<>();
-        Set<Map<Variable, String>> resPrec;
-        Map<Variable, String> copyPart;
-        res.add(new HashMap<>(choices));
-        
+
         for (int size = choices.size(); size>0; size--) {
             resPrec = new HashSet<>(res);
             res = new HashSet<>();
             for (Map<Variable, String> part : resPrec) {
-                System.out.println("\npart " + part);
                 for (Variable var : part.keySet()) {
                     copyPart = new HashMap<>(part);
                     copyPart.remove(var);
-                    System.out.println("copypart " + copyPart);
-                    System.out.println("compareTo " + var.compareTo(Collections.max(part.keySet())));
                     if (!copyPart.isEmpty() && this.isExplanation(copyPart, variable, value)) {
-                        if (allExplanation) {
-                            System.out.println("ok");
-                            res.add(copyPart);
-                        } else {
-                            finalRes = new HashSet<>();
-                            finalRes.add(copyPart);
-                            return finalRes;
+                        res.add(copyPart);
+                        if (!allExplanation && copyPart.size() < minimalExplication.size()) {
+                            minimalExplication = copyPart;
                         }
                     }
                 }
             }
             finalRes.addAll(res);
         }
-        
+
+        if (!allExplanation) {
+            finalRes = new HashSet<>();
+            finalRes.add(minimalExplication);
+        }
         return finalRes;
     }
-    // tester choices explication avant ? pas tester mais le mettre
-    // utiliser le compareTo ? non
 }
