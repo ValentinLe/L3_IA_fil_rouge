@@ -35,9 +35,9 @@ public class Main {
 
         // choices
         Map<Variable, String> choices = new HashMap<>();
-        choices.put(ex.getVariableWithName("capot"), "rouge");
-        choices.put(ex.getVariableWithName("droit"), "noir");
-        choices.put(ex.getVariableWithName("hayon"), "rouge");
+        choices.put(ex.getVariableWithName("couleur_capot"), "rouge");
+        choices.put(ex.getVariableWithName("couleur_droite"), "noir");
+        choices.put(ex.getVariableWithName("couleur_hayon"), "rouge");
 
         System.out.println("\nConstraints : \n" + back.getStringConstraints());
 
@@ -47,7 +47,7 @@ public class Main {
         }
 
         // choice to test
-        Variable variable = ex.getVariableWithName("gauche");
+        Variable variable = ex.getVariableWithName("couleur_gauche");
         String value = "noir";
 
         System.out.println("\nTest with the next choice : " + variable + "=" + value);

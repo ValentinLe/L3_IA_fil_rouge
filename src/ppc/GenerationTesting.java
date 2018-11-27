@@ -14,7 +14,9 @@ public class GenerationTesting {
     private Set<Constraint> constraints;
 
     /**
-     * Builds a new serie of tests.
+     * construit une instance de GenerationTesting avec un ensemble de variables
+     * et de contraintes a respecter pour la generation
+     * @param variables l'ensemble de variables
      * @param constraints Set of constraints used for the PPC.
      */
     public GenerationTesting(Set<Variable> variables, Set<Constraint> constraints){

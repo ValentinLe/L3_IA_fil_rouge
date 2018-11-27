@@ -17,6 +17,7 @@ public class TestDfsBfs {
                 goal,
                 actions
         );
+        
         System.out.println("\nDFS recursif, nombre d'actions : " + problem.dfs().size());
         System.out.println("Nombre de noeuds parcourus : " + problem.getNbNode());
 

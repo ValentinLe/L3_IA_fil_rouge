@@ -133,7 +133,7 @@ public class AssociationRuleMiner {
         Set<Set<Item>> closed = new HashSet<>(mapMotifs.keySet());
         for (Set<Item> motif1 : mapMotifs.keySet()) {
             for (Set<Item> motif2 : mapMotifs.keySet()) {
-                if (motif1 != motif2 && this.isInclude(motif1, motif2) && this.haveSameFrequence(motif1, motif2)) {
+                if (motif1.size() < motif2.size() && this.isInclude(motif1, motif2) && this.haveSameFrequence(motif1, motif2)) {
                     // if the motif1 is include in motif2 and they are the same frequence
                     // the motif1 isn't a closed motif
                     closed.remove(motif1);

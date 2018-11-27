@@ -150,7 +150,7 @@ public class Diagnoser {
         Map<Variable, String> minimalExplication = new HashMap<>(choices);
         res.add(minimalExplication);
 
-        if (allExplanation) {
+        if (allExplanation) { // regarder si on peut pas retirer le if a cause du if de fin
             finalRes.add(minimalExplication);
         }
 

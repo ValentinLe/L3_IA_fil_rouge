@@ -11,25 +11,7 @@ public class Main {
 
         Set<Action> actions = assembly.getActions();
 
-        //--------------------------Tests of dfs and bfs----------------------//
-
         State goal = assembly.generateGoal();
-
-        PlanningProblem problem = new PlanningProblem(
-                assembly.getInitState(),
-                goal,
-                actions
-        );
-
-        //System.out.println(actions);
-        //System.out.println(problem.dfs());
-        //System.out.println(problem.dfsIter());
-        //System.out.println(problem.bfs());
-        //System.out.println("Nombre de noeuds parcourus : " + problem.getNbNode());
-
-
-        //----------Test of algorithms dijkstra/aStar and heuristics-----------//
-
 
         PlanningProblemWithCost problemWithCost = new PlanningProblemWithCost(
                 assembly.getInitState(),

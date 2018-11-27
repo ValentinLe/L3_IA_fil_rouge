@@ -10,8 +10,10 @@ public class Main {
 
         Examples ex = new Examples();
 
+        // variables
         Set<Variable> variables = ex.getVariables();
 
+        // constraints
         Constraint c1 = ex.getExemple1();
         Constraint c2 = ex.getExemple2();
         Constraint c3 = ex.getExemple3();
@@ -39,7 +41,7 @@ public class Main {
         Set<Map<Variable, String>> sols = back.solutions();
 
         if (sols != null) {
-            System.out.println("\n\\/ SOLUTIONS TROUVEES SANS FILTRAGE\\/\n");
+            System.out.println("\n\\/ SOLUTIONS TROUVEES SANS FILTRAGE \\/\n");
             System.out.println("Nombre de solutions : " + sols.size());
             System.out.println("Heuristic utilisée : " + back.getHeuristic());
             System.out.println("noeuds parcourus : " + back.getNbNode());
@@ -50,7 +52,7 @@ public class Main {
         sols = back.solutionsFilter();
 
         if (sols != null) {
-            System.out.println("\n\\/ SOLUTIONS TROUVEES AVEC FILTRAGE\\/\n");
+            System.out.println("\n\\/ SOLUTIONS TROUVEES AVEC FILTRAGE \\/\n");
             System.out.println("Nombre de solutions : " + sols.size());
             System.out.println("Heuristic utilisée : " + back.getHeuristic());
             System.out.println("noeuds parcourus : " + back.getNbNode());

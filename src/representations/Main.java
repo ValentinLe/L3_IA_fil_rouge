@@ -25,6 +25,7 @@ public class Main {
         constrains.add(ex.getExemple3());
         constrains.add(ex.getExemple4());
 
+        // affichage des contraintes
         System.out.println("\nContraintes :");
         int n = 1;
         for (Constraint c : constrains) {
@@ -32,6 +33,7 @@ public class Main {
             n++;
         }
 
+        // affichage des voitures et de leur satisfaction sur chaque contraintes
         for (Map<Variable, String> voiture : voitures) {
             System.out.println("\n-----------------------------");
             System.out.println("Voiture : " + voiture + "\n");

@@ -76,6 +76,10 @@ public class Variable implements Comparable<Variable> {
         return this.name;
     }
 
+    /**
+     * compare la variable donnee avec this sur leur nom
+     * @param variable la variable dont on veut comparer this
+     */
     @Override
     public int compareTo(Variable variable) {
         return this.name.compareTo(variable.getName());

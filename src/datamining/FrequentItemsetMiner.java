@@ -26,6 +26,7 @@ public class FrequentItemsetMiner {
      */
     public Map<Set<Item>, Integer> frequentItemsets(int minfr) {
         Map<Set<Item>, Integer> mapFrequent = new HashMap<>();
+        // liste des items de la baseBooleenne
         List<Item> listItems = this.database.getListItems();
         List<Map<Item, String>> listTransactions = this.database.getListTransactions();
         Set<Set<Item>> motifs = null;

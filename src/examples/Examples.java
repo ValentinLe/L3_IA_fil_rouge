@@ -28,13 +28,13 @@ public class Examples {
     public Examples() {
 
         /** components of color's domain */
-        List<String> composants = new ArrayList<>(Arrays.asList("toit", "capot", "hayon","droit","gauche"));
+        List<String> composants = new ArrayList<>(Arrays.asList("couleur_toit", "couleur_capot", "couleur_hayon","couleur_droite","couleur_gauche"));
         /** component of boolean's domain */
-        List<String> composants2 = new ArrayList<>(Arrays.asList("toit ouvrant", "sono"));
+        List<String> composants2 = new ArrayList<>(Arrays.asList("toit_ouvrant", "sono"));
 
         // domains
         this.domaineCouleur = new HashSet<>(Arrays.asList("noir", "blanc", "rouge"));
-        this.domaineBool = new HashSet<>(Arrays.asList("true","false"));
+        this.domaineBool = new HashSet<>(Arrays.asList("1","0"));
 
         // Set<Variable>
         this.couleur = new ArrayList<>();
@@ -112,10 +112,10 @@ public class Examples {
 
         // all names of variables present in a car
         List<String> comp = new ArrayList<>(Arrays.asList(
-                "toit","hayon","capot","droit","gauche","toit ouvrant","sono"
+                "couleur_toit","couleur_hayon","couleur_capot","couleur_droite","couleur_gauche","toit_ouvrant","sono"
         ));
         // values of futur variables
-        List<String> valeurs = new ArrayList<>(Arrays.asList("noir", "blanc","noir","noir","noir","true","false"));
+        List<String> valeurs = new ArrayList<>(Arrays.asList("noir", "blanc","noir","noir","noir","1","0"));
 
         for(int i = 0; i<comp.size(); i++) {
             // add the variable corresponding to the name and its value affected
@@ -133,10 +133,10 @@ public class Examples {
 
         // all names of variables present in a car
         List<String> comp = new ArrayList<>(Arrays.asList(
-                "toit","hayon","capot","droit","gauche","toit ouvrant","sono"
+                "couleur_toit","couleur_hayon","couleur_capot","couleur_droite","couleur_gauche","toit_ouvrant","sono"
         ));
         // values of futur variables
-        List<String> valeurs = new ArrayList<>(Arrays.asList("blanc","blanc","noir","blanc","blanc","false","true"));
+        List<String> valeurs = new ArrayList<>(Arrays.asList("blanc","blanc","noir","blanc","blanc","0","1"));
 
         for(int i = 0; i<comp.size(); i++) {
             // add the variable corresponding to the name and its value affected
@@ -154,10 +154,10 @@ public class Examples {
 
         // all names of variables present in a car
         List<String> comp = new ArrayList<>(Arrays.asList(
-                "toit","hayon","capot","droit","gauche","toit ouvrant","sono"
+                "couleur_toit","couleur_hayon","couleur_capot","couleur_droite","couleur_gauche","toit_ouvrant","sono"
         ));
         // values of futur variables
-        List<String> valeurs = new ArrayList<>(Arrays.asList("noir","rouge","noir","noir","blanc","true","true"));
+        List<String> valeurs = new ArrayList<>(Arrays.asList("noir","rouge","noir","noir","blanc","1","1"));
 
         for(int i = 0; i<comp.size(); i++) {
             // add the variable corresponding to the name and its value affected
@@ -175,10 +175,10 @@ public class Examples {
 
         // all names of variables present in a car
         List<String> comp = new ArrayList<>(Arrays.asList(
-                "toit","hayon","capot","droit","gauche","toit ouvrant","sono"
+                "couleur_toit","couleur_hayon","couleur_capot","couleur_droite","couleur_gauche","toit_ouvrant","sono"
         ));
         // values of futur variables
-        List<String> valeurs = new ArrayList<>(Arrays.asList("blanc","blanc","blanc","noir","noir","false","false"));
+        List<String> valeurs = new ArrayList<>(Arrays.asList("blanc","blanc","blanc","noir","noir","0","0"));
 
         for(int i = 0; i<comp.size(); i++) {
             // add the variable corresponding to the name and its value affected
@@ -198,7 +198,7 @@ public class Examples {
 
       // all names of variables present in a constraint
       List<String> comp = new ArrayList<>(Arrays.asList(
-                "toit", "capot", "hayon"
+                "couleur_toit", "couleur_capot", "couleur_hayon"
         ));
 
       for(String str : comp) {
@@ -215,12 +215,12 @@ public class Examples {
     public ConstraintOr getExemple2() {
         // we need two AllEqualConstraint and a ConstraintOr between them
         Set<Variable> setEqual = new HashSet<>();
-        setEqual.add(this.variables.get("gauche"));
-        setEqual.add(this.variables.get("toit"));
+        setEqual.add(this.variables.get("couleur_gauche"));
+        setEqual.add(this.variables.get("couleur_toit"));
 
         Set<Variable> setEqual2 = new HashSet<>();
-        setEqual2.add(this.variables.get("droit"));
-        setEqual2.add(this.variables.get("toit"));
+        setEqual2.add(this.variables.get("couleur_droite"));
+        setEqual2.add(this.variables.get("couleur_toit"));
 
         // gauche = toit
         AllEqualConstraint all1 = new AllEqualConstraint(setEqual);
@@ -239,8 +239,8 @@ public class Examples {
 
         // all variables engaged in the constraint
         List<Variable> comp = new ArrayList<>();
-        comp.add(this.variables.get("droit"));
-        comp.add(this.variables.get("gauche"));
+        comp.add(this.variables.get("couleur_droite"));
+        comp.add(this.variables.get("couleur_gauche"));
 
         // their value will be assigned
         List<String> val = new ArrayList<>();
@@ -258,13 +258,13 @@ public class Examples {
     }
 
     /**
-     * Get an Example of a constraint : not(sono="true" and "toit ouvrant="true")
+     * Get an Example of a constraint : not(sono="1" and "toit ouvrant="1")
      * @return example of a constraint
      */
     public IncompatibilityConstraint getExemple4(){
         // all variables engaged in a constraint
         Set<Variable> nEqual = new HashSet<>();
-        nEqual.add(this.variables.get("toit ouvrant"));
+        nEqual.add(this.variables.get("toit_ouvrant"));
         nEqual.add(this.variables.get("sono"));
 
         // conclusion of the constraint
@@ -273,7 +273,7 @@ public class Examples {
         Iterator<Variable> iter = nEqual.iterator();
         while(iter.hasNext()){
             // variables assigned to true
-            conclusion.put(iter.next(), "true");
+            conclusion.put(iter.next(), "1");
         }
 
         return new IncompatibilityConstraint(nEqual,conclusion);
@@ -286,9 +286,9 @@ public class Examples {
     public AllDifferentConstraint getExemple5(){
       Set<Variable> setVar = new HashSet<>();
       // add all variable in the futur AllDifferentConstraint
-      setVar.add(this.variables.get("hayon"));
-      setVar.add(this.variables.get("toit"));
-      setVar.add(this.variables.get("capot"));
+      setVar.add(this.variables.get("couleur_hayon"));
+      setVar.add(this.variables.get("couleur_toit"));
+      setVar.add(this.variables.get("couleur_capot"));
       // build the constraint
       AllDifferentConstraint all = new AllDifferentConstraint(setVar);
       return all;
@@ -303,8 +303,8 @@ public class Examples {
 
         List<Variable> comp = new ArrayList<>();
         // all variables engaged in a constraint
-        comp.add(this.variables.get("droit"));
-        comp.add(this.variables.get("gauche"));
+        comp.add(this.variables.get("couleur_droite"));
+        comp.add(this.variables.get("couleur_gauche"));
 
         // their value
         List<String> val = new ArrayList<>();
