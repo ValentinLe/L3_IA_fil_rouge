@@ -2,5 +2,5 @@
 
 cd $(dirname $0)/..
 [ -d build ] || mkdir build/ build/datamining/
-cp src/datamining/*.csv build/datamining/
+cp -r src/databases/ build/
 javac -d build src/*/*.java
