@@ -21,9 +21,18 @@ public class AssemblyLine {
     private Set<Variable> ELEMENT_COLOR;
 
     /**
-     * Build all lists and maps needed
+     * Build all lists and maps needed with a domain colors in the domain color
      */
     public AssemblyLine() {
+        this(true);
+    }
+
+    /**
+     * Build all lists and maps needed
+     * @param manyColors true si on veut avoir 8 couleurs dans le domaine des couleurs
+     * et false pour avoir 3 couleurs
+     */
+    public AssemblyLine(boolean manyColors) {
         // set of all the names of variables with a boolean domain
         this.elementsBool = new HashSet<>(Arrays.asList(
                 "HAS_CHASSIS", "HAS_FRONT_LEFT_WHEEL", "HAS_FRONT_RIGHT_WHEEL",
@@ -44,14 +53,15 @@ public class AssemblyLine {
 
 
         // colors' domain
-        this.domainColors = new HashSet<>(Arrays.asList(
-                "GRAY", "BLACK", "WHITE", "RED", "BLUE", "GREEN", "ORANGE", "YELLOW"
-        ));
-
-        /*
-        this.domainColors = new HashSet<>(Arrays.asList(
-                "GRAY", "BLACK", "RED"
-        ));*/
+        if (manyColors) {
+            this.domainColors = new HashSet<>(Arrays.asList(
+            "GRAY", "BLACK", "WHITE", "RED", "BLUE", "GREEN", "ORANGE", "YELLOW"
+            ));
+        } else {
+            this.domainColors = new HashSet<>(Arrays.asList(
+            "GRAY", "BLACK", "RED"
+            ));
+        }
 
         // set of variable with a boolean domain
         this.HAS_ELEMENT = new HashSet<>();
