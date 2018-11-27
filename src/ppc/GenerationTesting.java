@@ -5,7 +5,7 @@ import representations.*;
 import examples.Examples;
 
 /**
- * Make n tests of by generating random cars to find a solution to our PPC.
+ * generating random solutions cars of the csp.
  *
  */
 public class GenerationTesting {
@@ -16,7 +16,6 @@ public class GenerationTesting {
     /**
      * Builds a new serie of tests.
      * @param constraints Set of constraints used for the PPC.
-     * @param n Integer, number of tests.
      */
     public GenerationTesting(Set<Variable> variables, Set<Constraint> constraints){
         this.variables = variables;

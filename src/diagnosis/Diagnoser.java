@@ -28,10 +28,24 @@ public class Diagnoser {
         this.variablesWithDomain = this.backtrack.transformToMap(this.backtrack.getVariables());
     }
 
+    /**
+     * Creee une instances de diagnoser avec un ensemble de variables, un ensemble
+     * de contraintes et une heuristic sur les variables pour creer un backtrack
+     * @param variables l'ensemble de variables
+     * @param constraints l'ensemble de contraintes
+     * @param heuristic l'heuristic a utiliser
+     */
     public Diagnoser(Set<Variable> variables, Set<Constraint> constraints, HeuristicVariable heuristic) {
         this(new Backtracking(variables, constraints, heuristic));
     }
-
+    
+    /**
+     * Creee une instance de diagnoser avec un ensemble de variables, un ensemble
+     * de contraintes qui va creer un backtrack avec une heuristic sur la domaine
+     * minimal par default
+     * @param variables l'ensemble de variables
+     * @param constraints l'ensemble de contraintes
+     */
     public Diagnoser(Set<Variable> variables, Set<Constraint> constraints) {
         this(variables, constraints, new DomainMinHeuristic());
     }
@@ -87,20 +101,33 @@ public class Diagnoser {
         // solution = null <=> no solution found
         return solution == null;
     }
-
+    
+    /**
+     * trouve l'explication minimale pour l'inclusion d'une variable avec une valeur
+     * dans un ensemble de choix deja predefinis definis
+     * @param choices l'ensemble de choix predefinis
+     * @param variable la variable
+     * @param value sa valeur
+     * @return l'explication minimale pour l'inclusion
+     */
     public Map<Variable, String> findMinimalInclusionExplanation(Map<Variable, String> choices, Variable variable, String value) {
         Map<Variable, String> explanation = new HashMap<>(choices);
         Map<Variable, String> ePrime;
         for(Variable var : choices.keySet()) {
+            // pour toutes les variables des choix
+            // on fait une copie de l'explication courrente et on enleve
+            // la variable de la copie de l'explication
             ePrime = new HashMap<>(explanation);
             ePrime.remove(var);
             if (this.isExplanation(ePrime, variable, value)) {
-                explanation = new HashMap<>(ePrime);
+                // si c'est une explication on remplace la variable d'explication
+                // par une 
+                explanation = ePrime;
             }
         }
         return explanation;
     }
-
+    
     public Map<Variable, String> findMinimalCardinalExplanation(Map<Variable, String> choices, Variable variable, String value) {
         Set<Map<Variable, String>> solution = this.findExplanations(choices, variable, value, false);
         Iterator<Map<Variable, String>> iter = solution.iterator();
