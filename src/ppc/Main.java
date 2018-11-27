@@ -29,7 +29,7 @@ public class Main {
 
         HeuristicVariable heuristic = new DomainMinHeuristic();
         Backtracking back = new Backtracking(variables, constraints, heuristic);
-        System.out.println("\n" + back.getStringConstraints());
+        System.out.println("\nContraintes : \n" + back.getStringConstraints());
 
         Map<Variable, String> voiture1 = back.solution();
         Map<Variable, String> voiture2 = back.solutionFilter();

@@ -1,4 +1,4 @@
 #!bin/sh
 
 cd $(dirname $0)
-sh runMainOf.sh "planning"
+sh runClass.sh "planning.Main"
