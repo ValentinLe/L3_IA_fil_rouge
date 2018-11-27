@@ -12,23 +12,15 @@ public class GenerationTesting {
 
     private Set<Variable> variables;
     private Set<Constraint> constraints;
-    private int n;
 
     /**
      * Builds a new serie of tests.
      * @param constraints Set of constraints used for the PPC.
      * @param n Integer, number of tests.
      */
-    public GenerationTesting(Set<Constraint> constraints, int n){
-        Examples ex = new Examples();
-
-        this.variables.addAll(ex.getVariables());
+    public GenerationTesting(Set<Variable> variables, Set<Constraint> constraints){
+        this.variables = variables;
         this.constraints = constraints;
-
-        this.n = n;
-
-        int i = 0;
-        boolean res = false;
     }
 
     /**
@@ -37,10 +29,7 @@ public class GenerationTesting {
      */
     public boolean generate_and_test(){
         Map<Variable,String> voiture = generateCar();
-        System.out.println("La voiture est: "+voiture);
-
         Iterator<Constraint> iter = this.constraints.iterator();
-
         while(iter.hasNext()){
             if(!iter.next().isSatisfiedBy(voiture)){
                 return false;
@@ -55,14 +44,11 @@ public class GenerationTesting {
      */
     public Map<Variable,String> generateCar(){
         Map<Variable,String> voiture = new HashMap<>();
-
         Iterator<Variable> iter = this.variables.iterator();
-
         while(iter.hasNext()){
             Variable var = iter.next();
             voiture.put(var, getElement(var.getDomaine()));
         }
-
         return voiture;
     }
 
@@ -75,12 +61,11 @@ public class GenerationTesting {
         int size = domain.size();
         int item = new Random().nextInt(size);
         int i = 0;
-        for(Object obj : domain) {
+        for(String value : domain) {
             if (i == item)
-                return (String)obj;
+                return value;
             i++;
         }
-
         return null;
     }
 }
