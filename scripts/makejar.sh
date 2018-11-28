@@ -5,6 +5,6 @@ cd $(dirname $0)/..
 sh scripts/compile.sh
 [ -d jar ] || mkdir jar
 
-nameArchive="IA&AD.jar"
+nameArchive="ia_tp_fil_rouge.jar"
 jar cf $nameArchive build/ src/ databases/ scripts/
 mv $nameArchive jar/
