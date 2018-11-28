@@ -6,19 +6,14 @@ Martin Jacqueline 21507982 L3-info
 Valentin Leblond 21609038 L3-info
 
 Arborescence :
+    |__ databases/
+    |    |__ all databases
+    |
     |__ scripts/
     |    |__ all scripts
     |
     |__ src/
-         |__ databases/
-         |    |__ all databases
-         |
-         |__ datamining/
-         |__ diagnosis/
-         |__ examples/
-         |__ planning/
-         |__ ppc/
-         |__ representations/
+         |__ all packages
 
 Informations par package :
     # ppc
@@ -69,12 +64,13 @@ Scripts :
             - rundatamining.sh [database] [minfr] [minconf]
             execute le Main de datamining qui trouve les motifs frequents de la base de donnee
             et qui calculs les motifs fermes et genere les regles a partir de ces motifs fermes
-            @ database : le fichier de la base de donnee example "databases/example_db.csv"
+            @ database : le fichier de la base de donnee du dossier databases/ example "example_db.csv"
             @ minfr : le minimum de frequence pour que les motifs soient frequents
             @ minconf : le minimum de confiance des motifs
 
             > example :
-            sh rundatamining.sh "databases/example_db.csv" 1500 0.9
+            sh rundatamining.sh "example_db.csv" 1500 0.9
+            sh rundatamining.sh "example2_db.csv" 5 0.9
 
             - rundataminingDefault.sh
             execute le script rundatamining.sh avec database="databases/example_db.csv",
@@ -86,7 +82,7 @@ Scripts :
             generer toutes les expliquations et trouver l'explication minimale au sens de la
             cardinalite
 
-        # all package
+        # all packages
             - runClass.sh [MyClass]
             compile and execute la classe voulue
             @ MyClass : le nom de la classe
@@ -97,13 +93,13 @@ Scripts :
 
     utiles :
         - compile.sh
-        compiles the program in a folder build/
+        compiles the program in a folder build/ and copy the folder of databases into build/
 
         - makedoc.sh
         builds the javadoc in a folder doc/
 
         - makejar.sh
-        create the jar of the program in a folder jar/
+        compile and create the jar of the program in a folder jar/
 
         - clean.sh
         deletes build/ , doc/ and jar/
