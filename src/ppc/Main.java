@@ -7,7 +7,7 @@ import representations.*;
 
 /**
  * permet de tester le backtrack avec et sans filtrage
- * 
+ *
  */
 public class Main {
     public static void main(String[] args) {
@@ -33,7 +33,7 @@ public class Main {
         //constraints.add(c5);
         //constraints.add(c6);
 
-        HeuristicVariable heuristic = new DomainMaxHeuristic();
+        HeuristicVariable heuristic = new DomainMinHeuristic();
         Backtracking back = new Backtracking(variables, constraints, heuristic);
         System.out.println("\nContraintes : \n" + back.getStringConstraints());
 
@@ -61,7 +61,7 @@ public class Main {
             System.out.println("Heuristic utilisée : " + back.getHeuristic());
             System.out.println("noeuds parcourus : " + back.getNbNode());
             System.out.println("\nVoitures trouvées : \n");
-            
+
             for (Map<Variable, String> car : sols2) {
                 System.out.println(car);
             }
