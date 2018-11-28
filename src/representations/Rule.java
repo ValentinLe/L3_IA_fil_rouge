@@ -275,11 +275,22 @@ public class Rule implements Constraint {
         return false;
     }
 
+    /**
+     * Test une regle donnee est egale a la regle actuelle
+     * @param other l'autre regle du test
+     * @return true si les 2 regles sont egaux
+     */
     public boolean isEquals(Rule other) {
         return this.premisse.equals(other.getPremisse()) &&
                 this.conclusion.equals(other.getConclusion());
     }
-
+    
+    /**
+     * Test si les 2 object son egaux, en testant que l'objet donne est une
+     * regle et qu'elle est egale a la regle actuelle
+     * @param o l'autre objet du test
+     * @return true si les 2 objets sont egaux
+     */
     @Override
     public boolean equals(Object o) {
         if (this==o) {
@@ -292,7 +303,12 @@ public class Rule implements Constraint {
             }
         }
     }
-
+    
+    /**
+     * Fonction de hashage d'un regle c'est le hash de sa premisse et de sa
+     * conclusion
+     * @return la valeur de hashage de la regle
+     */
     @Override
     public int hashCode() {
         int value = 1;

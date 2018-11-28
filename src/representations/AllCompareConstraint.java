@@ -45,8 +45,9 @@ public abstract class AllCompareConstraint implements Constraint {
         Iterator<Variable> iter = this.variables.iterator();
 
         while(iter.hasNext()) {
-            ch += iter.next();
+            ch += iter.next(); // ajout de la variable
             if (iter.hasNext()) {
+                // ajout du seperateur si y'a une autre variable dans la contrainte
                 ch += this.getSeparator();
             }
         }

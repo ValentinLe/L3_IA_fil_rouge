@@ -4,6 +4,10 @@ package planning;
 import java.util.*;
 import examples.AssemblyLine;
 
+/**
+ * permet de tester l'algorithme Dijkstra, A* et WA*
+ * 
+ */
 public class Main {
     public static void main(String[] args) {
 

@@ -30,16 +30,6 @@ public class AssociationRuleMiner {
         Set<Rule> rules = new HashSet<>();
         // find the closed motifs of the motifSet
         Set<Set<Item>> closed = this.getClosed(this.motifSets);
-        System.out.println("motifs " + this.motifSets.size());
-        System.out.println("fermés " + closed.size() + "\n");
-
-        for (Set<Item> motifm : this.motifSets.keySet()) {
-            System.out.println("motif " + this.motifSets.get(motifm) + " : " + motifm);
-        }
-        System.out.println();
-        for(Set<Item> motif : closed) {
-            System.out.println("fermé " + this.motifSets.get(motif) + " : " + motif);
-        }
 
         for(Set<Item> motif : closed) {
             // for all motif in the closed motifs
@@ -141,6 +131,14 @@ public class AssociationRuleMiner {
             }
         }
         return closed;
+    }
+    
+    /**
+     * Find the closed motifs in a map of motif of the class
+     * @return a set of closed motifs
+     */
+    public Set<Set<Item>> getClosed() {
+        return this.getClosed(this.motifSets);
     }
 
     /**

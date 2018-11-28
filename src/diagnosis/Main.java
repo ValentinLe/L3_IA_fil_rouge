@@ -6,6 +6,10 @@ import representations.*;
 import ppc.*;
 import examples.*;
 
+/**
+ * permet de tester le diagnoser
+ * 
+ */
 public class Main {
     public static void main(String[] agrs) {
 

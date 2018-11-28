@@ -25,25 +25,36 @@ public class AllEqualConstraint extends AllCompareConstraint {
     @Override
     public boolean isSatisfiedBy(Map<Variable, String> voiture) {
         if (voiture.isEmpty() || voiture.size()==1) {
+            // si la voiture est vide ou qu'il y a qu'une variable elle satisfait
+            // la contrainte
             return true;
         } else {
             String values = null;
             String currentValue = null;
             for (Variable var : this.variables) {
+                // pour toutes les variables
+                // on recurpere la valeur dans la voiture
                 currentValue = voiture.get(var);
                 if (currentValue != null) {
+                    // si la variable est definie dans la voiture
                     if (values == null) {
+                        // si la valeur de l'egalite n'a pas encore ete affectee
+                        // on l'affecte a la valeur de la variable dans la voiture
                         values = currentValue;
                     } else {
+                        // sinon la valeur de l'egalite est deja affectee
                         if (!values.equals(currentValue)) {
+                            // si la valeur correspond pas a la velur de la variable
+                            // dans la voiture elle n'est pass egale donc on s'arrete
+                            // et on retourne false
                             return false;
                         }
-                        values = currentValue;
                     }
                 } else {
+                    // si la variable n'est pas definie on retourne true
                     return true;
                 }
-            }
+            } // end for
             return true;
         }
     }

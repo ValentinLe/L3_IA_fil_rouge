@@ -4,6 +4,10 @@ package representations;
 import java.util.*;
 import examples.*;
 
+/**
+ * Classe de test sur la satisfaction de contraintes
+ * 
+ */
 public class Main {
 
     /**

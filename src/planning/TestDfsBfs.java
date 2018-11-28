@@ -3,6 +3,10 @@ package planning;
 import java.util.*;
 import examples.AssemblyLine;
 
+/**
+ * permet de tester le dfs recursif et iteratif, bfs iteratif
+ * 
+ */
 public class TestDfsBfs {
     public static void main(String[] args) {
 

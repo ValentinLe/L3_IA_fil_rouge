@@ -41,6 +41,8 @@ public class FrequentItemsetMiner {
                 // make a combination between all motifs of size k
                 motifs = combinations(motifs);
             }
+            // on retire les motifs qui ne sont pas frequents pour faire un 
+            // elagage
             for (Set<Item> motif : new HashSet<>(motifs)) {
                 // for all motifs of combination builded
                 int frequence = this.frequence(listTransactions, motif);

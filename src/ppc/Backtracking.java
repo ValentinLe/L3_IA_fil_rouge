@@ -252,8 +252,6 @@ public class Backtracking {
      */
     public Map<Variable, String> backtracking(Map<Variable, String> voiture, Map<Variable, Set<String>> mapDom) {
 
-        this.nbNode += 1; // node counter
-
         if (this.isComplete(voiture, mapDom)) {
             // return the solution
             return voiture;
@@ -264,6 +262,8 @@ public class Backtracking {
         for (String value : var.getDomaine()) {
             // for all values in variable's domain
             // add variable with the value in the car
+
+            this.nbNode += 1; // node counter
             voiture.put(var, value);
             if (this.isCompatible(voiture)) {
                 // if all constraints are satisfied by the car
@@ -290,8 +290,6 @@ public class Backtracking {
     public void backtrackingSols(Set<Map<Variable, String>> solutions,
                     Map<Variable, String> voiture, Map<Variable, Set<String>> mapDom) {
 
-        this.nbNode += 1; // node counter
-
         if (this.isComplete(voiture, mapDom)) {
             // add the car in the set of solutions
             solutions.add(copyMap(voiture));
@@ -303,6 +301,8 @@ public class Backtracking {
         for (String value : var.getDomaine()) {
             // for all values in variable's domain
             // add variable with the value in the car
+            
+            this.nbNode += 1; // node counter
             voiture.put(var, value);
             if (this.isCompatible(voiture)) {
                 // if all constraints are satisfied by the car
@@ -321,8 +321,6 @@ public class Backtracking {
      */
     public Map<Variable, String> backtrackingFilter(Map<Variable, String> voiture, Map<Variable, Set<String>> mapDom) {
 
-        this.nbNode += 1; // node counter
-
         if (this.isComplete(voiture, mapDom)) {
             // returns the solution
             return copyMap(voiture);
@@ -334,6 +332,8 @@ public class Backtracking {
         for (String value : mapDom.get(var)) {
             // for all variable in filter domain
             // add variable with the value in the car
+            
+            this.nbNode += 1; // node counter
             voiture.put(var, value);
             if (this.isCompatible(voiture)) {
                 // if all constraints are satisfied by the car
@@ -369,8 +369,6 @@ public class Backtracking {
     public void backtrackingSolsFilter(Set<Map<Variable, String>> solutions,
                     Map<Variable, String> voiture, Map<Variable, Set<String>> mapDom) {
 
-        this.nbNode += 1; // node counter
-
         if (this.isComplete(voiture, mapDom)) {
             // add the car in the set of solutions
             solutions.add(copyMap(voiture));
@@ -383,6 +381,8 @@ public class Backtracking {
         for (String value : mapDom.get(var)) {
             // for all variable in filter domain
             // add variable with the value in the car
+            
+            this.nbNode += 1; // node counter
             voiture.put(var, value);
             if (this.isCompatible(voiture)) {
                 // if all constraints are satisfied by the car

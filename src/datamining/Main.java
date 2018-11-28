@@ -7,6 +7,10 @@ import representations.*;
 import examples.Examples;
 import java.security.InvalidParameterException;
 
+/**
+ * classe qui test la generation de regles et de motifs frequents
+ * 
+ */
 public class Main {
     public static void main(String[] args) throws InvalidParameterException {
 
@@ -48,7 +52,12 @@ public class Main {
         Map<Set<Item>, Integer> itemsets = frim.frequentItemsets(minfr);
         AssociationRuleMiner arm = new AssociationRuleMiner(itemsets);
         Set<Rule> rules = arm.getAssociationsRules(minfr, minconf);
-
+        
+        Set<Set<Item>> closed = arm.getClosed();
+        
+        System.out.println("Nombre de motifs frequents : " + itemsets.size());
+        System.out.println("Nombre de motifs fermes frequents : " + closed.size());
+        
         System.out.println("\n" + rules.size() + " rules :");
 
         for (Rule rule1 : rules) {

@@ -67,6 +67,7 @@ public abstract class ConstraintBool implements Constraint {
         Set<Variable> scopeConstraint = constraint.getScope();
         for (Variable var : scopeConstraint) {
             if (voiture.get(var) == null) {
+                // variable non assignee
                 return false;
             }
         }
@@ -86,10 +87,14 @@ public abstract class ConstraintBool implements Constraint {
         boolean c2Assigned = this.allVariablesAssigned(voiture, this.c2);
 
         if (!c1Assigned && !this.c2.isSatisfiedBy(voiture)) {
+            // si il y a au moins une variable non assignee dans la premiere contrainte
+            // et que la 2e contrainte n'est pas satisfaite on fait un filtrage
+            // de la premiere contrainte
             res = res || this.c1.filtrer(voiture, domaines);
         }
 
         if (!c2Assigned && !this.c1.isSatisfiedBy(voiture)) {
+            // meme chose pour le filtrage de la deuxieme contrainte
             res = res || this.c2.filtrer(voiture, domaines);
         }
 
