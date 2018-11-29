@@ -186,7 +186,9 @@ public class Diagnoser {
         // initialization of the minimal explanation in the sense of
         // inclusion to the predefined choices that are an explanation
         Map<Variable, String> minimalExplication = new HashMap<>(choices);
-        finalRes.add(minimalExplication); // added explanation of maximum size
+        if (allExplanations) {
+            finalRes.add(minimalExplication); // added explanation of maximum size
+        }
         res.add(minimalExplication); // to generate the smaller explanation of size
 
         for (int size = choices.size(); size>0; size--) {
@@ -227,7 +229,6 @@ public class Diagnoser {
             // if we want the minimal explanation we modify the return
             // variable and we put it to the empty set and we add to it
             // the minimal explanation
-            finalRes = new HashSet<>();
             finalRes.add(minimalExplication);
         }
         return finalRes;

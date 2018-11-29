@@ -4,7 +4,7 @@ package representations;
 import java.util.*;
 
 /**
- * A Rule is a constraint that represents an implication :  premisse -> conclusion
+ * A Rule is a constraint that represents an implication :  premisse -&#062; conclusion
  *
  */
 

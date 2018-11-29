@@ -280,7 +280,7 @@ public class Examples {
     }
 
     /**
-     * Get an Example of a constraint : hayon != droit != porte
+     * Get an Example of a constraint : hayon &#033;= droit &#033;= porte
      * @return example of a constraint
      */
     public AllDifferentConstraint getExemple5(){

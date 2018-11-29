@@ -22,6 +22,10 @@ public class TestDfsBfs {
                 actions
         );
 
+        System.out.println("Une voiture a au départ un chassis, sinon elle est considéré comme rien");
+        System.out.println("\nVoiture de départ : \n" + problem.getInitState());
+        System.out.println("\nVoiture d'arrivée : \n" + problem.getGoal());
+
         System.out.println("\nDFS recursif, nombre d'actions : " + problem.dfs().size());
         System.out.println("Nombre de noeuds parcourus : " + problem.getNbNode());
 
