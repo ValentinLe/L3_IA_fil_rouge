@@ -30,7 +30,7 @@ public abstract class AllCompareConstraint implements Constraint {
     }
 
     /**
-     * Getter method of the string separator, "=" for equal, "&#033;=" for different
+     * Getter method of the string separator, "=" for equal, "!=" for different
      * @return the string's separator
      */
     public abstract String getSeparator();
