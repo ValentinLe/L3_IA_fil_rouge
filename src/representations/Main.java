@@ -5,8 +5,8 @@ import java.util.*;
 import examples.*;
 
 /**
- * Classe de test sur la satisfaction de contraintes
- * 
+ * A test class that tests the satisfaction of contraintes
+ *
  */
 public class Main {
 
@@ -29,7 +29,7 @@ public class Main {
         constrains.add(ex.getExemple3());
         constrains.add(ex.getExemple4());
 
-        // affichage des contraintes
+        // display of contraintes
         System.out.println("\nContraintes :");
         int n = 1;
         for (Constraint c : constrains) {
@@ -37,7 +37,7 @@ public class Main {
             n++;
         }
 
-        // affichage des voitures et de leur satisfaction sur chaque contraintes
+        // display of the cars and their satisfaction with each constraint
         for (Map<Variable, String> voiture : voitures) {
             System.out.println("\n-----------------------------");
             System.out.println("Voiture : " + voiture + "\n");

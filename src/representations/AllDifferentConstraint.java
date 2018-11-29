@@ -25,27 +25,27 @@ public class AllDifferentConstraint extends AllCompareConstraint {
     @Override
     public boolean isSatisfiedBy(Map<Variable, String> voiture) {
         if (voiture.isEmpty() || voiture.size()==1) {
-            // si la voiture est vide ou qu'il y a qu'une variable elle satisfait
-            // la contrainte
+            // if the car is empty or if there's one variable, it satisfies the
+            // contraint
             return true;
         } else {
-            // liste des valeurs qu'aura chaque variable
+            // list of the values of each variable
             ArrayList<String> values = new ArrayList<>();
             String currentValue = null;
             for (Variable var : this.variables) {
-                // pour toutes les variables
-                // on recupere la valeur de la variable dans la voiture
+                // for all variables
+                // we recover the value in the car
                 currentValue = voiture.get(var);
                 if (currentValue != null) {
-                    // si la variable est presente dans la voiture
+                    // if the the variable is defined in the car
                     if (values.contains(currentValue)) {
-                        // si la valeur de la variable dans la voiture est affectee
-                        // a une autre variable, elle est donc present dans la liste
-                        // alors la contrainte n'est pas respectee
+                        // if the value of the variable in the car is added to
+                        // another variable, then it's present in the list therefore
+                        // the constraint is not respected
                         return false;
                     }
-                    // on ajoute la valeur de la variable qui n'est pas deja dans
-                    // la liste
+                    // we add the value of the variable that is not already present
+                    // in the list
                     values.add(currentValue);
                 }
             }
@@ -66,39 +66,39 @@ public class AllDifferentConstraint extends AllCompareConstraint {
      * Filters the domain's variables
      * @param voiture a car for the filtering test
      * @param domaines variables and its copied domain for filtering
-     * @return true if filtering occures
+     * @return true if a filtering occures
      */
     @Override
     public boolean filtrer(Map<Variable, String> voiture, Map<Variable, Set<String>> domaines) {
         boolean isFilter = false;
         Set<String> values = new HashSet<>();
-        // recuperation de toutes les valeurs des variables presentes dans la
-        // voiture
+        // recovery of all the values of the variables in the car
         for (Variable var : this.variables) {
-            // pour toutes les variables
+            // for all the variables
             if (voiture.get(var) != null) {
                 // si la variable est presente dans la voiture on l'ajoute
+                // if the variable is defined in the car, we add it's value to the list of variables
                 values.add(voiture.get(var));
             }
         }
         if (!values.isEmpty()) {
-            // si la liste des valeurs n'est pas vide
+            // if the list of the values is not empty
             for (Variable var : this.variables) {
-                // pour toutes les variables
+                // for all the variables
                 if (domaines.containsKey(var)) {
-                    // si la variable est dans le domaine
-                    // on copie le domaine
+                    // if the variable is in the domain
+                    // we copy the domain
                     Set<String> copyDom = new HashSet<>(domaines.get(var));
                     for (String value : domaines.get(var)) {
-                        // pour toutes les valeurs du domaine
+                        // for all the values of the domain
                         if (values.contains(value)) {
-                            // si la valeur est deja affecte a une autre variable
-                            // on la retire du domaine donc on filtre
+                            // if the value is already added to another variable
+                            // we remove it from the domain, therefore we filter
                             copyDom.remove(value);
                             isFilter = true;
                         }
                     }
-                    // on ajoute la variable avec le domaine filtrer ou non
+                    // we add the variable with the filtrered domain or not
                     domaines.put(var, copyDom);
                 }
 

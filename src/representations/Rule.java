@@ -4,7 +4,7 @@ package representations;
 import java.util.*;
 
 /**
- * A Rule is a constraint that represents an implication :  premisse -&#062; conclusion
+ * A Rule is a constraint that represents an implication :  premisse -> conclusion
  *
  */
 
@@ -27,7 +27,7 @@ public class Rule implements Constraint {
     }
 
     /**
-     * Builds an instance of Rule and build the scope of variables present in the
+     * Builds an instance of Rule and builds the scope of variables present in the
      * premisse and the conclusion
      * @param premisse The premisse of the rule
      * @param conclusion The conclusion of the rule
@@ -64,8 +64,8 @@ public class Rule implements Constraint {
     }
 
     /**
-     * builds the scope of the rule
-     * @return the scope of the rule
+     * builds the rule's scope
+     * @return the rule's scope
      */
     public Set<Variable> createScope() {
         Set<Variable> scope = new HashSet<>();
@@ -77,8 +77,8 @@ public class Rule implements Constraint {
 
     /**
      * Test if the part (premise or conclusion) is satisfied by a car
-     * @param voiture the car of the test
-     * @param part the part (premise or conclusion)
+     * @param voiture the car to be tested
+     * @param part the part (premisse or conclusion)
      * @param testPart the boolean of the initialization of a test (the neutral element
      * of the part, true for the premisse and false for the conclusion)
      * @return a test result or a null if at least one of the variable's part values is null
@@ -109,7 +109,7 @@ public class Rule implements Constraint {
 
     /**
      * Test if the rule is satisfied by a car
-     * @param voiture the car of the test
+     * @param voiture the car to be tested
      * @return test result
      */
     @Override
@@ -125,7 +125,7 @@ public class Rule implements Constraint {
             // if there is a premisse
             p = isPartSatisfied(voiture, this.premisse, p);
             if (p == null) {
-                // if there is at least one the premisse's variable is not defined in the car
+                // if there is at least one of the premisse's variables is not defined in the car
                 return true;
             }
         }
@@ -182,7 +182,7 @@ public class Rule implements Constraint {
         ch += this.getStringMap(this.premisse, "&&");
 
         if (this.premisse != null && this.conclusion != null) {
-            // if there are a premisse and a conclusion
+            // if there are either a premisse and a conclusion
             ch += " -> ";
         }
 
@@ -236,11 +236,11 @@ public class Rule implements Constraint {
 
                 String valueVoiture = voiture.get(var);
                 if (equal && valueVoiture != null && valueVoiture.equals(part.get(var))){
-                    // if the car has the variable and the value corresponding to the constraint, no need for filtering
+                    // if the car has the variable and the value corresponds to the constraint, no need for filtering
                     return false;
                 }
                 if (!equal && valueVoiture != null && !valueVoiture.equals(part.get(var))){
-                    // if the car has the variable and the value corresponding to the constraint, no need for filtering
+                    // if the car has the variable and the value corresponds to the constraint, no need for filtering
                     return false;
                 }
                 if (voiture.get(var) == null) {
@@ -276,20 +276,20 @@ public class Rule implements Constraint {
     }
 
     /**
-     * Test une regle donnee est egale a la regle actuelle
-     * @param other l'autre regle du test
-     * @return true si les 2 regles sont egaux
+     * Tests if a given rule is equal to the current rule
+     * @param other the other rule of the test
+     * @return true if the two rules are equal
      */
     public boolean isEquals(Rule other) {
         return this.premisse.equals(other.getPremisse()) &&
                 this.conclusion.equals(other.getConclusion());
     }
-    
+
     /**
-     * Test si les 2 object son egaux, en testant que l'objet donne est une
-     * regle et qu'elle est egale a la regle actuelle
-     * @param o l'autre objet du test
-     * @return true si les 2 objets sont egaux
+     * Tests if two objects are equal, by testing if the given object
+     * is a rule equal to the current rule
+     * @param o the other objects of the test
+     * @return true if the two objects are equal
      */
     @Override
     public boolean equals(Object o) {
@@ -303,11 +303,11 @@ public class Rule implements Constraint {
             }
         }
     }
-    
+
     /**
-     * Fonction de hashage d'un regle c'est le hash de sa premisse et de sa
+     * hashCode function of a rule, it's the hashCode of it's rule and it's
      * conclusion
-     * @return la valeur de hashage de la regle
+     * @return the value of the hashcode of the rule
      */
     @Override
     public int hashCode() {

@@ -77,7 +77,7 @@ public class Examples {
     }
 
     /**
-     * Get domain of color
+     * Get a color's domain
      * @return the color's domain
      */
     public Set<String> getDomaineCouleur() {
@@ -85,7 +85,7 @@ public class Examples {
     }
 
     /**
-     * Get boolean's domain
+     * Get a boolean's domain
      * @return the boolean's domain
      */
     public Set<String> getDomaineBool() {
@@ -135,7 +135,7 @@ public class Examples {
         List<String> comp = new ArrayList<>(Arrays.asList(
                 "couleur_toit","couleur_hayon","couleur_capot","couleur_droite","couleur_gauche","toit_ouvrant","sono"
         ));
-        // values of futur variables
+        // values of future variables
         List<String> valeurs = new ArrayList<>(Arrays.asList("blanc","blanc","noir","blanc","blanc","0","1"));
 
         for(int i = 0; i<comp.size(); i++) {
@@ -146,7 +146,7 @@ public class Examples {
     }
 
     /**
-     * Get Example of a car
+     * Get an Example of a car
      * @return example of a car
      */
     public Map<Variable, String> getVoiture3() {
@@ -167,17 +167,17 @@ public class Examples {
     }
 
     /**
-     * Get Example of a car
+     * Get an Example of a car
      * @return example of a car
      */
     public Map<Variable, String> getVoiture4() {
         Map<Variable,String> voiture = new HashMap<>();
 
-        // all names of variables present in a car
+        // all the names of the variables present in a car
         List<String> comp = new ArrayList<>(Arrays.asList(
                 "couleur_toit","couleur_hayon","couleur_capot","couleur_droite","couleur_gauche","toit_ouvrant","sono"
         ));
-        // values of futur variables
+        // values of future variables
         List<String> valeurs = new ArrayList<>(Arrays.asList("blanc","blanc","blanc","noir","noir","0","0"));
 
         for(int i = 0; i<comp.size(); i++) {
@@ -196,7 +196,7 @@ public class Examples {
     public AllEqualConstraint getExemple1() {
       Set<Variable> allEqual = new HashSet<>();
 
-      // all names of variables present in a constraint
+      // all the names of the variables present in a constraint
       List<String> comp = new ArrayList<>(Arrays.asList(
                 "couleur_toit", "couleur_capot", "couleur_hayon"
         ));
@@ -237,7 +237,7 @@ public class Examples {
 
         Map<Variable,String> premisse = new HashMap<>();
 
-        // all variables engaged in the constraint
+        // all the variables engaged in the constraint
         List<Variable> comp = new ArrayList<>();
         comp.add(this.variables.get("couleur_droite"));
         comp.add(this.variables.get("couleur_gauche"));
@@ -280,7 +280,7 @@ public class Examples {
     }
 
     /**
-     * Get an Example of a constraint : hayon &#033;= droit &#033;= porte
+     * Get an Example of a constraint : hayon != droit != porte
      * @return example of a constraint
      */
     public AllDifferentConstraint getExemple5(){
@@ -302,7 +302,7 @@ public class Examples {
         Map<Variable, String> conclusion = new HashMap<>();
 
         List<Variable> comp = new ArrayList<>();
-        // all variables engaged in a constraint
+        // all the variables engaged in a constraint
         comp.add(this.variables.get("couleur_droite"));
         comp.add(this.variables.get("couleur_gauche"));
 

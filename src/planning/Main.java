@@ -6,7 +6,7 @@ import examples.AssemblyLine;
 import java.security.InvalidParameterException;
 
 /**
- * permet de tester l'algorithme Dijkstra, A* et WA*
+ * Test Dijkstra, A* and WA* algorithms
  *
  */
 public class Main {

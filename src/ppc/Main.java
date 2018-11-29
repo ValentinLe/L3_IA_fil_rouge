@@ -6,7 +6,7 @@ import examples.*;
 import representations.*;
 
 /**
- * permet de tester le backtrack avec et sans filtrage
+ * Allows backtrack to be tested with or without filtering
  *
  */
 public class Main {

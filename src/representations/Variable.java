@@ -77,8 +77,8 @@ public class Variable implements Comparable<Variable> {
     }
 
     /**
-     * compare la variable donnee avec this sur leur nom
-     * @param variable la variable dont on veut comparer this
+     * Compares the given variable's name with this
+     * @param variable the variable that we want to compare with this
      */
     @Override
     public int compareTo(Variable variable) {

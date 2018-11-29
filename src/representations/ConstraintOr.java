@@ -30,7 +30,7 @@ public class ConstraintOr extends ConstraintBool implements Constraint {
 
     /**
      * Get the string's separator of OR : "||"
-     * @return the string's separator
+     * @return the string's separator 
      */
     @Override
     public String getSeparator() {

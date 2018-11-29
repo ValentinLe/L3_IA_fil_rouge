@@ -127,7 +127,7 @@ public class PlanningProblem {
     /**
      * DFS recursive method
      * @param state the state of the beginning
-     * @param plan the plan to build
+     * @param plan the plan to built
      * @param closed the set of states visited
      * @return the plan of actions to execute to go to the target state
      */
@@ -141,16 +141,16 @@ public class PlanningProblem {
             return plan;
         } else {
             for (Action action : this.actions) {
-                // for all action in the set of actions of the problem
+                // for all actions in the set of actions of the problem
                 if (action.isApplicable(state)) {
                     // if the action is applicable to the state
                     // apply the action to build a new state
                     State next = action.apply(state);
                     if (!closed.contains(next)) {
-                        // the new state isn't already visited
+                        // if the new state isn't already visited
                         // add to the plan
                         plan.push(action);
-                        // add to the set of visited state
+                        // add to the set of visited states
                         closed.add(next);
                         // recusivity with the new state
                         Stack<Action> subplan = dfs(next, plan, closed);
@@ -196,7 +196,7 @@ public class PlanningProblem {
             // add the state to visited states
             closed.add(state);
             for (Action action : this.actions) {
-                // for all action in the set of actions of the problem
+                // for all actions in the set of actions of the problem
                 if (action.isApplicable(state)) {
                     // if the action is applicable
                     // apply the action to build a new state
@@ -252,7 +252,7 @@ public class PlanningProblem {
             // add the state to visited states
             closed.add(state);
             for (Action action : this.actions) {
-                // for all action in the set of actions of the problem
+                // for all actions in the set of actions of the problem
                 if (action.isApplicable(state)) {
                     // if the action is applicable
                     // apply the action to build a new state

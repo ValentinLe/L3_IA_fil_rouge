@@ -31,7 +31,7 @@ public class ConstraintMaxHeuristic implements HeuristicVariable {
     }
 
     /**
-     * String name of the heuristic
+     * String name of the heuristic 
      * @return the heuristic's name
      */
     @Override

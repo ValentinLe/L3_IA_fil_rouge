@@ -5,7 +5,7 @@ import java.util.Map;
 import representations.Variable;
 
 /**
- * Informed heuristic that counts the number of all uneuql components between the
+ * Informed heuristic that counts the number of all uneuqal components between the
  * initial state and the target state
  */
 public class InformedHeuristic implements HeuristicState {

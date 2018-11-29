@@ -21,7 +21,7 @@ public abstract class AllCompareConstraint implements Constraint {
     }
 
     /**
-     * Getter method of constraint's scope
+     * Getter method of the constraint's scope
      * @return the scope of this constraint
      */
     @Override
@@ -45,12 +45,12 @@ public abstract class AllCompareConstraint implements Constraint {
         Iterator<Variable> iter = this.variables.iterator();
 
         while(iter.hasNext()) {
-            ch += iter.next(); // ajout de la variable
+            ch += iter.next(); // add the variable
             if (iter.hasNext()) {
-                // ajout du seperateur si y'a une autre variable dans la contrainte
+                // add of the separator if there's another variable in the constraint
                 ch += this.getSeparator();
             }
         }
-        return ch; 
+        return ch;
     }
 }

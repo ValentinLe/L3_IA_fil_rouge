@@ -4,8 +4,8 @@ import java.util.*;
 import examples.AssemblyLine;
 
 /**
- * permet de tester le dfs recursif et iteratif, bfs iteratif
- * 
+ * Tests both recursive and iterative dfs and iterative bfs
+ *
  */
 public class TestDfsBfs {
     public static void main(String[] args) {
@@ -21,7 +21,7 @@ public class TestDfsBfs {
                 goal,
                 actions
         );
-        
+
         System.out.println("\nDFS recursif, nombre d'actions : " + problem.dfs().size());
         System.out.println("Nombre de noeuds parcourus : " + problem.getNbNode());
 

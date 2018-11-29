@@ -17,8 +17,8 @@ public class Backtracking {
 
     /**
      * Builds an instance of backtracking
-     * @param variables all variables possibles
-     * @param constraints constraints of the probleme
+     * @param variables all the variables possibles
+     * @param constraints constraints of the problem
      * @param heuristic the heuristic of backtracking
      */
     public Backtracking(Set<Variable> variables, Set<Constraint> constraints, HeuristicVariable heuristic){
@@ -26,7 +26,7 @@ public class Backtracking {
         this.variables = variables;
         this.heuristic = heuristic;
     }
-    
+
     /**
      * Getter method of variables of backtracking
      * @return the set of variables of backtracking
@@ -34,7 +34,7 @@ public class Backtracking {
     public Set<Variable> getVariables() {
       return this.variables;
     }
-    
+
     /**
      * Add a variable in the set of variables
      * @param variable the variable to add
@@ -42,7 +42,7 @@ public class Backtracking {
     public void addVariable(Variable variable) {
         this.variables.add(variable);
     }
-    
+
     /**
      * Remove a variable in the set of variables
      * @param variable the variable to remove
@@ -126,7 +126,7 @@ public class Backtracking {
     }
 
     /**
-     * Test if all variables are in a car
+     * Test if all the variables are in a car
      * @param voiture the car
      * @param mapVar map of all variables with its domain
      * @return the result of the test
@@ -166,7 +166,7 @@ public class Backtracking {
 
     /**
      * Copy a map like (Variable, Set(String))
-     * @param map the map for the copy
+     * @param map the map to be copied
      * @return a copy of the map
      */
     public Map<Variable, Set<String>> copyMapDomain(Map<Variable, Set<String>> map) {
@@ -174,7 +174,7 @@ public class Backtracking {
     }
 
     /**
-     * Builds a map of variable with a copy of its domain
+     * Builds a map of the variable with a copy of its domain
      * @param setVar the set of variables you want to transform
      * @return the map built
      */
@@ -188,16 +188,16 @@ public class Backtracking {
     }
 
     /**
-     * filters variables' domain
-     * @param voiture the car for the filter
-     * @param mapDom the map of variables' domain to be or not to be filtered
-     * @return true if there was a filtering
+     * filters the variables' domain
+     * @param voiture the car to be filtered
+     * @param mapDom the map of the variables' domain to be or not to be filtered
+     * @return true if a filtering occures
      */
     public boolean filtering(Map<Variable, String> voiture, Map<Variable, Set<String>> mapDom) {
         for (Constraint c : this.constraints) {
             if (c.filtrer(voiture, mapDom)) {
-                // if filtering occures, return a recursivity or true to get
-                // all filtering and the boolean for the final return
+                // if a filtering occures, return a recursivity or true to get
+                // all the filtering and the boolean for the final return
                 return filtering(voiture, mapDom) || true;
             }
         }
@@ -225,7 +225,7 @@ public class Backtracking {
     }
 
     /**
-     * Get a solution of car with filtering
+     * Get a solution of the car with filtering
      * @return the first solution found or null if the solution doesn't exist
      */
     public Map<Variable, String> solutionFilter() {
@@ -246,8 +246,8 @@ public class Backtracking {
 
     /**
      * Backtracking algorithm, returns the first solution found without filtering
-     * @param voiture the car for the build
-     * @param mapDom the map of variable with a copied of its domain
+     * @param voiture the car to be built
+     * @param mapDom the map of variables with a copy of its domain
      * @return the first solution car found
      */
     public Map<Variable, String> backtracking(Map<Variable, String> voiture, Map<Variable, Set<String>> mapDom) {
@@ -256,11 +256,11 @@ public class Backtracking {
             // return the solution
             return voiture;
         }
-        // Choosesa a variable not definied in the car
+        // Chooses a variable not definied in the car
         Variable var = choiceVar(voiture, mapDom);
         Map<Variable, String> backVoiture;
         for (String value : var.getDomaine()) {
-            // for all values in variable's domain
+            // for all values in the variable's domain
             // add variable with the value in the car
 
             this.nbNode += 1; // node counter
@@ -283,9 +283,9 @@ public class Backtracking {
     /**
      * Backtracking algorithm, fill the set of cars with a copy of all solution
      * cars found without filtering
-     * @param solutions the set will be fill
-     * @param voiture the car build for the backtracking
-     * @param mapDom mapDom the map of variable with a copy of its domain
+     * @param solutions the set will be filled
+     * @param voiture the car built for the backtracking
+     * @param mapDom mapDom the map of variables with a copy of its domain
      */
     public void backtrackingSols(Set<Map<Variable, String>> solutions,
                     Map<Variable, String> voiture, Map<Variable, Set<String>> mapDom) {
@@ -301,22 +301,22 @@ public class Backtracking {
         for (String value : var.getDomaine()) {
             // for all values in variable's domain
             // add variable with the value in the car
-            
+
             this.nbNode += 1; // node counter
             voiture.put(var, value);
             if (this.isCompatible(voiture)) {
                 // if all constraints are satisfied by the car
                 backtrackingSols(solutions, copyMap(voiture), mapDom);
             }
-            // remove variable with the value in the car, it's a wrong value
+            // remove the variable with the value in the car, it's a wrong value
             voiture.remove(var);
         }
     }
 
     /**
      * Backtracking algorithm, returns the first solution found with filtering
-     * @param voiture the car for the build
-     * @param mapDom the map of variable with a copy of its domain
+     * @param voiture the car to be built
+     * @param mapDom the map of the variables with a copy of its domain
      * @return the first solution car found
      */
     public Map<Variable, String> backtrackingFilter(Map<Variable, String> voiture, Map<Variable, Set<String>> mapDom) {
@@ -332,7 +332,7 @@ public class Backtracking {
         for (String value : mapDom.get(var)) {
             // for all variable in filter domain
             // add variable with the value in the car
-            
+
             this.nbNode += 1; // node counter
             voiture.put(var, value);
             if (this.isCompatible(voiture)) {
@@ -344,7 +344,7 @@ public class Backtracking {
                 restrictedDom.add(value);
                 copyMapDomain.put(var, restrictedDom);
 
-                // filtering of variables' domain
+                // filtering of the variables' domain
                 filtering(voiture, copyMapDomain);
                 backVoiture = backtrackingFilter(copyMap(voiture), copyMapDomain);
                 if (backVoiture != null) {
@@ -363,7 +363,7 @@ public class Backtracking {
      * Backtracking algorithm, fill the set of cars with a copy of all
      * solution cars found with filtering
      * @param solutions the set will be fill
-     * @param voiture the car build for the backtracking
+     * @param voiture the car built for the backtracking
      * @param mapDom mapDom the map of variable with a copy of its domain
      */
     public void backtrackingSolsFilter(Set<Map<Variable, String>> solutions,
@@ -381,7 +381,7 @@ public class Backtracking {
         for (String value : mapDom.get(var)) {
             // for all variable in filter domain
             // add variable with the value in the car
-            
+
             this.nbNode += 1; // node counter
             voiture.put(var, value);
             if (this.isCompatible(voiture)) {

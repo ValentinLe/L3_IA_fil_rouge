@@ -28,7 +28,7 @@ public class ConstraintMinHeuristic implements HeuristicVariable {
 
     /**
      * String name of the heuristic
-     * @return the heuristic's name
+     * @return the heuristic's name 
      */
     @Override
     public String toString() {

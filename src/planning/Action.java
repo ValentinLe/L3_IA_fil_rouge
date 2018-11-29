@@ -5,7 +5,7 @@ import java.util.*;
 import representations.*;
 
 /**
- * represents an Action applied to a car
+ * Represents an Action applied to a car
  *
  */
 public class Action {

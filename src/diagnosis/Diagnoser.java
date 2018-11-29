@@ -6,8 +6,8 @@ import representations.*;
 import ppc.*;
 
 /**
- * Cette classe permet de repérérer une explication de non satisfactions d'un
- * groupe de contraintes
+ * This class allows us to get an explanation for the non satisfaction of a
+ * group of contraints
  */
 public class Diagnoser {
 
@@ -16,44 +16,42 @@ public class Diagnoser {
 
     /**
      * Build an instance of Diagnoser
-     * @param backtrack a instance of backtrack pour trouver des solutions a un
-     * etat de voiture donnee, elle contiendra l'ensemble des contraintes et des
-     * variables
+     * @param backtrack an instance of backtrack to find a solution for a given
+     * car's state, it contains all the constraints and variables
      */
     public Diagnoser(Backtracking backtrack) {
         this.backtrack = backtrack;
-        // utilisation de la fonction transformToMap qui permet de recuperer
-        // une map des variables ainsi qu'une copie de leur domaine qu'on pourra
-        // reduire
+        // use of the function transformToMap that allows us to get a map of variables
+        // as well as  copy of their domain that we can reduce
         this.variablesWithDomain = this.backtrack.transformToMap(this.backtrack.getVariables());
     }
 
     /**
-     * Creee une instances de diagnoser avec un ensemble de variables, un ensemble
-     * de contraintes et une heuristic sur les variables pour creer un backtrack
-     * @param variables l'ensemble de variables
-     * @param constraints l'ensemble de contraintes
-     * @param heuristic l'heuristic a utiliser
+     * Create an instance of diagnoser with a collection of variables, a collection
+     * of constraints and a heuristic on the variables to create a backtrack
+     * @param variables collection of variables
+     * @param constraints collection of contraints
+     * @param heuristic the heuristic to use
      */
     public Diagnoser(Set<Variable> variables, Set<Constraint> constraints, HeuristicVariable heuristic) {
         this(new Backtracking(variables, constraints, heuristic));
     }
-    
+
     /**
-     * Creee une instance de diagnoser avec un ensemble de variables, un ensemble
-     * de contraintes qui va creer un backtrack avec une heuristic sur la domaine
-     * minimal par default
-     * @param variables l'ensemble de variables
-     * @param constraints l'ensemble de contraintes
+     * Create an instance of diagnoser with a collection of variables, a collection
+     * of constraints that'll create a backtrack with a heuristic on the minimal domain
+     * by default
+     * @param variables collection of variables
+     * @param constraints collection of contraints
      */
     public Diagnoser(Set<Variable> variables, Set<Constraint> constraints) {
         this(variables, constraints, new DomainMinHeuristic());
     }
 
     /**
-     * Ajoute une variable dans la map des variable avec leur domaine copié et
-     * l'ajoute également dans l'ensemble de variable de l'instance de Backtracking
-     * @param variable la variable à ajouter
+     * Adds a variable in the map of variables with their copied domain and also
+     * adds it in the collection of variables of the Backtracking instance
+     * @param variable the variable to add
      */
     public void add(Variable variable) {
         this.backtrack.addVariable(variable);
@@ -61,9 +59,9 @@ public class Diagnoser {
     }
 
     /**
-     * Supprime une variable dans la map des variables et dans l'ensemble de
-     * variable du backtrack
-     * @param variable la variable a supprimée
+     * Deletes a variable in the map of variables and in the collection of
+     * variables of backtrack
+     * @param variable the variable to delete
      */
     public void remove(Variable variable) {
         this.backtrack.removeVariable(variable);
@@ -71,13 +69,13 @@ public class Diagnoser {
     }
 
     /**
-     * Test si un ensemble de choix donnée est une explication avec l'ajout d'un
-     * choix supplémentaire. Les choix sont une explication si il n'existe pas
-     * de solution qui permet de satisfaire toutes les contraintes
-     * @param choices l'ensemble de choix
-     * @param variable la variable du choix supplémentaire
-     * @param value la valeur de la variable du choix supplémentaire
-     * @return true si le choix supplémentaire avec les autre choix ne
+     * Test if a collection of given choices is an explanation with the addition of
+     * an additional choice. The choices are an explanation if a solution that
+     * satisfies all the constraints doesn't exist
+     * @param choices collection of choices
+     * @param variable the variable of the additional choice
+     * @param value the value of the variable of the additional choice
+     * @return true if the additional choice correponds with the other choices
      */
     public boolean isExplanation(Map<Variable, String> choices, Variable variable, String value) {
         Set<String> reduceDomain;
@@ -85,12 +83,12 @@ public class Diagnoser {
         Map<Variable, String> copyChoices = new HashMap<>(choices);
         for (Variable var : copyChoices.keySet()) {
             // for all choice in the set of choices
-            // reduce the domain too the value assigned in the choices
+            // reduce the domain to the value assigned in the choices
             reduceDomain = new HashSet<>();
             reduceDomain.add(copyChoices.get(var));
             copyDomain.put(var, reduceDomain);
         }
-        // add the new choix with the domain reduce to their value
+        // add the new choice with the domain reduced to their value
         reduceDomain = new HashSet<>();
         reduceDomain.add(value);
         copyDomain.put(variable, reduceDomain);
@@ -101,133 +99,134 @@ public class Diagnoser {
         // solution = null <=> no solution found
         return solution == null;
     }
-    
+
     /**
-     * trouve l'explication minimale pour l'inclusion d'une variable avec une valeur
-     * dans un ensemble de choix deja predefinis definis
-     * @param choices l'ensemble de choix predefinis
-     * @param variable la variable
-     * @param value sa valeur
-     * @return l'explication minimale pour l'inclusion
+     * Finds the minimal explanation for the inclusion of a variable with
+     * a value in a set of predefined choices
+     * @param choices collection of the predefined choices
+     * @param variable the variable
+     * @param value it's value
+     * @return the minimal explanation for the inclusion
      */
     public Map<Variable, String> findMinimalInclusionExplanation(Map<Variable, String> choices, Variable variable, String value) {
         Map<Variable, String> explanation = new HashMap<>(choices);
         Map<Variable, String> ePrime;
         for(Variable var : choices.keySet()) {
-            // pour toutes les variables des choix
-            // on fait une copie de l'explication courrente et on enleve
-            // la variable de la copie de l'explication
+            // for all the variables of choices
+            // copy the current explanation and remove
+            // the variable of the copy of the explanation
             ePrime = new HashMap<>(explanation);
             ePrime.remove(var);
             if (this.isExplanation(ePrime, variable, value)) {
-                // si c'est une explication on remplace la variable de l'ancienne 
-                // explication par la nouvelle trouvee
+                // if it's an explanation we replace the variable of the old
+                // explanation with the new one found
                 explanation = ePrime;
             }
         }
         return explanation;
     }
-    
+
     /**
-     * trouve l'explication minimale au sens de la cardinalite
-     * @param choices l'ensemble de choix predefinis
-     * @param variable la variable
-     * @param value sa valeur
-     * @return l'explication minimale au sens de la cardinalite
+     * Find the minimal explanation in the sense of cardinality
+     * @param choices collection of the predefined choices
+     * @param variable the variable
+     * @param value it's value
+     * @return the minimal explanation in the sense of cardinality
      */
     public Map<Variable, String> findMinimalCardinalExplanation(Map<Variable, String> choices, Variable variable, String value) {
-        // recupere un set avec 1 explication qui est l'explication minimale au sens de
-        // la cardinalite
+        // recover a set with 1 explanation which is the minimal explanation in
+        // the sense of cardinality
         Set<Map<Variable, String>> solution = this.findExplanations(choices, variable, value, false);
-        // recuperation de l'explication, iter.next ne renverra pas une exception
-        // car il y aura au moins un element dans l'ensemble donc pas nessessaire
-        // de tester si l'ensemble est vide
+        // recovery of the explanation, iter.next won't see another exception
+        // because there will be at least one element in the set therefore it won't
+        // be necessary to test if the set is empty
         Iterator<Map<Variable, String>> iter = solution.iterator();
         return iter.next();
     }
-    
+
     /**
-     * enumere toutes les explications d'un ensemble de choix
-     * @param choices les choix predefinis
-     * @param variable la variable que l'on voudrai ajouter au choix
-     * @param value la valeur de la variable que l'on voudrai ajouter
-     * @return l'ensemble de toutes les explications
+     * List all the explanations for a set of choices
+     * @param choices collection of the predefined choices
+     * @param variable the variable that we would like to add to the choices
+     * @param value the value of the variable we want to add
+     * @return all of the explanations
      */
     public Set<Map<Variable, String>> findAllExplanations(Map<Variable, String> choices, Variable variable, String value) {
         return this.findExplanations(choices, variable, value, true);
     }
-    
+
     /**
-     * enumere toutes les explications ou bien renvoi l'explication minimale au
-     * sens de la cardinalite selon la valeur du booleen
-     * @param choices les choix predefinis
-     * @param variable la variable que l'on voudrai ajouter aux choix
-     * @param value la valeur a mettre a la variable dans les choix
-     * @param allExplanations true si on veut enumerer toutes les explications et
-     * false si on veut juste recuperer juste un ensemble avec juste l'explication
-     * minimale au sens de la cardinalite
-     * @return l'ensembles de toutes les explications ou un ensemble avec l'explication
-     * minimale au sens de la cardinalite
+     * enumerates all explanations or returns the minimal explanation in the
+     * sense of cardinality according to the value of the Boolean
+     * @param choices collection of the predefined choices
+     * @param variable the variable that we would like to add to the choices
+     * @param value the value of the variable we want to add
+     * @param allExplanations true if we want to enumerate all explanations
+     * and false if we just want to recover just a set with just the minimal
+     * explanation in the sense of cardinality
+     * @return the set of all explanations or a set with the minimal
+     * explanation in the sense of cardinality
      */
     private Set<Map<Variable, String>> findExplanations(Map<Variable, String> choices, Variable variable, String value, boolean allExplanations) {
-        // Pour cet algo on part de l'ensemble des choix et pour chaque choix on
-        // le retirera pour avoir une explication de taille choix.size()-1. On ne
-        // part pas de l'ensemble vide pour aller jusqu'au choix car on a une monotonicité
-        // si A et B distincts, on a A et B qui ne sont pas une explication mais
-        // cela ne nous garantie pas que AuB n'est pas une explication
-        
-        // l'ensemble que l'on retournera
+        // For this algorthin we start from the set of choices and for each choice
+        // we will remove it to have an explanation of size choix.size()-1. On ne
+        // we do not start from the empty set to go to the choice because we have a
+        // monotonicity if A and B are separate, if A et B are not an explanation
+        // it does not guarantee that AuB is not an explanation
+
+        // the set that we will return
         Set<Map<Variable, String>> finalRes = new HashSet<>();
-        // les explication a l'etape k
+        // the explanations at the stage k
         Set<Map<Variable, String>> res = new HashSet<>();
-        // les explications a l'etape k-1
+        // the explanation at the stage k-1
         Set<Map<Variable, String>> resPrec;
-        // variable qui servira de copie de chaque explications de l'etape k-1 pour
-        // pouvoir generer ceux de l'etape k
+        // variable that will serve as a copy of each explanation of the step k-1
+        // to be able to generate those of the step k
         Map<Variable, String> copyPart;
-        // initialisation de l'explication minimale au sens de  l'inclusion aux
-        // choix predefinis qui sont une explication
+        // initialization of the minimal explanation in the sense of
+        // inclusion to the predefined choices that are an explanation
         Map<Variable, String> minimalExplication = new HashMap<>(choices);
-        finalRes.add(minimalExplication); // ajout de l'explication de la taille maximale
-        res.add(minimalExplication); // pour genereer les explication de taille inferieures
+        finalRes.add(minimalExplication); // added explanation of maximum size
+        res.add(minimalExplication); // to generate the smaller explanation of size
 
         for (int size = choices.size(); size>0; size--) {
-            // parcours inverse on part des choix pour arriver jusqu'au singletons
-            // on effectue une copie des k-1
+            // reverse course, we start from the choices to reach singletons
+            //  we make a copy of k-1
             resPrec = new HashSet<>(res);
-            res = new HashSet<>(); // initialise la variable des k
+            res = new HashSet<>(); // initializes the variable k
             for (Map<Variable, String> part : resPrec) {
-                // pour toutes les parties des k-1
+                // for all parts of k-1
                 for (Variable var : part.keySet()) {
-                    // pour toutes les variables de cette partie
-                    // on fait une copie de la partie où l'on retire la variable
+                    // for all variables in this part
+                    // we make a copy of the part where we remove the variable
                     copyPart = new HashMap<>(part);
                     copyPart.remove(var);
                     if (this.isExplanation(copyPart, variable, value)) {
-                        // si la partie construite est une explication on l'ajoute
-                        // dans l'ensemble de l'etage k
+                        // if the built part is an explanation we add it
+                        // throughout the floor k
                         res.add(copyPart);
                         if (!allExplanations && copyPart.size() < minimalExplication.size()) {
-                            // si on veut que la methode nous donne l'explication
-                            // minimale au sens de la cardinalite on test si l'explication
-                            // a une plus petite taille que l'explication qui est
-                            // affectee si c'est le cas on remplace l'ancinne explication
-                            // par la nouvelle
+                            // if we want the method to give us the minimal
+                            // explanation in the sense of cardinality we test
+                            // if the explanation to a smaller size than the explanation
+                            // that is affected, if so, we replace the old
+                            // explanation with the new
                             minimalExplication = copyPart;
                         }
                     }
-                } // fin for var dans part
-            } // fin for part dans resPrec
+                } // end for var in part
+            } // end for part in resPrec
             if (allExplanations) {
-                // si on veut toutes les explications on ajoute toutes les 
-                // explications de l'etage k trouvees
+                // if we want all the explanations, add all the explanations
+                // of the floor k found
                 finalRes.addAll(res);
             }
-        } // fin for avec variable size
+        } // end for with variable size
 
         if (!allExplanations) {
-            // si on veut l'explication minimal on modifie la variable de retour
-            // on la met a l'ensemble vide et on lui ajoute l'explication minimale
+            // if we want the minimal explanation we modify the return
+            // variable and we put it to the empty set and we add to it
+            // the minimal explanation
             finalRes = new HashSet<>();
             finalRes.add(minimalExplication);
         }

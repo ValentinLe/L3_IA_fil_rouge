@@ -27,7 +27,7 @@ public interface Constraint {
      * Filters the domain's variables
      * @param voiture a car for the filtering test
      * @param domaines variables and its copied domain for filtering
-     * @return true if filtering occures
+     * @return true if a filtering occures
      */
     public boolean filtrer(Map<Variable, String> voiture, Map<Variable, Set<String>> domaines);
 

@@ -34,7 +34,7 @@ Tests with 8 colors :
 
 _____________________________________
 Conclusion :
-The Dijkstra algorithm browses many more nodes than aStar, therefore there are many more possibilities,
+The Dijkstra algorithm browses many more nodes than aStar, therefore there are way more possibilities,
 which leads to a bigger difference in number between Dijkstra and aStar. With
 weightAStar, the number of colors obviously has no influence on the number of
 nodes visited. The informed heuristic is more efficient than the
@@ -125,7 +125,7 @@ public class PlanningProblemWithCost extends PlanningProblem {
                         next.setDistance(distance.get(state) + action.getCost());
                         // add the distance of the new state to its new distance
                         distance.put(next, next.getDistance());
-                        // add the state to father of the new state
+                        // add the state to the father of the new state
                         father.put(next, state);
                         // add the new state with its action in the plan
                         plan.put(next, action);

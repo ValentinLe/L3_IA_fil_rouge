@@ -104,8 +104,7 @@ public class State implements Comparable<State> {
     }
 
     /**
-     * CompareTo of a State, the comparison of two states if the comparison
-     * of their distance
+     * CompareTo of a State, the comparison of distances of two states
      * @param other the other State for the comparison
      * @return the result of the comparison of their distance
      */

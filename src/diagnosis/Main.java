@@ -7,8 +7,8 @@ import ppc.*;
 import examples.*;
 
 /**
- * permet de tester le diagnoser
- * 
+ * Tests the diagnoser
+ *
  */
 public class Main {
     public static void main(String[] agrs) {

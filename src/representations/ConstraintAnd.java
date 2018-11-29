@@ -4,7 +4,7 @@ package representations;
 import java.util.Map;
 
 /**
- * this class is an AND combination between two constraints
+ * This class is an AND combination between two constraints
  *
  */
 public class ConstraintAnd extends ConstraintBool implements Constraint {
@@ -29,8 +29,8 @@ public class ConstraintAnd extends ConstraintBool implements Constraint {
     }
 
     /**
-     * Get the string separator of AND : "&#038;&#038;"
-     * @return the string's separator 
+     * Get the string separator of AND : "&&"
+     * @return the string's separator
      */
     @Override
     public String getSeparator() {

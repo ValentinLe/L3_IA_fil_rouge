@@ -5,7 +5,7 @@ import representations.*;
 import examples.Examples;
 
 /**
- * generating random solutions cars of the csp.
+ * Generates random solutions cars of the csp.
  *
  */
 public class GenerationTesting {
@@ -14,9 +14,9 @@ public class GenerationTesting {
     private Set<Constraint> constraints;
 
     /**
-     * construit une instance de GenerationTesting avec un ensemble de variables
-     * et de contraintes a respecter pour la generation
-     * @param variables l'ensemble de variables
+     * Constructs an instance of GenerationTesting with a collection of variables
+     * and of constraints to respect for the generation
+     * @param variables collection of variables
      * @param constraints Set of constraints used for the PPC.
      */
     public GenerationTesting(Set<Variable> variables, Set<Constraint> constraints){
@@ -26,7 +26,7 @@ public class GenerationTesting {
 
     /**
      * Method called for generating a series of tests.
-     * @return True if a solution had been found, false otherwise.
+     * @return True if a solution has been found, false otherwise.
      */
     public boolean generate_and_test(){
         Map<Variable,String> voiture = generateCar();

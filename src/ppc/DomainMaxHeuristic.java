@@ -5,10 +5,9 @@ import java.util.*;
 import representations.*;
 
 /**
- * This heuristic give the size of the domain, cette heuristic n'est pas efficace
- * pour le filtrage avec peu de couleur car toutes les variables ont le meme domaine
- * au depart et la variable que prendra l'heuristic ne sera pas forcement avantageuse
- *
+ * This heuristic gives the size of the domain, this heuristic is not effective for
+ * filtering with a small ammount of colors because all the variables has the same domain
+ * in the beginning and the variable that'll take the heuristic won't be necessarily advantageous
  */
 public class DomainMaxHeuristic implements HeuristicVariable {
 
