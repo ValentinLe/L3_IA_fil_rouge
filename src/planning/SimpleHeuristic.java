@@ -5,7 +5,7 @@ import java.util.Map;
 import representations.Variable;
 
 /**
- * Simple heuristic that counts the different number of colorss between the
+ * Simple heuristic that counts the different number of colors between the
  * initial state and the target state
  */
 public class SimpleHeuristic implements HeuristicState {
